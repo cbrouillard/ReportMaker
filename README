@@ -1,0 +1,12 @@
+ReportMaker
+------------------------------
+ReportMaker est une application pour SmartPhone Android.
+L'objectif de cette application est de permettre de rédiger rapidement et efficacement des rapports de batailles (compte de rendu de partie) pour des jeux de type "wargame". Dans une première version, ReportMaker ne sera compatible qu'avec Warhammer 40000 (c).
+
+- créez une nouvelle partie
+- saisissez les noms des joueurs, les races jouées, le nombre de points
+- pour chaque tour de jeu et à chaque phase, l'application vous guide pour saisir vos notes, prendre des photos, ...
+- une fois la partie terminée, ReportMaker est capable de vous sortir un document compilant l'ensemble des informations
+- traitez le document sur votre ordinateur (ajoutez des détails, etc ...) pour ensuite partager votre rapport !
+
+ReportMaker est disponible sur le market. Il est gratuit pour le moment (cela pourra changer) et est également OpenSource (cela ne changera pas).

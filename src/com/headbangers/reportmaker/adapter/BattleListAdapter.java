@@ -34,7 +34,7 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 				.getColumnIndex(DatabaseHelper.COL_NAME)));
 		disclaimer.setText("informations date ou autre");
 
-		// icon.setImageResource(icons[position]);
+		icon.setImageResource(R.drawable.ic_launcher);
 	}
 
 	@Override

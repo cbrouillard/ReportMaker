@@ -2,8 +2,12 @@ package com.headbangers.reportmaker;
 
 import roboguice.activity.RoboListActivity;
 import roboguice.inject.InjectView;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -44,6 +48,28 @@ public class BattleListActivity extends RoboListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// Un click sur un élément de la liste permet de lancer l'activité
 		// d'édition
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_battle_list, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_newBattle:
+
+			// Lancement de l'activité de configuration d'une nouvelle partie
+			startActivity(new Intent(this, ConfigureNewBattleActivity.class));
+
+			return true;
+
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void fillList() {

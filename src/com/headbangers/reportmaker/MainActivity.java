@@ -19,9 +19,6 @@ import android.widget.TextView;
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
-	@InjectView(R.id.button1)
-	private Button button;
-
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * current tab position.

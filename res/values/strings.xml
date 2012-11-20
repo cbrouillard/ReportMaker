@@ -8,5 +8,8 @@
     <string name="menu_settings">osef</string>
     <string name="photo">Photo</string>
     <string name="new_battle">Nouvelle bataille</string>
+    <string name="player_one">Joueur 1</string>
+    <string name="player_two">Joueur 2</string>
+    <string name="ok_create">OK \! C\'est parti \!</string>
 
 </resources>

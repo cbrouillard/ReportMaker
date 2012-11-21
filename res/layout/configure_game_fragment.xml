@@ -7,21 +7,22 @@
     android:paddingRight="16dp" >
 
     <EditText
-        android:id="@+id/playerName"
+        android:id="@+id/gameName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/player_name_hint" >
+        android:hint="@string/game_name_hint" >
 
         <requestFocus />
     </EditText>
 
     <EditText
-        android:id="@+id/playerRace"
+        android:id="@+id/gameFormat"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/player_race_hint" >
+        android:hint="@string/game_format_hint"
+        android:inputType="numberDecimal" >
     </EditText>
 
     <Space

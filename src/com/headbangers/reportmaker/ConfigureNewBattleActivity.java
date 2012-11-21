@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 
+import com.headbangers.reportmaker.fragment.ConfigureGameFragment;
 import com.headbangers.reportmaker.fragment.ConfigurePlayerFragment;
 
 public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
@@ -19,6 +20,10 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "configure_new_battle_selected_navigation_item";
 
+	private Fragment playerOneFragment = new ConfigurePlayerFragment();
+	private Fragment playerTwoFragment = new ConfigurePlayerFragment();
+	private Fragment gameFragment = new ConfigureGameFragment();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,6 +33,8 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		// For each of the sections in the app, add a tab to the action bar.
+		actionBar.addTab(actionBar.newTab().setText(R.string.game)
+				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.player_one)
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.player_two)
@@ -57,22 +64,37 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	}
 
 	@Override
-	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+	public void onTabReselected(Tab tab, FragmentTransaction arg1) {
 
 	}
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction fragmentTransaction) {
 
-		Fragment fragment = new ConfigurePlayerFragment();
-
+		Fragment fragment = null;
 		Bundle args = new Bundle();
-		args.putInt(ConfigurePlayerFragment.ARG_NUM, tab.getPosition() + 1);
-		fragment.setArguments(args);
-		
-		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.container, fragment).commit();
 
+		switch (tab.getPosition()) {
+		case 0:
+			// Configuration partie
+			fragment = gameFragment;
+			break;
+		case 1:
+			fragment = playerOneFragment;
+			break;
+		case 2:
+			fragment = playerTwoFragment;
+			break;
+		}
+
+		if (fragment != null) {
+
+			args.putInt(ConfigurePlayerFragment.ARG_NUM, tab.getPosition());
+			fragment.setArguments(args);
+
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.container, fragment).commit();
+		}
 	}
 
 	@Override

@@ -4,8 +4,16 @@
     <string name="app_name">Report Maker</string>
     <string name="photo">Photo</string>
     <string name="new_battle">Nouvelle bataille</string>
+    <string name="game">Partie</string>
     <string name="player_one">Joueur 1</string>
     <string name="player_two">Joueur 2</string>
     <string name="ok_create">OK \! C\'est parti \!</string>
+    <string name="configure_player">Configuration du joueur</string>
+    <string name="player_name_hint">Nom du joueur/équipe</string>
+    <string name="player_race_hint">Race jouée par le joueur/équipe</string>
+    <string name="next">Suivant</string>
+    <string name="done">Terminé \!</string>
+    <string name="game_name_hint">Nom de la partie</string>
+    <string name="game_format_hint">Format de la partie (points)</string>
 
 </resources>

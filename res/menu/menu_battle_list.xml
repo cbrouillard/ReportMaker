@@ -4,7 +4,8 @@
     <item
         android:id="@+id/menu_newBattle"
         android:icon="@android:drawable/ic_menu_add"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/new_battle"/>
+        android:showAsAction="always|withText"
+        android:title="@string/new_battle"
+        />
 
 </menu>

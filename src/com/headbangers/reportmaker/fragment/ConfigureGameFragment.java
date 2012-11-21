@@ -1,7 +1,5 @@
 package com.headbangers.reportmaker.fragment;
 
-import roboguice.fragment.RoboFragment;
-import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,20 +8,20 @@ import android.widget.Button;
 
 import com.headbangers.reportmaker.R;
 
-public class ConfigurePlayerFragment extends RoboFragment {
+import roboguice.fragment.RoboFragment;
+import roboguice.inject.InjectView;
 
-	public static final String ARG_NUM = "num";
+public class ConfigureGameFragment extends RoboFragment {
 
 	@InjectView(R.id.action)
 	private Button action;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		// getArguments().getInt(ARG_NUM);
-		return inflater.inflate(R.layout.configure_one_player_fragment,
-				container, false);
+		return inflater.inflate(R.layout.configure_game_fragment, container,
+				false);
 	}
 
 	@Override

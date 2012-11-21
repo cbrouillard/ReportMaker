@@ -15,14 +15,25 @@ public interface BattleDao extends GenericDao {
 	 */
 	Cursor getAllBattles();
 
-	
 	/**
 	 * Enregistre une nouvelle bataille dans la base de données.
 	 * 
-	 * @param battle les données de bataille
-	 * @param one le joueur 1
-	 * @param two le joueur 2
+	 * @param battle
+	 *            les données de bataille
+	 * @param one
+	 *            le joueur 1
+	 * @param two
+	 *            le joueur 2
 	 * @return un boolean indiquant si tout s'est bien passé
 	 */
-	Long createBattle (Battle battle, Player one, Player two);
+	Long createBattle(Battle battle, Player one, Player two);
+
+	/**
+	 * Récupère une partie avec son id base.
+	 * 
+	 * @param id
+	 *            l'id de la bataille.
+	 * @return une bataille ou null si non existant.
+	 */
+	Battle findBattleById(Long id);
 }

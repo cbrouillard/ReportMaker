@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.dao.DatabaseHelper;
+import com.headbangers.reportmaker.pojo.Battle;
 
 public class BattleListAdapter extends SimpleCursorAdapter {
 
@@ -30,11 +31,29 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 		TextView disclaimer = (TextView) row.findViewById(R.id.battleInfos);
 		ImageView icon = (ImageView) row.findViewById(R.id.battleIcon);
 
-		label.setText(cursor.getString(cursor
-				.getColumnIndex(DatabaseHelper.COL_NAME)));
-		disclaimer.setText("informations date ou autre");
+		Battle game = new Battle(cursor);
+
+		label.setText(game.getName());
+		disclaimer.setText(buildInformationsText(game));
 
 		icon.setImageResource(R.drawable.ic_launcher);
+	}
+
+	private CharSequence buildInformationsText(Battle game) {
+
+		StringBuilder builder = new StringBuilder();
+
+		// player
+		
+		if (game.getFormat() != null) {
+			builder.append(game.getFormat()).append(" points");
+		}
+
+		if (game.getDateFormated() != null) {
+			builder.append(game.getDateFormated());
+		}
+
+		return builder.toString();
 	}
 
 	@Override

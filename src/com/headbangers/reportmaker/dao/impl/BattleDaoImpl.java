@@ -28,6 +28,7 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 
 		ContentValues values = new ContentValues();
 		values.put(DatabaseHelper.COL_NAME, battle.getName());
+		values.put(DatabaseHelper.COL_DATE, battle.getDate().toString());
 		values.put(DatabaseHelper.COL_FORMAT, battle.getFormat());
 		values.put(DatabaseHelper.COL_PLAYERONE, one.getName());
 		values.put(DatabaseHelper.COL_RACEONE, one.getRace());
@@ -36,5 +37,23 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 
 		return db.insert(DatabaseHelper.TABLE_BATTLE,
 				DatabaseHelper.COL_PLAYERONE, values);
+	}
+
+	@Override
+	public Battle findBattleById(Long id) {
+		if (id == null) {
+			return null;
+		}
+
+		Cursor cursor = db.query(DatabaseHelper.TABLE_BATTLE, DatabaseHelper.ALL_COLUMNS,
+				DatabaseHelper.COL_ID + " = " + id, null, null, null, null);
+
+		if (cursor != null){
+			Battle battle = new Battle(cursor);
+			cursor.close();
+			return battle;
+		}
+		
+		return null;
 	}
 }

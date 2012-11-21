@@ -25,6 +25,21 @@
         android:inputType="numberDecimal" >
     </EditText>
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/game_date_hint"
+        android:paddingBottom="5dp"
+        android:paddingLeft="12dp"
+        android:paddingTop="5dp"
+        android:textSize="18sp" />
+
+    <DatePicker
+        android:id="@+id/gameDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false" />
+
     <Space
         android:layout_width="fill_parent"
         android:layout_height="0dp"

@@ -1,5 +1,7 @@
 package com.headbangers.reportmaker.dao.impl;
 
+import java.text.DateFormat;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -28,7 +30,8 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 
 		ContentValues values = new ContentValues();
 		values.put(DatabaseHelper.COL_NAME, battle.getName());
-		values.put(DatabaseHelper.COL_DATE, battle.getDate().toString());
+		values.put(DatabaseHelper.COL_DATE, DateFormat.getDateInstance()
+				.format(battle.getDate()));
 		values.put(DatabaseHelper.COL_FORMAT, battle.getFormat());
 		values.put(DatabaseHelper.COL_PLAYERONE, one.getName());
 		values.put(DatabaseHelper.COL_RACEONE, one.getRace());
@@ -45,15 +48,16 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 			return null;
 		}
 
-		Cursor cursor = db.query(DatabaseHelper.TABLE_BATTLE, DatabaseHelper.ALL_COLUMNS,
-				DatabaseHelper.COL_ID + " = " + id, null, null, null, null);
+		Cursor cursor = db.query(DatabaseHelper.TABLE_BATTLE,
+				DatabaseHelper.ALL_COLUMNS, DatabaseHelper.COL_ID + " = " + id,
+				null, null, null, null);
 
-		if (cursor != null){
+		if (cursor != null) {
 			Battle battle = new Battle(cursor);
 			cursor.close();
 			return battle;
 		}
-		
+
 		return null;
 	}
 }

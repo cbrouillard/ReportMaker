@@ -1,15 +1,14 @@
 package com.headbangers.reportmaker;
 
-import com.headbangers.reportmaker.MainActivity.DummySectionFragment;
-import com.headbangers.reportmaker.fragment.ConfigurePlayerFragment;
-
+import roboguice.activity.RoboFragmentActivity;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
-import roboguice.activity.RoboFragmentActivity;
+
+import com.headbangers.reportmaker.fragment.ConfigurePlayerFragment;
 
 public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		ActionBar.TabListener {
@@ -68,9 +67,9 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		Fragment fragment = new ConfigurePlayerFragment();
 
 		Bundle args = new Bundle();
-		args.putInt(DummySectionFragment.ARG_SECTION_NUMBER,
-				tab.getPosition() + 1);
+		args.putInt(ConfigurePlayerFragment.ARG_NUM, tab.getPosition() + 1);
 		fragment.setArguments(args);
+		
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, fragment).commit();
 

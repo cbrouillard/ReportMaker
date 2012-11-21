@@ -16,6 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COL_FORMAT = "format";
 	public static final String COL_PLAYERONE = "player_one";
 	public static final String COL_PLAYERTWO = "player_two";
+	public static final String COL_RACEONE = "race_one";
+	public static final String COL_RACETWO = "race_two";
 
 	public static final String[] ALL_COLUMNS = new String[] { COL_ID, COL_NAME,
 			COL_DATE, COL_FORMAT, COL_PLAYERONE, COL_PLAYERTWO };
@@ -23,7 +25,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String CREATE_BDD = "CREATE TABLE " + TABLE_BATTLE
 			+ " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME
 			+ " TEXT NOT NULL, " + COL_DATE + " DATE NOT NULL, " + COL_FORMAT
-			+ " TEXT NULL, " + COL_PLAYERONE + " TEXT NULL, " + COL_PLAYERTWO
+			+ " INTEGER NULL, " + COL_PLAYERONE + " TEXT NULL, " + COL_PLAYERTWO
+			+ " TEXT NULL, " + COL_RACEONE + " TEXT NULL, " + COL_RACETWO
 			+ " TEXT NULL);";
 
 	public DatabaseHelper(Context context) {
@@ -38,13 +41,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_BDD);
-		db.execSQL("insert into battle(name, date_creation) values ('test', '20/11/2012');");
-		db.execSQL("insert into battle(name, date_creation) values ('test2', '20/11/2012');");
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE " + TABLE_BATTLE + ";");
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_BATTLE + ";");
 		onCreate(db);
 	}
 

@@ -26,13 +26,14 @@ public class BattleListActivity extends RoboListActivity {
 	@InjectView(android.R.id.list)
 	private ListView battleList;
 
-	// TODO inject
 	private BattleDao battleDao = new BattleDaoImpl(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.battle_list);
+
+		this.battleDao.open();
 
 		// Remplissage de la liste.
 		fillList();
@@ -41,7 +42,14 @@ public class BattleListActivity extends RoboListActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		this.battleDao.open();
 		fillList();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		this.battleDao.close();
 	}
 
 	@Override
@@ -69,7 +77,7 @@ public class BattleListActivity extends RoboListActivity {
 
 		}
 
-		return super.onOptionsItemSelected(item);
+		return false;
 	}
 
 	private void fillList() {

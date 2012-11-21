@@ -7,9 +7,15 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.headbangers.reportmaker.dao.BattleDao;
+import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
 import com.headbangers.reportmaker.fragment.ConfigureGameFragment;
 import com.headbangers.reportmaker.fragment.ConfigurePlayerFragment;
+import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.pojo.Player;
 
 public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		ActionBar.TabListener {
@@ -20,14 +26,18 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "configure_new_battle_selected_navigation_item";
 
-	private Fragment playerOneFragment = new ConfigurePlayerFragment();
-	private Fragment playerTwoFragment = new ConfigurePlayerFragment();
-	private Fragment gameFragment = new ConfigureGameFragment();
+	private ConfigurePlayerFragment playerOneFragment = new ConfigurePlayerFragment();
+	private ConfigurePlayerFragment playerTwoFragment = new ConfigurePlayerFragment();
+	private ConfigureGameFragment gameFragment = new ConfigureGameFragment();
+
+	private BattleDao battleDao = new BattleDaoImpl(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.configure_new_battle);
+
+		battleDao.open();
 
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -51,6 +61,18 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		battleDao.open();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		battleDao.close();
+	}
+
+	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		// Serialize the current tab position.
 		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
@@ -61,6 +83,19 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_configure_new_battle, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_done:
+
+			createGame();
+
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
@@ -99,6 +134,27 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 
 	@Override
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
+
+	}
+
+	private void createGame() {
+		Player one = this.playerOneFragment.getPlayer();
+		Player two = this.playerTwoFragment.getPlayer();
+		Battle game = this.gameFragment.buildGame();
+
+		Long idInserted = battleDao.createBattle(game, one, two);
+
+		if (idInserted == -1) {
+			Toast.makeText(this,
+					getResources().getString(R.string.creation_error),
+					Toast.LENGTH_LONG).show();
+		} else {
+
+			// Création du filesystem sur le téléphone.
+
+			// Et redirection vers l'activité d'édition
+
+		}
 
 	}
 

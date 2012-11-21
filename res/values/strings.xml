@@ -15,5 +15,6 @@
     <string name="done">Terminé \!</string>
     <string name="game_name_hint">Nom de la partie</string>
     <string name="game_format_hint">Format de la partie (points)</string>
+    <string name="creation_error">Il y a eu une erreur lors de la création</string>
 
 </resources>

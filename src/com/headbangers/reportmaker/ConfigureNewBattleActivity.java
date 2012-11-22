@@ -1,9 +1,13 @@
 package com.headbangers.reportmaker;
 
+import java.io.File;
+
 import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.InjectFragment;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -16,6 +20,7 @@ import com.headbangers.reportmaker.fragment.ConfigureGameFragment;
 import com.headbangers.reportmaker.fragment.ConfigurePlayerFragment;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Player;
+import com.headbangers.reportmaker.service.FilesystemService;
 
 public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		ActionBar.TabListener {
@@ -31,6 +36,8 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	private ConfigureGameFragment gameFragment = new ConfigureGameFragment();
 
 	private BattleDao battleDao = new BattleDaoImpl(this);
+
+	private FilesystemService filesystemService = new FilesystemService();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +149,10 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		Player two = this.playerTwoFragment.getPlayer();
 		Battle game = this.gameFragment.buildGame();
 
-		Long idInserted = battleDao.createBattle(game, one, two);
+		game.setOne(one);
+		game.setTwo(two);
+
+		Long idInserted = battleDao.createBattle(game);
 
 		if (idInserted == -1) {
 			Toast.makeText(this,
@@ -151,9 +161,12 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		} else {
 
 			// Création du filesystem sur le téléphone.
+			File battleDir = filesystemService.createRootBattle(idInserted);
 
 			// Et redirection vers l'activité d'édition
-
+			Intent editBattle = new Intent(this, EditBattleActivity.class);
+			editBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG, idInserted);
+			startActivity(editBattle);
 		}
 
 	}

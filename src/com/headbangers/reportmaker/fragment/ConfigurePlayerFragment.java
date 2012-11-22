@@ -3,6 +3,7 @@ package com.headbangers.reportmaker.fragment;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,10 @@ public class ConfigurePlayerFragment extends RoboFragment {
 
 		Player player = new Player();
 
-		player.setName(playerName.getText().toString());
-		player.setRace(playerRace.getText().toString());
+		player.setName(playerName != null ? playerName.getText().toString()
+				: null);
+		player.setRace(playerRace != null ? playerRace.getText().toString()
+				: null);
 
 		return player;
 	}

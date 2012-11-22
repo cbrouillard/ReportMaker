@@ -26,7 +26,14 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 	}
 
 	@Override
-	public Long createBattle(Battle battle, Player one, Player two) {
+	public Long createBattle(Battle battle) {
+
+		if (battle == null) {
+			return -1L;
+		}
+
+		Player one = battle.getOne();
+		Player two = battle.getTwo();
 
 		ContentValues values = new ContentValues();
 		values.put(DatabaseHelper.COL_NAME, battle.getName());

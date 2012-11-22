@@ -14,10 +14,6 @@ public class Player {
 	}
 
 	public void setName(String name) {
-		if (name.isEmpty()){
-			// Génération d'un nom générique
-			name = "Joueur";
-		}
 		this.name = name;
 	}
 

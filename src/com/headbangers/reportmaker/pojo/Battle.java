@@ -16,6 +16,9 @@ public class Battle {
 	private Date date;
 	private String dateFormated;
 
+	private Player one;
+	private Player two;
+
 	public Battle(Cursor cursor) {
 		this.id = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.COL_ID));
 		this.name = cursor.getString(cursor
@@ -33,9 +36,22 @@ public class Battle {
 			e.printStackTrace();
 		}
 
+		this.one = new Player();
+		this.one.setName(cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_PLAYERONE)));
+		this.one.setRace(cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_RACEONE)));
+
+		this.two = new Player();
+		this.two.setName(cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_PLAYERTWO)));
+		this.two.setRace(cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_RACETWO)));
 	}
 
 	public Battle() {
+		this.one = new Player();
+		this.two = new Player();
 	}
 
 	public String getName() {
@@ -68,6 +84,22 @@ public class Battle {
 
 	public String getDateFormated() {
 		return this.dateFormated;
+	}
+
+	public void setOne(Player one) {
+		this.one = one;
+	}
+
+	public void setTwo(Player two) {
+		this.two = two;
+	}
+
+	public Player getOne() {
+		return one;
+	}
+
+	public Player getTwo() {
+		return two;
 	}
 
 }

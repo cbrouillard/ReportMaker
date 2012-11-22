@@ -47,8 +47,18 @@ public class ConfigureGameFragment extends RoboFragment {
 	public Battle buildGame() {
 		Battle game = new Battle();
 
-		game.setName(gameName.getText().toString());
-		game.setFormat(Integer.valueOf(gameFormat.getText().toString()));
+		String name = gameName.getText() != null ? gameName.getText()
+				.toString() : null;
+
+		String format = gameFormat != null ? gameFormat.getText().toString()
+				: null;
+		if (name == null || name.isEmpty()) {
+			name = "Battle";
+		}
+
+		game.setName(name);
+		game.setFormat(format != null && !format.isEmpty() ? Integer
+				.valueOf(format) : null);
 		game.setDate(new Date(gameDate.getYear() - 1900, gameDate.getMonth(),
 				gameDate.getDayOfMonth()));
 

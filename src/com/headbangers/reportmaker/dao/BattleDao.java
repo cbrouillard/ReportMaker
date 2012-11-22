@@ -20,13 +20,9 @@ public interface BattleDao extends GenericDao {
 	 * 
 	 * @param battle
 	 *            les données de bataille
-	 * @param one
-	 *            le joueur 1
-	 * @param two
-	 *            le joueur 2
-	 * @return un boolean indiquant si tout s'est bien passé
+	 * @return l'id de l'objet inséré. -1 si erreur
 	 */
-	Long createBattle(Battle battle, Player one, Player two);
+	Long createBattle(Battle battle);
 
 	/**
 	 * Récupère une partie avec son id base.

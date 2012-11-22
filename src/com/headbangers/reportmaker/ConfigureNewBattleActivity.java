@@ -3,7 +3,6 @@ package com.headbangers.reportmaker;
 import java.io.File;
 
 import roboguice.activity.RoboFragmentActivity;
-import roboguice.inject.InjectFragment;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;

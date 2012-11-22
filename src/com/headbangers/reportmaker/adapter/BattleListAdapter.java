@@ -35,8 +35,8 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 
 		label.setText(game.getName());
 		disclaimer.setText(buildInformationsText(game));
-
 		icon.setImageResource(R.drawable.ic_launcher);
+
 	}
 
 	private CharSequence buildInformationsText(Battle game) {

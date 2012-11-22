@@ -5,6 +5,7 @@ import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -56,6 +57,9 @@ public class BattleListActivity extends RoboListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// Un click sur un élément de la liste permet de lancer l'activité
 		// d'édition
+		Intent editBattle = new Intent(this, EditBattleActivity.class);
+		editBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG, id);
+		startActivity(editBattle);
 	}
 
 	@Override
@@ -71,8 +75,10 @@ public class BattleListActivity extends RoboListActivity {
 		case R.id.menu_newBattle:
 
 			// Lancement de l'activité de configuration d'une nouvelle partie
-			startActivity(new Intent(this, ConfigureNewBattleActivity.class));
-
+			Intent newBattle = new Intent(this,
+					ConfigureNewBattleActivity.class);
+			newBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			startActivity(newBattle);
 			return true;
 
 		}

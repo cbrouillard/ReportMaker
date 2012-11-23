@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -17,8 +16,8 @@ import com.headbangers.reportmaker.pojo.Battle;
 
 public class ConfigureGameFragment extends RoboFragment {
 
-	@InjectView(R.id.action)
-	private Button action;
+	// @InjectView(R.id.action)
+	// private Button action;
 
 	@InjectView(R.id.gameName)
 	private EditText gameName;

@@ -20,14 +20,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COL_RACETWO = "race_two";
 
 	public static final String[] ALL_COLUMNS = new String[] { COL_ID, COL_NAME,
-			COL_DATE, COL_FORMAT, COL_PLAYERONE, COL_PLAYERTWO };
+			COL_DATE, COL_FORMAT, COL_PLAYERONE, COL_PLAYERTWO, COL_RACEONE,
+			COL_RACETWO };
 
 	private static final String CREATE_BDD = "CREATE TABLE " + TABLE_BATTLE
 			+ " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME
 			+ " TEXT NOT NULL, " + COL_DATE + " DATE NOT NULL, " + COL_FORMAT
-			+ " INTEGER NULL, " + COL_PLAYERONE + " TEXT NULL, " + COL_PLAYERTWO
-			+ " TEXT NULL, " + COL_RACEONE + " TEXT NULL, " + COL_RACETWO
-			+ " TEXT NULL);";
+			+ " INTEGER NULL, " + COL_PLAYERONE + " TEXT NULL, "
+			+ COL_PLAYERTWO + " TEXT NULL, " + COL_RACEONE + " TEXT NULL, "
+			+ COL_RACETWO + " TEXT NULL);";
 
 	public DatabaseHelper(Context context) {
 		this(context, "battle.db", null, version);

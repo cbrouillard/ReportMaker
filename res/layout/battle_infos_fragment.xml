@@ -6,23 +6,11 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp" >
 
-    <EditText
-        android:id="@+id/playerName"
-        android:layout_width="fill_parent"
+    <Button
+        android:id="@+id/takePhoto_table"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/player_name_hint" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/playerRace"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/player_race_hint" >
-    </EditText>
+        android:text="photo" />
 
     <Space
         android:layout_width="fill_parent"

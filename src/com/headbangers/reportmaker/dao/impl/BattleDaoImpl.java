@@ -59,7 +59,7 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 				DatabaseHelper.ALL_COLUMNS, DatabaseHelper.COL_ID + " = " + id,
 				null, null, null, null);
 
-		if (cursor != null) {
+		if (cursor != null && cursor.moveToFirst()) {
 			Battle battle = new Battle(cursor);
 			cursor.close();
 			return battle;

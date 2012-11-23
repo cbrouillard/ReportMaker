@@ -5,6 +5,7 @@ import java.io.File;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.pojo.Battle;
@@ -27,6 +29,8 @@ public class BattleInformationsFragment extends RoboFragment {
 
 	@InjectView(R.id.takePhoto_table)
 	private Button takePhotoTable;
+
+	private ImageView tablePhotoView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +71,8 @@ public class BattleInformationsFragment extends RoboFragment {
 			// Affichage de l'image dans l'image view TABLE
 			Log.d("BattleInformationsFragment",
 					"Affichage de l'image dans l'imageView TABLE");
+			Bundle extras = data.getExtras();
+			this.tablePhotoView.setImageBitmap((Bitmap) extras.get("data"));
 			break;
 		}
 	}

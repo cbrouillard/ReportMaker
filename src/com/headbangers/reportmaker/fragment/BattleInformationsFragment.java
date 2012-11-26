@@ -5,15 +5,13 @@ import java.io.File;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.headbangers.reportmaker.R;
@@ -24,12 +22,15 @@ public class BattleInformationsFragment extends RoboFragment {
 
 	private static final int TAKE_PHOTO_TABLE = 1;
 
+	protected static final String TABLE_PHOTO_NAME = "table.jpg";
+
 	private FilesystemService filesystemService = new FilesystemService();
 	private Battle battle;
 
 	@InjectView(R.id.takePhoto_table)
-	private Button takePhotoTable;
+	private ImageButton takePhotoTable;
 
+	@InjectView(R.id.takePhoto_table_photo)
 	private ImageView tablePhotoView;
 
 	@Override
@@ -50,7 +51,7 @@ public class BattleInformationsFragment extends RoboFragment {
 			public void onClick(View v) {
 
 				File imageFile = new File(filesystemService
-						.getRootBattle(battle), "table.jpg");
+						.getRootBattle(battle), TABLE_PHOTO_NAME);
 
 				Intent takePictureIntent = new Intent(
 						MediaStore.ACTION_IMAGE_CAPTURE);
@@ -62,22 +63,34 @@ public class BattleInformationsFragment extends RoboFragment {
 			}
 		});
 
+		fillPhotosIfNeeded();
+
+	}
+
+	private void fillPhotosIfNeeded() {
+
+		File imageFile = new File(filesystemService.getRootBattle(battle),
+				TABLE_PHOTO_NAME);
+
+		if (imageFile.exists() && this.tablePhotoView != null) {
+			this.tablePhotoView.setImageURI(Uri.fromFile(imageFile));
+		}
+
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-		case TAKE_PHOTO_TABLE:
-			// Affichage de l'image dans l'image view TABLE
-			Log.d("BattleInformationsFragment",
-					"Affichage de l'image dans l'imageView TABLE");
-			Bundle extras = data.getExtras();
-			this.tablePhotoView.setImageBitmap((Bitmap) extras.get("data"));
-			break;
-		}
+		fillPhotosIfNeeded();
 	}
 
 	public void setBattle(Battle battle) {
 		this.battle = battle;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		fillPhotosIfNeeded();
 	}
 }

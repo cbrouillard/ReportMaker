@@ -17,4 +17,10 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="headerText" parent="@android:style/Widget.TextView">
+        <item name="android:background">#000</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:padding">2dp</item>
+    </style>
+    
 </resources>

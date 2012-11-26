@@ -5,6 +5,8 @@ import java.io.File;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -73,9 +75,33 @@ public class BattleInformationsFragment extends RoboFragment {
 				TABLE_PHOTO_NAME);
 
 		if (imageFile.exists() && this.tablePhotoView != null) {
-			this.tablePhotoView.setImageURI(Uri.fromFile(imageFile));
+			setPic(imageFile.getAbsolutePath(), this.tablePhotoView);
 		}
 
+	}
+
+	private void setPic(String photoPath, ImageView view) {
+		// Get the dimensions of the View
+		int targetW = 512; //view.getWidth();
+		int targetH = 512; //view.getHeight();
+
+		// Get the dimensions of the bitmap
+		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+		bmOptions.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(photoPath, bmOptions);
+		int photoW = bmOptions.outWidth;
+		int photoH = bmOptions.outHeight;
+
+		// Determine how much to scale down the image
+		int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+
+		// Decode the image file into a Bitmap sized to fill the View
+		bmOptions.inJustDecodeBounds = false;
+		bmOptions.inSampleSize = scaleFactor;
+		bmOptions.inPurgeable = true;
+
+		Bitmap bitmap = BitmapFactory.decodeFile(photoPath, bmOptions);
+		view.setImageBitmap(bitmap);
 	}
 
 	@Override

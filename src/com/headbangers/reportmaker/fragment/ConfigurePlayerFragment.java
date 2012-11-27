@@ -13,10 +13,7 @@ import com.headbangers.reportmaker.pojo.Player;
 
 public class ConfigurePlayerFragment extends RoboFragment {
 
-	public static final String ARG_NUM = "num";
-
-	// @InjectView(R.id.action)
-	// private Button action;
+	private int num;
 
 	@InjectView(R.id.playerName)
 	private EditText playerName;
@@ -24,11 +21,17 @@ public class ConfigurePlayerFragment extends RoboFragment {
 	@InjectView(R.id.playerRace)
 	private EditText playerRace;
 
+	public ConfigurePlayerFragment() {
+	}
+
+	public ConfigurePlayerFragment(int num) {
+		this.num = num;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		getArguments().getInt(ARG_NUM);
 		return inflater.inflate(R.layout.configure_one_player_fragment,
 				container, false);
 	}
@@ -44,9 +47,9 @@ public class ConfigurePlayerFragment extends RoboFragment {
 		Player player = new Player();
 
 		player.setName(playerName != null ? playerName.getText().toString()
-				: null);
+				: "Joueur " + num);
 		player.setRace(playerRace != null ? playerRace.getText().toString()
-				: null);
+				: "Joueur " + num);
 
 		return player;
 	}

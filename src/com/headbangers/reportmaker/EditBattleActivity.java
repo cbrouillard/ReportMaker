@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
@@ -78,6 +79,10 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			this.finish();
 		}
 
+		StringBuilder title = new StringBuilder(battle.getName());
+		title.append(" [").append(battle.getFormat()).append("]");
+		this.setTitle(title.toString());
+
 		// Création des fragments
 		this.informations.setBattle(battle);
 	}
@@ -96,11 +101,6 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		// Serialize the current tab position.
 		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
 				.getSelectedNavigationIndex());
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return true;
 	}
 
 	@Override
@@ -130,6 +130,30 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_edit_battle, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_done:
+
+			// Enregistrement
+
+			return true;
+		case R.id.menu_photo:
+
+			// Prise d'une photo
+
+			return true;
+		}
+
+		return false;
 	}
 
 }

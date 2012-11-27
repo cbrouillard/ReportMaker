@@ -1,7 +1,5 @@
 package com.headbangers.reportmaker;
 
-import java.io.File;
-
 import roboguice.activity.RoboFragmentActivity;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -19,6 +17,7 @@ import com.headbangers.reportmaker.fragment.ConfigureGameFragment;
 import com.headbangers.reportmaker.fragment.ConfigurePlayerFragment;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Player;
+import com.headbangers.reportmaker.service.BattleNameGenerator;
 import com.headbangers.reportmaker.service.FilesystemService;
 
 public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
@@ -30,13 +29,17 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "configure_new_battle_selected_navigation_item";
 
-	private ConfigurePlayerFragment playerOneFragment = new ConfigurePlayerFragment();
-	private ConfigurePlayerFragment playerTwoFragment = new ConfigurePlayerFragment();
+	private ConfigurePlayerFragment playerOneFragment = new ConfigurePlayerFragment(
+			1);
+	private ConfigurePlayerFragment playerTwoFragment = new ConfigurePlayerFragment(
+			2);
 	private ConfigureGameFragment gameFragment = new ConfigureGameFragment();
 
 	private BattleDao battleDao = new BattleDaoImpl(this);
 
 	private FilesystemService filesystemService = new FilesystemService();
+	private BattleNameGenerator battleNameGenerator = new BattleNameGenerator(
+			this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +116,6 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	public void onTabSelected(Tab tab, FragmentTransaction fragmentTransaction) {
 
 		Fragment fragment = null;
-		Bundle args = new Bundle();
 
 		switch (tab.getPosition()) {
 		case 0:
@@ -129,9 +131,6 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		}
 
 		if (fragment != null) {
-
-			args.putInt(ConfigurePlayerFragment.ARG_NUM, tab.getPosition());
-			fragment.setArguments(args);
 
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.container, fragment).commit();
@@ -160,7 +159,7 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		} else {
 
 			// Création du filesystem sur le téléphone.
-			File battleDir = filesystemService.createRootBattle(idInserted);
+			filesystemService.createRootBattle(idInserted);
 
 			// Et redirection vers l'activité d'édition
 			Intent editBattle = new Intent(this, EditBattleActivity.class);

@@ -1,61 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" -->
+<!-- android:layout_width="fill_parent" -->
+<!-- android:layout_height="fill_parent" -->
+<!-- android:orientation="vertical" > -->
 
-    <TextView
-        style="@style/headerText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/photo_table" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
-        <ImageButton
-            android:id="@+id/takePhoto_table"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/photo_table"
-            android:scaleType="fitCenter"
-            android:src="@drawable/camera" />
+        <TextView
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/photo_table" />
 
-        <ImageView
-            android:id="@+id/takePhoto_table_photo"
-            android:layout_width="0dip"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/photo_table"
-            android:scaleType="centerCrop"
-            android:src="@drawable/damier" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/takePhoto_table"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/photo_table"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera" />
+
+            <ImageView
+                android:id="@+id/takePhoto_table_photo"
+                android:layout_width="0dip"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/photo_table"
+                android:scaleType="centerCrop"
+                android:src="@drawable/damier" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/deployment_type" />
+
+        <EditText
+            android:id="@+id/deploymentType"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/deployment_type_hint" />
+
+        <TextView
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/scenario" />
+
+        <EditText
+            android:id="@+id/scenario"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/scenario_hint" />
+
+        <TextView
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/who_start" />
+
+        <Spinner
+            android:id="@+id/whoStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:id="@+id/lordCapacityPlayer1"
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lord_capacity" />
+
+        <EditText
+            android:id="@+id/lordCapacity1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lord_capacity_hint" />
+
+        <TextView
+            android:id="@+id/lordCapacityPlayer2"
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lord_capacity" />
+
+        <EditText
+            android:id="@+id/lordCapacity2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lord_capacity_hint" />
+
+        <TextView
+            android:id="@+id/deploymentPlayer1"
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/photo_deployment_player" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/takePhoto_deployment1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/photo_deployment"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera" />
+
+            <ImageView
+                android:id="@+id/takePhoto_deployment1_photo"
+                android:layout_width="0dip"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/photo_deployment"
+                android:scaleType="centerCrop"
+                android:src="@drawable/damier" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/deploymentPlayer2"
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/photo_deployment_player" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/takePhoto_deployment2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/photo_deployment"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera" />
+
+            <ImageView
+                android:id="@+id/takePhoto_deployment2_photo"
+                android:layout_width="0dip"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/photo_deployment"
+                android:scaleType="centerCrop"
+                android:src="@drawable/damier" />
+        </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        style="@style/headerText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/deployment_type" />
-
-    <EditText
-        android:id="@+id/deploymentType"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:hint="@string/deployment_type_hint"/>
-
-    <Space
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="top" />
-
-    <!-- <Button -->
-    <!-- android:id="@+id/action" -->
-    <!-- android:layout_width="100dp" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:layout_gravity="right" -->
-    <!-- android:text="@string/next" /> -->
-
-</LinearLayout>
+</ScrollView><!-- </LinearLayout> -->

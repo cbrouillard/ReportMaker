@@ -2,12 +2,14 @@
 <resources>
 
     <string name="app_name">Report Maker</string>
-    <string name="photo">Photo</string>
     <string name="new_battle">Nouvelle bataille</string>
     <string name="game">Partie</string>
+    <string name="player">Joueur</string>
     <string name="player_one">Joueur 1</string>
     <string name="player_two">Joueur 2</string>
     <string name="ok_create">OK ! C\'est parti !</string>
+    <string name="save">Enregistrer</string>
+    <string name="photo">Photo</string>
     <string name="configure_player">Configuration du joueur</string>
     <string name="player_name_hint">Nom du joueur/équipe</string>
     <string name="player_race_hint">Race jouée par le joueur/équipe</string>
@@ -26,6 +28,36 @@
     <string name="t7">T7</string>
     <string name="photo_table">Photo de la table</string>
     <string name="deployment_type">Type de déploiement</string>
-    <string name="deployment_type_hint">Aube de guerre, &#8230;</string>
+    <string name="deployment_type_hint">Aube de guerre, autre &#8230;</string>
+    <string name="scenario">Scénario</string>
+    <string name="scenario_hint">Relique, Gros calibre, autre &#8230;</string>
+    <string name="who_start">Qui commence ?</string>
+    <string name="lord_capacity">Traits de seigneur de guerre de</string>
+    <string name="lord_capacity_hint">Stratégie, Commandement, autre &#8230;</string>
+    <string name="photo_deployment_player">Photo après déploiement de</string>
+    <string name="photo_deployment">Photo de déploiement</string>
 
+    <string-array name="battleName_random_part1">
+        <item>La prise de </item>
+        <item>La bataille de </item>
+        <item>La chute de </item>
+        <item>Patrouille sur </item>
+        <item>Massacre à </item>
+        <item>Retour à </item>
+        <item>La purge de </item>
+        <item>Du sang sur </item>
+    </string-array>
+
+    <string-array name="planets">
+        <item>Davin</item>
+        <item>Callidus II</item>
+        <item>Portaria</item>
+        <item>Deminos</item>
+        <item>Narn</item>
+        <item>Moth</item>
+        <item>Calderaban</item>
+        <item>Binistra V</item>
+        <item>Maelstromus VI</item>
+    </string-array>
+    
 </resources>

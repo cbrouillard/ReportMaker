@@ -27,7 +27,7 @@
         </activity>
         <activity
             android:name="com.headbangers.reportmaker.ConfigureNewBattleActivity"
-            android:label="@string/app_name" >
+            android:label="@string/new_battle" >
         </activity>
         <activity
             android:name="com.headbangers.reportmaker.EditBattleActivity"

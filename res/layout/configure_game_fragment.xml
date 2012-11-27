@@ -2,19 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp" >
+    android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/gameName"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/game_name_hint" >
+        android:orientation="horizontal" >
 
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/gameName"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:hint="@string/game_name_hint" />
+
+        <ImageButton
+            android:id="@+id/generateName"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/random_name"
+            android:scaleType="fitCenter"
+            android:src="@drawable/generate" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/gameFormat"
@@ -36,22 +46,17 @@
 
     <DatePicker
         android:id="@+id/gameDate"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:calendarViewShown="false" />
+        android:layout_margin="5dp"
+        android:background="@drawable/border"
+        android:calendarViewShown="true"
+        android:spinnersShown="false" />
 
     <Space
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="top" />
-
-    <!-- <Button -->
-    <!-- android:id="@+id/action" -->
-    <!-- android:layout_width="100dp" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:layout_gravity="right" -->
-    <!-- android:text="@string/next" /> -->
 
 </LinearLayout>

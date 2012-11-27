@@ -17,7 +17,6 @@ import com.headbangers.reportmaker.fragment.ConfigureGameFragment;
 import com.headbangers.reportmaker.fragment.ConfigurePlayerFragment;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Player;
-import com.headbangers.reportmaker.service.BattleNameGenerator;
 import com.headbangers.reportmaker.service.FilesystemService;
 
 public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
@@ -38,8 +37,6 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	private BattleDao battleDao = new BattleDaoImpl(this);
 
 	private FilesystemService filesystemService = new FilesystemService();
-	private BattleNameGenerator battleNameGenerator = new BattleNameGenerator(
-			this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

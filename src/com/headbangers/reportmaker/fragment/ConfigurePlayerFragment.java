@@ -46,10 +46,12 @@ public class ConfigurePlayerFragment extends RoboFragment {
 
 		Player player = new Player();
 
-		player.setName(playerName != null ? playerName.getText().toString()
-				: "Joueur " + num);
-		player.setRace(playerRace != null ? playerRace.getText().toString()
-				: "Joueur " + num);
+		player.setName(playerName != null
+				&& !playerName.getText().toString().isEmpty() ? playerName
+				.getText().toString() : "Joueur " + num);
+		player.setRace(playerRace != null
+				&& !playerRace.getText().toString().isEmpty() ? playerRace
+				.getText().toString() : "Joueur " + num);
 
 		return player;
 	}

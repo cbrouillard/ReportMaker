@@ -6,13 +6,7 @@ import java.io.IOException;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +17,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.headbangers.reportmaker.ImageHelper;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
+import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.FilesystemService;
 
@@ -35,7 +31,8 @@ public class BattleInformationsFragment extends RoboFragment {
 	private static final int TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE = 3;
 
 	private static final String TABLE_PHOTO_NAME = "table.jpg";
-	private static final String DEPLOYMENT_PHOTO_NAME = "deployment_{p}.jpg";
+	private static final String DEPLOYMENT1_PHOTO_NAME = "deploiement_j1.jpg";
+	private static final String DEPLOYMENT2_PHOTO_NAME = "deploiement_j2.jpg";
 
 	private FilesystemService filesystemService = new FilesystemService();
 	private Battle battle;
@@ -102,13 +99,11 @@ public class BattleInformationsFragment extends RoboFragment {
 				TAKE_PHOTO_TABLE_RESULT_CODE));
 
 		this.takePhotoDeployment1.setOnClickListener(new TakePhotoListener(this
-				.getActivity(), this.battle, DEPLOYMENT_PHOTO_NAME.replace(
-				"{p}", this.battle.getOne().getName()),
+				.getActivity(), this.battle, DEPLOYMENT1_PHOTO_NAME,
 				TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE));
-		
-		this.takePhotoDeployment1.setOnClickListener(new TakePhotoListener(this
-				.getActivity(), this.battle, DEPLOYMENT_PHOTO_NAME.replace(
-				"{p}", this.battle.getTwo().getName()),
+
+		this.takePhotoDeployment2.setOnClickListener(new TakePhotoListener(this
+				.getActivity(), this.battle, DEPLOYMENT2_PHOTO_NAME,
 				TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE));
 
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
@@ -139,74 +134,41 @@ public class BattleInformationsFragment extends RoboFragment {
 
 		File imageFile = new File(filesystemService.getRootBattle(battle),
 				TABLE_PHOTO_NAME);
+		File deployment1 = new File(filesystemService.getRootBattle(battle),
+				DEPLOYMENT1_PHOTO_NAME);
+		File deployment2 = new File(filesystemService.getRootBattle(battle),
+				DEPLOYMENT2_PHOTO_NAME);
 
 		if (imageFile.exists() && this.tablePhotoView != null) {
+			this.tablePhotoView.setOnClickListener(new ZoomImageListener(this
+					.getActivity(), imageFile, "Table"));
 			try {
-				setPic(imageFile.getAbsolutePath(), this.tablePhotoView);
+				ImageHelper.setPic(imageFile.getAbsolutePath(),
+						this.tablePhotoView);
 			} catch (IOException e) {
 			}
 		}
 
-	}
-
-	private void setPic(String photoPath, ImageView view) throws IOException {
-
-		ExifInterface exif = new ExifInterface(photoPath);
-		int exifOrientation = exif
-				.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-						ExifInterface.ORIENTATION_NORMAL);
-
-		int rotate = 0;
-
-		switch (exifOrientation) {
-		case ExifInterface.ORIENTATION_ROTATE_90:
-			rotate = 90;
-			break;
-
-		case ExifInterface.ORIENTATION_ROTATE_180:
-			rotate = 180;
-			break;
-
-		case ExifInterface.ORIENTATION_ROTATE_270:
-			rotate = 270;
-			break;
+		if (deployment1.exists() && this.deployment1Photo != null) {
+			this.deployment1Photo.setOnClickListener(new ZoomImageListener(this
+					.getActivity(), deployment1, "Déploiement"));
+			try {
+				ImageHelper.setPic(deployment1.getAbsolutePath(),
+						this.deployment1Photo);
+			} catch (IOException e) {
+			}
 		}
 
-		// Get the dimensions of the View
-		int targetW = 512;
-		int targetH = 1; // view.getHeight();
-
-		// Get the dimensions of the bitmap
-		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-		bmOptions.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(photoPath, bmOptions);
-		int photoW = bmOptions.outWidth;
-		int photoH = bmOptions.outHeight;
-
-		// Determine how much to scale down the image
-		int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-
-		// Decode the image file into a Bitmap sized to fill the View
-		bmOptions.inJustDecodeBounds = false;
-		bmOptions.inSampleSize = scaleFactor;
-		bmOptions.inPurgeable = true;
-
-		Bitmap bitmap = BitmapFactory.decodeFile(photoPath, bmOptions);
-
-		if (rotate != 0) {
-			int w = bitmap.getWidth();
-			int h = bitmap.getHeight();
-
-			// Setting pre rotate
-			Matrix mtx = new Matrix();
-			mtx.preRotate(rotate);
-
-			// Rotating Bitmap & convert to ARGB_8888, required by tess
-			bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, false);
-			bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+		if (deployment2.exists() && this.deployment2Photo != null) {
+			this.deployment2Photo.setOnClickListener(new ZoomImageListener(this
+					.getActivity(), deployment2, "Déploiement"));
+			try {
+				ImageHelper.setPic(deployment2.getAbsolutePath(),
+						this.deployment2Photo);
+			} catch (IOException e) {
+			}
 		}
 
-		view.setImageBitmap(bitmap);
 	}
 
 	@Override

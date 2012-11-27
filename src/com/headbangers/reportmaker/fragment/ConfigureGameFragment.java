@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.service.BattleNameGenerator;
 
 public class ConfigureGameFragment extends RoboFragment {
 
@@ -28,6 +30,11 @@ public class ConfigureGameFragment extends RoboFragment {
 	@InjectView(R.id.gameDate)
 	private DatePicker gameDate;
 
+	@InjectView(R.id.generateName)
+	private ImageButton generateName;
+
+	private BattleNameGenerator battleNameGenerator;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -39,6 +46,16 @@ public class ConfigureGameFragment extends RoboFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		this.battleNameGenerator = new BattleNameGenerator(this.getActivity());
+		this.generateName.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				gameName.setText(battleNameGenerator.generateCoolRandomName());
+
+			}
+		});
 
 	}
 

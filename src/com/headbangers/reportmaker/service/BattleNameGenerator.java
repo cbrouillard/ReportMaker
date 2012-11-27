@@ -24,7 +24,7 @@ public class BattleNameGenerator {
 		int part1Num = rand.nextInt(part1.length);
 		int planet = rand.nextInt(planets.length);
 
-		return part1[part1Num] + planets[planet];
+		return part1[part1Num] + " " + planets[planet];
 	}
 
 }

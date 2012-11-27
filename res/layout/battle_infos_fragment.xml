@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" -->
-<!-- android:layout_width="fill_parent" -->
-<!-- android:layout_height="fill_parent" -->
-<!-- android:orientation="vertical" > -->
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
@@ -24,14 +19,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageButton
-                android:id="@+id/takePhoto_table"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:contentDescription="@string/photo_table"
-                android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
-
             <ImageView
                 android:id="@+id/takePhoto_table_photo"
                 android:layout_width="0dip"
@@ -40,6 +27,14 @@
                 android:contentDescription="@string/photo_table"
                 android:scaleType="centerCrop"
                 android:src="@drawable/damier" />
+
+            <ImageButton
+                android:id="@+id/takePhoto_table"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/photo_table"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera" />
         </LinearLayout>
 
         <TextView
@@ -116,14 +111,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageButton
-                android:id="@+id/takePhoto_deployment1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:contentDescription="@string/photo_deployment"
-                android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
-
             <ImageView
                 android:id="@+id/takePhoto_deployment1_photo"
                 android:layout_width="0dip"
@@ -132,6 +119,14 @@
                 android:contentDescription="@string/photo_deployment"
                 android:scaleType="centerCrop"
                 android:src="@drawable/damier" />
+
+            <ImageButton
+                android:id="@+id/takePhoto_deployment1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/photo_deployment"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera" />
         </LinearLayout>
 
         <TextView
@@ -146,14 +141,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageButton
-                android:id="@+id/takePhoto_deployment2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:contentDescription="@string/photo_deployment"
-                android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
-
             <ImageView
                 android:id="@+id/takePhoto_deployment2_photo"
                 android:layout_width="0dip"
@@ -162,7 +149,29 @@
                 android:contentDescription="@string/photo_deployment"
                 android:scaleType="centerCrop"
                 android:src="@drawable/damier" />
+
+            <ImageButton
+                android:id="@+id/takePhoto_deployment2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/photo_deployment"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera" />
         </LinearLayout>
+
+        <TextView
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/comments" />
+
+        <EditText
+            android:id="@+id/comments"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/comments_hints"
+            android:inputType="textMultiLine"
+            android:lines="5" />
     </LinearLayout>
 
-</ScrollView><!-- </LinearLayout> -->
+</ScrollView>

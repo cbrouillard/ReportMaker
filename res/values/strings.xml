@@ -36,6 +36,9 @@
     <string name="lord_capacity_hint">Stratégie, Commandement, autre &#8230;</string>
     <string name="photo_deployment_player">Photo après déploiement de</string>
     <string name="photo_deployment">Photo de déploiement</string>
+    <string name="random_name">Un nom aléatoire</string>
+    <string name="comments">Commentaires</string>
+    <string name="comments_hints">Vos impressions, remarques, autre &#8230;</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de </item>
@@ -47,7 +50,6 @@
         <item>La purge de </item>
         <item>Du sang sur </item>
     </string-array>
-
     <string-array name="planets">
         <item>Davin</item>
         <item>Callidus II</item>
@@ -59,5 +61,5 @@
         <item>Binistra V</item>
         <item>Maelstromus VI</item>
     </string-array>
-    
+
 </resources>

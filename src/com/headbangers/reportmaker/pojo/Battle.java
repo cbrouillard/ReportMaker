@@ -19,6 +19,8 @@ public class Battle {
 	private Player one;
 	private Player two;
 
+	private Informations infos;
+
 	public Battle(Cursor cursor) {
 		this.id = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.COL_ID));
 		this.name = cursor.getString(cursor
@@ -47,6 +49,8 @@ public class Battle {
 				.getColumnIndex(DatabaseHelper.COL_PLAYERTWO)));
 		this.two.setRace(cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_RACETWO)));
+
+		this.infos = new Informations(cursor);
 	}
 
 	public Battle() {
@@ -100,6 +104,14 @@ public class Battle {
 
 	public Player getTwo() {
 		return two;
+	}
+
+	public Informations getInfos() {
+		return infos;
+	}
+
+	public void setInfos(Informations infos) {
+		this.infos = infos;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.headbangers.reportmaker.service;
 
 import java.io.File;
+import java.io.FilenameFilter;
 
 import android.os.Environment;
 
@@ -26,6 +27,21 @@ public class FilesystemService {
 		File battleDirectory = new File(appRoot, "battle-" + battle.getId());
 
 		return battleDirectory;
+	}
+
+	public String determineNewExtraPhotoName(Battle battle) {
+
+		File rootBattle = getRootBattle(battle);
+
+		String[] extrasPhotos = rootBattle.list(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String filename) {
+				return filename.startsWith("extra_");
+			}
+		});
+
+		return "extra_" + extrasPhotos.length + ".jpg";
 	}
 
 }

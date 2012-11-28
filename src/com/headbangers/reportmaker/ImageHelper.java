@@ -3,14 +3,21 @@ package com.headbangers.reportmaker;
 import java.io.File;
 import java.io.IOException;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.service.FilesystemService;
 
 public class ImageHelper {
 
@@ -106,6 +113,18 @@ public class ImageHelper {
 		}
 
 		view.setImageBitmap(bitmap);
+	}
+
+	public static void takePhoto(Activity context, FilesystemService fs,
+			Battle battle, String photoName, int returnResultCode) {
+		
+		File imageFile = new File(fs.getRootBattle(battle), photoName);
+
+		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+				Uri.fromFile(imageFile));
+
+		context.startActivityForResult(takePictureIntent, returnResultCode);
 	}
 
 }

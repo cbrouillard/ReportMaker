@@ -22,6 +22,7 @@ import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
 import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.pojo.Informations;
 import com.headbangers.reportmaker.service.FilesystemService;
 
 public class BattleInformationsFragment extends RoboFragment {
@@ -81,6 +82,9 @@ public class BattleInformationsFragment extends RoboFragment {
 
 	@InjectView(R.id.takePhoto_deployment2_photo)
 	private ImageView deployment2Photo;
+
+	@InjectView(R.id.comments)
+	private EditText comments;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -184,5 +188,18 @@ public class BattleInformationsFragment extends RoboFragment {
 	public void onResume() {
 		super.onResume();
 		fillPhotosIfNeeded();
+	}
+
+	public Informations buildInformations() {
+		Informations infos = new Informations();
+
+		infos.setDeploymentType(this.deploymentType.getText().toString());
+		infos.setComments(this.comments.getText().toString());
+		infos.setFirstPlayer(this.whoStart.getSelectedItemPosition());
+		infos.setLordCapacity1(this.lordCapacity1.getText().toString());
+		infos.setLordCapacity2(this.lordCapacity2.getText().toString());
+		infos.setScenario(this.scenario.getText().toString());
+
+		return infos;
 	}
 }

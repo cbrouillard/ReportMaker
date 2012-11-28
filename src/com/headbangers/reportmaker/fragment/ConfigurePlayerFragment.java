@@ -51,7 +51,7 @@ public class ConfigurePlayerFragment extends RoboFragment {
 				.getText().toString() : "Joueur " + num);
 		player.setRace(playerRace != null
 				&& !playerRace.getText().toString().isEmpty() ? playerRace
-				.getText().toString() : "Joueur " + num);
+				.getText().toString() : null);
 
 		return player;
 	}

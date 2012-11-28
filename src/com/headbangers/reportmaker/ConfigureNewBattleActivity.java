@@ -59,7 +59,7 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
-		// Restore the previously serialized current tab position.
+		super.onRestoreInstanceState(savedInstanceState);
 		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
 			getActionBar().setSelectedNavigationItem(
 					savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
@@ -80,7 +80,7 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		// Serialize the current tab position.
+		super.onSaveInstanceState(outState);
 		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
 				.getSelectedNavigationIndex());
 	}
@@ -113,21 +113,31 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	public void onTabSelected(Tab tab, FragmentTransaction fragmentTransaction) {
 
 		Fragment fragment = null;
+		String tag = null;
 
 		switch (tab.getPosition()) {
 		case 0:
 			// Configuration partie
 			fragment = gameFragment;
+			tag = "gameFragment";
 			break;
 		case 1:
 			fragment = playerOneFragment;
+			tag = "playerOneFragment";
 			break;
 		case 2:
 			fragment = playerTwoFragment;
+			tag = "playerTwoFragment";
 			break;
 		}
 
 		if (fragment != null) {
+			Fragment inCacheFragment = getSupportFragmentManager()
+					.findFragmentByTag(tag);
+
+			if (inCacheFragment != null) {
+				fragment = inCacheFragment;
+			}
 
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.container, fragment).commit();

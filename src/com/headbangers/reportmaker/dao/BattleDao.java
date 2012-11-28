@@ -4,6 +4,7 @@ import android.database.Cursor;
 
 import com.headbangers.reportmaker.dao.impl.GenericDao;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.pojo.Informations;
 import com.headbangers.reportmaker.pojo.Player;
 
 public interface BattleDao extends GenericDao {
@@ -32,4 +33,14 @@ public interface BattleDao extends GenericDao {
 	 * @return une bataille ou null si non existant.
 	 */
 	Battle findBattleById(Long id);
+
+	/**
+	 * Enregistre les données d'une bataille.
+	 * 
+	 * @param battle
+	 *            la bataille
+	 * @param infos
+	 *            les informations générales
+	 */
+	void updateBattle(Battle battle, Informations infos);
 }

@@ -3,6 +3,7 @@
 
     <string name="app_name">Report Maker</string>
     <string name="new_battle">Nouvelle bataille</string>
+    <string name="battle">Bataille</string>
     <string name="game">Partie</string>
     <string name="player">Joueur</string>
     <string name="player_one">Joueur 1</string>

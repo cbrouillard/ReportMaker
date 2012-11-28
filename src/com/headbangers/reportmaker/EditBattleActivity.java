@@ -13,6 +13,8 @@ import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
 import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.pojo.Informations;
+import com.headbangers.reportmaker.service.FilesystemService;
 
 public class EditBattleActivity extends RoboFragmentActivity implements
 		ActionBar.TabListener {
@@ -20,9 +22,13 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "edit_battle_selected_navigation_item";
 	public static final String BATTLE_ID_ARG = "battle_id";
 
+	private static final int TAKE_PHOTO_EXTRA_RESULT_CODE = 1;
+
 	private Long battleId = null;
+	private Battle battle = null;
 	private BattleDao battleDao = new BattleDaoImpl(this);
 	private BattleInformationsFragment informations = new BattleInformationsFragment();
+	private FilesystemService fs = new FilesystemService();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +79,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	}
 
 	private void loadBattle() {
-		Battle battle = battleDao.findBattleById(battleId);
+		this.battle = battleDao.findBattleById(battleId);
 
 		if (battle == null) {
 			this.finish();
@@ -144,16 +150,31 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		case R.id.menu_done:
 
 			// Enregistrement
+			save();
 
 			return true;
 		case R.id.menu_photo:
 
+			String photoName = fs.determineNewExtraPhotoName(battle);
+
 			// Prise d'une photo
+			ImageHelper.takePhoto(this, fs, battle, photoName,
+					TAKE_PHOTO_EXTRA_RESULT_CODE);
 
 			return true;
 		}
 
 		return false;
+	}
+
+	private void save() {
+
+		// Récupération des données dispatchées dans les fragments et sauvegarde
+		// en base
+		Informations infos = this.informations.buildInformations();
+
+		battleDao.updateBattle(battle, infos);
+
 	}
 
 }

@@ -9,6 +9,7 @@ import android.database.Cursor;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.DatabaseHelper;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.pojo.Informations;
 import com.headbangers.reportmaker.pojo.Player;
 
 public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
@@ -66,5 +67,13 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 		}
 
 		return null;
+	}
+
+	@Override
+	public void updateBattle(Battle battle, Informations infos) {
+
+		db.update(DatabaseHelper.TABLE_BATTLE, infos.asContentValues(),
+				DatabaseHelper.COL_ID + " = " + battle.getId(), null);
+
 	}
 }

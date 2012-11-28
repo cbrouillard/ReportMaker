@@ -18,9 +18,6 @@ import com.headbangers.reportmaker.service.BattleNameGenerator;
 
 public class ConfigureGameFragment extends RoboFragment {
 
-	// @InjectView(R.id.action)
-	// private Button action;
-
 	@InjectView(R.id.gameName)
 	private EditText gameName;
 
@@ -59,6 +56,11 @@ public class ConfigureGameFragment extends RoboFragment {
 
 	}
 
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+	}
+
 	@SuppressWarnings("deprecation")
 	public Battle buildGame() {
 		Battle game = new Battle();
@@ -69,7 +71,7 @@ public class ConfigureGameFragment extends RoboFragment {
 		String format = gameFormat != null ? gameFormat.getText().toString()
 				: null;
 		if (name == null || name.isEmpty()) {
-			name = "Battle";
+			name = this.getActivity().getResources().getString(R.string.battle);
 		}
 
 		game.setName(name);

@@ -19,16 +19,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COL_RACEONE = "race_one";
 	public static final String COL_RACETWO = "race_two";
 
+	public static final String COL_INFO_COMMENTS = "info_comments";
+	public static final String COL_INFO_DEPLOYMENT = "info_deployment";
+	public static final String COL_INFO_SCENARIO = "info_scenario";
+	public static final String COL_INFO_WHOSTART = "info_whostart";
+	public static final String COL_INFO_LORD1_CAPACITY = "info_lordone";
+	public static final String COL_INFO_LORD2_CAPACITY = "info_lordtwo";
+
 	public static final String[] ALL_COLUMNS = new String[] { COL_ID, COL_NAME,
 			COL_DATE, COL_FORMAT, COL_PLAYERONE, COL_PLAYERTWO, COL_RACEONE,
-			COL_RACETWO };
+			COL_RACETWO, COL_INFO_COMMENTS, COL_INFO_DEPLOYMENT,
+			COL_INFO_LORD1_CAPACITY, COL_INFO_LORD2_CAPACITY,
+			COL_INFO_SCENARIO, COL_INFO_WHOSTART };
 
 	private static final String CREATE_BDD = "CREATE TABLE " + TABLE_BATTLE
 			+ " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME
 			+ " TEXT NOT NULL, " + COL_DATE + " DATE NOT NULL, " + COL_FORMAT
 			+ " INTEGER NULL, " + COL_PLAYERONE + " TEXT NULL, "
 			+ COL_PLAYERTWO + " TEXT NULL, " + COL_RACEONE + " TEXT NULL, "
-			+ COL_RACETWO + " TEXT NULL);";
+			+ COL_RACETWO + " TEXT NULL, " + COL_INFO_COMMENTS + " TEXT NULL, "
+			+ COL_INFO_DEPLOYMENT + " TEXT NULL, " + COL_INFO_LORD1_CAPACITY
+			+ " TEXT NULL, " + COL_INFO_LORD2_CAPACITY + " TEXT NULL, "
+			+ COL_INFO_SCENARIO + " TEXT NULL, " + COL_INFO_WHOSTART
+			+ " INTEGER NULL);";
 
 	public DatabaseHelper(Context context) {
 		this(context, "battle.db", null, version);

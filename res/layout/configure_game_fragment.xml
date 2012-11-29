@@ -58,15 +58,6 @@
             android:calendarViewShown="true"
             android:spinnersShown="false" >
         </view>
-
-        <!-- <DatePicker -->
-        <!-- android:id="@+id/gameDate" -->
-        <!-- android:layout_width="fill_parent" -->
-        <!-- android:layout_height="wrap_content" -->
-        <!-- android:layout_margin="5dp" -->
-        <!-- android:background="@drawable/border" -->
-        <!-- android:calendarViewShown="true" -->
-        <!-- android:spinnersShown="false" /> -->
     </LinearLayout>
 
 </ScrollView>

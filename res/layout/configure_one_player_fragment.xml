@@ -28,11 +28,4 @@
         android:layout_weight="1"
         android:gravity="top" />
 
-    <!-- <Button -->
-    <!-- android:id="@+id/action" -->
-    <!-- android:layout_width="100dp" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:layout_gravity="right" -->
-    <!-- android:text="@string/next" /> -->
-
 </LinearLayout>

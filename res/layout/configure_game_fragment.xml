@@ -48,15 +48,25 @@
             android:paddingTop="5dp"
             android:textSize="18sp" />
 
-        <DatePicker
+        <view
             android:id="@+id/gameDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            class="com.headbangers.reportmaker.widget.CustomDatePicker"
             android:background="@drawable/border"
             android:calendarViewShown="true"
-            android:spinnersShown="false" />
+            android:spinnersShown="false" >
+        </view>
 
+        <!-- <DatePicker -->
+        <!-- android:id="@+id/gameDate" -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:layout_margin="5dp" -->
+        <!-- android:background="@drawable/border" -->
+        <!-- android:calendarViewShown="true" -->
+        <!-- android:spinnersShown="false" /> -->
     </LinearLayout>
 
 </ScrollView>

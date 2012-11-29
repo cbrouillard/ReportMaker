@@ -73,6 +73,7 @@ public class BattleListActivity extends RoboListActivity {
 		Intent editBattle = new Intent(this, EditBattleActivity.class);
 		editBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG, id);
 		startActivity(editBattle);
+
 	}
 
 	@Override
@@ -106,6 +107,7 @@ public class BattleListActivity extends RoboListActivity {
 					ConfigureNewBattleActivity.class);
 			newBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(newBattle);
+
 			return true;
 
 		}
@@ -157,7 +159,7 @@ public class BattleListActivity extends RoboListActivity {
 
 		Toast.makeText(this, R.string.battle_hasbeen_deleted, Toast.LENGTH_LONG)
 				.show();
-		
+
 		fillList();
 	}
 }

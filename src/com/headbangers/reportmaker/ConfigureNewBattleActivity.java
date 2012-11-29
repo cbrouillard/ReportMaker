@@ -172,6 +172,7 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 			Intent editBattle = new Intent(this, EditBattleActivity.class);
 			editBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG, idInserted);
 			startActivity(editBattle);
+
 		}
 
 	}

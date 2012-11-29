@@ -8,13 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.BattleNameGenerator;
+import com.headbangers.reportmaker.widget.CustomDatePicker;
 
 public class ConfigureGameFragment extends RoboFragment {
 
@@ -25,7 +25,7 @@ public class ConfigureGameFragment extends RoboFragment {
 	private EditText gameFormat;
 
 	@InjectView(R.id.gameDate)
-	private DatePicker gameDate;
+	private CustomDatePicker gameDate;
 
 	@InjectView(R.id.generateName)
 	private ImageButton generateName;

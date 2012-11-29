@@ -49,6 +49,7 @@
     <string name="photo_move">Photo après la phase de mouvement</string>
     <string name="photo_shoot">Photo après la phase de tir</string>
     <string name="photo_assault">Photo après la phase d\'assaut</string>
+    <string name="is_last_turn">Dernier tour</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

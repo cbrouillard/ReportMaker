@@ -97,8 +97,10 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 		// Création des fragments
 		this.informations.setBattle(battle);
+		int cpt = 1;
 		for (TurnFragment turn : turns) {
-			turn.setBattle(battle);
+			turn.setBattle(battle, cpt);
+			cpt++;
 		}
 	}
 

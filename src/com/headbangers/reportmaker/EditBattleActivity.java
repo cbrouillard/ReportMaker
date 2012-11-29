@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
@@ -174,6 +175,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		Informations infos = this.informations.buildInformations();
 
 		battleDao.updateBattle(battle, infos);
+
+		Toast.makeText(this, R.string.battle_saved, Toast.LENGTH_LONG).show();
 
 	}
 

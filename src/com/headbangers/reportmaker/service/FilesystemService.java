@@ -44,4 +44,15 @@ public class FilesystemService {
 		return "extra_" + extrasPhotos.length + ".jpg";
 	}
 
+	public void deleteBattleDirectory(Long id) {
+
+		File androidRoot = Environment.getExternalStorageDirectory();
+		File appRoot = new File(androidRoot, "reportmaker");
+		File battleDirectory = new File(appRoot, "battle-" + id);
+
+		if (battleDirectory.exists()) {
+			battleDirectory.delete();
+		}
+	}
+
 }

@@ -5,7 +5,6 @@ import android.database.Cursor;
 import com.headbangers.reportmaker.dao.impl.GenericDao;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Informations;
-import com.headbangers.reportmaker.pojo.Player;
 
 public interface BattleDao extends GenericDao {
 
@@ -43,4 +42,12 @@ public interface BattleDao extends GenericDao {
 	 *            les informations générales
 	 */
 	void updateBattle(Battle battle, Informations infos);
+
+	/**
+	 * Efface une bataille en base.
+	 * 
+	 * @param id
+	 *            id de la bataille à supprimer.
+	 */
+	void deleteBattle(Long id);
 }

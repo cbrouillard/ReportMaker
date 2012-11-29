@@ -132,6 +132,8 @@ public class BattleInformationsFragment extends RoboFragment {
 		this.deploymentTextViewPlayer2.setText(this.getActivity()
 				.getResources().getString(R.string.photo_deployment_player)
 				+ " " + this.battle.getTwo().getName());
+
+		fillView();
 	}
 
 	private void fillPhotosIfNeeded() {
@@ -201,5 +203,18 @@ public class BattleInformationsFragment extends RoboFragment {
 		infos.setScenario(this.scenario.getText().toString());
 
 		return infos;
+	}
+
+	public void fillView() {
+		if (this.battle == null) {
+			return;
+		}
+
+		this.comments.setText(this.battle.getInfos().getComments());
+		this.deploymentType.setText(this.battle.getInfos().getDeploymentType());
+		this.lordCapacity1.setText(this.battle.getInfos().getLordCapacity1());
+		this.lordCapacity2.setText(this.battle.getInfos().getLordCapacity2());
+		this.scenario.setText(this.battle.getInfos().getScenario());
+		this.whoStart.setSelection(this.battle.getInfos().getFirstPlayer());
 	}
 }

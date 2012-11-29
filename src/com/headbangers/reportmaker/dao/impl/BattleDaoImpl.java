@@ -76,4 +76,11 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 				DatabaseHelper.COL_ID + " = " + battle.getId(), null);
 
 	}
+
+	@Override
+	public void deleteBattle(Long id) {
+
+		db.delete(DatabaseHelper.TABLE_BATTLE, DatabaseHelper.COL_ID + " = "
+				+ id, null);
+	}
 }

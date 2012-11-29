@@ -29,12 +29,17 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 
 		TextView label = (TextView) row.findViewById(R.id.battleName);
 		TextView disclaimer = (TextView) row.findViewById(R.id.battleInfos);
+		TextView disclaimer2 = (TextView) row
+				.findViewById(R.id.battleInfosPlus);
 		ImageView icon = (ImageView) row.findViewById(R.id.battleIcon);
 
 		Battle game = new Battle(cursor);
 
 		label.setText(game.getName());
 		disclaimer.setText(buildInformationsText(game));
+
+		CharSequence infosPlus = buildInfosPlusText(game);
+		disclaimer2.setText(infosPlus);
 		icon.setImageResource(R.drawable.ic_launcher);
 
 	}
@@ -43,9 +48,7 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 
 		StringBuilder builder = new StringBuilder();
 
-		// player
-
-		if (game.getFormat() != null) {
+		if (game.getFormat() != null && game.getFormat() != 0) {
 			builder.append(" ").append(game.getFormat()).append(" points");
 		}
 
@@ -54,6 +57,26 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 		}
 
 		return builder.toString();
+	}
+
+	private CharSequence buildInfosPlusText(Battle game) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(game.getOne().getName());
+
+		if (game.getOne().getRace() != null
+				&& !game.getOne().getRace().isEmpty()) {
+			builder.append(" [").append(game.getOne().getRace()).append("]");
+		}
+
+		builder.append(" vs ").append(game.getTwo().getName());
+
+		if (game.getTwo().getRace() != null
+				&& !game.getTwo().getRace().isEmpty()) {
+			builder.append(" [").append(game.getTwo().getRace()).append("]");
+		}
+
+		return builder.toString();
+
 	}
 
 	@Override

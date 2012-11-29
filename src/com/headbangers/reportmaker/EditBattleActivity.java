@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
 import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
+import com.headbangers.reportmaker.fragment.TurnFragment;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Informations;
 import com.headbangers.reportmaker.service.FilesystemService;
@@ -28,8 +29,12 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	private Long battleId = null;
 	private Battle battle = null;
 	private BattleDao battleDao = new BattleDaoImpl(this);
-	private BattleInformationsFragment informations = new BattleInformationsFragment();
 	private FilesystemService fs = new FilesystemService();
+
+	private BattleInformationsFragment informations = new BattleInformationsFragment();
+	private TurnFragment[] turns = { new TurnFragment(), new TurnFragment(),
+			new TurnFragment(), new TurnFragment(), new TurnFragment(),
+			new TurnFragment(), new TurnFragment() };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +97,9 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 		// Création des fragments
 		this.informations.setBattle(battle);
+		for (TurnFragment turn : turns) {
+			turn.setBattle(battle);
+		}
 	}
 
 	@Override
@@ -118,6 +126,14 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		switch (tab.getPosition()) {
 		case 0:
 			fragment = this.informations;
+			break;
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+			fragment = this.turns[tab.getPosition() - 1];
 			break;
 		}
 
@@ -178,6 +194,13 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 		Toast.makeText(this, R.string.battle_saved, Toast.LENGTH_LONG).show();
 
+	}
+
+	public int getFirstPlayer() {
+		if (this.informations == null) {
+			return 0;
+		}
+		return this.informations.getFirstPlayer();
 	}
 
 }

@@ -217,4 +217,13 @@ public class BattleInformationsFragment extends RoboFragment {
 		this.scenario.setText(this.battle.getInfos().getScenario());
 		this.whoStart.setSelection(this.battle.getInfos().getFirstPlayer());
 	}
+
+	public int getFirstPlayer() {
+
+		if (this.whoStart != null) {
+			return this.whoStart.getSelectedItemPosition();
+		}
+
+		return 0;
+	}
 }

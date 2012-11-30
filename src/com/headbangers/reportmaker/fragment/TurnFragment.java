@@ -107,6 +107,8 @@ public class TurnFragment extends RoboFragment {
 		if (lastOne != null && numTurn < 5) {
 			lastOne.setVisibility(View.GONE);
 		}
+
+		fillView();
 	}
 
 	private void construct() {
@@ -283,7 +285,46 @@ public class TurnFragment extends RoboFragment {
 
 	public Turn buildTurn() {
 		Turn turn = new Turn();
-		turn.setCommentsMove1(this.commentsMove1.getText().toString());
+
+		turn.setCommentsMove1(this.commentsMove1 != null ? this.commentsMove1
+				.getText().toString() : null);
+		turn.setCommentsMove2(this.commentsMove2 != null ? this.commentsMove2
+				.getText().toString() : null);
+
+		turn.setCommentsShoot1(this.commentsShoot1 != null ? this.commentsShoot1
+				.getText().toString() : null);
+		turn.setCommentsShoot2(this.commentsShoot2 != null ? this.commentsShoot2
+				.getText().toString() : null);
+
+		turn.setCommentsAssault1(this.commentsAssault1 != null ? this.commentsAssault1
+				.getText().toString() : null);
+		turn.setCommentsAssault2(this.commentsAssault2 != null ? this.commentsAssault2
+				.getText().toString() : null);
+
+		if (numTurn >= 5) {
+			turn.setLastOne(this.lastOne != null ? this.lastOne.isChecked()
+					: null);
+		}
+
+		turn.setNum(numTurn);
+
 		return turn;
+	}
+
+	public void fillView() {
+		if (this.battle == null) {
+			return;
+		}
+		
+		Turn turn = this.battle.getTurn (this.numTurn);
+		
+		this.commentsMove1.setText(turn.getCommentsMove1());
+		this.commentsMove2.setText(turn.getCommentsMove2());
+		this.commentsShoot1.setText(turn.getCommentsShoot1());
+		this.commentsShoot2.setText(turn.getCommentsShoot2());
+		this.commentsAssault1.setText(turn.getCommentsAssault1());
+		this.commentsAssault2.setText(turn.getCommentsAssault2());
+		
+		this.lastOne.setChecked(turn.isLastOne()!=null?turn.isLastOne():false);
 	}
 }

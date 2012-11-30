@@ -3,6 +3,7 @@ package com.headbangers.reportmaker.pojo;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 import android.database.Cursor;
 
@@ -20,6 +21,7 @@ public class Battle {
 	private Player two;
 
 	private Informations infos;
+	private List<Turn> turns;
 
 	public Battle(Cursor cursor) {
 		this.id = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.COL_ID));
@@ -112,6 +114,26 @@ public class Battle {
 
 	public void setInfos(Informations infos) {
 		this.infos = infos;
+	}
+
+	public List<Turn> getTurns() {
+		return turns;
+	}
+
+	public void setTurns(List<Turn> turns) {
+		this.turns = turns;
+	}
+
+	public Turn getTurn(int numTurn) {
+
+		for (Turn turn : turns) {
+			if (turn.getNum().equals(numTurn)) {
+				return turn;
+			}
+		}
+
+		return new Turn();
+
 	}
 
 }

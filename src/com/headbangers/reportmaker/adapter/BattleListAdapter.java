@@ -19,7 +19,7 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 	private Activity context;
 
 	public BattleListAdapter(Activity context, Cursor cursor) {
-		super(context, R.layout.one_battle, cursor, DatabaseHelper.ALL_COLUMNS,
+		super(context, R.layout.one_battle, cursor, DatabaseHelper.ALL_BATTLE_COLUMNS,
 				null, 0);
 		this.context = context;
 	}

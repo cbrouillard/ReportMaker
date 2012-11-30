@@ -1,16 +1,20 @@
 package com.headbangers.reportmaker.dao.impl;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.DatabaseHelper;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Informations;
 import com.headbangers.reportmaker.pojo.Player;
+import com.headbangers.reportmaker.pojo.Turn;
 
 public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 
@@ -57,23 +61,77 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 		}
 
 		Cursor cursor = db.query(DatabaseHelper.TABLE_BATTLE,
-				DatabaseHelper.ALL_COLUMNS, DatabaseHelper.COL_ID + " = " + id,
-				null, null, null, null);
+				DatabaseHelper.ALL_BATTLE_COLUMNS, DatabaseHelper.COL_ID
+						+ " = " + id, null, null, null, null);
 
 		if (cursor != null && cursor.moveToFirst()) {
 			Battle battle = new Battle(cursor);
 			cursor.close();
+
+			// Requête des tours
+			Cursor turnsCursor = db.query(DatabaseHelper.TABLE_TURN,
+					DatabaseHelper.ALL_TURN_COLUMNS,
+					DatabaseHelper.COL_BATTLE_ID + " = " + id, null, null,
+					null, DatabaseHelper.COL_NUM + " ASC");
+
+			battle.setTurns(buildTurns(turnsCursor));
+			turnsCursor.close();
+
 			return battle;
 		}
 
 		return null;
 	}
 
-	@Override
-	public void updateBattle(Battle battle, Informations infos) {
+	private List<Turn> buildTurns(Cursor cursor) {
+		List<Turn> turns = new ArrayList<Turn>();
 
+		if (cursor != null) {
+
+			while (cursor.moveToNext()) {
+				turns.add(new Turn(cursor));
+			}
+
+		}
+
+		return turns;
+
+	}
+
+	@Override
+	public void updateBattle(Battle battle, Informations infos, List<Turn> turns) {
+
+		Log.d("BattleDaoImpl", "Mise à jour des infos de la table BATTLE");
 		db.update(DatabaseHelper.TABLE_BATTLE, infos.asContentValues(),
 				DatabaseHelper.COL_ID + " = " + battle.getId(), null);
+
+		Log.d("BattleDaoImpl", "Mise à jour des infos de la table TURN");
+		for (Turn turn : turns) {
+
+			// Existe t-il ?
+			Cursor testCursor = db.query(
+					DatabaseHelper.TABLE_TURN,
+					new String[] { DatabaseHelper.COL_ID },
+					DatabaseHelper.COL_BATTLE_ID + " = " + battle.getId()
+							+ " AND " + DatabaseHelper.COL_NUM + " = "
+							+ turn.getNum(), null, null, null, null);
+
+			if (testCursor.getCount() > 0) {
+
+				db.update(DatabaseHelper.TABLE_TURN, turn.asContentValues(),
+						DatabaseHelper.COL_BATTLE_ID + " = " + battle.getId()
+								+ " AND " + DatabaseHelper.COL_NUM + " = "
+								+ turn.getNum(), null);
+			} else {
+
+				ContentValues values = turn.asContentValues();
+				values.put(DatabaseHelper.COL_BATTLE_ID, battle.getId());
+
+				db.insert(DatabaseHelper.TABLE_TURN, null, values);
+			}
+
+			testCursor.close();
+		}
 
 	}
 

@@ -1,7 +1,6 @@
 package com.headbangers.reportmaker.fragment;
 
 import java.io.File;
-import java.io.IOException;
 
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;

@@ -1,5 +1,8 @@
 package com.headbangers.reportmaker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import roboguice.activity.RoboFragmentActivity;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -16,6 +19,7 @@ import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
 import com.headbangers.reportmaker.fragment.TurnFragment;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Informations;
+import com.headbangers.reportmaker.pojo.Turn;
 import com.headbangers.reportmaker.service.FilesystemService;
 
 public class EditBattleActivity extends RoboFragmentActivity implements
@@ -192,7 +196,12 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		// en base
 		Informations infos = this.informations.buildInformations();
 
-		battleDao.updateBattle(battle, infos);
+		List<Turn> allTurnsInfos = new ArrayList<Turn>();
+		for (TurnFragment oneTurn : turns) {
+			allTurnsInfos.add(oneTurn.buildTurn());
+		}
+
+		battleDao.updateBattle(battle, infos, allTurnsInfos);
 
 		Toast.makeText(this, R.string.battle_saved, Toast.LENGTH_LONG).show();
 

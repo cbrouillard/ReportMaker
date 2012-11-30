@@ -1,6 +1,13 @@
 package com.headbangers.reportmaker.pojo;
 
+import com.headbangers.reportmaker.dao.DatabaseHelper;
+
+import android.content.ContentValues;
+import android.database.Cursor;
+
 public class Turn {
+
+	private Integer num;
 
 	private String commentsMove1;
 	private String commentsMove2;
@@ -11,7 +18,33 @@ public class Turn {
 	private String commentsAssault1;
 	private String commentsAssault2;
 
-	private boolean lastOne;
+	private Boolean lastOne;
+
+	public Turn(Cursor cursor) {
+		this.commentsMove1 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_COMMENT_MOVE1));
+		this.commentsMove2 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_COMMENT_MOVE2));
+
+		this.commentsShoot1 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_COMMENT_SHOOT1));
+		this.commentsShoot2 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_COMMENT_SHOOT2));
+
+		this.commentsAssault1 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_COMMENT_ASSAULT1));
+		this.commentsAssault2 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_COMMENT_ASSAULT2));
+
+		this.lastOne = cursor.getInt(cursor
+				.getColumnIndex(DatabaseHelper.COL_IS_LAST_ONE)) == 1 ? true
+				: false;
+
+		this.num = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_NUM));
+	}
+
+	public Turn() {
+	}
 
 	public String getCommentsMove1() {
 		return commentsMove1;
@@ -61,12 +94,55 @@ public class Turn {
 		this.commentsAssault2 = commentsAssault2;
 	}
 
-	public void setLastOne(boolean isLastOne) {
+	public void setLastOne(Boolean isLastOne) {
 		this.lastOne = isLastOne;
 	}
 
-	public boolean isLastOne() {
+	public Boolean isLastOne() {
 		return lastOne;
+	}
+
+	public Integer getNum() {
+		return num;
+	}
+
+	public void setNum(Integer num) {
+		this.num = num;
+	}
+
+	public ContentValues asContentValues() {
+		ContentValues values = new ContentValues();
+
+		if (this.commentsMove1 != null) {
+			values.put(DatabaseHelper.COL_COMMENT_MOVE1, this.commentsMove1);
+		}
+		if (this.commentsMove2 != null) {
+			values.put(DatabaseHelper.COL_COMMENT_MOVE2, this.commentsMove2);
+		}
+
+		if (this.commentsShoot1 != null) {
+			values.put(DatabaseHelper.COL_COMMENT_SHOOT1, this.commentsShoot1);
+		}
+		if (this.commentsShoot2 != null) {
+			values.put(DatabaseHelper.COL_COMMENT_SHOOT2, this.commentsShoot2);
+		}
+
+		if (this.commentsAssault1 != null) {
+			values.put(DatabaseHelper.COL_COMMENT_ASSAULT1,
+					this.commentsAssault1);
+		}
+		if (this.commentsAssault2 != null) {
+			values.put(DatabaseHelper.COL_COMMENT_ASSAULT2,
+					this.commentsAssault2);
+		}
+
+		if (this.lastOne != null) {
+			values.put(DatabaseHelper.COL_IS_LAST_ONE, this.lastOne);
+		}
+
+		values.put(DatabaseHelper.COL_NUM, this.num);
+		return values;
+
 	}
 
 }

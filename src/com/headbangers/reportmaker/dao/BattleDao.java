@@ -1,10 +1,13 @@
 package com.headbangers.reportmaker.dao;
 
+import java.util.List;
+
 import android.database.Cursor;
 
 import com.headbangers.reportmaker.dao.impl.GenericDao;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Informations;
+import com.headbangers.reportmaker.pojo.Turn;
 
 public interface BattleDao extends GenericDao {
 
@@ -40,8 +43,11 @@ public interface BattleDao extends GenericDao {
 	 *            la bataille
 	 * @param infos
 	 *            les informations générales
+	 * @param allTurnsInfos
+	 *            la liste des infos sur tous les tours.
 	 */
-	void updateBattle(Battle battle, Informations infos);
+	void updateBattle(Battle battle, Informations infos,
+			List<Turn> allTurnsInfos);
 
 	/**
 	 * Efface une bataille en base.

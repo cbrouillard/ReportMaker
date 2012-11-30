@@ -25,6 +25,7 @@ public class PDFService {
 		this.dao = dao;
 	}
 
+	private static final String ENCODING = "ISO-8859-1";
 	private static int DEFAULT_LEFT_MARGE = 20;
 
 	/**
@@ -63,6 +64,8 @@ public class PDFService {
 					StandardFonts.HELVETICA_BOLD);
 			mPDFWriter.addText(DEFAULT_LEFT_MARGE, 850, 26,
 					"Tour " + turn.getNum());
+			mPDFWriter.addLine(DEFAULT_LEFT_MARGE, 830, PaperSize.FOLIO_WIDTH
+					- DEFAULT_LEFT_MARGE, 720);
 
 			if (turn.isLastOne()) {
 				break;
@@ -73,11 +76,15 @@ public class PDFService {
 		File pdfFile = new File(rootBattle, battle.getName().replace(" ", "_")
 				+ ".pdf");
 
+		if (pdfFile.exists()) {
+			pdfFile.delete();
+		}
+
 		FileOutputStream pdfOs;
 		try {
 
 			pdfOs = new FileOutputStream(pdfFile);
-			pdfOs.write(mPDFWriter.asString().getBytes());
+			pdfOs.write(mPDFWriter.asString().getBytes(ENCODING));
 			pdfOs.close();
 
 			return pdfFile.getAbsolutePath();

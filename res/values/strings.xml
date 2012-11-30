@@ -4,6 +4,7 @@
     <string name="app_name">Report Maker</string>
     <string name="new_battle">Nouvelle bataille</string>
     <string name="delete_battle">Supprimer</string>
+    <string name="export_battle_pdf">Exporter (PDF)</string>
     <string name="battle">Bataille</string>
     <string name="game">Partie</string>
     <string name="player">Joueur</string>
@@ -50,6 +51,7 @@
     <string name="photo_shoot">Photo après la phase de tir</string>
     <string name="photo_assault">Photo après la phase d\'assaut</string>
     <string name="is_last_turn">Dernier tour</string>
+    <string name="pdf_hasbeen_generated">Le pdf a été généré.</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

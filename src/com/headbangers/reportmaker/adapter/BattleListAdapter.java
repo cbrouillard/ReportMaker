@@ -19,8 +19,8 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 	private Activity context;
 
 	public BattleListAdapter(Activity context, Cursor cursor) {
-		super(context, R.layout.one_battle, cursor, DatabaseHelper.ALL_BATTLE_COLUMNS,
-				null, 0);
+		super(context, R.layout.one_battle, cursor,
+				DatabaseHelper.ALL_BATTLE_COLUMNS, null, 0);
 		this.context = context;
 	}
 
@@ -62,21 +62,8 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 	private CharSequence buildInfosPlusText(Battle game) {
 		StringBuilder builder = new StringBuilder();
 		builder.append(game.getOne().getName());
-
-		if (game.getOne().getRace() != null
-				&& !game.getOne().getRace().isEmpty()) {
-			builder.append(" [").append(game.getOne().getRace()).append("]");
-		}
-
 		builder.append(" vs ").append(game.getTwo().getName());
-
-		if (game.getTwo().getRace() != null
-				&& !game.getTwo().getRace().isEmpty()) {
-			builder.append(" [").append(game.getTwo().getRace()).append("]");
-		}
-
 		return builder.toString();
-
 	}
 
 	@Override

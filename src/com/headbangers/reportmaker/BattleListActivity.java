@@ -22,6 +22,7 @@ import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.FilesystemService;
+import com.headbangers.reportmaker.service.PDFService;
 
 /**
  * Affiche une liste contenant toutes les batailles ainsi qu'un bouton
@@ -39,6 +40,7 @@ public class BattleListActivity extends RoboListActivity {
 	private Battle selected = null;
 
 	private FilesystemService fs = new FilesystemService();
+	private PDFService pdfService = new PDFService();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class BattleListActivity extends RoboListActivity {
 		setContentView(R.layout.battle_list);
 
 		this.battleDao.open();
+		this.pdfService.setDao(battleDao);
 
 		// Remplissage de la liste.
 		fillList();
@@ -57,6 +60,7 @@ public class BattleListActivity extends RoboListActivity {
 	protected void onResume() {
 		super.onResume();
 		this.battleDao.open();
+		this.pdfService.setDao(battleDao);
 		fillList();
 	}
 
@@ -137,6 +141,18 @@ public class BattleListActivity extends RoboListActivity {
 								}
 
 							}).setNegativeButton(R.string.no, null).show();
+
+			return true;
+		case R.id.menu_exportBattle:
+			String pdfFilePath = this.pdfService.exportBattle(selected.getId());
+
+			if (pdfFilePath != null) {
+				Toast.makeText(this, R.string.pdf_hasbeen_generated,
+						Toast.LENGTH_LONG).show();
+				
+				// On fait quoi avec le PDF ? Partage ou Visualisation
+				
+			}
 
 			return true;
 		}

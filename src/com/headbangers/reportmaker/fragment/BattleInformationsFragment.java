@@ -148,31 +148,22 @@ public class BattleInformationsFragment extends RoboFragment {
 		if (imageFile.exists() && this.tablePhotoView != null) {
 			this.tablePhotoView.setOnClickListener(new ZoomImageListener(this
 					.getActivity(), imageFile, "Table"));
-			try {
-				ImageHelper.setPic(imageFile.getAbsolutePath(),
-						this.tablePhotoView);
-			} catch (IOException e) {
-			}
+			ImageHelper.setPicAsync(this.getActivity(),
+					imageFile.getAbsolutePath(), this.tablePhotoView);
 		}
 
 		if (deployment1.exists() && this.deployment1Photo != null) {
 			this.deployment1Photo.setOnClickListener(new ZoomImageListener(this
 					.getActivity(), deployment1, "Déploiement"));
-			try {
-				ImageHelper.setPic(deployment1.getAbsolutePath(),
-						this.deployment1Photo);
-			} catch (IOException e) {
-			}
+			ImageHelper.setPicAsync(this.getActivity(),
+					deployment1.getAbsolutePath(), this.deployment1Photo);
 		}
 
 		if (deployment2.exists() && this.deployment2Photo != null) {
 			this.deployment2Photo.setOnClickListener(new ZoomImageListener(this
 					.getActivity(), deployment2, "Déploiement"));
-			try {
-				ImageHelper.setPic(deployment2.getAbsolutePath(),
-						this.deployment2Photo);
-			} catch (IOException e) {
-			}
+			ImageHelper.setPicAsync(this.getActivity(),
+					deployment2.getAbsolutePath(), this.deployment2Photo);
 		}
 
 	}

@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,11 +16,14 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.service.DrawableManager;
 import com.headbangers.reportmaker.service.FilesystemService;
 
 public class ImageHelper {
 
-	public static void showImageInDialog(File imageFile, Context context,
+	public static DrawableManager drawableManager = new DrawableManager();
+
+	public static void showImageInDialog(File imageFile, Activity context,
 			String imageTitle) {
 
 		if (!imageFile.exists()) {
@@ -34,11 +36,7 @@ public class ImageHelper {
 		dialog.setTitle(imageTitle);
 
 		ImageView zoom = (ImageView) dialog.findViewById(R.id.image);
-		try {
-			setPic(imageFile.getAbsolutePath(), zoom);
-		} catch (IOException e) {
-			return;
-		}
+		setPic(imageFile.getAbsolutePath(), zoom);
 
 		zoom.setOnClickListener(new View.OnClickListener() {
 
@@ -54,9 +52,14 @@ public class ImageHelper {
 		dialog.show();
 	}
 
-	public static void setPic(String photoPath, ImageView view)
-			throws IOException {
+	public static void setPicAsync(Activity context, String photoPath,
+			ImageView view) {
+		drawableManager.fetchDrawableOnThread(context, photoPath, view,
+				R.drawable.damier);
+	}
 
+	public static Bitmap rotateAndResize(String photoPath, int defaultW)
+			throws IOException {
 		ExifInterface exif = new ExifInterface(photoPath);
 		int exifOrientation = exif
 				.getAttributeInt(ExifInterface.TAG_ORIENTATION,
@@ -79,7 +82,7 @@ public class ImageHelper {
 		}
 
 		// Get the dimensions of the View
-		int targetW = 512;
+		int targetW = defaultW;
 		int targetH = 1; // view.getHeight();
 
 		// Get the dimensions of the bitmap
@@ -112,12 +115,23 @@ public class ImageHelper {
 			bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
 		}
 
-		view.setImageBitmap(bitmap);
+		return bitmap;
+	}
+
+	public static void setPic(String photoPath, ImageView view) {
+
+		Bitmap bitmap;
+		try {
+			bitmap = rotateAndResize(photoPath,
+					view.getWidth() != 0 ? view.getWidth() : 512);
+			view.setImageBitmap(bitmap);
+		} catch (IOException e) {
+		}
 	}
 
 	public static void takePhoto(Activity context, FilesystemService fs,
 			Battle battle, String photoName, int returnResultCode) {
-		
+
 		File imageFile = new File(fs.getRootBattle(battle), photoName);
 
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

@@ -1,7 +1,6 @@
 package com.headbangers.reportmaker.fragment;
 
 import java.io.File;
-import java.io.IOException;
 
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
@@ -22,7 +21,9 @@ import com.headbangers.reportmaker.EditBattleActivity;
 import com.headbangers.reportmaker.ImageHelper;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
+import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.pojo.Turn;
 import com.headbangers.reportmaker.service.FilesystemService;
 
 public class TurnFragment extends RoboFragment {
@@ -213,61 +214,76 @@ public class TurnFragment extends RoboFragment {
 	}
 
 	private void fillMovePhotos() {
-		try {
-			File image1 = new File(fs.getRootBattle(battle), MOVE_PHOTO_NAME
-					.replace("{P}", "1").replace("{X}", "" + numTurn));
-			File image2 = new File(fs.getRootBattle(battle), MOVE_PHOTO_NAME
-					.replace("{P}", "2").replace("{X}", "" + numTurn));
+		File image1 = new File(fs.getRootBattle(battle), MOVE_PHOTO_NAME
+				.replace("{P}", "1").replace("{X}", "" + numTurn));
+		File image2 = new File(fs.getRootBattle(battle), MOVE_PHOTO_NAME
+				.replace("{P}", "2").replace("{X}", "" + numTurn));
 
-			if (image1.exists() && this.photoMove1 != null) {
-				ImageHelper.setPic(image1.getAbsolutePath(), this.photoMove1);
-			}
-			if (image2.exists() && this.photoMove2 != null) {
-				ImageHelper.setPic(image2.getAbsolutePath(), this.photoMove2);
-			}
-		} catch (IOException e) {
-
+		if (image1.exists() && this.photoMove1 != null) {
+			this.photoMove1.setOnClickListener(new ZoomImageListener(this
+					.getActivity(), image1, "Mouvement - "
+					+ battle.getOne().getName()));
+			ImageHelper.setPicAsync(this.getActivity(),
+					image1.getAbsolutePath(), this.photoMove1);
+		}
+		if (image2.exists() && this.photoMove2 != null) {
+			this.photoMove2.setOnClickListener(new ZoomImageListener(this
+					.getActivity(), image2, "Mouvement - "
+					+ battle.getTwo().getName()));
+			ImageHelper.setPicAsync(this.getActivity(),
+					image2.getAbsolutePath(), this.photoMove2);
 		}
 	}
 
 	private void fillShootPhotos() {
-		try {
 
-			File image1 = new File(fs.getRootBattle(battle), SHOOT_PHOTO_NAME
-					.replace("{P}", "1").replace("{X}", "" + numTurn));
-			File image2 = new File(fs.getRootBattle(battle), SHOOT_PHOTO_NAME
-					.replace("{P}", "2").replace("{X}", "" + numTurn));
+		File image1 = new File(fs.getRootBattle(battle), SHOOT_PHOTO_NAME
+				.replace("{P}", "1").replace("{X}", "" + numTurn));
+		File image2 = new File(fs.getRootBattle(battle), SHOOT_PHOTO_NAME
+				.replace("{P}", "2").replace("{X}", "" + numTurn));
 
-			if (image1.exists() && this.photoShoot1 != null) {
-				ImageHelper.setPic(image1.getAbsolutePath(), this.photoShoot1);
-			}
-			if (image2.exists() && this.photoShoot2 != null) {
-				ImageHelper.setPic(image2.getAbsolutePath(), this.photoShoot2);
-			}
-		} catch (IOException e) {
-
+		if (image1.exists() && this.photoShoot1 != null) {
+			this.photoShoot1.setOnClickListener(new ZoomImageListener(this
+					.getActivity(), image1, "Tir - "
+					+ battle.getOne().getName()));
+			ImageHelper.setPicAsync(this.getActivity(),
+					image1.getAbsolutePath(), this.photoShoot1);
+		}
+		if (image2.exists() && this.photoShoot2 != null) {
+			this.photoShoot2.setOnClickListener(new ZoomImageListener(this
+					.getActivity(), image2, "Tir - "
+					+ battle.getTwo().getName()));
+			ImageHelper.setPicAsync(this.getActivity(),
+					image2.getAbsolutePath(), this.photoShoot2);
 		}
 	}
 
 	private void fillAssaultPhotos() {
-		try {
+		File image1 = new File(fs.getRootBattle(battle), ASSAULT_PHOTO_NAME
+				.replace("{P}", "1").replace("{X}", "" + numTurn));
+		File image2 = new File(fs.getRootBattle(battle), ASSAULT_PHOTO_NAME
+				.replace("{P}", "2").replace("{X}", "" + numTurn));
 
-			File image1 = new File(fs.getRootBattle(battle), ASSAULT_PHOTO_NAME
-					.replace("{P}", "1").replace("{X}", "" + numTurn));
-			File image2 = new File(fs.getRootBattle(battle), ASSAULT_PHOTO_NAME
-					.replace("{P}", "2").replace("{X}", "" + numTurn));
-
-			if (image1.exists() && this.photoAssault1 != null) {
-				ImageHelper
-						.setPic(image1.getAbsolutePath(), this.photoAssault1);
-			}
-
-			if (image2.exists() && this.photoAssault2 != null) {
-				ImageHelper
-						.setPic(image2.getAbsolutePath(), this.photoAssault2);
-			}
-		} catch (IOException e) {
-
+		if (image1.exists() && this.photoAssault1 != null) {
+			this.photoAssault1.setOnClickListener(new ZoomImageListener(this
+					.getActivity(), image1, "Assaut - "
+					+ battle.getOne().getName()));
+			ImageHelper.setPicAsync(this.getActivity(),
+					image1.getAbsolutePath(), this.photoAssault1);
 		}
+
+		if (image2.exists() && this.photoAssault2 != null) {
+			this.photoAssault2.setOnClickListener(new ZoomImageListener(this
+					.getActivity(), image2, "Assaut - "
+					+ battle.getTwo().getName()));
+			ImageHelper.setPicAsync(this.getActivity(),
+					image2.getAbsolutePath(), this.photoAssault2);
+		}
+	}
+
+	public Turn buildTurn() {
+		Turn turn = new Turn();
+		turn.setCommentsMove1(this.commentsMove1.getText().toString());
+		return turn;
 	}
 }

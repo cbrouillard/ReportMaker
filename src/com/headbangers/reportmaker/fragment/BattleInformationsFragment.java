@@ -30,9 +30,9 @@ public class BattleInformationsFragment extends RoboFragment {
 	private static final int TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE = 2;
 	private static final int TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE = 3;
 
-	private static final String TABLE_PHOTO_NAME = "table.jpg";
-	private static final String DEPLOYMENT1_PHOTO_NAME = "deploiement_j1.jpg";
-	private static final String DEPLOYMENT2_PHOTO_NAME = "deploiement_j2.jpg";
+	public static final String TABLE_PHOTO_NAME = "table.jpg";
+	public static final String DEPLOYMENT1_PHOTO_NAME = "deploiement_j1.jpg";
+	public static final String DEPLOYMENT2_PHOTO_NAME = "deploiement_j2.jpg";
 
 	private FilesystemService filesystemService = new FilesystemService();
 	private Battle battle;

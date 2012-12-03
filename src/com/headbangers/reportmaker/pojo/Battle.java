@@ -12,6 +12,7 @@ import com.headbangers.reportmaker.dao.DatabaseHelper;
 public class Battle {
 
 	private Long id;
+	
 	private String name;
 	private Integer format;
 	private Date date;

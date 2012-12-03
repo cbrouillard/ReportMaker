@@ -21,8 +21,9 @@ import com.headbangers.reportmaker.adapter.BattleListAdapter;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.service.DroidTextPDFService;
 import com.headbangers.reportmaker.service.FilesystemService;
-import com.headbangers.reportmaker.service.PDFService;
+import com.headbangers.reportmaker.service.IPDFService;
 
 /**
  * Affiche une liste contenant toutes les batailles ainsi qu'un bouton
@@ -40,7 +41,7 @@ public class BattleListActivity extends RoboListActivity {
 	private Battle selected = null;
 
 	private FilesystemService fs = new FilesystemService();
-	private PDFService pdfService = new PDFService();
+	private IPDFService pdfService = new DroidTextPDFService();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -149,9 +150,9 @@ public class BattleListActivity extends RoboListActivity {
 			if (pdfFilePath != null) {
 				Toast.makeText(this, R.string.pdf_hasbeen_generated,
 						Toast.LENGTH_LONG).show();
-				
+
 				// On fait quoi avec le PDF ? Partage ou Visualisation
-				
+
 			}
 
 			return true;

@@ -141,4 +141,15 @@ public class ImageHelper {
 		context.startActivityForResult(takePictureIntent, returnResultCode);
 	}
 
+	public static Bitmap photoAsPDFBitmap(File rootBattle, String photoName) {
+
+		File completeFile = new File(rootBattle, photoName);
+
+		try {
+			return rotateAndResize(completeFile.getAbsolutePath(), 100);
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
 }

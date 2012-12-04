@@ -20,7 +20,7 @@ import com.headbangers.reportmaker.service.FilesystemService;
 public class GalleryAdapter implements SpinnerAdapter {
 
 	private Activity context;
-	private Battle battle;
+	// private Battle battle;
 
 	private DrawableManager dwManager;
 
@@ -30,10 +30,7 @@ public class GalleryAdapter implements SpinnerAdapter {
 
 	public GalleryAdapter(Activity context, Battle battle) {
 		this.context = context;
-		this.battle = battle;
-
 		extrasPath = fs.findAllExtrasPhotosPath(battle);
-
 		dwManager = new DrawableManager();
 	}
 

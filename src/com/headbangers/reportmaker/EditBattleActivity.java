@@ -1,5 +1,6 @@
 package com.headbangers.reportmaker;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Gallery;
 import android.widget.Toast;
 
@@ -112,8 +115,23 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			turn.setBattle(battle, cpt);
 			cpt++;
 		}
-		
-		this.gallery.setAdapter(new GalleryAdapter (this, battle));
+
+		this.gallery.setAdapter(new GalleryAdapter(this, battle));
+		this.gallery
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> adapterView,
+							View view, int position, long id) {
+
+						String extrasPath = (String) gallery.getAdapter()
+								.getItem(position);
+
+						File imageFile = new File(extrasPath);
+						ImageHelper.showImageInDialog(imageFile,
+								EditBattleActivity.this, "Zoom sur photos");
+					}
+				});
 	}
 
 	@Override

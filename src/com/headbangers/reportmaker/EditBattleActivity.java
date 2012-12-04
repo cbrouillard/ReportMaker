@@ -8,6 +8,7 @@ import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectView;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -132,6 +133,9 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 								EditBattleActivity.this, "Zoom sur photos");
 					}
 				});
+		if (this.gallery.getAdapter().getCount() == 0) {
+			this.gallery.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -214,6 +218,15 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		}
 
 		return false;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case TAKE_PHOTO_EXTRA_RESULT_CODE:
+			this.gallery.setVisibility(View.VISIBLE);
+			break;
+		}
 	}
 
 	private void save() {

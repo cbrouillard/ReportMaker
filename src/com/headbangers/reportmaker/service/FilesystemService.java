@@ -2,6 +2,9 @@ package com.headbangers.reportmaker.service;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import android.os.Environment;
 
@@ -53,6 +56,26 @@ public class FilesystemService {
 		if (battleDirectory.exists()) {
 			battleDirectory.delete();
 		}
+	}
+
+	public List<String> findAllExtrasPhotosPath(Battle battle) {
+
+		File rootBattle = getRootBattle(battle);
+
+		String[] extrasPhotos = rootBattle.list(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String filename) {
+				return filename.startsWith("extra_");
+			}
+		});
+
+		List<String> absolutePath = new ArrayList<String>();
+		for (String extraPath : extrasPhotos) {
+			absolutePath.add(rootBattle.getAbsolutePath() + "/" + extraPath);
+		}
+
+		return absolutePath;
 	}
 
 }

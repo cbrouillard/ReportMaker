@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.InjectView;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Gallery;
 import android.widget.Toast;
 
+import com.headbangers.reportmaker.adapter.GalleryAdapter;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
 import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
@@ -39,6 +42,9 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	private TurnFragment[] turns = { new TurnFragment(), new TurnFragment(),
 			new TurnFragment(), new TurnFragment(), new TurnFragment(),
 			new TurnFragment(), new TurnFragment() };
+
+	@InjectView(R.id.extrasPhotosGallery)
+	private Gallery gallery;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +112,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			turn.setBattle(battle, cpt);
 			cpt++;
 		}
+		
+		this.gallery.setAdapter(new GalleryAdapter (this, battle));
 	}
 
 	@Override

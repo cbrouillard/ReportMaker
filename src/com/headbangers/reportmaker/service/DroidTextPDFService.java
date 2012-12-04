@@ -18,8 +18,10 @@ import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
+import com.lowagie.text.HeaderFooter;
 import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
 
@@ -117,7 +119,11 @@ public class DroidTextPDFService implements IPDFService {
 
 			// Tours
 			for (Turn turn : battle.getTurns()) {
-				generateTurn (document, cb, battle, turn);
+				generateTurn(document, cb, battle, turn);
+
+				if (turn.isLastOne()) {
+					break;
+				}
 			}
 
 			document.close();
@@ -145,8 +151,8 @@ public class DroidTextPDFService implements IPDFService {
 			Battle battle, Turn turn) throws DocumentException {
 		Bitmap photo = null;
 		document.newPage();
-		
-		document.add(new Paragraph("Tour "+turn.getNum(), catFont));
+
+		document.add(new Paragraph("Tour " + turn.getNum(), catFont));
 		drawLine(cb, 765);
 		addEmptyLine(document, 1);
 	}
@@ -217,9 +223,9 @@ public class DroidTextPDFService implements IPDFService {
 				document.add(jpg);
 			}
 		}
-		
-		// TODO combat nocturne ? 
-		
+
+		// TODO combat nocturne ?
+
 		// TODO commentaires
 
 	}

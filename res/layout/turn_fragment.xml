@@ -46,4 +46,13 @@
         android:textOff="@string/no"
         android:textOn="@string/yes" />
 
+    <Switch
+        android:id="@+id/nightFight"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="@string/is_night"
+        android:textOff="@string/no"
+        android:textOn="@string/yes" />
+    
 </LinearLayout>

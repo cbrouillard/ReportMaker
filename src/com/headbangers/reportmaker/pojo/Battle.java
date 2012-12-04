@@ -12,7 +12,7 @@ import com.headbangers.reportmaker.dao.DatabaseHelper;
 public class Battle {
 
 	private Long id;
-	
+
 	private String name;
 	private Integer format;
 	private Date date;
@@ -135,6 +135,22 @@ public class Battle {
 
 		return new Turn();
 
+	}
+
+	public Player getPlayer(int firstPlayer) {
+
+		if (firstPlayer == 0) {
+			return one;
+		}
+
+		return two;
+	}
+
+	public Player getOtherPlayer(int firstPlayer) {
+		if (firstPlayer == 0) {
+			return two;
+		}
+		return one;
 	}
 
 }

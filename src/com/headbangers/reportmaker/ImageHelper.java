@@ -146,7 +146,7 @@ public class ImageHelper {
 		File completeFile = new File(rootBattle, photoName);
 
 		try {
-			return rotateAndResize(completeFile.getAbsolutePath(), 100);
+			return rotateAndResize(completeFile.getAbsolutePath(), 300);
 		} catch (IOException e) {
 			return null;
 		}

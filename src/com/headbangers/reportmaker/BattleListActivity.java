@@ -114,6 +114,13 @@ public class BattleListActivity extends RoboListActivity {
 			startActivity(newBattle);
 
 			return true;
+		case R.id.about:
+
+			AboutDialog about = new AboutDialog(this);
+			about.setTitle(getResources().getString(R.string.about));
+			about.show();
+
+			return true;
 
 		}
 
@@ -145,15 +152,18 @@ public class BattleListActivity extends RoboListActivity {
 
 			return true;
 		case R.id.menu_exportBattle:
-			String pdfFilePath = this.pdfService.exportBattle(selected.getId());
+			// String pdfFilePath =
+			// this.pdfService.exportBattle(selected.getId());
+			//
+			// if (pdfFilePath != null) {
+			// Toast.makeText(this, R.string.pdf_hasbeen_generated,
+			// Toast.LENGTH_LONG).show();
+			//
+			// // On fait quoi avec le PDF ? Partage ou Visualisation
+			//
+			// }
 
-			if (pdfFilePath != null) {
-				Toast.makeText(this, R.string.pdf_hasbeen_generated,
-						Toast.LENGTH_LONG).show();
-
-				// On fait quoi avec le PDF ? Partage ou Visualisation
-
-			}
+			pdfService.exportBattleAsync(selected.getId(), this);
 
 			return true;
 		}

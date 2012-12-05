@@ -7,9 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 
 import com.headbangers.reportmaker.ImageHelper;
+import com.headbangers.reportmaker.async.GeneratePDFAsyncLoader;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
 import com.headbangers.reportmaker.pojo.Battle;
@@ -18,10 +20,8 @@ import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
-import com.lowagie.text.HeaderFooter;
 import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
 
@@ -38,6 +38,16 @@ public class DroidTextPDFService implements IPDFService {
 
 	public void setDao(BattleDao dao) {
 		this.dao = dao;
+	}
+
+	@Override
+	public void exportBattleAsync(Long battleId, Activity fromContext) {
+
+		GeneratePDFAsyncLoader asyncLoader = new GeneratePDFAsyncLoader(
+				fromContext, this);
+		asyncLoader.setDialogText("PDF en cours de génération...");
+		asyncLoader.execute(battleId);
+
 	}
 
 	@Override

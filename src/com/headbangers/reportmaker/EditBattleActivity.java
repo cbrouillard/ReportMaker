@@ -27,7 +27,9 @@ import com.headbangers.reportmaker.fragment.TurnFragment;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Informations;
 import com.headbangers.reportmaker.pojo.Turn;
+import com.headbangers.reportmaker.service.DroidTextPDFService;
 import com.headbangers.reportmaker.service.FilesystemService;
+import com.headbangers.reportmaker.service.IPDFService;
 
 public class EditBattleActivity extends RoboFragmentActivity implements
 		ActionBar.TabListener {
@@ -50,12 +52,15 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	@InjectView(R.id.extrasPhotosGallery)
 	private Gallery gallery;
 
+	private IPDFService pdfService = new DroidTextPDFService();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_battle_activity);
 
 		battleDao.open();
+		pdfService.setDao(battleDao);
 
 		// Set up the action bar to show tabs.
 		final ActionBar actionBar = getActionBar();
@@ -214,6 +219,9 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			ImageHelper.takePhoto(this, fs, battle, photoName,
 					TAKE_PHOTO_EXTRA_RESULT_CODE);
 
+			return true;
+		case R.id.menu_exportBattle:
+			pdfService.exportBattleAsync(battle.getId(), this);
 			return true;
 		}
 

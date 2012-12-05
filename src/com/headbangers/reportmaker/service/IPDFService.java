@@ -1,5 +1,7 @@
 package com.headbangers.reportmaker.service;
 
+import android.app.Activity;
+
 import com.headbangers.reportmaker.dao.BattleDao;
 
 public interface IPDFService {
@@ -15,5 +17,7 @@ public interface IPDFService {
 	 * @return le nom du fichier pdf généré.
 	 */
 	public String exportBattle(Long battleId);
+
+	public void exportBattleAsync(Long battleId, Activity fromContext);
 
 }

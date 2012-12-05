@@ -1,0 +1,4 @@
+version 1.0 <br/>
+copyright 2012<br/>
+Brouillard Cyril<br/><br/>
+<b>http://www.warmageddon.fr/blog/</b>  

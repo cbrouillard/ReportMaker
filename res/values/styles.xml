@@ -16,7 +16,6 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    
 
     <style name="headerText" parent="@android:style/Widget.TextView">
 
@@ -27,7 +26,13 @@
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
         <item name="android:background">@drawable/line_below</item>
+    </style>
 
+    <style name="help" parent="@android:style/Widget.TextView">
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@drawable/border</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
 </resources>

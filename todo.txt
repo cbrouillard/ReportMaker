@@ -1,8 +1,5 @@
 - génération du PDF à terminer
-- generation du pdf en mode asynchrone
 - proposition d'actions une fois le pdf généré (voir, partager, rien)
-- affichage d'un texte de bienvenue sur la page d'accueil (liste des battle)
 - si premier lancement de l'application pour la version, afficher une popup
-- menu de génération PDF a ajouter dans la vue d'édition
 - ajouter combat nocturne sur tour 1, 5, 6 et 7 (switch)
 - ajouter prise de photo pour "infiltration" et "scooting" (avant tour1)

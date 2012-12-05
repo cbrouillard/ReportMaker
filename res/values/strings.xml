@@ -54,6 +54,7 @@
     <string name="is_last_turn">Dernier tour</string>
     <string name="pdf_hasbeen_generated">Le pdf a été généré.</string>
     <string name="is_night">Combat nocturne</string>
+    <string name="welcome">Bienvenue ! Pour créer un nouveau rapport de bataille, cliquez sur le bouton ci-dessus à droite.</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

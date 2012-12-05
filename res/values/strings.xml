@@ -55,7 +55,11 @@
     <string name="pdf_hasbeen_generated">Le pdf a été généré.</string>
     <string name="is_night">Combat nocturne</string>
     <string name="welcome">Bienvenue ! Pour créer un nouveau rapport de bataille, cliquez sur le bouton ci-dessus à droite.</string>
-
+    <string name="pdf_action_title">Action sur le PDF</string>
+    <string name="pdf_action">Le fichier PDF a été généré et enregistré sur votre appareil. Que voulez-vous faire du fichier ?</string>
+	<string name="pdf_consult">Consulter le document</string>
+	<string name="pdf_share">Partager le document</string>
+    
     <string-array name="battleName_random_part1">
         <item>La prise de</item>
         <item>La bataille de</item>

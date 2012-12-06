@@ -30,9 +30,9 @@ public class TurnFragment extends RoboFragment {
 
 	private Battle battle = null;
 
-	private static final String MOVE_PHOTO_NAME = "player{P}_turn{X}_move.jpg";
-	private static final String SHOOT_PHOTO_NAME = "player{P}_turn{X}_shoot.jpg";
-	private static final String ASSAULT_PHOTO_NAME = "player{P}_turn{X}_assault.jpg";
+	public static final String MOVE_PHOTO_NAME = "player{P}_turn{X}_move.jpg";
+	public static final String SHOOT_PHOTO_NAME = "player{P}_turn{X}_shoot.jpg";
+	public static final String ASSAULT_PHOTO_NAME = "player{P}_turn{X}_assault.jpg";
 
 	private static final int TAKE_PHOTO_MOVE_RESULT_CODE = 1;
 	private static final int TAKE_PHOTO_SHOOT_RESULT_CODE = 2;

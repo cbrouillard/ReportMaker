@@ -161,4 +161,16 @@ public class Turn {
 
 	}
 
+	public String getCommentsMove(int numPlayer) {
+		return numPlayer == 1 ? getCommentsMove1() : getCommentsMove2();
+	}
+
+	public String getCommentsShoot(int numPlayer) {
+		return numPlayer == 1 ? getCommentsShoot1() : getCommentsShoot2();
+	}
+
+	public String getCommentsAssault(int numPlayer) {
+		return numPlayer == 1 ? getCommentsAssault1() : getCommentsAssault2();
+	}
+
 }

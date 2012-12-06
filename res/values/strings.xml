@@ -61,6 +61,7 @@
     <string name="pdf_consult">Consulter le document</string>
     <string name="pdf_share">Partager le document</string>
     <string name="no_application_pdf">Aucune application trouvée pour consulter le PDF</string>
+    <string name="no_application_share">Aucune application trouvée pour partager le PDF</string>
     <string name="share_subject">Rapport de bataille</string>
     <string name="share_text">Voici un rapport de bataille généré avec une application sur mon Android.</string>
     <string name="really_quit">Souhaitez-vous sauvegarder avant de quitter l\'édition de cette bataille ?</string>

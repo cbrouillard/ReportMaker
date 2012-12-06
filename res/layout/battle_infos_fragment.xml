@@ -188,7 +188,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/camera" />
         </LinearLayout>
-        
+
         <TextView
             android:id="@+id/infiltrationPlayer2"
             style="@style/headerText"
@@ -218,22 +218,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/camera" />
         </LinearLayout>
-        
-        <TextView
-            style="@style/headerText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/comments" />
 
-        <EditText
-            android:id="@+id/comments"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:hint="@string/comments_hints"
-            android:inputType="textMultiLine"
-            android:lines="3" />
-        
         <TextView
             android:id="@+id/scootPlayer1"
             style="@style/headerText"
@@ -263,7 +248,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/camera" />
         </LinearLayout>
-        
+
         <TextView
             android:id="@+id/scootPlayer2"
             style="@style/headerText"
@@ -293,7 +278,21 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/camera" />
         </LinearLayout>
-        
+
+        <TextView
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/comments" />
+
+        <EditText
+            android:id="@+id/comments"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/comments_hints"
+            android:inputType="textMultiLine"
+            android:lines="3" />
     </LinearLayout>
 
 </ScrollView>

@@ -1,4 +1,3 @@
 - génération du PDF à terminer
 - si premier lancement de l'application pour la version, afficher une popup
-- ajouter prise de photo pour "infiltration" et "scooting" (avant tour1)
 - sauvegarde en JSON

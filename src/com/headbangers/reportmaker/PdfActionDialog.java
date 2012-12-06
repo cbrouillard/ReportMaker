@@ -74,11 +74,20 @@ public class PdfActionDialog extends Dialog {
 					intent.setType("application/pdf");
 					intent.putExtra(Intent.EXTRA_STREAM, path);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					intent.putExtra(android.content.Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.share_subject));
-					intent.putExtra(android.content.Intent.EXTRA_TEXT, mContext.getResources().getString(R.string.share_text));
+					intent.putExtra(
+							android.content.Intent.EXTRA_SUBJECT,
+							mContext.getResources().getString(
+									R.string.share_subject));
+					intent.putExtra(android.content.Intent.EXTRA_TEXT, mContext
+							.getResources().getString(R.string.share_text));
 
-
-					PdfActionDialog.this.mContext.startActivity(intent);
+					try {
+						PdfActionDialog.this.mContext.startActivity(intent);
+					} catch (ActivityNotFoundException e) {
+						Toast.makeText(PdfActionDialog.this.mContext,
+								R.string.no_application_share, Toast.LENGTH_LONG)
+								.show();
+					}
 				}
 
 			}

@@ -64,6 +64,12 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		battleDao.open();
 		pdfService.setDao(battleDao);
 
+		// Sauvegarde de l'id de la bataille
+		this.battleId = this.getIntent().getExtras().getLong(BATTLE_ID_ARG);
+		Log.d(this.getClass().getSimpleName(), "battleId = " + battleId);
+
+		this.loadBattle();
+
 		// Set up the action bar to show tabs.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -79,16 +85,13 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.t5)
 				.setTabListener(this));
+
+		// TODO l'affichage de ces tabs est conditionné
 		actionBar.addTab(actionBar.newTab().setText(R.string.t6)
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.t7)
 				.setTabListener(this));
 
-		// Sauvegarde de l'id de la bataille
-		this.battleId = this.getIntent().getExtras().getLong(BATTLE_ID_ARG);
-		Log.d(this.getClass().getSimpleName(), "battleId = " + battleId);
-
-		this.loadBattle();
 	}
 
 	@Override

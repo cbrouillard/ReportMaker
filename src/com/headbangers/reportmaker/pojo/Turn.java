@@ -1,9 +1,9 @@
 package com.headbangers.reportmaker.pojo;
 
-import com.headbangers.reportmaker.dao.DatabaseHelper;
-
 import android.content.ContentValues;
 import android.database.Cursor;
+
+import com.headbangers.reportmaker.dao.DatabaseHelper;
 
 public class Turn {
 
@@ -19,6 +19,7 @@ public class Turn {
 	private String commentsAssault2;
 
 	private Boolean lastOne;
+	private Boolean nightFight;
 
 	public Turn(Cursor cursor) {
 		this.commentsMove1 = cursor.getString(cursor
@@ -38,6 +39,9 @@ public class Turn {
 
 		this.lastOne = cursor.getInt(cursor
 				.getColumnIndex(DatabaseHelper.COL_IS_LAST_ONE)) == 1 ? true
+				: false;
+		this.nightFight = cursor.getInt(cursor
+				.getColumnIndex(DatabaseHelper.COL_IS_NIGHT_FIGHT)) == 1 ? true
 				: false;
 
 		this.num = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_NUM));
@@ -98,6 +102,14 @@ public class Turn {
 		this.lastOne = isLastOne;
 	}
 
+	public void setNightFight(Boolean nightFight) {
+		this.nightFight = nightFight;
+	}
+
+	public Boolean isNightFight() {
+		return nightFight;
+	}
+
 	public Boolean isLastOne() {
 		return lastOne;
 	}
@@ -138,6 +150,10 @@ public class Turn {
 
 		if (this.lastOne != null) {
 			values.put(DatabaseHelper.COL_IS_LAST_ONE, this.lastOne);
+		}
+
+		if (this.nightFight != null) {
+			values.put(DatabaseHelper.COL_IS_NIGHT_FIGHT, this.nightFight);
 		}
 
 		values.put(DatabaseHelper.COL_NUM, this.num);

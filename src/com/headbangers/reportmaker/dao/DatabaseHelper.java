@@ -20,6 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COL_COMMENT_ASSAULT1 = "comment_assault1";
 	public static final String COL_COMMENT_ASSAULT2 = "comment_assault2";
 	public static final String COL_IS_LAST_ONE = "last_turn";
+	public static final String COL_IS_NIGHT_FIGHT = "night_fight";
 	public static final String COL_NUM = "num_turn";
 
 	public static final String COL_ID = "id";
@@ -47,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String[] ALL_TURN_COLUMNS = new String[] {
 			COL_COMMENT_MOVE1, COL_COMMENT_MOVE2, COL_COMMENT_SHOOT1,
 			COL_COMMENT_SHOOT2, COL_COMMENT_ASSAULT1, COL_COMMENT_ASSAULT2,
-			COL_IS_LAST_ONE, COL_NUM };
+			COL_IS_LAST_ONE, COL_NUM , COL_IS_NIGHT_FIGHT};
 
 	private static final String CREATE_BDD_TABLE_BATTLE = "CREATE TABLE "
 			+ TABLE_BATTLE + " (" + COL_ID
@@ -69,8 +70,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ " TEXT NULL, " + COL_COMMENT_SHOOT2 + " TEXT NULL, "
 			+ COL_COMMENT_ASSAULT1 + " TEXT NULL, " + COL_COMMENT_ASSAULT2
 			+ " TEXT NULL, " + COL_IS_LAST_ONE + " BOOLEAN NULL, " + COL_NUM
-			+ " INTEGER NOT NULL, " + "FOREIGN KEY(" + COL_BATTLE_ID
-			+ ") REFERENCES " + TABLE_BATTLE + "(" + COL_ID + ")" + ");";
+			+ " INTEGER NOT NULL, " + COL_IS_NIGHT_FIGHT + " BOOLEAN NULL, "
+			+ "FOREIGN KEY(" + COL_BATTLE_ID + ") REFERENCES " + TABLE_BATTLE
+			+ "(" + COL_ID + ")" + ");";
 
 	public DatabaseHelper(Context context) {
 		this(context, "battle.db", null, version);

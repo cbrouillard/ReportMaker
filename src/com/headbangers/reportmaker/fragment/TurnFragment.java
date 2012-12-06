@@ -71,6 +71,9 @@ public class TurnFragment extends RoboFragment {
 	@InjectView(R.id.lastOne)
 	private Switch lastOne;
 
+	@InjectView(R.id.nightFight)
+	private Switch nightFight;
+
 	private int numTurn = 1;
 
 	private FilesystemService fs = new FilesystemService();
@@ -106,6 +109,9 @@ public class TurnFragment extends RoboFragment {
 
 		if (lastOne != null && numTurn < 5) {
 			lastOne.setVisibility(View.GONE);
+		}
+		if (nightFight != null && (numTurn > 1 && numTurn < 5)) {
+			nightFight.setVisibility(View.GONE);
 		}
 
 		fillView();
@@ -306,6 +312,9 @@ public class TurnFragment extends RoboFragment {
 					: null);
 		}
 
+		turn.setNightFight(this.nightFight != null ? this.nightFight
+				.isChecked() : null);
+
 		turn.setNum(numTurn);
 
 		return turn;
@@ -315,16 +324,19 @@ public class TurnFragment extends RoboFragment {
 		if (this.battle == null) {
 			return;
 		}
-		
-		Turn turn = this.battle.getTurn (this.numTurn);
-		
+
+		Turn turn = this.battle.getTurn(this.numTurn);
+
 		this.commentsMove1.setText(turn.getCommentsMove1());
 		this.commentsMove2.setText(turn.getCommentsMove2());
 		this.commentsShoot1.setText(turn.getCommentsShoot1());
 		this.commentsShoot2.setText(turn.getCommentsShoot2());
 		this.commentsAssault1.setText(turn.getCommentsAssault1());
 		this.commentsAssault2.setText(turn.getCommentsAssault2());
-		
-		this.lastOne.setChecked(turn.isLastOne()!=null?turn.isLastOne():false);
+
+		this.lastOne.setChecked(turn.isLastOne() != null ? turn.isLastOne()
+				: false);
+		this.nightFight.setChecked(turn.isNightFight() != null ? turn
+				.isNightFight() : false);
 	}
 }

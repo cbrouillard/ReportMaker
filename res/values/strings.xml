@@ -68,6 +68,7 @@
     <string name="dont_want_to_quit">I don\'t want to quit !</string>
     <string name="photo_infiltration">After infiltration photo : </string>
     <string name="photo_scoot">After scooting photo :</string>
+    <string name="gallery_handle">Galerie des photos</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

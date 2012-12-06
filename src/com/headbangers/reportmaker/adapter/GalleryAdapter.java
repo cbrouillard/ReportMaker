@@ -63,7 +63,9 @@ public class GalleryAdapter implements SpinnerAdapter {
 		}
 
 		view.setScaleType(ScaleType.FIT_CENTER);
-		view.setLayoutParams(new Gallery.LayoutParams(150, 50));
+		view.setLayoutParams(new Gallery.LayoutParams(
+				ViewGroup.LayoutParams.FILL_PARENT,
+				ViewGroup.LayoutParams.FILL_PARENT));
 
 		dwManager.fetchDrawableOnThread(this.context, extrasPath.get(position),
 				view, R.drawable.damier);

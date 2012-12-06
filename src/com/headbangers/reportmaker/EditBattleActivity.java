@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Gallery;
+import android.widget.SlidingDrawer;
 import android.widget.Toast;
 
 import com.headbangers.reportmaker.adapter.GalleryAdapter;
@@ -53,6 +54,9 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 	@InjectView(R.id.extrasPhotosGallery)
 	private Gallery gallery;
+	
+	@InjectView(R.id.drawer)
+	private SlidingDrawer drawer;
 
 	private IPDFService pdfService = new DroidTextPDFService();
 
@@ -144,7 +148,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 					}
 				});
 		if (this.gallery.getAdapter().getCount() == 0) {
-			this.gallery.setVisibility(View.GONE);
+			this.drawer.setVisibility(View.GONE);
 		}
 	}
 
@@ -237,7 +241,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 		case TAKE_PHOTO_EXTRA_RESULT_CODE:
-			this.gallery.setVisibility(View.VISIBLE);
+			this.drawer.setVisibility(View.VISIBLE);
 			break;
 		}
 	}

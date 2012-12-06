@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -7,16 +7,57 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         tools:context=".EditBattleActivity"
         tools:ignore="MergeRootFrame" >
     </FrameLayout>
+    <!-- android:layout_weight="1" -->
 
-    <Gallery
-        android:id="@+id/extrasPhotosGallery"
-        android:layout_width="fill_parent"
-        android:layout_height="50dip"
-        android:background="#222" />
 
-</LinearLayout>
+    <SlidingDrawer
+        android:id="@+id/drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:content="@+id/content"
+        android:handle="@+id/handle"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@id/handle"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:background="#555"
+            android:contentDescription="@string/gallery_handle"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/arrow_up_float" />
+
+        <!-- <LinearLayout -->
+        <!-- android:id="@id/handle" -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:background="#333333" -->
+        <!-- android:gravity="right" -->
+        <!-- android:orientation="horizontal" > -->
+
+
+        <!-- <TextView -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:text="@string/gallery_handle" -->
+        <!-- android:textColor="#eee" /> -->
+        <!-- </LinearLayout> -->
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <Gallery
+                android:id="@+id/extrasPhotosGallery"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#222" />
+        </LinearLayout>
+    </SlidingDrawer>
+
+</FrameLayout>

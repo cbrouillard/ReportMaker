@@ -89,7 +89,7 @@ public class DroidTextPDFService implements IPDFService {
 			// Scénario
 			Paragraph scenario = new Paragraph();
 			scenario.add(new Chunk("Scénario de la partie : ", normalBold));
-			scenario.add(new Chunk(battle.getInfos().getScenario()+"", normal));
+			scenario.add(new Chunk(battle.getInfos().getScenario() + "", normal));
 			document.add(scenario);
 
 			// Format en points
@@ -102,13 +102,15 @@ public class DroidTextPDFService implements IPDFService {
 			Paragraph lord1 = new Paragraph();
 			lord1.add(new Chunk("Seigneur de guerre de "
 					+ battle.getOne().getName() + " : ", normalBold));
-			lord1.add(new Chunk(battle.getInfos().getLordCapacity1()+"", normal));
+			lord1.add(new Chunk(battle.getInfos().getLordCapacity1() + "",
+					normal));
 			document.add(lord1);
 
 			Paragraph lord2 = new Paragraph();
 			lord2.add(new Chunk("Seigneur de guerre de "
 					+ battle.getTwo().getName() + " : ", normalBold));
-			lord2.add(new Chunk(battle.getInfos().getLordCapacity2()+"", normal));
+			lord2.add(new Chunk(battle.getInfos().getLordCapacity2() + "",
+					normal));
 			document.add(lord2);
 
 			// Photo de la table
@@ -141,16 +143,12 @@ public class DroidTextPDFService implements IPDFService {
 			return documentFile.getAbsolutePath();
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -159,7 +157,7 @@ public class DroidTextPDFService implements IPDFService {
 
 	private void generateTurn(Document document, PdfContentByte cb,
 			Battle battle, Turn turn) throws DocumentException {
-		Bitmap photo = null;
+		// Bitmap photo = null;
 		document.newPage();
 
 		document.add(new Paragraph("Tour " + turn.getNum(), catFont));

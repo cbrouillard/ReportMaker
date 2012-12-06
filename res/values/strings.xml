@@ -65,6 +65,7 @@
     <string name="share_text">Voici un rapport de bataille généré avec une application sur mon Android.</string>
     <string name="really_quit">Souhaitez-vous sauvegarder avant de quitter l\'édition de cette bataille ?</string>
 	<string name="dont_want_to_quit">Je ne voulais pas quitter !</string>
+	<string name="photo_infiltration">Photo après infiltration de</string>
     
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

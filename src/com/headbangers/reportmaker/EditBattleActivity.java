@@ -7,7 +7,9 @@ import java.util.List;
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectView;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -235,6 +237,40 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			this.gallery.setVisibility(View.VISIBLE);
 			break;
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		new AlertDialog.Builder(this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle(R.string.edition)
+				.setMessage(R.string.really_quit)
+				.setPositiveButton(R.string.yes,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// Sauvegarde
+								EditBattleActivity.this.save();
+								dialog.dismiss();
+								EditBattleActivity.this.finish();
+							}
+
+						})
+				.setNegativeButton(R.string.no,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+								EditBattleActivity.this.finish();
+							}
+
+						}).setNeutralButton(R.string.dont_want_to_quit, null)
+
+				.show();
 	}
 
 	private void save() {

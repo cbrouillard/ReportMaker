@@ -1,3 +1,4 @@
-- génération du PDF à terminer
+- amélioration du PDF
 - si premier lancement de l'application pour la version, afficher une popup
 - sauvegarde en JSON
+- chargements base asynchrones

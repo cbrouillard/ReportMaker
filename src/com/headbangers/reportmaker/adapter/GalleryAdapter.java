@@ -73,37 +73,31 @@ public class GalleryAdapter implements SpinnerAdapter {
 
 	@Override
 	public int getViewTypeCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return extrasPath.isEmpty();
 	}
 
 	@Override
 	public void registerDataSetObserver(DataSetObserver arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void unregisterDataSetObserver(DataSetObserver arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public View getDropDownView(int arg0, View arg1, ViewGroup arg2) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

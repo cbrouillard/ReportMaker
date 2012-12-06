@@ -31,14 +31,18 @@ public class BattleInformationsFragment extends RoboFragment {
 	private static final int TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE = 3;
 	private static final int TAKE_PHOTO_INFILTRATION1_RESULT_CODE = 4;
 	private static final int TAKE_PHOTO_INFILTRATION2_RESULT_CODE = 5;
+	private static final int TAKE_PHOTO_SCOOT1_RESULT_CODE = 6;
+	private static final int TAKE_PHOTO_SCOOT2_RESULT_CODE = 7;
 
 	public static final String TABLE_PHOTO_NAME = "table.jpg";
 	public static final String DEPLOYMENT1_PHOTO_NAME = "deploiement_j1.jpg";
 	public static final String DEPLOYMENT2_PHOTO_NAME = "deploiement_j2.jpg";
 	public static final String INFILTRATION1_PHOTO_NAME = "infiltration_j1.jpg";
 	public static final String INFILTRATION2_PHOTO_NAME = "infiltration_j2.jpg";
+	public static final String SCOOT1_PHOTO_NAME = "scoot_j1.jpg";
+	public static final String SCOOT2_PHOTO_NAME = "scoot_j2.jpg";
 
-	private FilesystemService filesystemService = new FilesystemService();
+	private FilesystemService fs = new FilesystemService();
 	private Battle battle;
 
 	@InjectView(R.id.takePhoto_table)
@@ -103,6 +107,20 @@ public class BattleInformationsFragment extends RoboFragment {
 	@InjectView(R.id.takePhoto_infiltration2_photo)
 	private ImageView infiltrationPhotoPlayer2;
 
+	@InjectView(R.id.scootPlayer1)
+	private TextView scootPlayer1;
+	@InjectView(R.id.takePhoto_scoot1)
+	private ImageButton scootTakePhotoPlayer1;
+	@InjectView(R.id.takePhoto_scoot1_photo)
+	private ImageView scootPhotoPlayer1;
+
+	@InjectView(R.id.scootPlayer2)
+	private TextView scootPlayer2;
+	@InjectView(R.id.takePhoto_scoot2)
+	private ImageButton scootTakePhotoPlayer2;
+	@InjectView(R.id.takePhoto_scoot2_photo)
+	private ImageView scootPhotoPlayer2;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -136,6 +154,13 @@ public class BattleInformationsFragment extends RoboFragment {
 						this.battle, INFILTRATION2_PHOTO_NAME,
 						TAKE_PHOTO_INFILTRATION2_RESULT_CODE));
 
+		this.scootTakePhotoPlayer1.setOnClickListener(new TakePhotoListener(
+				this.getActivity(), this.battle, SCOOT1_PHOTO_NAME,
+				TAKE_PHOTO_SCOOT1_RESULT_CODE));
+		this.scootTakePhotoPlayer2.setOnClickListener(new TakePhotoListener(
+				this.getActivity(), this.battle, SCOOT2_PHOTO_NAME,
+				TAKE_PHOTO_SCOOT2_RESULT_CODE));
+
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
 				this.getActivity(), android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -167,61 +192,50 @@ public class BattleInformationsFragment extends RoboFragment {
 				.getString(R.string.photo_infiltration)
 				+ " " + this.battle.getTwo().getName());
 
+		this.scootPlayer1.setText(this.getActivity().getResources()
+				.getString(R.string.photo_scoot)
+				+ " " + this.battle.getOne().getName());
+
+		this.scootPlayer2.setText(this.getActivity().getResources()
+				.getString(R.string.photo_scoot)
+				+ " " + this.battle.getTwo().getName());
+
 		fillView();
 	}
 
 	private void fillPhotosIfNeeded() {
 
-		File imageFile = new File(filesystemService.getRootBattle(battle),
-				TABLE_PHOTO_NAME);
-		File deployment1 = new File(filesystemService.getRootBattle(battle),
+		File imageFile = new File(fs.getRootBattle(battle), TABLE_PHOTO_NAME);
+		File deployment1 = new File(fs.getRootBattle(battle),
 				DEPLOYMENT1_PHOTO_NAME);
-		File deployment2 = new File(filesystemService.getRootBattle(battle),
+		File deployment2 = new File(fs.getRootBattle(battle),
 				DEPLOYMENT2_PHOTO_NAME);
-		File infiltration1 = new File(filesystemService.getRootBattle(battle),
+		File infiltration1 = new File(fs.getRootBattle(battle),
 				INFILTRATION1_PHOTO_NAME);
-		File infiltration2 = new File(filesystemService.getRootBattle(battle),
+		File infiltration2 = new File(fs.getRootBattle(battle),
 				INFILTRATION2_PHOTO_NAME);
+		File scoot1 = new File(fs.getRootBattle(battle), SCOOT1_PHOTO_NAME);
+		File scoot2 = new File(fs.getRootBattle(battle), SCOOT2_PHOTO_NAME);
 
-		if (imageFile.exists() && this.tablePhotoView != null) {
-			this.tablePhotoView.setOnClickListener(new ZoomImageListener(this
-					.getActivity(), imageFile, "Table"));
+		setPicPhoto(imageFile, this.tablePhotoView, "Table");
+		setPicPhoto(deployment1, this.deployment1Photo, "Déploiement");
+		setPicPhoto(deployment2, this.deployment2Photo, "Déploiement");
+		setPicPhoto(infiltration1, this.infiltrationPhotoPlayer1,
+				"Infiltration");
+		setPicPhoto(infiltration2, this.infiltrationPhotoPlayer2,
+				"Infiltration");
+		setPicPhoto(scoot1, this.scootPhotoPlayer1, "Mouvement scoot");
+		setPicPhoto(scoot2, this.scootPhotoPlayer2, "Mouvement scoot");
+
+	}
+
+	private void setPicPhoto(File photo, ImageView into, String title) {
+		if (photo.exists() && into != null) {
+			into.setOnClickListener(new ZoomImageListener(this.getActivity(),
+					photo, title));
 			ImageHelper.setPicAsync(this.getActivity(),
-					imageFile.getAbsolutePath(), this.tablePhotoView);
+					photo.getAbsolutePath(), into);
 		}
-
-		if (deployment1.exists() && this.deployment1Photo != null) {
-			this.deployment1Photo.setOnClickListener(new ZoomImageListener(this
-					.getActivity(), deployment1, "Déploiement"));
-			ImageHelper.setPicAsync(this.getActivity(),
-					deployment1.getAbsolutePath(), this.deployment1Photo);
-		}
-
-		if (deployment2.exists() && this.deployment2Photo != null) {
-			this.deployment2Photo.setOnClickListener(new ZoomImageListener(this
-					.getActivity(), deployment2, "Déploiement"));
-			ImageHelper.setPicAsync(this.getActivity(),
-					deployment2.getAbsolutePath(), this.deployment2Photo);
-		}
-
-		if (infiltration1.exists() && this.infiltrationPhotoPlayer1 != null) {
-			this.infiltrationPhotoPlayer1
-					.setOnClickListener(new ZoomImageListener(this
-							.getActivity(), infiltration1, "Infiltration"));
-			ImageHelper.setPicAsync(this.getActivity(),
-					infiltration1.getAbsolutePath(),
-					this.infiltrationPhotoPlayer1);
-		}
-
-		if (infiltration2.exists() && this.infiltrationPhotoPlayer2 != null) {
-			this.infiltrationPhotoPlayer2
-					.setOnClickListener(new ZoomImageListener(this
-							.getActivity(), infiltration2, "Infiltration"));
-			ImageHelper.setPicAsync(this.getActivity(),
-					infiltration2.getAbsolutePath(),
-					this.infiltrationPhotoPlayer2);
-		}
-
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -19,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.ads.AdRequest;
+import com.google.ads.AdRequest.Gender;
 import com.google.ads.AdView;
 import com.headbangers.reportmaker.adapter.BattleListAdapter;
 import com.headbangers.reportmaker.dao.BattleDao;
@@ -59,7 +59,14 @@ public class BattleListActivity extends RoboListActivity {
 
 		// Look up the AdView as a resource and load a request.
 		final AdView adView = (AdView) this.findViewById(R.id.adView);
-		adView.loadAd(new AdRequest());
+		if (AdsControl.IS_ENABLE) {
+			AdRequest adRequest = new AdRequest();
+			adRequest.setGender(Gender.MALE);
+			adRequest.addTestDevice("EE8FDD470A72D400B66510DA5A45EBA0");
+			adView.loadAd(adRequest);
+		} else {
+			adView.setVisibility(View.GONE);
+		}
 
 		registerForContextMenu(this.battleList);
 	}

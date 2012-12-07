@@ -24,9 +24,9 @@
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        ads:adSize="BANNER"
+        ads:adSize="SMART_BANNER"
         ads:adUnitId="a150c1fb43a016b"
         ads:loadAdOnCreate="false"
-        ads:testDevices="TEST_EMULATOR, EE8FDD470A72D400B66510DA5A45EBA0" />
+        ads:testDevices="TEST_EMULATOR" />
 
 </LinearLayout>

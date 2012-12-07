@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -17,6 +18,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 import com.headbangers.reportmaker.adapter.BattleListAdapter;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
@@ -52,7 +55,11 @@ public class BattleListActivity extends RoboListActivity {
 		this.pdfService.setDao(battleDao);
 
 		// Remplissage de la liste.
-		fillList();
+		asyncLoadBattle();
+
+		// Look up the AdView as a resource and load a request.
+		final AdView adView = (AdView) this.findViewById(R.id.adView);
+		adView.loadAd(new AdRequest());
 
 		registerForContextMenu(this.battleList);
 	}
@@ -62,7 +69,7 @@ public class BattleListActivity extends RoboListActivity {
 		super.onResume();
 		this.battleDao.open();
 		this.pdfService.setDao(battleDao);
-		fillList();
+		asyncLoadBattle();
 	}
 
 	@Override
@@ -171,11 +178,6 @@ public class BattleListActivity extends RoboListActivity {
 		return false;
 	}
 
-	private void fillList() {
-		Cursor cursor = battleDao.getAllBattles();
-		setListAdapter(new BattleListAdapter(this, cursor));
-	}
-
 	private void deleteSelectedBattle() {
 		if (selected == null) {
 			return;
@@ -187,6 +189,19 @@ public class BattleListActivity extends RoboListActivity {
 		Toast.makeText(this, R.string.battle_hasbeen_deleted, Toast.LENGTH_LONG)
 				.show();
 
-		fillList();
+		asyncLoadBattle();
+	}
+
+	public void asyncLoadBattle() {
+
+		setListAdapter(new BattleListAdapter(this,
+				this.battleDao.getAllBattles()));
+		//
+		// new BattleListAsyncLoader(this, this.battleDao).setDialogText(
+		// this.getResources().getString(R.string.loading)).execute();
+	}
+
+	public void refresh(Cursor result) {
+		setListAdapter(new BattleListAdapter(this, result));
 	}
 }

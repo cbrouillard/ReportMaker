@@ -109,43 +109,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	}
 
 	private void loadBattle() {
-		this.battle = battleDao.findBattleById(battleId);
-
-		if (battle == null) {
-			this.finish();
-		}
-
-		StringBuilder title = new StringBuilder(battle.getName());
-		title.append(" [").append(battle.getFormat()).append("]");
-		this.setTitle(title.toString());
-
-		// Création des fragments
-		this.informations.setBattle(battle);
-		int cpt = 1;
-		for (TurnFragment turn : turns) {
-			turn.setBattle(battle, cpt);
-			cpt++;
-		}
-
-		this.gallery.setAdapter(new GalleryAdapter(this, battle));
-		this.gallery
-				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-					@Override
-					public void onItemClick(AdapterView<?> adapterView,
-							View view, int position, long id) {
-
-						String extrasPath = (String) gallery.getAdapter()
-								.getItem(position);
-
-						File imageFile = new File(extrasPath);
-						ImageHelper.showImageInDialog(imageFile,
-								EditBattleActivity.this, "Zoom sur photos");
-					}
-				});
-		if (this.gallery.getAdapter().getCount() == 0) {
-			this.gallery.setVisibility(View.GONE);
-		}
+		Battle battle = battleDao.findBattleById(battleId);
+		refresh(battle);
 	}
 
 	@Override
@@ -298,6 +263,46 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			return 0;
 		}
 		return this.informations.getFirstPlayer();
+	}
+
+	public void refresh(Battle result) {
+		this.battle = result;
+
+		if (battle == null) {
+			this.finish();
+		}
+
+		StringBuilder title = new StringBuilder(battle.getName());
+		title.append(" [").append(battle.getFormat()).append("]");
+		this.setTitle(title.toString());
+
+		// Création des fragments
+		this.informations.setBattle(battle);
+		int cpt = 1;
+		for (TurnFragment turn : turns) {
+			turn.setBattle(battle, cpt);
+			cpt++;
+		}
+
+		this.gallery.setAdapter(new GalleryAdapter(this, battle));
+		this.gallery
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> adapterView,
+							View view, int position, long id) {
+
+						String extrasPath = (String) gallery.getAdapter()
+								.getItem(position);
+
+						File imageFile = new File(extrasPath);
+						ImageHelper.showImageInDialog(imageFile,
+								EditBattleActivity.this, "Zoom sur photos");
+					}
+				});
+		if (this.gallery.getAdapter().getCount() == 0) {
+			this.gallery.setVisibility(View.GONE);
+		}
 	}
 
 }

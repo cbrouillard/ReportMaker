@@ -33,8 +33,9 @@ public abstract class GenericAsyncLoader<P, R> extends AsyncTask<P, Void, R> {
 		}
 	}
 
-	public void setDialogText(String dialogText) {
+	public GenericAsyncLoader<P, R> setDialogText(String dialogText) {
 		this.dialogText = dialogText;
+		return this;
 	}
 
 	@Override

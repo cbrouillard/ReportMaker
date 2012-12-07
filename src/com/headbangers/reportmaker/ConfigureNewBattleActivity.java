@@ -55,6 +55,9 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.player_two)
 				.setTabListener(this));
+
+		// Look up the AdView as a resource and load a request.
+		AdsControl.buildAdIfEnable(this);
 	}
 
 	@Override

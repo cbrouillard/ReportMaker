@@ -58,15 +58,7 @@ public class BattleListActivity extends RoboListActivity {
 		asyncLoadBattle();
 
 		// Look up the AdView as a resource and load a request.
-		final AdView adView = (AdView) this.findViewById(R.id.adView);
-		if (AdsControl.IS_ENABLE) {
-			AdRequest adRequest = new AdRequest();
-			adRequest.setGender(Gender.MALE);
-			adRequest.addTestDevice("EE8FDD470A72D400B66510DA5A45EBA0");
-			adView.loadAd(adRequest);
-		} else {
-			adView.setVisibility(View.GONE);
-		}
+		AdsControl.buildAdIfEnable(this);
 
 		registerForContextMenu(this.battleList);
 	}

@@ -15,20 +15,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
+            <Switch
+                android:id="@+id/nightFight"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#222"
+                android:checked="false"
+                android:text="@string/is_night"
+                android:textColor="#fff"
+                android:textOff="@string/no"
+                android:textOn="@string/yes" />
+
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
             </TabWidget>
-
-            <Switch
-                android:id="@+id/nightFight"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:text="@string/is_night"
-                android:textOff="@string/no"
-                android:textOn="@string/yes" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -50,8 +52,10 @@
         android:id="@+id/lastOne"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="#222"
         android:checked="false"
         android:text="@string/is_last_turn"
+        android:textColor="#fff"
         android:textOff="@string/no"
         android:textOn="@string/yes" />
 

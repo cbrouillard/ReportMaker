@@ -27,6 +27,7 @@
         ads:adSize="SMART_BANNER"
         ads:adUnitId="a150c1fb43a016b"
         ads:loadAdOnCreate="false"
-        ads:testDevices="TEST_EMULATOR"/>
+        ads:testDevices="TEST_EMULATOR"
+        ads:refreshInterval="120"/>
 
 </LinearLayout>

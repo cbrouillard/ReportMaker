@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -116,17 +117,9 @@ public class DroidTextPDFService implements IPDFService {
 			document.add(lord2);
 
 			// Photo de la table
-			Bitmap photo = ImageHelper.photoAsPDFBitmap(
-					fs.getRootBattle(battle),
-					BattleInformationsFragment.TABLE_PHOTO_NAME);
-			if (photo != null) {
-				document.add(new Paragraph("Table de jeu : ", normalBold));
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
-						100 /* Ratio */, stream);
-				Image jpg = Image.getInstance(stream.toByteArray());
-				document.add(jpg);
-			}
+			addPhoto(document, battle,
+					BattleInformationsFragment.TABLE_PHOTO_NAME,
+					"Table de jeu : ", null);
 
 			// Deploiement
 			generateDeployment(document, cb, battle);
@@ -170,7 +163,7 @@ public class DroidTextPDFService implements IPDFService {
 		Player two = battle.getOtherPlayer(firstPlayer);
 
 		try {
-			generatePlayerTurn(document, cb, battle, turn, one, 1);
+			generatePlayerTurn(document, cb, battle, turn, one, firstPlayer + 1);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -180,33 +173,44 @@ public class DroidTextPDFService implements IPDFService {
 		addEmptyLine(document, 1);
 
 		try {
-			generatePlayerTurn(document, cb, battle, turn, two, 2);
+			generatePlayerTurn(document, cb, battle, turn, two,
+					firstPlayer == 0 ? 2 : 1);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+
+		addEmptyLine(document, 1);
+
+		List<String> allExtras = this.fs.findAllExtrasPhotosPath(battle,
+				turn.getNum());
+		if (allExtras.size() > 0) {
+			document.add(new Paragraph("Quelques photos supplémentaires :", subFont));
+		}
+		for (String extra : allExtras) {
+			try {
+				addPhoto(document, extra);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	private void generatePlayerTurn(Document document, PdfContentByte cb,
 			Battle battle, Turn turn, Player player, int numPlayer)
 			throws DocumentException, MalformedURLException, IOException {
-		Bitmap photo = null;
 
 		// MOUVEMENT
 		document.add(new Paragraph("Mouvement de " + player.getName() + " : ",
 				normalBold));
 
-		photo = ImageHelper.photoAsPDFBitmap(fs.getRootBattle(battle),
+		addPhoto(document, battle,
 				TurnFragment.MOVE_PHOTO_NAME.replace("{P}", "" + numPlayer)
-						.replace("{X}", "" + turn.getNum()));
-		if (photo != null) {
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
-					100 /* Ratio */, stream);
-			Image jpg = Image.getInstance(stream.toByteArray());
-			document.add(jpg);
-		}
+						.replace("{X}", "" + turn.getNum()), null,
+				"Pas de photo");
 
 		document.add(new Paragraph(turn.getCommentsMove(numPlayer), normal));
 
@@ -214,16 +218,10 @@ public class DroidTextPDFService implements IPDFService {
 		document.add(new Paragraph("Tir de " + player.getName() + " : ",
 				normalBold));
 
-		photo = ImageHelper.photoAsPDFBitmap(fs.getRootBattle(battle),
+		addPhoto(document, battle,
 				TurnFragment.SHOOT_PHOTO_NAME.replace("{P}", "" + numPlayer)
-						.replace("{X}", "" + turn.getNum()));
-		if (photo != null) {
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
-					100 /* Ratio */, stream);
-			Image jpg = Image.getInstance(stream.toByteArray());
-			document.add(jpg);
-		}
+						.replace("{X}", "" + turn.getNum()), null,
+				"Pas de photo");
 
 		document.add(new Paragraph(turn.getCommentsShoot(numPlayer), normal));
 
@@ -231,16 +229,10 @@ public class DroidTextPDFService implements IPDFService {
 		document.add(new Paragraph("Assaut de " + player.getName() + " : ",
 				normalBold));
 
-		photo = ImageHelper.photoAsPDFBitmap(fs.getRootBattle(battle),
+		addPhoto(document, battle,
 				TurnFragment.ASSAULT_PHOTO_NAME.replace("{P}", "" + numPlayer)
-						.replace("{X}", "" + turn.getNum()));
-		if (photo != null) {
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
-					100 /* Ratio */, stream);
-			Image jpg = Image.getInstance(stream.toByteArray());
-			document.add(jpg);
-		}
+						.replace("{X}", "" + turn.getNum()), null,
+				"Pas de photo");
 
 		document.add(new Paragraph(turn.getCommentsAssault(numPlayer), normal));
 
@@ -249,8 +241,6 @@ public class DroidTextPDFService implements IPDFService {
 	private void generateDeployment(Document document, PdfContentByte cb,
 			Battle battle) throws DocumentException, MalformedURLException,
 			IOException {
-		Bitmap photo = null;
-
 		document.newPage();
 
 		document.add(new Paragraph("Déploiement", catFont));
@@ -262,55 +252,25 @@ public class DroidTextPDFService implements IPDFService {
 		if (firstPlayer == 0) {
 			document.add(new Paragraph(battle.getOne().getName()
 					+ " commence !", subFont));
-			photo = ImageHelper.photoAsPDFBitmap(fs.getRootBattle(battle),
-					BattleInformationsFragment.DEPLOYMENT1_PHOTO_NAME);
-			if (photo != null) {
-				document.add(new Paragraph("Déploiement de "
-						+ battle.getOne().getName() + " :", normalBold));
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
-						100 /* Ratio */, stream);
-				Image jpg = Image.getInstance(stream.toByteArray());
-				document.add(jpg);
-			}
 
-			photo = ImageHelper.photoAsPDFBitmap(fs.getRootBattle(battle),
-					BattleInformationsFragment.DEPLOYMENT2_PHOTO_NAME);
-			if (photo != null) {
-				document.add(new Paragraph("Déploiement de "
-						+ battle.getTwo().getName() + " :", normalBold));
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
-						100 /* Ratio */, stream);
-				Image jpg = Image.getInstance(stream.toByteArray());
-				document.add(jpg);
-			}
+			addPhoto(document, battle,
+					BattleInformationsFragment.DEPLOYMENT1_PHOTO_NAME,
+					"Déploiement de " + battle.getOne().getName() + " :", null);
+
+			addPhoto(document, battle,
+					BattleInformationsFragment.DEPLOYMENT2_PHOTO_NAME,
+					"Déploiement de " + battle.getTwo().getName() + " :", null);
+
 		} else {
 			document.add(new Paragraph(battle.getTwo().getName()
 					+ " commence !", subFont));
-			photo = ImageHelper.photoAsPDFBitmap(fs.getRootBattle(battle),
-					BattleInformationsFragment.DEPLOYMENT2_PHOTO_NAME);
-			if (photo != null) {
-				document.add(new Paragraph("Déploiement de "
-						+ battle.getTwo().getName() + " :", normalBold));
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
-						100 /* Ratio */, stream);
-				Image jpg = Image.getInstance(stream.toByteArray());
-				document.add(jpg);
-			}
 
-			photo = ImageHelper.photoAsPDFBitmap(fs.getRootBattle(battle),
-					BattleInformationsFragment.DEPLOYMENT1_PHOTO_NAME);
-			if (photo != null) {
-				document.add(new Paragraph("Déploiement de "
-						+ battle.getOne().getName() + " :", normalBold));
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
-						100 /* Ratio */, stream);
-				Image jpg = Image.getInstance(stream.toByteArray());
-				document.add(jpg);
-			}
+			addPhoto(document, battle,
+					BattleInformationsFragment.DEPLOYMENT2_PHOTO_NAME,
+					"Déploiement de " + battle.getTwo().getName() + " :", null);
+			addPhoto(document, battle,
+					BattleInformationsFragment.DEPLOYMENT1_PHOTO_NAME,
+					"Déploiement de " + battle.getOne().getName() + " :", null);
 		}
 
 		// TODO combat nocturne ?
@@ -332,4 +292,48 @@ public class DroidTextPDFService implements IPDFService {
 			document.add(new Paragraph(" "));
 		}
 	}
+
+	private void addPhoto(Document document, String photoPath)
+			throws MalformedURLException, IOException, DocumentException {
+		Bitmap photo = ImageHelper.photoAsPDFBitmap(photoPath);
+		if (photo != null) {
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
+					100 /* Ratio */, stream);
+			Image jpg = Image.getInstance(stream.toByteArray());
+
+			Paragraph element = new Paragraph();
+			element.add(jpg);
+			
+			document.add(element);
+		}
+	}
+
+	private void addPhoto(Document document, Battle battle, String photoName,
+			String headerText, String textIfNoPhoto) throws DocumentException,
+			MalformedURLException, IOException {
+		Bitmap photo = ImageHelper.photoAsPDFBitmap(fs.getRootBattle(battle),
+				photoName);
+		if (photo != null) {
+
+			if (headerText != null) {
+				document.add(new Paragraph(headerText, normalBold));
+			}
+
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
+					100 /* Ratio */, stream);
+			Image jpg = Image.getInstance(stream.toByteArray());
+
+			Paragraph element = new Paragraph();
+			element.add(jpg);
+
+			document.add(element);
+		} else {
+			if (textIfNoPhoto != null) {
+				document.add(new Paragraph(textIfNoPhoto, normal));
+			}
+		}
+	}
+
 }

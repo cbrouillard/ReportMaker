@@ -9,7 +9,7 @@ import android.view.View;
 
 public class AdsControl {
 
-	private static final boolean IS_ENABLE = false;
+	private static final boolean IS_ENABLE = true;
 
 	public static void buildAdIfEnable(Activity activity) {
 		final AdView adView = (AdView) activity.findViewById(R.id.adView);
@@ -31,7 +31,8 @@ public class AdsControl {
 			adRequest.addKeyword("GW");
 
 			adRequest.addTestDevice("EE8FDD470A72D400B66510DA5A45EBA0");
-			
+			adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
+
 			adView.loadAd(adRequest);
 		} else {
 			adView.setVisibility(View.GONE);

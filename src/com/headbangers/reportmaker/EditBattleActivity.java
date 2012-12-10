@@ -92,6 +92,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		actionBar.addTab(actionBar.newTab().setText(R.string.t7)
 				.setTabListener(this));
 
+		AdsControl.buildAdIfEnable(this);
+
 	}
 
 	@Override

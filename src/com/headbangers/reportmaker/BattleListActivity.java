@@ -17,9 +17,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdRequest.Gender;
-import com.google.ads.AdView;
 import com.headbangers.reportmaker.adapter.BattleListAdapter;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
@@ -158,17 +155,7 @@ public class BattleListActivity extends RoboListActivity {
 
 			return true;
 		case R.id.menu_exportBattle:
-			// String pdfFilePath =
-			// this.pdfService.exportBattle(selected.getId());
-			//
-			// if (pdfFilePath != null) {
-			// Toast.makeText(this, R.string.pdf_hasbeen_generated,
-			// Toast.LENGTH_LONG).show();
-			//
-			// // On fait quoi avec le PDF ? Partage ou Visualisation
-			//
-			// }
-
+			
 			pdfService.exportBattleAsync(selected.getId(), this);
 
 			return true;

@@ -56,6 +56,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 	private IPDFService pdfService = new DroidTextPDFService();
 
+	private int currentTabSelected = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -102,6 +104,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		battleDao.open();
 
 		this.loadBattle();
+
+		AdsControl.buildAdIfEnable(this);
 	}
 
 	@Override
@@ -136,6 +140,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 		Fragment fragment = null;
 
+		this.currentTabSelected = tab.getPosition();
+
 		switch (tab.getPosition()) {
 		case 0:
 			fragment = this.informations;
@@ -156,6 +162,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 					.replace(R.id.container, fragment).commit();
 		}
 
+		reloadGallery();
+
 	}
 
 	@Override
@@ -166,6 +174,10 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
+
+		this.currentTabSelected = tab.getPosition();
+		reloadGallery();
+
 	}
 
 	@Override
@@ -185,7 +197,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			return true;
 		case R.id.menu_photo:
 
-			String photoName = fs.determineNewExtraPhotoName(battle);
+			String photoName = fs.determineNewExtraPhotoName(battle,
+					this.currentTabSelected);
 
 			// Prise d'une photo
 			ImageHelper.takePhoto(this, fs, battle, photoName,
@@ -286,7 +299,12 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			cpt++;
 		}
 
-		this.gallery.setAdapter(new GalleryAdapter(this, battle));
+		reloadGallery();
+	}
+
+	public void reloadGallery() {
+		this.gallery.setAdapter(new GalleryAdapter(this, battle,
+				this.currentTabSelected));
 		this.gallery
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -299,11 +317,15 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 						File imageFile = new File(extrasPath);
 						ImageHelper.showImageInDialog(imageFile,
-								EditBattleActivity.this, "Zoom sur photos");
+								EditBattleActivity.this,
+								EditBattleActivity.this.getResources()
+										.getString(R.string.zoom_extra));
 					}
 				});
 		if (this.gallery.getAdapter().getCount() == 0) {
 			this.gallery.setVisibility(View.GONE);
+		} else {
+			this.gallery.setVisibility(View.VISIBLE);
 		}
 	}
 

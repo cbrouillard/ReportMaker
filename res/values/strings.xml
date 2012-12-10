@@ -69,6 +69,7 @@
     <string name="photo_infiltration">After infiltration photo : </string>
     <string name="photo_scoot">After scooting photo :</string>
     <string name="loading">Loading. Please wait &#8230;</string>
+    <string name="zoom_extra">Zoom on extra photo</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

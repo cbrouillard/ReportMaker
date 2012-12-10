@@ -9,7 +9,7 @@ import android.view.View;
 
 public class AdsControl {
 
-	private static final boolean IS_ENABLE = true;
+	private static final boolean IS_ENABLE = false;
 
 	public static void buildAdIfEnable(Activity activity) {
 		final AdView adView = (AdView) activity.findViewById(R.id.adView);

@@ -66,6 +66,8 @@ public class BattleListActivity extends RoboListActivity {
 		this.battleDao.open();
 		this.pdfService.setDao(battleDao);
 		asyncLoadBattle();
+		
+		AdsControl.buildAdIfEnable(this);
 	}
 
 	@Override

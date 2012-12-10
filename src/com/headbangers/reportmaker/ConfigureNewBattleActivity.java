@@ -73,6 +73,8 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	protected void onResume() {
 		super.onResume();
 		battleDao.open();
+		
+		AdsControl.buildAdIfEnable(this);
 	}
 
 	@Override

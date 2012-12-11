@@ -5,6 +5,8 @@ import roboguice.inject.InjectView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -17,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.inject.Inject;
 import com.headbangers.reportmaker.adapter.BattleListAdapter;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
@@ -35,6 +38,9 @@ public class BattleListActivity extends RoboListActivity {
 
 	@InjectView(android.R.id.list)
 	private ListView battleList;
+
+	@Inject
+	private SharedPreferences prefs;
 
 	private BattleDao battleDao = new BattleDaoImpl(this);
 
@@ -58,6 +64,28 @@ public class BattleListActivity extends RoboListActivity {
 		AdsControl.buildAdIfEnable(this);
 
 		registerForContextMenu(this.battleList);
+
+		checkForFirstLaunch();
+	}
+
+	private void checkForFirstLaunch() {
+
+		float version = prefs.getFloat(VersionDialog.CURRENT_VERSION_KEY, -1F);
+
+		if (version == -1f || version < VersionDialog.VERSION) {
+			// Application jamais lancée
+			Editor editor = prefs.edit();
+			editor.putFloat(VersionDialog.CURRENT_VERSION_KEY,
+					VersionDialog.VERSION);
+			editor.commit();
+
+			VersionDialog versionDialog = new VersionDialog(this);
+			versionDialog.setTitle(getResources().getString(
+					R.string.little_welcome));
+			versionDialog.show();
+		}
+		// sinon, rien.
+
 	}
 
 	@Override
@@ -66,7 +94,7 @@ public class BattleListActivity extends RoboListActivity {
 		this.battleDao.open();
 		this.pdfService.setDao(battleDao);
 		asyncLoadBattle();
-		
+
 		AdsControl.buildAdIfEnable(this);
 	}
 
@@ -157,7 +185,7 @@ public class BattleListActivity extends RoboListActivity {
 
 			return true;
 		case R.id.menu_exportBattle:
-			
+
 			pdfService.exportBattleAsync(selected.getId(), this);
 
 			return true;

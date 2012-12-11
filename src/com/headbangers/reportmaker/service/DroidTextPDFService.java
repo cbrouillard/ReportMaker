@@ -226,7 +226,7 @@ public class DroidTextPDFService implements IPDFService {
 						.replace("{X}", "" + turn.getNum()), null,
 				getString(R.string.pdf_no_photo));
 
-		document.add(new Paragraph(turn.getCommentsMove(numPlayer), normal));
+		// document.add(new Paragraph(turn.getCommentsMove(numPlayer), normal));
 
 		// TIR
 		document.add(new Paragraph(getString(R.string.pdf_shoot) + " "
@@ -237,7 +237,8 @@ public class DroidTextPDFService implements IPDFService {
 						.replace("{X}", "" + turn.getNum()), null,
 				getString(R.string.pdf_no_photo));
 
-		document.add(new Paragraph(turn.getCommentsShoot(numPlayer), normal));
+		// document.add(new Paragraph(turn.getCommentsShoot(numPlayer),
+		// normal));
 
 		// ASSAUT
 		document.add(new Paragraph(getString(R.string.pdf_assault) + " "
@@ -248,7 +249,9 @@ public class DroidTextPDFService implements IPDFService {
 						.replace("{X}", "" + turn.getNum()), null,
 				getString(R.string.pdf_no_photo));
 
-		document.add(new Paragraph(turn.getCommentsAssault(numPlayer), normal));
+		// document.add(new Paragraph(turn.getCommentsAssault(numPlayer),
+		// normal));
+		document.add(new Paragraph(turn.getComments(numPlayer), normal));
 
 	}
 

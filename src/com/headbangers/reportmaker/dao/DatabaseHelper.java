@@ -19,6 +19,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COL_COMMENT_SHOOT2 = "comment_shoot2";
 	public static final String COL_COMMENT_ASSAULT1 = "comment_assault1";
 	public static final String COL_COMMENT_ASSAULT2 = "comment_assault2";
+	public static final String COL_COMMENT1 = "comment_1";
+	public static final String COL_COMMENT2 = "comment_2";
 	public static final String COL_IS_LAST_ONE = "last_turn";
 	public static final String COL_IS_NIGHT_FIGHT = "night_fight";
 	public static final String COL_NUM = "num_turn";
@@ -48,7 +50,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String[] ALL_TURN_COLUMNS = new String[] {
 			COL_COMMENT_MOVE1, COL_COMMENT_MOVE2, COL_COMMENT_SHOOT1,
 			COL_COMMENT_SHOOT2, COL_COMMENT_ASSAULT1, COL_COMMENT_ASSAULT2,
-			COL_IS_LAST_ONE, COL_NUM , COL_IS_NIGHT_FIGHT};
+			COL_IS_LAST_ONE, COL_NUM, COL_IS_NIGHT_FIGHT, COL_COMMENT1,
+			COL_COMMENT2 };
 
 	private static final String CREATE_BDD_TABLE_BATTLE = "CREATE TABLE "
 			+ TABLE_BATTLE + " (" + COL_ID
@@ -68,11 +71,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ " INTEGER NOT NULL, " + COL_COMMENT_MOVE1 + " TEXT NULL, "
 			+ COL_COMMENT_MOVE2 + " TEXT NULL, " + COL_COMMENT_SHOOT1
 			+ " TEXT NULL, " + COL_COMMENT_SHOOT2 + " TEXT NULL, "
-			+ COL_COMMENT_ASSAULT1 + " TEXT NULL, " + COL_COMMENT_ASSAULT2
-			+ " TEXT NULL, " + COL_IS_LAST_ONE + " BOOLEAN NULL, " + COL_NUM
-			+ " INTEGER NOT NULL, " + COL_IS_NIGHT_FIGHT + " BOOLEAN NULL, "
-			+ "FOREIGN KEY(" + COL_BATTLE_ID + ") REFERENCES " + TABLE_BATTLE
-			+ "(" + COL_ID + ")" + ");";
+			+ COL_COMMENT_ASSAULT1 + " TEXT NULL, " + COL_COMMENT1
+			+ " TEXT NULL," + COL_COMMENT2 + " TEXT NULL,"
+			+ COL_COMMENT_ASSAULT2 + " TEXT NULL, " + COL_IS_LAST_ONE
+			+ " BOOLEAN NULL, " + COL_NUM + " INTEGER NOT NULL, "
+			+ COL_IS_NIGHT_FIGHT + " BOOLEAN NULL, " + "FOREIGN KEY("
+			+ COL_BATTLE_ID + ") REFERENCES " + TABLE_BATTLE + "(" + COL_ID
+			+ ")" + ");";
 
 	public DatabaseHelper(Context context) {
 		this(context, "battle.db", null, version);

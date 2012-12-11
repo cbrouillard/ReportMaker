@@ -38,20 +38,22 @@
                 android:src="@drawable/camera" />
         </LinearLayout>
 
-        <TextView
-            style="@style/headerText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/comments" />
+        <!-- <TextView -->
+        <!-- style="@style/headerText" -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:text="@string/comments" /> -->
 
-        <EditText
-            android:id="@+id/comments_move"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:hint="@string/comments_hints"
-            android:inputType="textMultiLine"
-            android:lines="3" />
+
+        <!-- <EditText -->
+        <!-- android:id="@+id/comments_move" -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:gravity="top" -->
+        <!-- android:hint="@string/comments_hints" -->
+        <!-- android:inputType="textMultiLine" -->
+        <!-- android:lines="3" /> -->
+
 
         <!--  -->
 
@@ -84,20 +86,22 @@
                 android:src="@drawable/camera" />
         </LinearLayout>
 
-        <TextView
-            style="@style/headerText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/comments" />
+        <!-- <TextView -->
+        <!-- style="@style/headerText" -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:text="@string/comments" /> -->
 
-        <EditText
-            android:id="@+id/comments_shoot"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:hint="@string/comments_hints"
-            android:inputType="textMultiLine"
-            android:lines="3" />
+
+        <!-- <EditText -->
+        <!-- android:id="@+id/comments_shoot" -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:gravity="top" -->
+        <!-- android:hint="@string/comments_hints" -->
+        <!-- android:inputType="textMultiLine" -->
+        <!-- android:lines="3" /> -->
+
 
         <!--  -->
 
@@ -130,6 +134,22 @@
                 android:src="@drawable/camera" />
         </LinearLayout>
 
+        <!-- <TextView -->
+        <!-- style="@style/headerText" -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:text="@string/comments" /> -->
+
+
+        <!-- <EditText -->
+        <!-- android:id="@+id/comments_assault" -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:gravity="top" -->
+        <!-- android:hint="@string/comments_hints" -->
+        <!-- android:inputType="textMultiLine" -->
+        <!-- android:lines="3" /> -->
+
         <TextView
             style="@style/headerText"
             android:layout_width="fill_parent"
@@ -137,14 +157,13 @@
             android:text="@string/comments" />
 
         <EditText
-            android:id="@+id/comments_assault"
+            android:id="@+id/comments"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="top"
             android:hint="@string/comments_hints"
             android:inputType="textMultiLine"
-            android:lines="3" />
-
+            android:lines="5" />
     </LinearLayout>
 
 </ScrollView>

@@ -88,7 +88,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		actionBar.addTab(actionBar.newTab().setText(R.string.t5)
 				.setTabListener(this));
 
-		// TODO l'affichage de ces tabs est conditionné
+		// L'affichage de ces tabs devrait être conditionné/ Galere.
 		actionBar.addTab(actionBar.newTab().setText(R.string.t6)
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.t7)
@@ -152,6 +152,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		case 4:
 		case 5:
 		case 6:
+		case 7:
 			fragment = this.turns[tab.getPosition() - 1];
 			break;
 		}

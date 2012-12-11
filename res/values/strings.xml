@@ -71,10 +71,10 @@
     <string name="loading">Loading. Please wait &#8230;</string>
     <string name="zoom_extra">Zoom on extra photo</string>
     <string name="pdf_generating">PDF is currently generating &#8230;</string>
-    <string name="pdf_game_scenario">Game's scenario</string>
-    <string name="pdf_game_format">Game's format</string>
+    <string name="pdf_game_scenario">Game\'s scenario</string>
+    <string name="pdf_game_format">Game\'s format</string>
     <string name="pdf_warlord">Warlord of</string>
-    <string name="pdf_table">Game's table</string>
+    <string name="pdf_table">Game\'s table</string>
     <string name="pdf_turn">Turn #</string>
     <string name="pdf_more_photos">More extras photos</string>
     <string name="pdf_no_photo">No photo</string>

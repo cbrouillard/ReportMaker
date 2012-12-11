@@ -41,7 +41,7 @@ public class BattleListActivity extends RoboListActivity {
 	private Battle selected = null;
 
 	private FilesystemService fs = new FilesystemService();
-	private IPDFService pdfService = new DroidTextPDFService();
+	private IPDFService pdfService = new DroidTextPDFService(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

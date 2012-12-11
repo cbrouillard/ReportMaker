@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 
 import com.headbangers.reportmaker.ImageHelper;
+import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.async.GeneratePDFAsyncLoader;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
@@ -38,9 +39,18 @@ public class DroidTextPDFService implements IPDFService {
 	private BattleDao dao;
 
 	private FilesystemService fs = new FilesystemService();
+	private Activity context;
 
 	public void setDao(BattleDao dao) {
 		this.dao = dao;
+	}
+
+	public DroidTextPDFService(Activity context) {
+		this.context = context;
+	}
+
+	private String getString(int stringId) {
+		return this.context.getResources().getString(stringId);
 	}
 
 	@Override
@@ -48,7 +58,7 @@ public class DroidTextPDFService implements IPDFService {
 
 		GeneratePDFAsyncLoader asyncLoader = new GeneratePDFAsyncLoader(
 				fromContext, this);
-		asyncLoader.setDialogText("PDF en cours de génération...");
+		asyncLoader.setDialogText(getString(R.string.pdf_generating));
 		asyncLoader.execute(battleId);
 
 	}
@@ -91,26 +101,28 @@ public class DroidTextPDFService implements IPDFService {
 
 			// Scénario
 			Paragraph scenario = new Paragraph();
-			scenario.add(new Chunk("Scénario de la partie : ", normalBold));
+			scenario.add(new Chunk(getString(R.string.pdf_game_scenario)
+					+ " : ", normalBold));
 			scenario.add(new Chunk(battle.getInfos().getScenario() + "", normal));
 			document.add(scenario);
 
 			// Format en points
 			Paragraph format = new Paragraph();
-			format.add(new Chunk("Format de la partie : ", normalBold));
+			format.add(new Chunk(getString(R.string.pdf_game_format) + " : ",
+					normalBold));
 			format.add(new Chunk(battle.getFormat() + "", normal));
 			document.add(format);
 
 			// Traits de seigneur de guerre
 			Paragraph lord1 = new Paragraph();
-			lord1.add(new Chunk("Seigneur de guerre de "
+			lord1.add(new Chunk(getString(R.string.pdf_warlord) + " "
 					+ battle.getOne().getName() + " : ", normalBold));
 			lord1.add(new Chunk(battle.getInfos().getLordCapacity1() + "",
 					normal));
 			document.add(lord1);
 
 			Paragraph lord2 = new Paragraph();
-			lord2.add(new Chunk("Seigneur de guerre de "
+			lord2.add(new Chunk(getString(R.string.pdf_warlord) + " "
 					+ battle.getTwo().getName() + " : ", normalBold));
 			lord2.add(new Chunk(battle.getInfos().getLordCapacity2() + "",
 					normal));
@@ -119,7 +131,7 @@ public class DroidTextPDFService implements IPDFService {
 			// Photo de la table
 			addPhoto(document, battle,
 					BattleInformationsFragment.TABLE_PHOTO_NAME,
-					"Table de jeu : ", null);
+					getString(R.string.pdf_table) + " : ", null);
 
 			// Deploiement
 			generateDeployment(document, cb, battle);
@@ -154,7 +166,8 @@ public class DroidTextPDFService implements IPDFService {
 			Battle battle, Turn turn) throws DocumentException {
 		document.newPage();
 
-		document.add(new Paragraph("Tour " + turn.getNum(), catFont));
+		document.add(new Paragraph(getString(R.string.pdf_turn) + " "
+				+ turn.getNum(), catFont));
 		drawLine(cb, 765);
 		addEmptyLine(document, 1);
 
@@ -186,7 +199,8 @@ public class DroidTextPDFService implements IPDFService {
 		List<String> allExtras = this.fs.findAllExtrasPhotosPath(battle,
 				turn.getNum());
 		if (allExtras.size() > 0) {
-			document.add(new Paragraph("Quelques photos supplémentaires :", subFont));
+			document.add(new Paragraph(getString(R.string.pdf_more_photos)
+					+ " :", subFont));
 		}
 		for (String extra : allExtras) {
 			try {
@@ -204,35 +218,35 @@ public class DroidTextPDFService implements IPDFService {
 			throws DocumentException, MalformedURLException, IOException {
 
 		// MOUVEMENT
-		document.add(new Paragraph("Mouvement de " + player.getName() + " : ",
-				normalBold));
+		document.add(new Paragraph(getString(R.string.pdf_move) + " "
+				+ player.getName() + " : ", normalBold));
 
 		addPhoto(document, battle,
 				TurnFragment.MOVE_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()), null,
-				"Pas de photo");
+				getString(R.string.pdf_no_photo));
 
 		document.add(new Paragraph(turn.getCommentsMove(numPlayer), normal));
 
 		// TIR
-		document.add(new Paragraph("Tir de " + player.getName() + " : ",
-				normalBold));
+		document.add(new Paragraph(getString(R.string.pdf_shoot) + " "
+				+ player.getName() + " : ", normalBold));
 
 		addPhoto(document, battle,
 				TurnFragment.SHOOT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()), null,
-				"Pas de photo");
+				getString(R.string.pdf_no_photo));
 
 		document.add(new Paragraph(turn.getCommentsShoot(numPlayer), normal));
 
 		// ASSAUT
-		document.add(new Paragraph("Assaut de " + player.getName() + " : ",
-				normalBold));
+		document.add(new Paragraph(getString(R.string.pdf_assault) + " "
+				+ player.getName() + " : ", normalBold));
 
 		addPhoto(document, battle,
 				TurnFragment.ASSAULT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()), null,
-				"Pas de photo");
+				getString(R.string.pdf_no_photo));
 
 		document.add(new Paragraph(turn.getCommentsAssault(numPlayer), normal));
 
@@ -243,35 +257,26 @@ public class DroidTextPDFService implements IPDFService {
 			IOException {
 		document.newPage();
 
-		document.add(new Paragraph("Déploiement", catFont));
+		document.add(new Paragraph(getString(R.string.pdf_deployment), catFont));
 		drawLine(cb, 765);
 		addEmptyLine(document, 1);
 
 		int firstPlayer = battle.getInfos().getFirstPlayer();
+		Player one = battle.getPlayer(firstPlayer);
+		Player two = battle.getOtherPlayer(firstPlayer);
 
-		if (firstPlayer == 0) {
-			document.add(new Paragraph(battle.getOne().getName()
-					+ " commence !", subFont));
+		document.add(new Paragraph(one.getName() + " "
+				+ getString(R.string.pdf_begin), subFont));
 
-			addPhoto(document, battle,
-					BattleInformationsFragment.DEPLOYMENT1_PHOTO_NAME,
-					"Déploiement de " + battle.getOne().getName() + " :", null);
+		addPhoto(document, battle,
+				"deploiement_j" + (firstPlayer + 1) + ".jpg",
+				getString(R.string.pdf_deployment_of) + " " + one.getName()
+						+ " :", null);
 
-			addPhoto(document, battle,
-					BattleInformationsFragment.DEPLOYMENT2_PHOTO_NAME,
-					"Déploiement de " + battle.getTwo().getName() + " :", null);
-
-		} else {
-			document.add(new Paragraph(battle.getTwo().getName()
-					+ " commence !", subFont));
-
-			addPhoto(document, battle,
-					BattleInformationsFragment.DEPLOYMENT2_PHOTO_NAME,
-					"Déploiement de " + battle.getTwo().getName() + " :", null);
-			addPhoto(document, battle,
-					BattleInformationsFragment.DEPLOYMENT1_PHOTO_NAME,
-					"Déploiement de " + battle.getOne().getName() + " :", null);
-		}
+		addPhoto(document, battle, "deploiement_j" + (firstPlayer == 0 ? 2 : 1)
+				+ ".jpg",
+				getString(R.string.pdf_deployment_of) + " " + two.getName()
+						+ " :", null);
 
 		// TODO combat nocturne ?
 
@@ -304,7 +309,7 @@ public class DroidTextPDFService implements IPDFService {
 
 			Paragraph element = new Paragraph();
 			element.add(jpg);
-			
+
 			document.add(element);
 		}
 	}

@@ -2,7 +2,7 @@
 <resources>
 
     <string name="about">A propos</string>
-    <string name="app_name">Report Maker</string>
+    <string name="app_name">Wage War</string>
     <string name="new_battle">Nouvelle bataille</string>
     <string name="delete_battle">Supprimer</string>
     <string name="edition">Edition</string>
@@ -63,13 +63,27 @@
     <string name="no_application_pdf">Aucune application trouvée pour consulter le PDF</string>
     <string name="no_application_share">Aucune application trouvée pour partager le PDF</string>
     <string name="share_subject">Rapport de bataille</string>
-    <string name="share_text">Voici un rapport de bataille généré avec une application sur mon Android.</string>
+    <string name="share_text">Voici un rapport de bataille généré avec Wage War, une application Android.</string>
     <string name="really_quit">Souhaitez-vous sauvegarder avant de quitter l\'édition de cette bataille ?</string>
-	<string name="dont_want_to_quit">Je ne voulais pas quitter !</string>
-	<string name="photo_infiltration">Photo après infiltration de</string>
-	<string name="photo_scoot">Photo après scooting de</string>
-	<string name="zoom_extra">Zoom sur photo</string>
-    
+    <string name="dont_want_to_quit">Je ne voulais pas quitter !</string>
+    <string name="photo_infiltration">Photo après infiltration de</string>
+    <string name="photo_scoot">Photo après scooting de</string>
+    <string name="zoom_extra">Zoom sur photo</string>
+    <string name="pdf_generating">PDF en cours de génération &#8230;</string>
+    <string name="pdf_game_scenario">Scénario de la partie</string>
+    <string name="pdf_game_format">Format de la partie</string>
+    <string name="pdf_warlord">Seigneur de guerre de</string>
+    <string name="pdf_table">Table de jeu</string>
+    <string name="pdf_turn">Tour</string>
+    <string name="pdf_more_photos">Quelques photos supplémentaires</string>
+    <string name="pdf_no_photo">Pas de photo</string>
+    <string name="pdf_move">Mouvement de</string>
+    <string name="pdf_shoot">Tir de</string>
+    <string name="pdf_assault">Assaut de</string>
+    <string name="pdf_deployment">Déploiement</string>
+    <string name="pdf_begin">commence !</string>
+    <string name="pdf_deployment_of">Déploiement de</string>
+
     <string-array name="battleName_random_part1">
         <item>La prise de</item>
         <item>La bataille de</item>

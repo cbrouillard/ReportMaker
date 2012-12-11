@@ -54,7 +54,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	@InjectView(R.id.extrasPhotosGallery)
 	private Gallery gallery;
 
-	private IPDFService pdfService = new DroidTextPDFService();
+	private IPDFService pdfService = new DroidTextPDFService(this);
 
 	private int currentTabSelected = 0;
 

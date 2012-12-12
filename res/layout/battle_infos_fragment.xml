@@ -292,7 +292,8 @@
             android:gravity="top"
             android:hint="@string/comments_hints"
             android:inputType="textMultiLine"
-            android:lines="3" />
+            android:lines="10" />
+
     </LinearLayout>
 
 </ScrollView>

@@ -86,9 +86,9 @@
     <string name="pdf_deployment_of">Deployment of</string>
     <string name="little_welcome">Welcome !</string>
     <string name="first_launch">Tactical War Report ! &lt;br/&gt;&lt;br/&gt;
-        Cette application va vous permettre de rédiger des rapports de bataille un peu plus facilement : elle ne couvre pour le moment que les règles de Warhammer&#169; 40000.&lt;br/&gt;&lt;br/&gt;
-        Gardez en tête cependant que la rédaction d\'un rapport est une tâche compliquée : commencez par couvrir de petites parties. TWR est là pour vous aider mais il ne sait pas tout faire &#8230; C\'est à vous de prendre les photos et d\'écrire vos notes.&lt;br/&gt;&lt;br/&gt;
-        Tactical War Report est encore en version bêta. Des bugs se sont peut-être caché dans l\'application. Celle-ci est également appelée à évoluer.&lt;br/&gt;&lt;br/&gt;
+        Cette application va vous permettre de rédiger facilement des rapports de bataille : elle ne couvre pour le moment que les règles de Warhammer&#169; 40000.&lt;br/&gt;&lt;br/&gt;
+        Gardez en tête cependant que la rédaction d\'un rapport est une tâche compliquée : commencez par couvrir de petites parties. TWR est là pour vous aider mais il ne sait pas tout faire &#8230; C\'est à vous de prendre les photos au bon moment et d\'écrire vos notes.&lt;br/&gt;&lt;br/&gt;
+        Tactical War Report est encore en version bêta. Des bugs sont peut-être encore cachés dans l\'application. Cette dernière est également appelée à évoluer.&lt;br/&gt;&lt;br/&gt;
         Amusez-vous bien ! ;)</string>
 
     <string-array name="battleName_random_part1">

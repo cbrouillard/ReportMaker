@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-
-import javax.net.ssl.HostnameVerifier;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;

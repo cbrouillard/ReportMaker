@@ -4,14 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.util.ArrayList;
+import java.nio.charset.Charset;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -43,7 +43,7 @@ public class WebServiceClient {
 
 			// Création d'un zip contenant l'intégralité des photos
 			File rootBattle = fs.getRootBattle(battle);
-			Compress compress = new Compress(rootBattle.list(),
+			Compress compress = new Compress(rootBattle, rootBattle.list(),
 					rootBattle.getAbsolutePath() + File.separator + "data.zip");
 			compress.zip();
 			File zipFile = compress.getZipFile();
@@ -72,12 +72,24 @@ public class WebServiceClient {
 		HttpPost request = new HttpPost(
 				URI.create("https://10.0.2.2:8443/reportmaker/web/createReport"));
 
-		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		nameValuePairs.add(new BasicNameValuePair("reportData", json));
+		// ArrayList<NameValuePair> nameValuePairs = new
+		// ArrayList<NameValuePair>();
+		// nameValuePairs.add(new BasicNameValuePair("reportData", json));
+		// nameValuePairs.add(new BasicNameValuePair("user", login));
+		// nameValuePairs.add(new BasicNameValuePair("pass", pass));
 
 		try {
+			MultipartEntity entity = new MultipartEntity();
 
-			request.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+			entity.addPart("reportData",
+					new StringBody(json, Charset.forName("UTF-8")));
+			entity.addPart("user",
+					new StringBody(login, Charset.forName("UTF-8")));
+			entity.addPart("pass",
+					new StringBody(pass, Charset.forName("UTF-8")));
+			entity.addPart("photos", new FileBody(zipFile));
+
+			request.setEntity(entity);
 			HttpResponse response = httpClient.execute(request);
 
 			Log.d("WebserviceClient", response.toString());

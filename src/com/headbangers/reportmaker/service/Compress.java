@@ -15,10 +15,12 @@ public class Compress {
 
 	private String[] _files;
 	private String _zipFile;
+	private File rootDir;
 
-	public Compress(String[] files, String zipFile) {
+	public Compress(File directory, String[] files, String zipFile) {
 		_files = files;
 		_zipFile = zipFile;
+		this.rootDir = directory;
 	}
 
 	public void zip() {
@@ -33,7 +35,8 @@ public class Compress {
 
 			for (int i = 0; i < _files.length; i++) {
 				Log.v("Compress", "Adding: " + _files[i]);
-				FileInputStream fi = new FileInputStream(_files[i]);
+				FileInputStream fi = new FileInputStream(new File(rootDir,
+						_files[i]));
 				origin = new BufferedInputStream(fi, BUFFER);
 				ZipEntry entry = new ZipEntry(_files[i].substring(_files[i]
 						.lastIndexOf("/") + 1));

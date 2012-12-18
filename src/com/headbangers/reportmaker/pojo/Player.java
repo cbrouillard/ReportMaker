@@ -1,5 +1,8 @@
 package com.headbangers.reportmaker.pojo;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({ "class" })
 public class Player {
 
 	private String name;

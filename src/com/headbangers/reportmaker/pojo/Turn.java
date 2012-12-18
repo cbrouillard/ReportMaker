@@ -1,10 +1,13 @@
 package com.headbangers.reportmaker.pojo;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.headbangers.reportmaker.dao.DatabaseHelper;
 
+@JsonIgnoreProperties({ "class" })
 public class Turn {
 
 	private Integer num;

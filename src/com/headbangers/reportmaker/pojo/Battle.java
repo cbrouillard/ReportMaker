@@ -5,10 +5,13 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import android.database.Cursor;
 
 import com.headbangers.reportmaker.dao.DatabaseHelper;
 
+@JsonIgnoreProperties({ "class" })
 public class Battle {
 
 	private Long id;

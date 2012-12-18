@@ -27,6 +27,7 @@ import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.DroidTextPDFService;
 import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.service.IPDFService;
+import com.headbangers.reportmaker.service.WebServiceClient;
 
 /**
  * Affiche une liste contenant toutes les batailles ainsi qu'un bouton
@@ -48,6 +49,7 @@ public class BattleListActivity extends RoboListActivity {
 
 	private FilesystemService fs = new FilesystemService();
 	private IPDFService pdfService = new DroidTextPDFService(this);
+	private WebServiceClient wsClient = new WebServiceClient();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +189,11 @@ public class BattleListActivity extends RoboListActivity {
 		case R.id.menu_exportBattle:
 
 			pdfService.exportBattleAsync(selected.getId(), this);
+
+			return true;
+		case R.id.menu_exportWebBattle:
+
+			wsClient.exportAsync(this, selected, "cyril", "test");
 
 			return true;
 		}

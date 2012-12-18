@@ -49,7 +49,7 @@ public class BattleListActivity extends RoboListActivity {
 
 	private FilesystemService fs = new FilesystemService();
 	private IPDFService pdfService = new DroidTextPDFService(this);
-	private WebServiceClient wsClient = new WebServiceClient();
+	private WebServiceClient wsClient = new WebServiceClient(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -193,7 +193,7 @@ public class BattleListActivity extends RoboListActivity {
 			return true;
 		case R.id.menu_exportWebBattle:
 
-			wsClient.exportAsync(this, selected, "cyril", "test");
+			wsClient.exportAsync(selected, "cyril", "test");
 
 			return true;
 		}

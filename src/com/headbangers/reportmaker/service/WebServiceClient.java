@@ -4,14 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+
+import javax.net.ssl.HostnameVerifier;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -26,11 +28,13 @@ import com.headbangers.reportmaker.pojo.Battle;
 
 public class WebServiceClient {
 
+	private Activity from;
 	private ObjectMapper jsonMapper;
 	private FilesystemService fs = new FilesystemService();
 
-	public WebServiceClient() {
+	public WebServiceClient(Activity from) {
 		this.jsonMapper = new ObjectMapper();
+		this.from = from;
 	}
 
 	public void export(Battle battle, String login, String pass) {
@@ -66,25 +70,7 @@ public class WebServiceClient {
 	private void callCreateWebservice(String json, File zipFile, String login,
 			String pass) {
 
-		// HostnameVerifier hostnameVerifier =
-		// org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
-		//
-		// DefaultHttpClient client = new DefaultHttpClient();
-		//
-		// SchemeRegistry registry = new SchemeRegistry();
-		// SSLSocketFactory socketFactory = SSLSocketFactory.getSocketFactory();
-		// socketFactory
-		// .setHostnameVerifier((X509HostnameVerifier) hostnameVerifier);
-		// registry.register(new Scheme("https", socketFactory, 443));
-		// SingleClientConnManager mgr = new SingleClientConnManager(
-		// client.getParams(), registry);
-		// DefaultHttpClient httpClient = new DefaultHttpClient(mgr,
-		// client.getParams());
-		//
-		// // Set verifier
-		// HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
-
-		DefaultHttpClient httpClient = new DefaultHttpClient();
+		MyHttpClient httpClient = new MyHttpClient(from);
 
 		HttpPost request = new HttpPost(
 				URI.create("https://10.0.2.2:8443/reportmaker/web/createReport"));
@@ -94,29 +80,25 @@ public class WebServiceClient {
 
 		try {
 
-			request.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			request.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 			HttpResponse response = httpClient.execute(request);
 
 			Log.d("WebserviceClient", response.toString());
 
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
-	public void exportAsync(Activity fromContext, Battle battle, String string,
-			String string2) {
-		ExportOnWebAsyncLoader asyncLoader = new ExportOnWebAsyncLoader(
-				fromContext, this);
-		asyncLoader.setDialogText(fromContext.getResources().getString(
+	public void exportAsync(Battle battle, String string, String string2) {
+		ExportOnWebAsyncLoader asyncLoader = new ExportOnWebAsyncLoader(from,
+				this);
+		asyncLoader.setDialogText(from.getResources().getString(
 				R.string.web_exporting));
 		asyncLoader.execute(battle);
 

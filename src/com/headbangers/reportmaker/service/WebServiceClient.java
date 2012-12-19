@@ -28,13 +28,18 @@ public class WebServiceClient {
 	private ObjectMapper jsonMapper;
 	private FilesystemService fs = new FilesystemService();
 
+	private String host;
+	private String createReport;
+
 	public WebServiceClient(Activity from) {
 		this.jsonMapper = new ObjectMapper();
 		this.from = from;
 	}
 
 	public int export(Battle battle, String login, String pass) {
-
+		this.host = from.getResources().getString(R.string.host);
+		this.createReport = from.getResources().getString(R.string.createReport);
+		
 		try {
 
 			// Ecriture du JSON contenant le rapport
@@ -50,6 +55,9 @@ public class WebServiceClient {
 			// Appel au webservice
 			int httpCode = callCreateWebservice(json, zipFile, login, pass);
 
+			// Effacement du fichier zip
+			zipFile.delete();
+			
 			return httpCode;
 
 		} catch (JsonGenerationException e) {
@@ -72,8 +80,7 @@ public class WebServiceClient {
 
 		MyHttpClient httpClient = new MyHttpClient(from);
 
-		HttpPost request = new HttpPost(
-				URI.create("https://10.0.2.2:8443/reportmaker/web/createReport"));
+		HttpPost request = new HttpPost(URI.create(host + createReport));
 
 		// ArrayList<NameValuePair> nameValuePairs = new
 		// ArrayList<NameValuePair>();

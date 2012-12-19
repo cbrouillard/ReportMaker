@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="host">https://10.0.2.2:8443/reportmaker/web</string>
+	<string name="createReport">/createReport</string>
+</resources>

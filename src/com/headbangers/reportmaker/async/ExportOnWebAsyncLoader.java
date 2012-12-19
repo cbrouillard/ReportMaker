@@ -41,6 +41,7 @@ public class ExportOnWebAsyncLoader extends GenericAsyncLoader<Object, Integer> 
 
 		switch (result) {
 		case 403:
+		case 401:
 			// mauvais user ou mauvaise auth. On propose de se réauthentifier
 			new AlertDialog.Builder(fromContext)
 					.setIcon(android.R.drawable.ic_dialog_alert)
@@ -74,6 +75,7 @@ public class ExportOnWebAsyncLoader extends GenericAsyncLoader<Object, Integer> 
 			break;
 
 		case 500:
+		case 404:
 			// erreur système. On propose de réessayer plus tard
 			Toast.makeText(fromContext, R.string.webexport_fail,
 					Toast.LENGTH_LONG).show();

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -8,26 +8,33 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         tools:context=".EditBattleActivity"
         tools:ignore="MergeRootFrame" >
     </FrameLayout>
 
-    <Gallery
-        android:id="@+id/extrasPhotosGallery"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
-        android:background="#555" />
-
-    <com.google.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="a150c1fb43a016b"
-        ads:loadAdOnCreate="false"
-        ads:refreshInterval="30"
-        ads:testDevices="TEST_EMULATOR" />
+        android:layout_above="@id/container"
+        android:layout_alignBottom="@id/container"
+        android:orientation="vertical" >
 
-</LinearLayout>
+        <Gallery
+            android:id="@+id/extrasPhotosGallery"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:background="#DD555555" />
+
+        <com.google.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="a150c1fb43a016b"
+            ads:loadAdOnCreate="false"
+            ads:refreshInterval="30"
+            ads:testDevices="TEST_EMULATOR" />
+    </LinearLayout>
+
+</RelativeLayout>

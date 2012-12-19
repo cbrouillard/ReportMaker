@@ -89,6 +89,7 @@
         Gardez en tête cependant que la rédaction d\'un rapport est une tâche compliquée : commencez par couvrir de petites parties. TWR est là pour vous aider mais il ne sait pas tout faire &#8230; C\'est à vous de prendre les photos au bon moment et d\'écrire vos notes.&lt;br/&gt;&lt;br/&gt;
         Tactical War Report est encore en version bêta. Des bugs sont peut-être encore cachés dans l\'application. Cette dernière est également appelée à évoluer.&lt;br/&gt;&lt;br/&gt;
         Amusez-vous bien ! ;)</string>
+    <string name="loading">Chargement. Patientez &#8230;</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

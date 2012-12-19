@@ -19,6 +19,8 @@ import com.google.inject.Inject;
 
 public class AuthActivity extends RoboActivity {
 
+	public static final int EXPORT_AFTER_AUTH = 9000;
+	
 	public static final String RELAY_ARG = "relay";
 	public static final String FORCEMODE_ARG = "forceMode";
 

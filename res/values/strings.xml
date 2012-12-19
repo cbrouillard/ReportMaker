@@ -97,6 +97,10 @@
     <string name="connect">Connection</string>
     <string name="connection_help">You have to authenticate yourself before in order to continue. 
         If you havn\'t got an account yet, you can register on www.tacticalreport.com.</string>
+    <string name="bad_auth_title">Authentication error</string>
+    <string name="bad_auth">Your login/pass seems to be not correct. Would you like to try a new connection ?</string>
+    <string name="webexport_ok">Export has been done !</string>
+    <string name="webexport_fail">There was an error during the export process. Please, try later &#8230;</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

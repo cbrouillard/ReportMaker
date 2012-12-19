@@ -37,8 +37,6 @@ import com.headbangers.reportmaker.service.WebServiceClient;
  */
 public class BattleListActivity extends RoboListActivity {
 
-	private static final int EXPORT_AFTER_AUTH = 1;
-
 	@InjectView(android.R.id.list)
 	private ListView battleList;
 
@@ -158,6 +156,13 @@ public class BattleListActivity extends RoboListActivity {
 			about.show();
 
 			return true;
+		case R.id.auth:
+
+			Intent action = new Intent(this, AuthActivity.class);
+			action.putExtra(AuthActivity.FORCEMODE_ARG, true);
+			startActivity(action);
+
+			return true;
 
 		}
 
@@ -196,7 +201,7 @@ public class BattleListActivity extends RoboListActivity {
 		case R.id.menu_exportWebBattle:
 
 			Intent action = new Intent(this, AuthActivity.class);
-			startActivityForResult(action, EXPORT_AFTER_AUTH);
+			startActivityForResult(action, AuthActivity.EXPORT_AFTER_AUTH);
 
 			return true;
 		}
@@ -234,14 +239,11 @@ public class BattleListActivity extends RoboListActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-		case EXPORT_AFTER_AUTH:
+		case AuthActivity.EXPORT_AFTER_AUTH:
 
 			String user = data.getStringExtra("user");
 			String pass = data.getStringExtra("pass");
 			wsClient.exportAsync(selected, user, pass);
-
-			// wsClient.exportAsync(selected, "cyril",
-			// "5118e37fe62eed7db15a55ae382ed854c53b3c706d6df40038c284f7729c1545");
 
 			break;
 		}

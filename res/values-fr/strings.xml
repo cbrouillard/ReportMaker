@@ -96,6 +96,10 @@
     <string name="connect">Connexion</string>
     <string name="connection_help">Vous devez vous identifier pour continuer. 
         Si vous n\'avez pas encore de compte, rendez-vous sur www.tacticalwarreport.com pour en créer un.</string>
+    <string name="bad_auth_title">Erreur d\'authentification</string>
+    <string name="bad_auth">Il semble que votre couple login/pass soit erroné. Voulez-vous vous reconnecter ?</string>
+    <string name="webexport_ok">L\'export est terminé !</string>
+    <string name="webexport_fail">Désolé, il y a eu une erreur lors de l\'export. Reessayez plus tard &#8230;</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

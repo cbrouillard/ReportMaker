@@ -9,6 +9,13 @@
         />
     
     <item
+        android:id="@+id/auth"
+        android:icon="@android:drawable/ic_secure"
+        android:showAsAction="never"
+        android:title="@string/connect"
+        />
+    
+    <item
         android:id="@+id/about"
         android:icon="@android:drawable/ic_menu_info_details"
         android:showAsAction="never"

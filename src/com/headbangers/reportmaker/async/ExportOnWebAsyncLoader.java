@@ -1,9 +1,14 @@
 package com.headbangers.reportmaker.async;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.headbangers.reportmaker.AuthActivity;
+import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.WebServiceClient;
 
@@ -32,8 +37,54 @@ public class ExportOnWebAsyncLoader extends GenericAsyncLoader<Object, Integer> 
 	protected void onPostExecute(Integer result) {
 		super.onPostExecute(result);
 
-		// TODO renseigner l'utilisateur sur la réussite ou non
 		Log.d("Export", "Code = " + result);
+
+		switch (result) {
+		case 403:
+			// mauvais user ou mauvaise auth. On propose de se réauthentifier
+			new AlertDialog.Builder(fromContext)
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.setTitle(R.string.bad_auth_title)
+					.setMessage(R.string.bad_auth)
+					.setPositiveButton(R.string.yes,
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									Intent action = new Intent(fromContext,
+											AuthActivity.class);
+									action.putExtra(AuthActivity.FORCEMODE_ARG,
+											true);
+									fromContext.startActivityForResult(action,
+											AuthActivity.EXPORT_AFTER_AUTH);
+								}
+
+							})
+					.setNegativeButton(R.string.no,
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+
+							}).show();
+			break;
+
+		case 500:
+			// erreur système. On propose de réessayer plus tard
+			Toast.makeText(fromContext, R.string.webexport_fail,
+					Toast.LENGTH_LONG).show();
+			break;
+		case 200:
+			// OK :)
+			Toast.makeText(fromContext, R.string.webexport_ok,
+					Toast.LENGTH_LONG).show();
+			break;
+		}
+
 		Toast.makeText(fromContext, "Code = " + result, Toast.LENGTH_LONG)
 				.show();
 	}

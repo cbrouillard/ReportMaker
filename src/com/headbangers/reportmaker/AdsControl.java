@@ -31,7 +31,8 @@ public class AdsControl {
 			adRequest.addKeyword("GW");
 
 			adRequest.addTestDevice("EE8FDD470A72D400B66510DA5A45EBA0");
-			
+			adRequest.addTestDevice(AdRequest.TEST_EMULATOR);
+
 			adView.loadAd(adRequest);
 		} else {
 			adView.setVisibility(View.GONE);

@@ -28,6 +28,6 @@
         ads:adUnitId="a150c1fb43a016b"
         ads:loadAdOnCreate="false"
         ads:testDevices="TEST_EMULATOR"
-        ads:refreshInterval="120"/>
+        ads:refreshInterval="30"/>
 
 </LinearLayout>

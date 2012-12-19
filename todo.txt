@@ -1,4 +1,8 @@
 - amélioration du PDF
-- si premier lancement de l'application pour la version, afficher une popup
+
+- entrée en reserve sur tour2, 3, 4
+- gérer la prise d'init
+
+- si premier lancement de l'application pour la version, afficher une popup contenant un disclaimer a propos de la rédaction des rapports
 - sauvegarde en JSON
 - chargements base asynchrones

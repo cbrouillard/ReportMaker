@@ -1,4 +1,4 @@
-version 1.0 <br/>
+version 1.0 beta<br/>
 copyright 2012<br/>
 Brouillard Cyril<br/><br/>
 <b>Big up pour l'asso Warmageddon et tous mes potes de jeux !</b><br/>

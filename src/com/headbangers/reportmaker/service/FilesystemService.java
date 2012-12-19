@@ -31,7 +31,7 @@ public class FilesystemService {
 		return battleDirectory;
 	}
 
-	public String determineNewExtraPhotoName(Battle battle) {
+	public String determineNewExtraPhotoName(Battle battle, final int turn) {
 
 		File rootBattle = getRootBattle(battle);
 
@@ -39,11 +39,11 @@ public class FilesystemService {
 
 			@Override
 			public boolean accept(File dir, String filename) {
-				return filename.startsWith("extra_");
+				return filename.startsWith("extra_t" + turn);
 			}
 		});
 
-		return "extra_" + extrasPhotos.length + ".jpg";
+		return "extra_t" + turn + "_" + extrasPhotos.length + ".jpg";
 	}
 
 	public void deleteBattleDirectory(Long id) {
@@ -57,7 +57,7 @@ public class FilesystemService {
 		}
 	}
 
-	public List<String> findAllExtrasPhotosPath(Battle battle) {
+	public List<String> findAllExtrasPhotosPath(Battle battle, final int turn) {
 
 		File rootBattle = getRootBattle(battle);
 
@@ -65,7 +65,7 @@ public class FilesystemService {
 
 			@Override
 			public boolean accept(File dir, String filename) {
-				return filename.startsWith("extra_");
+				return filename.startsWith("extra_t" + turn);
 			}
 		});
 

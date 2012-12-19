@@ -61,12 +61,15 @@ public class TurnFragment extends RoboFragment {
 	private ImageView photoShoot2;
 	private ImageView photoAssault2;
 
-	private EditText commentsMove1;
-	private EditText commentsShoot1;
-	private EditText commentsAssault1;
-	private EditText commentsMove2;
-	private EditText commentsShoot2;
-	private EditText commentsAssault2;
+	// private EditText commentsMove1;
+	// private EditText commentsShoot1;
+	// private EditText commentsAssault1;
+	// private EditText commentsMove2;
+	// private EditText commentsShoot2;
+	// private EditText commentsAssault2;
+
+	private EditText comments1;
+	private EditText comments2;
 
 	@InjectView(R.id.lastOne)
 	private Switch lastOne;
@@ -146,18 +149,23 @@ public class TurnFragment extends RoboFragment {
 		this.photoAssault2 = (ImageView) this.playerTwoTurn
 				.findViewById(R.id.takePhoto_assault_photo);
 
-		this.commentsMove1 = (EditText) this.playerOneTurn
-				.findViewById(R.id.comments_move);
-		this.commentsMove2 = (EditText) this.playerTwoTurn
-				.findViewById(R.id.comments_move);
-		this.commentsShoot1 = (EditText) this.playerOneTurn
-				.findViewById(R.id.comments_shoot);
-		this.commentsShoot2 = (EditText) this.playerTwoTurn
-				.findViewById(R.id.comments_shoot);
-		this.commentsAssault1 = (EditText) this.playerOneTurn
-				.findViewById(R.id.comments_assault);
-		this.commentsAssault2 = (EditText) this.playerTwoTurn
-				.findViewById(R.id.comments_assault);
+		this.comments1 = (EditText) this.playerOneTurn
+				.findViewById(R.id.comments);
+		this.comments2 = (EditText) this.playerTwoTurn
+				.findViewById(R.id.comments);
+
+		// this.commentsMove1 = (EditText) this.playerOneTurn
+		// .findViewById(R.id.comments_move);
+		// this.commentsMove2 = (EditText) this.playerTwoTurn
+		// .findViewById(R.id.comments_move);
+		// this.commentsShoot1 = (EditText) this.playerOneTurn
+		// .findViewById(R.id.comments_shoot);
+		// this.commentsShoot2 = (EditText) this.playerTwoTurn
+		// .findViewById(R.id.comments_shoot);
+		// this.commentsAssault1 = (EditText) this.playerOneTurn
+		// .findViewById(R.id.comments_assault);
+		// this.commentsAssault2 = (EditText) this.playerTwoTurn
+		// .findViewById(R.id.comments_assault);
 	}
 
 	private void linkActions() {
@@ -292,20 +300,29 @@ public class TurnFragment extends RoboFragment {
 	public Turn buildTurn() {
 		Turn turn = new Turn();
 
-		turn.setCommentsMove1(this.commentsMove1 != null ? this.commentsMove1
-				.getText().toString() : null);
-		turn.setCommentsMove2(this.commentsMove2 != null ? this.commentsMove2
-				.getText().toString() : null);
+		turn.setComments1(this.comments1 != null ? this.comments1.getText()
+				.toString() : null);
+		turn.setComments2(this.comments2 != null ? this.comments2.getText()
+				.toString() : null);
 
-		turn.setCommentsShoot1(this.commentsShoot1 != null ? this.commentsShoot1
-				.getText().toString() : null);
-		turn.setCommentsShoot2(this.commentsShoot2 != null ? this.commentsShoot2
-				.getText().toString() : null);
-
-		turn.setCommentsAssault1(this.commentsAssault1 != null ? this.commentsAssault1
-				.getText().toString() : null);
-		turn.setCommentsAssault2(this.commentsAssault2 != null ? this.commentsAssault2
-				.getText().toString() : null);
+		// turn.setCommentsMove1(this.commentsMove1 != null ? this.commentsMove1
+		// .getText().toString() : null);
+		// turn.setCommentsMove2(this.commentsMove2 != null ? this.commentsMove2
+		// .getText().toString() : null);
+		//
+		// turn.setCommentsShoot1(this.commentsShoot1 != null ?
+		// this.commentsShoot1
+		// .getText().toString() : null);
+		// turn.setCommentsShoot2(this.commentsShoot2 != null ?
+		// this.commentsShoot2
+		// .getText().toString() : null);
+		//
+		// turn.setCommentsAssault1(this.commentsAssault1 != null ?
+		// this.commentsAssault1
+		// .getText().toString() : null);
+		// turn.setCommentsAssault2(this.commentsAssault2 != null ?
+		// this.commentsAssault2
+		// .getText().toString() : null);
 
 		if (numTurn >= 5) {
 			turn.setLastOne(this.lastOne != null ? this.lastOne.isChecked()
@@ -327,12 +344,15 @@ public class TurnFragment extends RoboFragment {
 
 		Turn turn = this.battle.getTurn(this.numTurn);
 
-		this.commentsMove1.setText(turn.getCommentsMove1());
-		this.commentsMove2.setText(turn.getCommentsMove2());
-		this.commentsShoot1.setText(turn.getCommentsShoot1());
-		this.commentsShoot2.setText(turn.getCommentsShoot2());
-		this.commentsAssault1.setText(turn.getCommentsAssault1());
-		this.commentsAssault2.setText(turn.getCommentsAssault2());
+		this.comments1.setText(turn.getComments1());
+		this.comments2.setText(turn.getComments2());
+
+		// this.commentsMove1.setText(turn.getCommentsMove1());
+		// this.commentsMove2.setText(turn.getCommentsMove2());
+		// this.commentsShoot1.setText(turn.getCommentsShoot1());
+		// this.commentsShoot2.setText(turn.getCommentsShoot2());
+		// this.commentsAssault1.setText(turn.getCommentsAssault1());
+		// this.commentsAssault2.setText(turn.getCommentsAssault2());
 
 		this.lastOne.setChecked(turn.isLastOne() != null ? turn.isLastOne()
 				: false);

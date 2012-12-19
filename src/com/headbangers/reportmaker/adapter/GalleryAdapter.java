@@ -28,9 +28,9 @@ public class GalleryAdapter implements SpinnerAdapter {
 
 	private List<String> extrasPath = new ArrayList<String>();
 
-	public GalleryAdapter(Activity context, Battle battle) {
+	public GalleryAdapter(Activity context, Battle battle, int turn) {
 		this.context = context;
-		extrasPath = fs.findAllExtrasPhotosPath(battle);
+		extrasPath = fs.findAllExtrasPhotosPath(battle, turn);
 		dwManager = new DrawableManager();
 	}
 

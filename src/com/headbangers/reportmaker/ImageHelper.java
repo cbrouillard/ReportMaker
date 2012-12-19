@@ -152,4 +152,15 @@ public class ImageHelper {
 		}
 	}
 
+	public static Bitmap photoAsPDFBitmap(String photoPath) {
+
+		File completeFile = new File(photoPath);
+
+		try {
+			return rotateAndResize(completeFile.getAbsolutePath(), 300);
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
 }

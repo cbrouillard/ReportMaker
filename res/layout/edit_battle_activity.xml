@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -17,6 +18,16 @@
         android:id="@+id/extrasPhotosGallery"
         android:layout_width="fill_parent"
         android:layout_height="50dip"
-        android:background="#222" />
+        android:background="#555" />
+
+    <com.google.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="a150c1fb43a016b"
+        ads:loadAdOnCreate="false"
+        ads:refreshInterval="30"
+        ads:testDevices="TEST_EMULATOR" />
 
 </LinearLayout>

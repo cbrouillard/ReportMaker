@@ -54,7 +54,9 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	@InjectView(R.id.extrasPhotosGallery)
 	private Gallery gallery;
 
-	private IPDFService pdfService = new DroidTextPDFService();
+	private IPDFService pdfService = new DroidTextPDFService(this);
+
+	private int currentTabSelected = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +88,13 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		actionBar.addTab(actionBar.newTab().setText(R.string.t5)
 				.setTabListener(this));
 
-		// TODO l'affichage de ces tabs est conditionné
+		// L'affichage de ces tabs devrait être conditionné/ Galere.
 		actionBar.addTab(actionBar.newTab().setText(R.string.t6)
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.t7)
 				.setTabListener(this));
+
+		AdsControl.buildAdIfEnable(this);
 
 	}
 
@@ -100,6 +104,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		battleDao.open();
 
 		this.loadBattle();
+
+		AdsControl.buildAdIfEnable(this);
 	}
 
 	@Override
@@ -134,6 +140,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 		Fragment fragment = null;
 
+		this.currentTabSelected = tab.getPosition();
+
 		switch (tab.getPosition()) {
 		case 0:
 			fragment = this.informations;
@@ -144,6 +152,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		case 4:
 		case 5:
 		case 6:
+		case 7:
 			fragment = this.turns[tab.getPosition() - 1];
 			break;
 		}
@@ -153,6 +162,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.container, fragment).commit();
 		}
+
+		reloadGallery();
 
 	}
 
@@ -164,6 +175,10 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
+
+		this.currentTabSelected = tab.getPosition();
+		reloadGallery();
+
 	}
 
 	@Override
@@ -183,7 +198,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			return true;
 		case R.id.menu_photo:
 
-			String photoName = fs.determineNewExtraPhotoName(battle);
+			String photoName = fs.determineNewExtraPhotoName(battle,
+					this.currentTabSelected);
 
 			// Prise d'une photo
 			ImageHelper.takePhoto(this, fs, battle, photoName,
@@ -284,7 +300,12 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			cpt++;
 		}
 
-		this.gallery.setAdapter(new GalleryAdapter(this, battle));
+		reloadGallery();
+	}
+
+	public void reloadGallery() {
+		this.gallery.setAdapter(new GalleryAdapter(this, battle,
+				this.currentTabSelected));
 		this.gallery
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -297,11 +318,15 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 						File imageFile = new File(extrasPath);
 						ImageHelper.showImageInDialog(imageFile,
-								EditBattleActivity.this, "Zoom sur photos");
+								EditBattleActivity.this,
+								EditBattleActivity.this.getResources()
+										.getString(R.string.zoom_extra));
 					}
 				});
 		if (this.gallery.getAdapter().getCount() == 0) {
 			this.gallery.setVisibility(View.GONE);
+		} else {
+			this.gallery.setVisibility(View.VISIBLE);
 		}
 	}
 

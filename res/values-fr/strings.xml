@@ -91,6 +91,11 @@
         Amusez-vous bien ! ;)</string>
     <string name="export_battle_web">Exporter (Web)</string>
     <string name="web_exporting">Export vers l\'application Web en cours &#8230;</string>
+    <string name="login_hint">Votre nom d\'utilisateur</string>
+    <string name="password_hint">Votre mot de passe</string>
+    <string name="connect">Connexion</string>
+    <string name="connection_help">Vous devez vous identifier pour continuer. 
+        Si vous n\'avez pas encore de compte, rendez-vous sur www.tacticalwarreport.com pour en créer un.</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

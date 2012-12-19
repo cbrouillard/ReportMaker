@@ -92,6 +92,11 @@
         Amusez-vous bien ! ;)</string>
     <string name="export_battle_web">Export (Web)</string>
     <string name="web_exporting">Exporting to Web application &#8230;</string>
+    <string name="login_hint">Your login</string>
+    <string name="password_hint">Your password</string>
+    <string name="connect">Connection</string>
+    <string name="connection_help">You have to authenticate yourself before in order to continue. 
+        If you havn\'t got an account yet, you can register on www.tacticalreport.com.</string>
 
     <string-array name="battleName_random_part1">
         <item>La prise de</item>

@@ -17,7 +17,6 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.async.ExportOnWebAsyncLoader;
@@ -34,7 +33,7 @@ public class WebServiceClient {
 		this.from = from;
 	}
 
-	public void export(Battle battle, String login, String pass) {
+	public int export(Battle battle, String login, String pass) {
 
 		try {
 
@@ -49,7 +48,9 @@ public class WebServiceClient {
 			File zipFile = compress.getZipFile();
 
 			// Appel au webservice
-			callCreateWebservice(json, zipFile, login, pass);
+			int httpCode = callCreateWebservice(json, zipFile, login, pass);
+
+			return httpCode;
 
 		} catch (JsonGenerationException e) {
 			// TODO Auto-generated catch block
@@ -62,9 +63,11 @@ public class WebServiceClient {
 			e.printStackTrace();
 		}
 
+		return 500;
+
 	}
 
-	private void callCreateWebservice(String json, File zipFile, String login,
+	private int callCreateWebservice(String json, File zipFile, String login,
 			String pass) {
 
 		MyHttpClient httpClient = new MyHttpClient(from);
@@ -92,7 +95,7 @@ public class WebServiceClient {
 			request.setEntity(entity);
 			HttpResponse response = httpClient.execute(request);
 
-			Log.d("WebserviceClient", response.toString());
+			return response.getStatusLine().getStatusCode();
 
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -102,14 +105,16 @@ public class WebServiceClient {
 			e.printStackTrace();
 		}
 
+		return 500;
+
 	}
 
-	public void exportAsync(Battle battle, String string, String string2) {
+	public void exportAsync(Battle battle, String user, String pass) {
 		ExportOnWebAsyncLoader asyncLoader = new ExportOnWebAsyncLoader(from,
 				this);
 		asyncLoader.setDialogText(from.getResources().getString(
 				R.string.web_exporting));
-		asyncLoader.execute(battle);
+		asyncLoader.execute(battle, user, pass);
 
 	}
 

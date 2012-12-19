@@ -84,9 +84,6 @@ public class ExportOnWebAsyncLoader extends GenericAsyncLoader<Object, Integer> 
 					Toast.LENGTH_LONG).show();
 			break;
 		}
-
-		Toast.makeText(fromContext, "Code = " + result, Toast.LENGTH_LONG)
-				.show();
 	}
 
 }

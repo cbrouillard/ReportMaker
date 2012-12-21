@@ -69,7 +69,8 @@ public class DroidTextPDFService implements IPDFService {
 		Battle battle = dao.findBattleById(battleId);
 
 		if (battle == null) {
-			return null;
+			throw new TwrException(new IllegalArgumentException(
+					"Battle est null."));
 		}
 
 		Document document = new Document();
@@ -204,14 +205,15 @@ public class DroidTextPDFService implements IPDFService {
 		if (allExtras.size() > 0) {
 			document.add(new Paragraph(getString(R.string.pdf_more_photos)
 					+ " :", subFont));
-		}
-		for (String extra : allExtras) {
-			try {
-				addPhoto(document, extra);
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+
+			for (String extra : allExtras) {
+				try {
+					addPhoto(document, extra);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

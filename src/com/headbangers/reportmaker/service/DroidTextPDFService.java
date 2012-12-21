@@ -15,6 +15,7 @@ import com.headbangers.reportmaker.ImageHelper;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.async.GeneratePDFAsyncLoader;
 import com.headbangers.reportmaker.dao.BattleDao;
+import com.headbangers.reportmaker.exception.TwrException;
 import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
 import com.headbangers.reportmaker.fragment.TurnFragment;
 import com.headbangers.reportmaker.pojo.Battle;
@@ -151,15 +152,17 @@ public class DroidTextPDFService implements IPDFService {
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			throw new TwrException(e);
 		} catch (DocumentException e) {
 			e.printStackTrace();
+			throw new TwrException(e);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
+			throw new TwrException(e);
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new TwrException(e);
 		}
-
-		return null;
 	}
 
 	private void generateTurn(Document document, PdfContentByte cb,

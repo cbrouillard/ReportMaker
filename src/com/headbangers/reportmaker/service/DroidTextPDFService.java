@@ -78,7 +78,8 @@ public class DroidTextPDFService implements IPDFService {
 		try {
 
 			File documentFile = new File(fs.getRootBattle(battle), battle
-					.getName().replace(" ", "_") + ".pdf");
+					.getName().replace(" ", "_").replace("\n", "")
+					+ ".pdf");
 			PdfWriter writer = PdfWriter.getInstance(document,
 					new FileOutputStream(documentFile));
 

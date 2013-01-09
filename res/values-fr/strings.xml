@@ -89,7 +89,7 @@
         Gardez en tête cependant que la rédaction d\'un rapport est une tâche compliquée : commencez par couvrir de petites parties. TWR est là pour vous aider mais il ne sait pas tout faire &#8230; C\'est à vous de prendre les photos au bon moment et d\'écrire vos notes.&lt;br/&gt;&lt;br/&gt;
         Tactical War Report est encore en version bêta. Des bugs sont peut-être encore cachés dans l\'application. Cette dernière est également appelée à évoluer.&lt;br/&gt;&lt;br/&gt;
         Amusez-vous bien ! ;)</string>
-    <string name="export_battle_web">Exporter (Web)</string>
+    <string name="export_battle_web">Exporter (tacticalwarreport.com)</string>
     <string name="web_exporting">Export vers l\'application Web en cours &#8230;</string>
     <string name="login_hint">Votre nom d\'utilisateur</string>
     <string name="password_hint">Votre mot de passe</string>
@@ -99,8 +99,8 @@
     <string name="bad_auth_title">Erreur d\'authentification</string>
     <string name="bad_auth">Il semble que votre couple login/pass soit erroné. Voulez-vous vous reconnecter ?</string>
     <string name="webexport_ok">L\'export est terminé !</string>
-    <string name="webexport_fail">Désolé, il y a eu une erreur lors de l\'export. Reessayez plus tard &#8230;</string>
-
+    <string name="webexport_fail">Désolé, il y a eu une erreur lors de l\'export. Re-essayez plus tard &#8230;</string>
+	<string name="loading">Chargement. Patientez &#8230;</string>
     <string-array name="battleName_random_part1">
         <item>La prise de</item>
         <item>La bataille de</item>

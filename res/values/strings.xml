@@ -33,14 +33,14 @@
     <string name="t7">T7</string>
     <string name="photo_table">Table photo</string>
     <string name="deployment_type">Deployment type</string>
-    <string name="deployment_type_hint">Aube de guerre, autre &#8230;</string>
+    <string name="deployment_type_hint">Hammer and alvin, other &#8230;</string>
     <string name="scenario">Mission</string>
-    <string name="scenario_hint">Relique, Gros calibre, autre &#8230;</string>
-    <string name="who_start">Who starts ?</string>
+    <string name="scenario_hint">The Relic, other &#8230;</string>
+    <string name="who_start">Who\'s starting ?</string>
     <string name="lord_capacity">Lord capacity : </string>
-    <string name="lord_capacity_hint">Strategy, Commandement, autre &#8230;</string>
-    <string name="photo_deployment_player">After deployment :</string>
-    <string name="photo_deployment">Deployment photo</string>
+    <string name="lord_capacity_hint">Strategy, Personality, other &#8230;</string>
+    <string name="photo_deployment_player">After deployment phase :</string>
+    <string name="photo_deployment">Deployment</string>
     <string name="random_name">A random name</string>
     <string name="comments">Comments</string>
     <string name="comments_hints">Your impressions, remarks, other &#8230;</string>
@@ -86,11 +86,14 @@
     <string name="pdf_deployment_of">Deployment of</string>
     <string name="little_welcome">Welcome !</string>
     <string name="first_launch">Tactical War Report ! &lt;br/&gt;&lt;br/&gt;
-        Cette application va vous permettre de rédiger facilement des rapports de bataille : elle ne couvre pour le moment que les règles de Warhammer&#169; 40000.&lt;br/&gt;&lt;br/&gt;
-        Gardez en tête cependant que la rédaction d\'un rapport est une tâche compliquée : commencez par couvrir de petites parties. TWR est là pour vous aider mais il ne sait pas tout faire &#8230; C\'est à vous de prendre les photos au bon moment et d\'écrire vos notes.&lt;br/&gt;&lt;br/&gt;
-        Tactical War Report est encore en version bêta. Des bugs sont peut-être encore cachés dans l\'application. Cette dernière est également appelée à évoluer.&lt;br/&gt;&lt;br/&gt;
-        Amusez-vous bien ! ;)</string>
-    <string name="export_battle_web">Export (Web)</string>
+        This app will allow you to easily write your own battle reports : Warhammer&#169; 40000 rules only are currently supported.  
+        &lt;br/&gt;&lt;br/&gt;
+        Keep in mind that writing a report is a really hard task : start to fight with some little games. TWR is here to help but it can\'t do anything &#8230;
+        It\'s yours to take right timed cool photos and to write your notes.&lt;br/&gt;&lt;br/&gt;
+        Tactical War Report is still in "beta" version. Some bugs may reside into the app. TWR also has an heavy roadmap. &lt;br/&gt;&lt;br/&gt;
+        Have fun ! ;)</string>
+
+	<string name="export_battle_web">Export (tacticalwarreport.com)</string>
     <string name="web_exporting">Exporting to Web application &#8230;</string>
     <string name="login_hint">Your login</string>
     <string name="password_hint">Your password</string>
@@ -103,19 +106,16 @@
     <string name="webexport_fail">There was an error during the export process. Please, try later &#8230;</string>
 
     <string-array name="battleName_random_part1">
-        <item>La prise de</item>
-        <item>La bataille de</item>
-        <item>La chute de</item>
-        <item>Patrouille sur</item>
-        <item>Massacre à</item>
-        <item>Retour à</item>
-        <item>La purge de</item>
-        <item>Du sang sur</item>
-        <item>Les frères de</item>
-        <item>La légende de</item>
-        <item>Du grabuge sur</item>
-        <item>Assaut sur</item>
-        <item>Les oubliés de</item>
+        <item>The battle of</item>
+        <item>The fall of</item>
+        <item>Slaughtering on</item>
+        <item>Return to</item>
+        <item>Purge of</item>
+        <item>Blood on</item>
+        <item>Brothers of</item>
+        <item>The legend of</item>
+        <item>Assault on</item>
+        <item>The forgotten of</item>
     </string-array>
     <string-array name="planets">
         <item>Davin</item>

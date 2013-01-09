@@ -15,6 +15,7 @@ import com.headbangers.reportmaker.ImageHelper;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.async.GeneratePDFAsyncLoader;
 import com.headbangers.reportmaker.dao.BattleDao;
+import com.headbangers.reportmaker.exception.TwrException;
 import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
 import com.headbangers.reportmaker.fragment.TurnFragment;
 import com.headbangers.reportmaker.pojo.Battle;
@@ -68,7 +69,8 @@ public class DroidTextPDFService implements IPDFService {
 		Battle battle = dao.findBattleById(battleId);
 
 		if (battle == null) {
-			return null;
+			throw new TwrException(new IllegalArgumentException(
+					"Battle est null."));
 		}
 
 		Document document = new Document();
@@ -76,7 +78,8 @@ public class DroidTextPDFService implements IPDFService {
 		try {
 
 			File documentFile = new File(fs.getRootBattle(battle), battle
-					.getName().replace(" ", "_") + ".pdf");
+					.getName().replace(" ", "_").replace("\n", "")
+					+ ".pdf");
 			PdfWriter writer = PdfWriter.getInstance(document,
 					new FileOutputStream(documentFile));
 
@@ -151,15 +154,17 @@ public class DroidTextPDFService implements IPDFService {
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			throw new TwrException(e);
 		} catch (DocumentException e) {
 			e.printStackTrace();
+			throw new TwrException(e);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
+			throw new TwrException(e);
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new TwrException(e);
 		}
-
-		return null;
 	}
 
 	private void generateTurn(Document document, PdfContentByte cb,
@@ -183,7 +188,7 @@ public class DroidTextPDFService implements IPDFService {
 			e.printStackTrace();
 		}
 
-		addEmptyLine(document, 1);
+		document.newPage();
 
 		try {
 			generatePlayerTurn(document, cb, battle, turn, two,
@@ -201,14 +206,15 @@ public class DroidTextPDFService implements IPDFService {
 		if (allExtras.size() > 0) {
 			document.add(new Paragraph(getString(R.string.pdf_more_photos)
 					+ " :", subFont));
-		}
-		for (String extra : allExtras) {
-			try {
-				addPhoto(document, extra);
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+
+			for (String extra : allExtras) {
+				try {
+					addPhoto(document, extra);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -217,41 +223,39 @@ public class DroidTextPDFService implements IPDFService {
 			Battle battle, Turn turn, Player player, int numPlayer)
 			throws DocumentException, MalformedURLException, IOException {
 
-		// MOUVEMENT
-		document.add(new Paragraph(getString(R.string.pdf_move) + " "
-				+ player.getName() + " : ", normalBold));
+		document.add(new Paragraph(player.getName(), subFont));
 
+		document.add(new Paragraph(getString(R.string.comments), normalBold));
+		document.add(new Paragraph(turn.getComments(numPlayer), normal));
+
+		// MOUVEMENT
 		addPhoto(document, battle,
 				TurnFragment.MOVE_PHOTO_NAME.replace("{P}", "" + numPlayer)
-						.replace("{X}", "" + turn.getNum()), null,
+						.replace("{X}", "" + turn.getNum()),
+				getString(R.string.pdf_move) + " " + player.getName() + " : ",
 				getString(R.string.pdf_no_photo));
 
 		// document.add(new Paragraph(turn.getCommentsMove(numPlayer), normal));
 
 		// TIR
-		document.add(new Paragraph(getString(R.string.pdf_shoot) + " "
-				+ player.getName() + " : ", normalBold));
-
 		addPhoto(document, battle,
 				TurnFragment.SHOOT_PHOTO_NAME.replace("{P}", "" + numPlayer)
-						.replace("{X}", "" + turn.getNum()), null,
+						.replace("{X}", "" + turn.getNum()),
+				getString(R.string.pdf_shoot) + " " + player.getName() + " : ",
 				getString(R.string.pdf_no_photo));
 
 		// document.add(new Paragraph(turn.getCommentsShoot(numPlayer),
 		// normal));
 
 		// ASSAUT
-		document.add(new Paragraph(getString(R.string.pdf_assault) + " "
-				+ player.getName() + " : ", normalBold));
-
 		addPhoto(document, battle,
 				TurnFragment.ASSAULT_PHOTO_NAME.replace("{P}", "" + numPlayer)
-						.replace("{X}", "" + turn.getNum()), null,
-				getString(R.string.pdf_no_photo));
+						.replace("{X}", "" + turn.getNum()),
+				getString(R.string.pdf_assault) + " " + player.getName()
+						+ " : ", getString(R.string.pdf_no_photo));
 
 		// document.add(new Paragraph(turn.getCommentsAssault(numPlayer),
 		// normal));
-		document.add(new Paragraph(turn.getComments(numPlayer), normal));
 
 	}
 
@@ -324,18 +328,20 @@ public class DroidTextPDFService implements IPDFService {
 				photoName);
 		if (photo != null) {
 
-			if (headerText != null) {
-				document.add(new Paragraph(headerText, normalBold));
-			}
-
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
 					100 /* Ratio */, stream);
 			Image jpg = Image.getInstance(stream.toByteArray());
+			jpg.setAlignment(Image.LEFT | Image.TEXTWRAP);
+			jpg.scaleToFit(20000, 170);
 
 			Paragraph element = new Paragraph();
-			element.add(jpg);
 
+			if (headerText != null) {
+				document.add(new Paragraph(headerText, normalBold));
+			}
+			element.add(new Paragraph(" "));
+			element.add(new Chunk(jpg, 0, 0, true));
 			document.add(element);
 		} else {
 			if (textIfNoPhoto != null) {

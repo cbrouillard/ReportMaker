@@ -2,15 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/menu_launchTimer"
+        android:id="@+id/menu_timer"
         android:icon="@android:drawable/ic_lock_idle_alarm"
         android:showAsAction="never"
-        android:title="@string/launch_timer"/>
-    <item
-        android:id="@+id/menu_stopTimer"
-        android:icon="@android:drawable/ic_lock_idle_alarm"
-        android:showAsAction="never"
-        android:title="@string/stop_timer"/>
+        android:title="@string/timer"/>
     <item
         android:id="@+id/menu_exportBattle"
         android:icon="@android:drawable/ic_menu_view"

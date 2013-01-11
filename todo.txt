@@ -10,9 +10,9 @@
 	. affichage des images dans les rapports (bandelette, complète redimensionnée)
 
 	-- Timer de rappel
-	. durée du timer (en minutes)
-	. sonnerie utilisée lors du rappel
-	. vibration lors du rappel (oui/non)
+	. durée du timer (en minutes)OK
+	. sonnerie utilisée lors du rappelOK
+	. vibration lors du rappel (oui/non)OK
 	. lancement automatique lors de l'édition d'un rapport (oui/non)
 	. arret automatique lors de la sortie (oui/non)
 

@@ -44,7 +44,6 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "edit_battle_selected_navigation_item";
 	public static final String BATTLE_ID_ARG = "battle_id";
-	public static final String STOP_TIMER = "stop_timer";
 
 	private static final int TAKE_PHOTO_EXTRA_RESULT_CODE = 1;
 
@@ -68,21 +67,13 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	@Inject
 	private SharedPreferences prefs;
 
-	private static TimerHelper timer = new TimerHelper();
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_battle_activity);
-		timer.setContext(this);
 
 		battleDao.open();
 		pdfService.setDao(battleDao);
-
-		// Doit-on stopper le timer ?
-		boolean stopTimer = this.getIntent().getExtras()
-				.getBoolean(STOP_TIMER, false);
-		this.stopTimerIfNeeded(stopTimer);
 
 		// Sauvegarde de l'id de la bataille
 		this.battleId = this.getIntent().getExtras().getLong(BATTLE_ID_ARG);
@@ -122,17 +113,6 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 					.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		}
 
-	}
-
-	private void stopTimerIfNeeded(boolean stopTimer) {
-		if (stopTimer && timer.isRunning()) {
-			timer.stopTimer();
-			Toast.makeText(this, R.string.timer_stopped, Toast.LENGTH_LONG)
-					.show();
-		} else {
-			Toast.makeText(this, R.string.notimer_tostop, Toast.LENGTH_LONG)
-					.show();
-		}
 	}
 
 	@Override
@@ -251,27 +231,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			startActivityForResult(preferences, PreferencesActivity.CODE_RESULT);
 
 			return true;
-		case R.id.menu_launchTimer:
-			// lancement du timer
-			String durationString = this.prefs.getString("durationTimer", "10");
-			Integer duration = 10;
-			try {
-				duration = Integer.parseInt(durationString);
-			} catch (NumberFormatException e) {
-				Toast.makeText(this,
-						R.string.preferences_wrongDurationTimer_value,
-						Toast.LENGTH_LONG).show();
-			}
-			timer.configureTimer(duration);
-			Toast.makeText(
-					this,
-					this.getResources().getString(R.string.timer_launched)
-							.replace("[X]", duration + ""), Toast.LENGTH_LONG)
-					.show();
-
-			return true;
-		case R.id.menu_stopTimer:
-			this.stopTimerIfNeeded(true);
+		case R.id.menu_timer:
+			TimerHelper.getInstance(this).manageDialog();
 			return true;
 		}
 
@@ -287,6 +248,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		case PreferencesActivity.CODE_RESULT:
 			Toast.makeText(this, R.string.preferences_ok, Toast.LENGTH_LONG)
 					.show();
+			// TODO gérer le changement de paramètre sur l'écran
+
 			break;
 		}
 	}

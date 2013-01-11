@@ -13,9 +13,11 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.headbangers.reportmaker.EditBattleActivity;
 import com.headbangers.reportmaker.R;
+import com.headbangers.reportmaker.TimerManagementDialog;
 
 public class TimerHelper {
 
@@ -25,7 +27,9 @@ public class TimerHelper {
 	private boolean nextMessageStop = false;
 	private boolean isRunning = false;
 
-	public TimerHelper() {
+	private static TimerHelper instance = null;
+
+	private TimerHelper() {
 		this.handler = new Handler(new Handler.Callback() {
 
 			@Override
@@ -36,7 +40,7 @@ public class TimerHelper {
 					TimerHelper.this.nextMessageStop = true;
 					return true;
 				} else if (!TimerHelper.this.nextMessageStop) {
-					Log.d("Timer", "Tick !");
+					Log.d("Timer", "Tick ! Timer execution");
 
 					// Paramètres.
 					SharedPreferences preference = PreferenceManager
@@ -65,6 +69,7 @@ public class TimerHelper {
 	}
 
 	private void vibrate(boolean param) {
+		Log.d("Timer", "Ask for vibrating " + param);
 		if (param) {
 			// Get instance of Vibrator from current Context
 			Vibrator v = (Vibrator) this.context
@@ -92,6 +97,8 @@ public class TimerHelper {
 	}
 
 	private void notify(String sound) {
+		Log.d("Timer", "Notify with sound = " + sound);
+
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				this.context)
 				.setSmallIcon(R.drawable.icone)
@@ -103,7 +110,7 @@ public class TimerHelper {
 								R.string.timer_notification_infos));
 		// Creates an explicit intent for an Activity in your app
 		Intent resultIntent = new Intent(this.context, EditBattleActivity.class);
-		resultIntent.putExtra(EditBattleActivity.STOP_TIMER, true);
+		// TODO current tab // current player
 		resultIntent.putExtra(EditBattleActivity.BATTLE_ID_ARG,
 				this.context.getBattleId());
 
@@ -129,21 +136,67 @@ public class TimerHelper {
 		mNotificationManager.notify(0, mBuilder.build());
 	}
 
-	public void configureTimer(int minutes) {
+	private void configureTimer(int minutes) {
+		Log.d("Timer", "==> next in " + minutes + " minute(s)");
 		this.handler.sendEmptyMessageDelayed(minutes, (minutes * 60) * 1000);
 		this.isRunning = true;
 	}
 
 	public void stopTimer() {
+		Log.d("Timer", "Ask for stop timer");
+
 		this.handler.sendEmptyMessage(0);
 		this.isRunning = false;
+
+		Toast.makeText(this.context, R.string.timer_stopped, Toast.LENGTH_LONG)
+				.show();
+	}
+
+	public void startTimer() {
+		Log.d("Timer", "Ask for start timer");
+
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this.context);
+		String durationString = prefs.getString("durationTimer", "10");
+		Integer duration = 10;
+		try {
+			duration = Integer.parseInt(durationString);
+		} catch (NumberFormatException e) {
+			Toast.makeText(this.context,
+					R.string.preferences_wrongDurationTimer_value,
+					Toast.LENGTH_LONG).show();
+		}
+
+		this.configureTimer(duration);
+		Toast.makeText(
+				this.context,
+				this.context.getResources().getString(R.string.timer_launched)
+						.replace("[X]", duration + ""), Toast.LENGTH_LONG)
+				.show();
+	}
+
+	public void manageDialog() {
+		Log.d("Timer", "Ask for timer dialog");
+
+		TimerManagementDialog dialog = new TimerManagementDialog(this.context);
+		dialog.setTitle(this.context.getResources().getString(R.string.timer));
+		dialog.show();
 	}
 
 	public boolean isRunning() {
 		return isRunning;
 	}
 
-	public void setContext(EditBattleActivity context) {
+	private void setContext(EditBattleActivity context) {
 		this.context = context;
+	}
+
+	public static TimerHelper getInstance(EditBattleActivity context) {
+		if (instance == null) {
+			instance = new TimerHelper();
+			instance.setContext(context);
+		}
+
+		return instance;
 	}
 }

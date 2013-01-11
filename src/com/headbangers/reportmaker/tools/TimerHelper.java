@@ -25,6 +25,7 @@ public class TimerHelper {
 	private EditBattleActivity context; // TODO refactor this
 
 	private boolean isRunning = false;
+	private boolean iWantANext = true;
 
 	private static TimerHelper instance = null;
 
@@ -37,7 +38,7 @@ public class TimerHelper {
 				if (minutes == 0) {
 					// Stop !
 					return true;
-				} else {
+				} else if (TimerHelper.this.iWantANext) {
 					Log.d("Timer", "Tick ! Timer execution");
 
 					// Paramètres.
@@ -56,8 +57,8 @@ public class TimerHelper {
 
 					// Et on appelle le suivant !
 					TimerHelper.this.configureTimer(minutes);
-					return true;
 				}
+				return true;
 			}
 		});
 	}
@@ -136,14 +137,16 @@ public class TimerHelper {
 		Log.d("Timer", "==> next in " + minutes + " minute(s)");
 		this.handler.sendEmptyMessageDelayed(minutes, (minutes * 60) * 1000);
 		this.isRunning = true;
+		this.iWantANext = true;
 	}
 
 	public void stopTimer() {
 		Log.d("Timer", "Ask for stop timer");
 
-		this.handler.removeMessages(0, null);
+		this.handler.removeMessages(loadDuration(), null);
 		this.handler.sendEmptyMessage(0);
 		this.isRunning = false;
+		this.iWantANext = false;
 	}
 
 	public Integer startTimer() {

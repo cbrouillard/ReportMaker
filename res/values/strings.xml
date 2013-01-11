@@ -103,8 +103,8 @@
     <string name="bad_auth">Your login/pass seems to be not correct. Would you like to try a new connection ?</string>
     <string name="webexport_ok">Export has been done !</string>
     <string name="webexport_fail">There was an error during the export process. Please, try later &#8230;</string>
-    <string name="preferences">Préférences</string>
-    <string name="preferences_general">Préférences générales</string>
+    <string name="preferences">Preferences</string>
+    <string name="preferences_general">General preferences</string>
     <string name="preferences_letScreenAlwaysOn_summary">Souhaitez-vous laisser votre écran allumé en permanence ?</string>
     <string name="preferences_letScreenAlwaysOn">Ecran</string>
     <string name="preferences_whenQuitComportment">Action lorsque je quitte l\'édition d\'un rapport</string>

@@ -25,8 +25,7 @@ public class TimerHelper {
 	private boolean nextMessageStop = false;
 	private boolean isRunning = false;
 
-	public TimerHelper(EditBattleActivity context) {
-		this.context = context;
+	public TimerHelper() {
 		this.handler = new Handler(new Handler.Callback() {
 
 			@Override
@@ -142,5 +141,9 @@ public class TimerHelper {
 
 	public boolean isRunning() {
 		return isRunning;
+	}
+
+	public void setContext(EditBattleActivity context) {
+		this.context = context;
 	}
 }

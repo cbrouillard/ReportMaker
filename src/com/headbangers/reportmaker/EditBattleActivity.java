@@ -68,12 +68,13 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	@Inject
 	private SharedPreferences prefs;
 
-	TimerHelper timer = new TimerHelper(this);
+	private static TimerHelper timer = new TimerHelper();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_battle_activity);
+		timer.setContext(this);
 
 		battleDao.open();
 		pdfService.setDao(battleDao);
@@ -124,8 +125,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	}
 
 	private void stopTimerIfNeeded(boolean stopTimer) {
-		if (stopTimer && this.timer.isRunning()) {
-			this.timer.stopTimer();
+		if (stopTimer && timer.isRunning()) {
+			timer.stopTimer();
 			Toast.makeText(this, R.string.timer_stopped, Toast.LENGTH_LONG)
 					.show();
 		} else {
@@ -262,6 +263,11 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 						Toast.LENGTH_LONG).show();
 			}
 			timer.configureTimer(duration);
+			Toast.makeText(
+					this,
+					this.getResources().getString(R.string.timer_launched)
+							.replace("[X]", duration + ""), Toast.LENGTH_LONG)
+					.show();
 
 			return true;
 		case R.id.menu_stopTimer:

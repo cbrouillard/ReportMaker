@@ -122,6 +122,7 @@
     <string name="timer_notification_title">Rappel TWR</string>
     <string name="timer_notification_infos">Appuyez sur cette notification pour stopper le timer.</string>
     <string name="timer_stopped">Le timer a été stoppé.</string>
+    <string name="timer_launched">Le timer a été lancé. Un rappel aura lieu toutes les [X] minutes.</string>
     <string name="notimer_tostop">Il n\'y a pas de timer à stopper. Lancez-en un depuis le menu !</string>
 
     <string-array name="preferences_whenQuitComportment_entries">

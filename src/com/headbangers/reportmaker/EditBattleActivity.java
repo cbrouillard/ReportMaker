@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Gallery;
 import android.widget.Toast;
@@ -37,6 +36,7 @@ import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.service.IPDFService;
 import com.headbangers.reportmaker.tools.AdsControl;
 import com.headbangers.reportmaker.tools.ImageHelper;
+import com.headbangers.reportmaker.tools.ScreenHelper;
 import com.headbangers.reportmaker.tools.TimerHelper;
 
 public class EditBattleActivity extends RoboFragmentActivity implements
@@ -106,12 +106,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		AdsControl.buildAdIfEnable(this);
 
 		// Doit-on laisser l'écran allumé en permanence ?
-		boolean screen = this.prefs.getBoolean("letScreenAlwaysOn", false);
-		Log.d("EditBattleActivity.onCreate", "Settings screen is " + screen);
-		if (screen) {
-			getWindow()
-					.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		}
+		ScreenHelper.applyAlwaysSwitched(this);
 
 	}
 
@@ -248,7 +243,8 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		case PreferencesActivity.CODE_RESULT:
 			Toast.makeText(this, R.string.preferences_ok, Toast.LENGTH_LONG)
 					.show();
-			// TODO gérer le changement de paramètre sur l'écran
+			// gérer le changement de paramètre sur l'écran
+			ScreenHelper.applyAlwaysSwitched(this);
 
 			break;
 		}

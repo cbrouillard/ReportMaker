@@ -117,7 +117,7 @@
     <string name="preferences_timerRingtone">Used ringtone</string>
     <string name="preferences_timerRingtone_summary">Choose the right ringtone for your timer\'s activation.</string>
     <string name="preferences_timerVibrator">Vibrator</string>
-    <string name="preferences_timerVibrator_summary">Do you wish your device to vibrate each time the drive activate ?</string>
+    <string name="preferences_timerVibrator_summary">Do you wish your device to vibrate each time the timer activate ?</string>
     <string name="preferences_ok">Preferences has been saved.</string>
     <string name="timer_notification_title">TWR Notification</string>
     <string name="timer_notification_infos">Touch to edit the report.</string>

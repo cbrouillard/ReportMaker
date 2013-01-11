@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.headbangers.reportmaker.tools.TimerHelper;
 
@@ -52,10 +53,17 @@ public class TimerManagementDialog extends Dialog {
 
 			@Override
 			public void onClick(View v) {
-				TimerHelper.getInstance(TimerManagementDialog.this.mContext)
-						.startTimer();
+				Integer duration = TimerHelper.getInstance(
+						TimerManagementDialog.this.mContext).startTimer();
 				start.setEnabled(false);
 				stop.setEnabled(true);
+
+				Toast.makeText(
+						TimerManagementDialog.this.mContext,
+						TimerManagementDialog.this.mContext.getResources()
+								.getString(R.string.timer_launched)
+								.replace("[X]", duration + ""),
+						Toast.LENGTH_LONG).show();
 			}
 		});
 
@@ -67,6 +75,9 @@ public class TimerManagementDialog extends Dialog {
 						.stopTimer();
 				start.setEnabled(true);
 				stop.setEnabled(false);
+
+				Toast.makeText(TimerManagementDialog.this.mContext,
+						R.string.timer_stopped, Toast.LENGTH_LONG).show();
 			}
 		});
 

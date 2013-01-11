@@ -308,6 +308,11 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			break;
 		}
 
+		// Extinction des timers
+		if (TimerHelper.getInstance(this).isRunning()) {
+			TimerHelper.getInstance(this).stopTimer();
+		}
+
 	}
 
 	private void save() {

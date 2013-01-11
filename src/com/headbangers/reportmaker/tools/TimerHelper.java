@@ -110,7 +110,9 @@ public class TimerHelper {
 								R.string.timer_notification_infos));
 		// Creates an explicit intent for an Activity in your app
 		Intent resultIntent = new Intent(this.context, EditBattleActivity.class);
+
 		// TODO current tab // current player
+
 		resultIntent.putExtra(EditBattleActivity.BATTLE_ID_ARG,
 				this.context.getBattleId());
 
@@ -147,12 +149,9 @@ public class TimerHelper {
 
 		this.handler.sendEmptyMessage(0);
 		this.isRunning = false;
-
-		Toast.makeText(this.context, R.string.timer_stopped, Toast.LENGTH_LONG)
-				.show();
 	}
 
-	public void startTimer() {
+	public Integer startTimer() {
 		Log.d("Timer", "Ask for start timer");
 
 		SharedPreferences prefs = PreferenceManager
@@ -168,11 +167,7 @@ public class TimerHelper {
 		}
 
 		this.configureTimer(duration);
-		Toast.makeText(
-				this.context,
-				this.context.getResources().getString(R.string.timer_launched)
-						.replace("[X]", duration + ""), Toast.LENGTH_LONG)
-				.show();
+		return duration;
 	}
 
 	public void manageDialog() {

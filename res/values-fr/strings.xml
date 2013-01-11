@@ -120,6 +120,7 @@
     <string name="launch_timer">Lancer un timer</string>
     <string name="timer_notification_title">Rappel TWR</string>
     <string name="timer_notification_infos">Appuyez sur cette notification pour stopper le timer.</string>
+    <string name="timer_stopped">Le timer a été stoppé.</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Toujours demander</item>

@@ -1,6 +1,5 @@
 package com.headbangers.reportmaker.tools;
 
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -15,15 +14,17 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-import com.headbangers.reportmaker.BattleListActivity;
+import com.headbangers.reportmaker.EditBattleActivity;
 import com.headbangers.reportmaker.R;
 
 public class TimerHelper {
 
 	private Handler handler;
-	private Activity context;
+	private EditBattleActivity context;
 
-	public TimerHelper(Activity context) {
+	private boolean nextMessageStop = false;
+
+	public TimerHelper(EditBattleActivity context) {
 		this.context = context;
 		this.handler = new Handler(new Handler.Callback() {
 
@@ -32,8 +33,9 @@ public class TimerHelper {
 				int minutes = msg.what;
 				if (minutes == 0) {
 					// Stop !
+					TimerHelper.this.nextMessageStop = true;
 					return true;
-				} else {
+				} else if (!TimerHelper.this.nextMessageStop) {
 					Log.d("Timer", "Tick !");
 
 					// Paramètres.
@@ -52,6 +54,10 @@ public class TimerHelper {
 
 					// Et on appelle le suivant !
 					TimerHelper.this.configureTimer(minutes);
+					return true;
+				} else {
+					// Stop !
+					TimerHelper.this.nextMessageStop = false;
 					return true;
 				}
 			}
@@ -87,11 +93,19 @@ public class TimerHelper {
 
 	private void notify(String sound) {
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-				this.context).setSmallIcon(R.drawable.icone)
-				.setContentTitle(this.context.getResources().getString(R.string.timer_notification_title))
-				.setContentText(this.context.getResources().getString(R.string.timer_notification_infos));
+				this.context)
+				.setSmallIcon(R.drawable.icone)
+				.setContentTitle(
+						this.context.getResources().getString(
+								R.string.timer_notification_title))
+				.setContentText(
+						this.context.getResources().getString(
+								R.string.timer_notification_infos));
 		// Creates an explicit intent for an Activity in your app
-		Intent resultIntent = new Intent(this.context, BattleListActivity.class);
+		Intent resultIntent = new Intent(this.context, EditBattleActivity.class);
+		resultIntent.putExtra(EditBattleActivity.STOP_TIMER, true);
+		resultIntent.putExtra(EditBattleActivity.BATTLE_ID_ARG,
+				this.context.getBattleId());
 
 		// The stack builder object will contain an artificial back stack for
 		// the
@@ -100,13 +114,14 @@ public class TimerHelper {
 		// your application to the Home screen.
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this.context);
 		// Adds the back stack for the Intent (but not the Intent itself)
-		stackBuilder.addParentStack(BattleListActivity.class);
+		stackBuilder.addParentStack(EditBattleActivity.class);
 		// Adds the Intent that starts the Activity to the top of the stack
 		stackBuilder.addNextIntent(resultIntent);
 		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(resultPendingIntent);
 		mBuilder.setSound(Uri.parse(sound));
+		mBuilder.setAutoCancel(true);
 
 		NotificationManager mNotificationManager = (NotificationManager) this.context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -116,5 +131,9 @@ public class TimerHelper {
 
 	public void configureTimer(int minutes) {
 		this.handler.sendEmptyMessageDelayed(minutes, (minutes * 60) * 1000);
+	}
+
+	public void stopTimer() {
+		this.handler.sendEmptyMessage(0);
 	}
 }

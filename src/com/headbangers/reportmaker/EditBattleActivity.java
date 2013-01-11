@@ -44,6 +44,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "edit_battle_selected_navigation_item";
 	public static final String BATTLE_ID_ARG = "battle_id";
+	public static final String STOP_TIMER = "stop_timer";
 
 	private static final int TAKE_PHOTO_EXTRA_RESULT_CODE = 1;
 
@@ -76,6 +77,11 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 		battleDao.open();
 		pdfService.setDao(battleDao);
+
+		// Doit-on stopper le timer ?
+		boolean stopTimer = this.getIntent().getExtras()
+				.getBoolean(STOP_TIMER, false);
+		this.stopTimerIfNeeded(stopTimer);
 
 		// Sauvegarde de l'id de la bataille
 		this.battleId = this.getIntent().getExtras().getLong(BATTLE_ID_ARG);
@@ -115,6 +121,14 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 					.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		}
 
+	}
+
+	private void stopTimerIfNeeded(boolean stopTimer) {
+		if (stopTimer) {
+			this.timer.stopTimer();
+			Toast.makeText(this, R.string.timer_stopped, Toast.LENGTH_LONG)
+					.show();
+		}
 	}
 
 	@Override
@@ -392,6 +406,10 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		} else {
 			this.gallery.setVisibility(View.VISIBLE);
 		}
+	}
+
+	public Long getBattleId() {
+		return battleId;
 	}
 
 }

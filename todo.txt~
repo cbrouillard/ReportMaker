@@ -14,7 +14,7 @@
 	. sonnerie utilisée lors du rappel
 	. vibration lors du rappel (oui/non)
 	. lancement automatique lors de l'édition d'un rapport (oui/non)
-	. arret automatique lors de la sortie (oui/non)
+	. arret automatique lors de la sortie
 
 - entrée en reserve sur tour2, 3, 4 (gérer une photo)
 - gérer la prise d'init

@@ -1,25 +1,10 @@
 - amélioration du PDF
-- ajouter une possibilité de lancement d'un timer (configurable) (lancement via le menu)
 - préférences
-
-	-- Général
-	. laisser l'écran allumé (oui/non) OK
-	. comportement par défaut lors de la sortie du rapport (Sauvegarde auto, quitter sans sauver, toujours demander) OK
-
 	-- Affichage
 	. affichage des images dans les rapports (bandelette, complète redimensionnée)
 
-	-- Timer de rappel
-	. durée du timer (en minutes)OK
-	. sonnerie utilisée lors du rappelOK
-	. vibration lors du rappel (oui/non)OK
-	. lancement automatique lors de l'édition d'un rapport (oui/non)
-	. arret automatique lors de la sortie (oui/non)
-
 - entrée en reserve sur tour2, 3, 4 (gérer une photo)
 - gérer la prise d'init
-
-- greetings de Befa
 
 - sauvegarde en JSON (backup?)
 - chargements base asynchrones

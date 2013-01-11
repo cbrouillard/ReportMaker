@@ -2,9 +2,11 @@ package com.headbangers.reportmaker;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.headbangers.reportmaker.tools.TimerHelper;
@@ -16,6 +18,7 @@ public class TimerManagementDialog extends Dialog {
 	private ImageButton settings;
 	private ImageButton start;
 	private ImageButton stop;
+	private TextView status;
 
 	public TimerManagementDialog(EditBattleActivity context) {
 		super(context);
@@ -32,11 +35,15 @@ public class TimerManagementDialog extends Dialog {
 		settings = (ImageButton) findViewById(R.id.action_timer_settings);
 		start = (ImageButton) findViewById(R.id.action_timer_launch);
 		stop = (ImageButton) findViewById(R.id.action_timer_stop);
+		status = (TextView) findViewById(R.id.timer_status);
 
 		// desactivation du start ou du stop
 		boolean isRunning = TimerHelper.getInstance(this.mContext).isRunning();
 		start.setEnabled(!isRunning);
 		stop.setEnabled(isRunning);
+
+		status.setText(isRunning ? R.string.timer_isOn : R.string.timer_isOff);
+		status.setTextColor(isRunning ? Color.BLACK : Color.RED);
 
 		settings.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -58,6 +65,9 @@ public class TimerManagementDialog extends Dialog {
 				start.setEnabled(false);
 				stop.setEnabled(true);
 
+				status.setText(R.string.timer_isOn);
+				status.setTextColor(Color.BLACK);
+
 				Toast.makeText(
 						TimerManagementDialog.this.mContext,
 						TimerManagementDialog.this.mContext.getResources()
@@ -75,6 +85,9 @@ public class TimerManagementDialog extends Dialog {
 						.stopTimer();
 				start.setEnabled(true);
 				stop.setEnabled(false);
+
+				status.setText(R.string.timer_isOff);
+				status.setTextColor(Color.RED);
 
 				Toast.makeText(TimerManagementDialog.this.mContext,
 						R.string.timer_stopped, Toast.LENGTH_LONG).show();

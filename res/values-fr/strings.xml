@@ -124,9 +124,11 @@
     <string name="notimer_tostop">Il n\'y a pas de timer à stopper. Lancez-en un depuis le menu !</string>
     <string name="timer">Gestion du timer</string>
     <string name="timer_management">Gestion du timer. Le timer permet de configurer un rappel régulier pour ne pas oublier de prendre des photos.</string>
-    <string name="timer_settings">Configurer la durée entre chaque rappel</string>
+    <string name="timer_settings">Configurer la durée pour chaque rappel</string>
     <string name="timer_launch">Lancer le timer</string>
     <string name="timer_stop">Stopper le timer</string>
+    <string name="timer_isOn">Le timer est actuellement en cours d\'exécution</string>
+    <string name="timer_isOff">Le timer n\'est pas lancé</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Toujours demander</item>

@@ -22,9 +22,8 @@ import com.headbangers.reportmaker.TimerManagementDialog;
 public class TimerHelper {
 
 	private Handler handler;
-	private EditBattleActivity context;
+	private EditBattleActivity context; // TODO refactor this
 
-	private boolean nextMessageStop = false;
 	private boolean isRunning = false;
 
 	private static TimerHelper instance = null;
@@ -37,9 +36,8 @@ public class TimerHelper {
 				int minutes = msg.what;
 				if (minutes == 0) {
 					// Stop !
-					TimerHelper.this.nextMessageStop = true;
 					return true;
-				} else if (!TimerHelper.this.nextMessageStop) {
+				} else {
 					Log.d("Timer", "Tick ! Timer execution");
 
 					// Paramètres.
@@ -58,10 +56,6 @@ public class TimerHelper {
 
 					// Et on appelle le suivant !
 					TimerHelper.this.configureTimer(minutes);
-					return true;
-				} else {
-					// Stop !
-					TimerHelper.this.nextMessageStop = false;
 					return true;
 				}
 			}
@@ -147,6 +141,7 @@ public class TimerHelper {
 	public void stopTimer() {
 		Log.d("Timer", "Ask for stop timer");
 
+		this.handler.removeMessages(0, null);
 		this.handler.sendEmptyMessage(0);
 		this.isRunning = false;
 	}
@@ -154,6 +149,12 @@ public class TimerHelper {
 	public Integer startTimer() {
 		Log.d("Timer", "Ask for start timer");
 
+		Integer duration = loadDuration();
+		this.configureTimer(duration);
+		return duration;
+	}
+
+	private Integer loadDuration() {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this.context);
 		String durationString = prefs.getString("durationTimer", "10");
@@ -165,8 +166,6 @@ public class TimerHelper {
 					R.string.preferences_wrongDurationTimer_value,
 					Toast.LENGTH_LONG).show();
 		}
-
-		this.configureTimer(duration);
 		return duration;
 	}
 
@@ -189,9 +188,8 @@ public class TimerHelper {
 	public static TimerHelper getInstance(EditBattleActivity context) {
 		if (instance == null) {
 			instance = new TimerHelper();
-			instance.setContext(context);
 		}
-
+		instance.setContext(context);
 		return instance;
 	}
 }

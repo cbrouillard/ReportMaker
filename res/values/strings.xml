@@ -105,37 +105,41 @@
     <string name="webexport_fail">There was an error during the export process. Please, try later &#8230;</string>
     <string name="preferences">Preferences</string>
     <string name="preferences_general">General preferences</string>
-    <string name="preferences_letScreenAlwaysOn_summary">Souhaitez-vous laisser votre écran allumé en permanence ?</string>
-    <string name="preferences_letScreenAlwaysOn">Ecran</string>
-    <string name="preferences_whenQuitComportment">Action lorsque je quitte l\'édition d\'un rapport</string>
-    <string name="preferences_whenQuitComportment_summary">Que voulez-vous que l\'application fasse lorsque vous quittez l\'édition d\'un rapport ?</string>
-    <string name="preferences_whenQuitComportment_dialogTitle">Sélection d\'une action</string>
-    <string name="preferences_timer">Préférences du timer</string>
-    <string name="preferences_timerDuration">Durée du timer</string>
-    <string name="preferences_timerDuration_summary">Configurez la durée en minutes du timer : à chaque intervalle, le timer se déclenchera.</string>
-    <string name="preferences_wrongDurationTimer_value">Une mauvaise valeur a été configurée pour la durée du timer. Une valeur par défaut va être utilisée.</string>
-    <string name="preferences_timerRingtone">Sonnerie utilisée</string>
-    <string name="preferences_timerRingtone_summary">Choisissez une sonnerie pour votre timer.</string>
-    <string name="preferences_timerVibrator">Mode vibreur</string>
-    <string name="preferences_timerVibrator_summary">Souhaitez-vous faire vibrer votre appareil à chaque notification ?</string>
-    <string name="preferences_ok">Les préférences ont été enregistrées.</string>
-    <string name="timer_notification_title">Rappel TWR</string>
-    <string name="timer_notification_infos">Appuyez pour éditez le rapport.</string>
-    <string name="timer_stopped">Le timer a été stoppé.</string>
-    <string name="timer_launched">Le timer a été lancé. Un rappel aura lieu toutes les [X] minute(s).</string>
-    <string name="notimer_tostop">Il n\'y a pas de timer à stopper. Lancez-en un depuis le menu !</string>
-    <string name="timer">Gestion du timer</string>
-    <string name="timer_management">Le timer permet de configurer un rappel régulier pour ne pas oublier de prendre des photos.</string>
-    <string name="timer_settings">Configurer la durée pour chaque rappel</string>
-    <string name="timer_launch">Lancer le timer</string>
-    <string name="timer_stop">Stopper le timer</string>
-    <string name="timer_isOn">Le timer est actuellement en cours d\'exécution</string>
-    <string name="timer_isOff">Le timer n\'est pas lancé</string>
+    <string name="preferences_letScreenAlwaysOn_summary">Do you wish to always let your display switched on ?</string>
+    <string name="preferences_letScreenAlwaysOn">Screen</string>
+    <string name="preferences_whenQuitComportment">Action when I quit report\'s edition</string>
+    <string name="preferences_whenQuitComportment_summary">What do you want the app to do when you quit the report\'s edition ?</string>
+    <string name="preferences_whenQuitComportment_dialogTitle">Action selection</string>
+    <string name="preferences_timer">Timer\'s preferences</string>
+    <string name="preferences_timerDuration">Timer\'s duration</string>
+    <string name="preferences_timerDuration_summary">Configure the timer\'s duration here : it will be activated each time.</string>
+    <string name="preferences_wrongDurationTimer_value">A bad value has been configurated for timer\'s duration. A default value is going to be used.</string>
+    <string name="preferences_timerRingtone">Used ringtone</string>
+    <string name="preferences_timerRingtone_summary">Choose the right ringtone for your timer\'s activation.</string>
+    <string name="preferences_timerVibrator">Vibrator</string>
+    <string name="preferences_timerVibrator_summary">Do you wish your device to vibrate each time the drive activate ?</string>
+    <string name="preferences_ok">Preferences has been saved.</string>
+    <string name="timer_notification_title">TWR Notification</string>
+    <string name="timer_notification_infos">Touch to edit the report.</string>
+    <string name="timer_stopped">Timer has been stopped.</string>
+    <string name="timer_launched">Timer has been launched. Activation will be triggered each [X] minute(s).</string>
+    <string name="notimer_tostop">There\'s no timer to stop !</string>
+    <string name="timer">Timer\'s management</string>
+    <string name="timer_management">Timer allows you to schedule a regular notification. This is useful to not forget to take some photos.</string>
+    <string name="timer_settings">Configure the schedule time</string>
+    <string name="timer_launch">Start timer</string>
+    <string name="timer_stop">Stop timer</string>
+    <string name="timer_isOn">Timer is running</string>
+    <string name="timer_isOff">Timer is not running</string>
+    <string name="image_share">Share this image</string>
+    <string name="image_share_subject">A cool image !</string>
+    <string name="image_share_text">Hey ! Look at this cool image from TacticalWarReport !</string>
+    <string name="image_zoom_help">Touch the image to get out of this dialog</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
-        <item>Toujours demander</item>
-        <item>Ne pas demander, toujours sauvegarder</item>
-        <item>Ne pas demander, ne jamais sauvegarder</item>
+        <item>Always ask</item>
+        <item>Don\'t ask, always save</item>
+        <item>Don\'t ask, never save</item>
     </string-array>
     <string-array name="preferences_whenQuitComportment_entryValues">
         <item>ALWAYS_ASK</item>

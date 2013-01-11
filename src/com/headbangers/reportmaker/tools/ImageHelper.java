@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +14,9 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.pojo.Battle;
@@ -24,8 +27,8 @@ public class ImageHelper {
 
 	public static DrawableManager drawableManager = new DrawableManager();
 
-	public static void showImageInDialog(File imageFile, Activity context,
-			String imageTitle) {
+	public static void showImageInDialog(final File imageFile,
+			final Activity context, String imageTitle) {
 
 		if (!imageFile.exists()) {
 			return;
@@ -37,6 +40,8 @@ public class ImageHelper {
 		dialog.setTitle(imageTitle);
 
 		ImageView zoom = (ImageView) dialog.findViewById(R.id.image);
+		ImageButton share = (ImageButton) dialog
+				.findViewById(R.id.action_share);
 		setPic(imageFile.getAbsolutePath(), zoom);
 
 		zoom.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +49,31 @@ public class ImageHelper {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
+			}
+		});
+
+		share.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Uri path = Uri.fromFile(imageFile);
+
+				Intent intent = new Intent(Intent.ACTION_SEND);
+				intent.setType("application/image");
+				intent.putExtra(Intent.EXTRA_STREAM, path);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.putExtra(android.content.Intent.EXTRA_SUBJECT, context
+						.getResources().getString(R.string.image_share_subject));
+				intent.putExtra(android.content.Intent.EXTRA_TEXT, context
+						.getResources().getString(R.string.image_share_text));
+
+				try {
+					context.startActivity(intent);
+				} catch (ActivityNotFoundException e) {
+					Toast.makeText(context, R.string.no_application_share,
+							Toast.LENGTH_LONG).show();
+				}
+
 			}
 		});
 

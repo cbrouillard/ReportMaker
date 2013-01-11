@@ -124,9 +124,12 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	}
 
 	private void stopTimerIfNeeded(boolean stopTimer) {
-		if (stopTimer) {
+		if (stopTimer && this.timer.isRunning()) {
 			this.timer.stopTimer();
 			Toast.makeText(this, R.string.timer_stopped, Toast.LENGTH_LONG)
+					.show();
+		} else {
+			Toast.makeText(this, R.string.notimer_tostop, Toast.LENGTH_LONG)
 					.show();
 		}
 	}
@@ -260,6 +263,9 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			}
 			timer.configureTimer(duration);
 
+			return true;
+		case R.id.menu_stopTimer:
+			this.stopTimerIfNeeded(true);
 			return true;
 		}
 

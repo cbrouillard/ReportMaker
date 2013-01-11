@@ -23,6 +23,7 @@ public class TimerHelper {
 	private EditBattleActivity context;
 
 	private boolean nextMessageStop = false;
+	private boolean isRunning = false;
 
 	public TimerHelper(EditBattleActivity context) {
 		this.context = context;
@@ -131,9 +132,15 @@ public class TimerHelper {
 
 	public void configureTimer(int minutes) {
 		this.handler.sendEmptyMessageDelayed(minutes, (minutes * 60) * 1000);
+		this.isRunning = true;
 	}
 
 	public void stopTimer() {
 		this.handler.sendEmptyMessage(0);
+		this.isRunning = false;
+	}
+
+	public boolean isRunning() {
+		return isRunning;
 	}
 }

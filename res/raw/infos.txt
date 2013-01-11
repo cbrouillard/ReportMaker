@@ -1,5 +1,6 @@
-version 1.0 beta<br/>
-copyright 2012<br/>
+version 1.0.4 beta<br/>
+copyright 2012|2013<br/>
 Brouillard Cyril<br/><br/>
+<b>Merci à Befa pour son beta-testing assidu !</b><br/>
 <b>Big up pour l'asso Warmageddon et tous mes potes de jeux !</b><br/>
 <b>http://www.warmageddon.fr/blog/</b>  

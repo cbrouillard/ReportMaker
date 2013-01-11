@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.headbangers.reportmaker.ImageHelper;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.FilesystemService;
+import com.headbangers.reportmaker.tools.ImageHelper;
 
 public class TakePhotoListener implements OnClickListener {
 

@@ -1,11 +1,12 @@
-package com.headbangers.reportmaker;
-
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
-import com.google.ads.AdRequest.Gender;
+package com.headbangers.reportmaker.tools;
 
 import android.app.Activity;
 import android.view.View;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdRequest.Gender;
+import com.google.ads.AdView;
+import com.headbangers.reportmaker.R;
 
 public class AdsControl {
 

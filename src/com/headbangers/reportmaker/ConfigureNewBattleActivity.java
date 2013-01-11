@@ -18,6 +18,7 @@ import com.headbangers.reportmaker.fragment.ConfigurePlayerFragment;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Player;
 import com.headbangers.reportmaker.service.FilesystemService;
+import com.headbangers.reportmaker.tools.AdsControl;
 
 public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		ActionBar.TabListener {

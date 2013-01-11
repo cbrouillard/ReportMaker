@@ -16,13 +16,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.headbangers.reportmaker.ImageHelper;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
 import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Informations;
 import com.headbangers.reportmaker.service.FilesystemService;
+import com.headbangers.reportmaker.tools.ImageHelper;
 
 public class BattleInformationsFragment extends RoboFragment {
 

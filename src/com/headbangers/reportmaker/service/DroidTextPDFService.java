@@ -11,7 +11,6 @@ import java.util.List;
 import android.app.Activity;
 import android.graphics.Bitmap;
 
-import com.headbangers.reportmaker.ImageHelper;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.async.GeneratePDFAsyncLoader;
 import com.headbangers.reportmaker.dao.BattleDao;
@@ -21,6 +20,7 @@ import com.headbangers.reportmaker.fragment.TurnFragment;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Player;
 import com.headbangers.reportmaker.pojo.Turn;
+import com.headbangers.reportmaker.tools.ImageHelper;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;

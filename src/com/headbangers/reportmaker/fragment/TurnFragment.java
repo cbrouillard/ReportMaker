@@ -18,13 +18,13 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 import com.headbangers.reportmaker.EditBattleActivity;
-import com.headbangers.reportmaker.ImageHelper;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
 import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Turn;
 import com.headbangers.reportmaker.service.FilesystemService;
+import com.headbangers.reportmaker.tools.ImageHelper;
 
 public class TurnFragment extends RoboFragment {
 

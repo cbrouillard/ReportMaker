@@ -1,4 +1,4 @@
-package com.headbangers.reportmaker;
+package com.headbangers.reportmaker.tools;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.DrawableManager;
 import com.headbangers.reportmaker.service.FilesystemService;

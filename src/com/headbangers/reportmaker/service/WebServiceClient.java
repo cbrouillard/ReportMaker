@@ -37,9 +37,11 @@ public class WebServiceClient {
 	}
 
 	public int export(Battle battle, String login, String pass) {
-		this.host = from.getResources().getString(R.string.host);
-		this.createReport = from.getResources().getString(R.string.createReport);
-		
+		this.host = (String) from.getResources().getXml(R.xml.data)
+				.getProperty("host"); // getString(R.string.host);
+		this.createReport = (String) from.getResources().getXml(R.xml.data)
+				.getProperty("createReport");
+
 		try {
 
 			// Ecriture du JSON contenant le rapport
@@ -57,7 +59,7 @@ public class WebServiceClient {
 
 			// Effacement du fichier zip
 			zipFile.delete();
-			
+
 			return httpCode;
 
 		} catch (JsonGenerationException e) {

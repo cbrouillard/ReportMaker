@@ -11,16 +11,19 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Gallery;
 import android.widget.Toast;
 
+import com.google.inject.Inject;
 import com.headbangers.reportmaker.adapter.GalleryAdapter;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
@@ -32,6 +35,9 @@ import com.headbangers.reportmaker.pojo.Turn;
 import com.headbangers.reportmaker.service.DroidTextPDFService;
 import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.service.IPDFService;
+import com.headbangers.reportmaker.tools.AdsControl;
+import com.headbangers.reportmaker.tools.ImageHelper;
+import com.headbangers.reportmaker.tools.TimerHelper;
 
 public class EditBattleActivity extends RoboFragmentActivity implements
 		ActionBar.TabListener {
@@ -57,6 +63,11 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	private IPDFService pdfService = new DroidTextPDFService(this);
 
 	private int currentTabSelected = 0;
+
+	@Inject
+	private SharedPreferences prefs;
+
+	TimerHelper timer = new TimerHelper(this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +106,14 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 				.setTabListener(this));
 
 		AdsControl.buildAdIfEnable(this);
+
+		// Doit-on laisser l'écran allumé en permanence ?
+		boolean screen = this.prefs.getBoolean("letScreenAlwaysOn", false);
+		Log.d("EditBattleActivity.onCreate", "Settings screen is " + screen);
+		if (screen) {
+			getWindow()
+					.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		}
 
 	}
 
@@ -209,6 +228,25 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		case R.id.menu_exportBattle:
 			pdfService.exportBattleAsync(battle.getId(), this);
 			return true;
+		case R.id.preferences:
+			Intent preferences = new Intent(this, PreferencesActivity.class);
+			startActivityForResult(preferences, PreferencesActivity.CODE_RESULT);
+
+			return true;
+		case R.id.menu_launchTimer:
+			// lancement du timer
+			String durationString = this.prefs.getString("durationTimer", "10");
+			Integer duration = 10;
+			try {
+				duration = Integer.parseInt(durationString);
+			} catch (NumberFormatException e) {
+				Toast.makeText(this,
+						R.string.preferences_wrongDurationTimer_value,
+						Toast.LENGTH_LONG).show();
+			}
+			timer.configureTimer(duration);
+
+			return true;
 		}
 
 		return false;
@@ -220,41 +258,67 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		case TAKE_PHOTO_EXTRA_RESULT_CODE:
 			this.gallery.setVisibility(View.VISIBLE);
 			break;
+		case PreferencesActivity.CODE_RESULT:
+			Toast.makeText(this, R.string.preferences_ok, Toast.LENGTH_LONG)
+					.show();
+			break;
 		}
 	}
 
 	@Override
 	public void onBackPressed() {
-		new AlertDialog.Builder(this)
-				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setTitle(R.string.edition)
-				.setMessage(R.string.really_quit)
-				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// Sauvegarde
-								EditBattleActivity.this.save();
-								dialog.dismiss();
-								EditBattleActivity.this.finish();
-							}
+		String actionStr = this.prefs.getString("actionWhenQuit",
+				PreferencesActivity.ACTION_ON_QUIT.ALWAYS_ASK.toString());
 
-						})
-				.setNegativeButton(R.string.no,
-						new DialogInterface.OnClickListener() {
+		PreferencesActivity.ACTION_ON_QUIT action = PreferencesActivity.ACTION_ON_QUIT
+				.valueOf(actionStr);
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.dismiss();
-								EditBattleActivity.this.finish();
-							}
+		Log.d("EditBattleActivity.onBackPressed", "Settings action is "
+				+ action);
 
-						}).setNeutralButton(R.string.dont_want_to_quit, null)
+		switch (action) {
+		case ALWAYS_ASK:
+			new AlertDialog.Builder(this)
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.setTitle(R.string.edition)
+					.setMessage(R.string.really_quit)
+					.setPositiveButton(R.string.yes,
+							new DialogInterface.OnClickListener() {
 
-				.show();
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// Sauvegarde
+									EditBattleActivity.this.save();
+									dialog.dismiss();
+									EditBattleActivity.this.finish();
+								}
+
+							})
+					.setNegativeButton(R.string.no,
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+									EditBattleActivity.this.finish();
+								}
+
+							})
+					.setNeutralButton(R.string.dont_want_to_quit, null)
+
+					.show();
+			break;
+
+		case ALWAYS_SAVE:
+			this.save();
+		case NEVER_SAVE:
+			this.finish();
+			break;
+		}
+
 	}
 
 	private void save() {

@@ -1,8 +1,23 @@
 - amélioration du PDF
+- ajouter une possibilité de lancement d'un timer (configurable) (lancement via le menu)
+- préférences
 
-- entrée en reserve sur tour2, 3, 4
+	-- Général
+	. laisser l'écran allumé (oui/non) OK
+	. comportement par défaut lors de la sortie du rapport (Sauvegarde auto, quitter sans sauver, toujours demander) OK
+
+	-- Affichage
+	. affichage des images dans les rapports (bandelette, complète redimensionnée)
+
+	-- Timer de rappel
+	. durée du timer (en minutes)
+	. sonnerie utilisée lors du rappel
+	. vibration lors du rappel (oui/non)
+
+- entrée en reserve sur tour2, 3, 4 (gérer une photo)
 - gérer la prise d'init
 
-- si premier lancement de l'application pour la version, afficher une popup contenant un disclaimer a propos de la rédaction des rapports
-- sauvegarde en JSON
+- greetings de Befa
+
+- sauvegarde en JSON (backup?)
 - chargements base asynchrones

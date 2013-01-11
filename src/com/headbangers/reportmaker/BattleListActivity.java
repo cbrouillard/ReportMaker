@@ -28,6 +28,7 @@ import com.headbangers.reportmaker.service.DroidTextPDFService;
 import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.service.IPDFService;
 import com.headbangers.reportmaker.service.WebServiceClient;
+import com.headbangers.reportmaker.tools.AdsControl;
 
 /**
  * Affiche une liste contenant toutes les batailles ainsi qu'un bouton
@@ -163,6 +164,11 @@ public class BattleListActivity extends RoboListActivity {
 			startActivity(action);
 
 			return true;
+		case R.id.preferences:
+			Intent preferences = new Intent(this, PreferencesActivity.class);
+			startActivityForResult(preferences, PreferencesActivity.CODE_RESULT);
+
+			return true;
 
 		}
 
@@ -245,6 +251,10 @@ public class BattleListActivity extends RoboListActivity {
 			String pass = data.getStringExtra("pass");
 			wsClient.exportAsync(selected, user, pass);
 
+			break;
+		case PreferencesActivity.CODE_RESULT:
+			Toast.makeText(this, R.string.preferences_ok, Toast.LENGTH_LONG)
+					.show();
 			break;
 		}
 	}

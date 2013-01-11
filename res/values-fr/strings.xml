@@ -100,7 +100,37 @@
     <string name="bad_auth">Il semble que votre couple login/pass soit erroné. Voulez-vous vous reconnecter ?</string>
     <string name="webexport_ok">L\'export est terminé !</string>
     <string name="webexport_fail">Désolé, il y a eu une erreur lors de l\'export. Re-essayez plus tard &#8230;</string>
-	<string name="loading">Chargement. Patientez &#8230;</string>
+    <string name="loading">Chargement. Patientez &#8230;</string>
+    <string name="preferences">Préférences</string>
+    <string name="preferences_general">Préférences générales</string>
+    <string name="preferences_letScreenAlwaysOn_summary">Souhaitez-vous laisser votre écran allumé en permanence ?</string>
+    <string name="preferences_letScreenAlwaysOn">Ecran</string>
+    <string name="preferences_whenQuitComportment">Action lorsque je quitte l\'édition d\'un rapport</string>
+    <string name="preferences_whenQuitComportment_summary">Que voulez-vous que l\'application fasse lorsque vous quittez l\'édition d\'un rapport ?</string>
+    <string name="preferences_whenQuitComportment_dialogTitle">Sélection d\'une action</string>
+    <string name="preferences_timer">Préférences du timer</string>
+    <string name="preferences_timerDuration">Durée du timer</string>
+    <string name="preferences_timerDuration_summary">Configurez la durée en minutes du timer : à chaque intervalle, le timer se déclenchera.</string>
+    <string name="preferences_wrongDurationTimer_value">Une mauvaise valeur a été configurée pour la durée du timer. Une valeur par défaut va être utilisée.</string>
+    <string name="preferences_timerRingtone">Sonnerie utilisée</string>
+    <string name="preferences_timerRingtone_summary">Choisissez une sonnerie pour votre timer.</string>
+    <string name="preferences_timerVibrator">Mode vibreur</string>
+    <string name="preferences_timerVibrator_summary">Souhaitez-vous faire vibrer votre appareil à chaque notification ?</string>
+    <string name="preferences_ok">Les préférences ont été enregistrées.</string>
+    <string name="launch_timer">Lancer un timer</string>
+    <string name="timer_notification_title">Rappel TWR</string>
+    <string name="timer_notification_infos">Appuyez sur cette notification pour stopper le timer.</string>
+
+    <string-array name="preferences_whenQuitComportment_entries">
+        <item>Toujours demander</item>
+        <item>Ne pas demander, toujours sauvegarder</item>
+        <item>Ne pas demander, ne jamais sauvegarder</item>
+    </string-array>
+    <string-array name="preferences_whenQuitComportment_entryValues">
+        <item>ALWAYS_ASK</item>
+        <item>ALWAYS_SAVE</item>
+        <item>NEVER_SAVE</item>
+    </string-array>
     <string-array name="battleName_random_part1">
         <item>La prise de</item>
         <item>La bataille de</item>

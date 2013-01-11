@@ -10,7 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
 
-import com.headbangers.reportmaker.ImageHelper;
+import com.headbangers.reportmaker.tools.ImageHelper;
 
 public class DrawableManager {
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/preferences_general" >
+        <SwitchPreference
+            android:key="letScreenAlwaysOn"
+            android:summary="@string/preferences_letScreenAlwaysOn_summary"
+            android:switchTextOff="@string/no"
+            android:switchTextOn="@string/yes"
+            android:title="@string/preferences_letScreenAlwaysOn" />
+
+        <ListPreference
+            android:dialogTitle="@string/preferences_whenQuitComportment_dialogTitle"
+            android:entries="@array/preferences_whenQuitComportment_entries"
+            android:entryValues="@array/preferences_whenQuitComportment_entryValues"
+            android:key="actionWhenQuit"
+            android:summary="@string/preferences_whenQuitComportment_summary"
+            android:title="@string/preferences_whenQuitComportment" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/preferences_timer" >
+        <EditTextPreference
+            android:key="durationTimer"
+            android:summary="@string/preferences_timerDuration_summary"
+            android:title="@string/preferences_timerDuration" />
+
+        <RingtonePreference
+            android:key="ringtoneTimer"
+            android:summary="@string/preferences_timerRingtone_summary"
+            android:title="@string/preferences_timerRingtone" />
+
+        <SwitchPreference
+            android:key="vibratorTimer"
+            android:summary="@string/preferences_timerVibrator_summary"
+            android:switchTextOff="@string/no"
+            android:switchTextOn="@string/yes"
+            android:title="@string/preferences_timerVibrator" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

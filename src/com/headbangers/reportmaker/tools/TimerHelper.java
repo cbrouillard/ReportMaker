@@ -1,5 +1,6 @@
 package com.headbangers.reportmaker.tools;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,11 +12,9 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.headbangers.reportmaker.BattleListActivity;
 import com.headbangers.reportmaker.EditBattleActivity;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.TimerManagementDialog;
@@ -104,36 +103,32 @@ public class TimerHelper {
 				.setContentText(
 						this.context.getResources().getString(
 								R.string.timer_notification_infos));
-		// Creates an explicit intent for an Activity in your app
+
 		Intent resultIntent = new Intent(this.context, EditBattleActivity.class);
-
-		// TODO current tab // current player
-
+		resultIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP
+				| Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		resultIntent.putExtra(EditBattleActivity.BATTLE_ID_ARG,
 				this.context.getBattleId());
 
-		// The stack builder object will contain an artificial back stack for
-		// the
-		// started Activity.
-		// This ensures that navigating backward from the Activity leads out of
-		// your application to the Home screen.
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this.context);
-		// Adds the back stack for the Intent (but not the Intent itself)
-		stackBuilder.addParentStack(EditBattleActivity.class);
-		// Adds the Intent that starts the Activity to the top of the stack
-		stackBuilder.addNextIntent(resultIntent);
-		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,
-				PendingIntent.FLAG_UPDATE_CURRENT);
+		// Intent resultIntent = new Intent(context, BattleListActivity.class);
+		// resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+		// resultIntent.setAction(Intent.ACTION_MAIN);
+
+		PendingIntent resultPendingIntent = PendingIntent.getActivity(context,
+				0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
 		mBuilder.setContentIntent(resultPendingIntent);
 
 		mBuilder.setSound(Uri.parse(sound));
 		mBuilder.setAutoCancel(true);
 		mBuilder.setOnlyAlertOnce(true);
+		mBuilder.setOngoing(true);
 
 		NotificationManager mNotificationManager = (NotificationManager) this.context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		// mId allows you to update the notification later on.
-		mNotificationManager.notify(0, mBuilder.build());
+
+		Notification notification = mBuilder.build();
+		mNotificationManager.notify(0, notification);
 	}
 
 	private void configureTimer(int minutes) {

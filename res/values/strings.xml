@@ -120,7 +120,7 @@
     <string name="preferences_timerVibrator_summary">Do you wish your device to vibrate each time the timer activate ?</string>
     <string name="preferences_ok">Preferences has been saved.</string>
     <string name="timer_notification_title">TWR Notification</string>
-    <string name="timer_notification_infos">Touch to edit the report.</string>
+    <string name="timer_notification_infos">Don\'t forget to take some photos !</string>
     <string name="timer_stopped">Timer has been stopped.</string>
     <string name="timer_launched">Timer has been launched. Activation will be triggered each [X] minute(s).</string>
     <string name="notimer_tostop">There\'s no timer to stop !</string>
@@ -169,6 +169,14 @@
         <item>Binistra V</item>
         <item>Maelstromus VI</item>
         <item>Tirius</item>
+        <item>Dominus Prime</item>
+        <item>Nadarius</item>
+        <item>K\'ollidor</item>
+        <item>Kaestus IV</item>
+        <item>Cain</item>
+        <item>Borborias</item>
+        <item>Zastoria</item>
+        <item>Wammer VI</item>
     </string-array>
     <string-array name="battleName_alone">
         <item>Frères ennemis</item>

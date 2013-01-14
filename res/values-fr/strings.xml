@@ -118,7 +118,7 @@
     <string name="preferences_timerVibrator_summary">Souhaitez-vous faire vibrer votre appareil à chaque notification ?</string>
     <string name="preferences_ok">Les préférences ont été enregistrées.</string>
     <string name="timer_notification_title">Rappel TWR</string>
-    <string name="timer_notification_infos">Appuyez pour éditez le rapport.</string>
+    <string name="timer_notification_infos">N\'oubliez pas de prendre des photos !</string>
     <string name="timer_stopped">Le timer a été stoppé.</string>
     <string name="timer_launched">Le timer a été lancé. Un rappel aura lieu toutes les [X] minute(s).</string>
     <string name="notimer_tostop">Il n\'y a pas de timer à stopper. Lancez-en un depuis le menu !</string>
@@ -170,6 +170,14 @@
         <item>Binistra V</item>
         <item>Maelstromus VI</item>
         <item>Tirius</item>
+        <item>Dominus Prime</item>
+        <item>Nadarius</item>
+        <item>K\'ollidor</item>
+        <item>Kaestus IV</item>
+        <item>Cain</item>
+        <item>Borborias</item>
+        <item>Zastoria</item>
+        <item>Wammer VI</item>
     </string-array>
     <string-array name="battleName_alone">
         <item>Frères ennemis</item>

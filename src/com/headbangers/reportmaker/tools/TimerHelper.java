@@ -95,7 +95,7 @@ public class TimerHelper {
 		Log.d("Timer", "Notify with sound = " + sound);
 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-				this.context)
+				this.context.getApplicationContext())
 				.setSmallIcon(R.drawable.icone)
 				.setContentTitle(
 						this.context.getResources().getString(
@@ -104,21 +104,17 @@ public class TimerHelper {
 						this.context.getResources().getString(
 								R.string.timer_notification_infos));
 
-		Intent resultIntent = new Intent(this.context, EditBattleActivity.class);
+		Intent resultIntent = new Intent(context.getApplicationContext(),
+				EditBattleActivity.class);
+		resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+		resultIntent.setAction(Intent.ACTION_MAIN);
 		resultIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP
-				| Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-		resultIntent.putExtra(EditBattleActivity.BATTLE_ID_ARG,
-				this.context.getBattleId());
-
-		// Intent resultIntent = new Intent(context, BattleListActivity.class);
-		// resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-		// resultIntent.setAction(Intent.ACTION_MAIN);
+				 | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
 		PendingIntent resultPendingIntent = PendingIntent.getActivity(context,
 				0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		mBuilder.setContentIntent(resultPendingIntent);
-
 		mBuilder.setSound(Uri.parse(sound));
 		mBuilder.setAutoCancel(true);
 		mBuilder.setOnlyAlertOnce(true);
@@ -128,6 +124,7 @@ public class TimerHelper {
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 
 		Notification notification = mBuilder.build();
+
 		mNotificationManager.notify(0, notification);
 	}
 

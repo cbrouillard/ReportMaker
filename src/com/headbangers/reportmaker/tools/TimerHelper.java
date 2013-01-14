@@ -15,6 +15,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.headbangers.reportmaker.BattleListActivity;
 import com.headbangers.reportmaker.EditBattleActivity;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.TimerManagementDialog;
@@ -124,8 +125,10 @@ public class TimerHelper {
 		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(resultPendingIntent);
+
 		mBuilder.setSound(Uri.parse(sound));
 		mBuilder.setAutoCancel(true);
+		mBuilder.setOnlyAlertOnce(true);
 
 		NotificationManager mNotificationManager = (NotificationManager) this.context
 				.getSystemService(Context.NOTIFICATION_SERVICE);

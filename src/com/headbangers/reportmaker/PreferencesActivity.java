@@ -1,7 +1,9 @@
 package com.headbangers.reportmaker;
 
-import android.os.Bundle;
 import roboguice.activity.RoboPreferenceActivity;
+import android.os.Bundle;
+import android.preference.EditTextPreference;
+import android.text.InputType;
 
 public class PreferencesActivity extends RoboPreferenceActivity {
 
@@ -12,6 +14,9 @@ public class PreferencesActivity extends RoboPreferenceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences);
+
+		EditTextPreference durationTimer = (EditTextPreference) findPreference("durationTimer");
+		durationTimer.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER);
 	}
 
 	enum ACTION_ON_QUIT {

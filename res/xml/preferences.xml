@@ -20,6 +20,7 @@
     <PreferenceCategory android:title="@string/preferences_timer" >
         <EditTextPreference
             android:key="durationTimer"
+            android:numeric="integer"
             android:summary="@string/preferences_timerDuration_summary"
             android:title="@string/preferences_timerDuration" />
 

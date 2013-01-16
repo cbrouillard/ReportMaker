@@ -13,6 +13,11 @@
         android:title="@string/connect"
         android:visible="false"/>
     <item
+        android:id="@+id/diceSimulator"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/dice_simulation"/>
+    <item
         android:id="@+id/preferences"
         android:icon="@android:drawable/ic_menu_preferences"
         android:showAsAction="never"

@@ -135,6 +135,7 @@
     <string name="image_share_subject">A cool image !</string>
     <string name="image_share_text">Hey ! Look at this cool image from TacticalWarReport !</string>
     <string name="image_zoom_help">Touch the image to get out of this dialog</string>
+    <string name="dice_simulation">Dices simulation</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Always ask</item>

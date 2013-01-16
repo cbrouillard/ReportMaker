@@ -27,8 +27,10 @@ public abstract class GenericAsyncLoader<P, R> extends AsyncTask<P, Void, R> {
 		if (showDialog) {
 			dialog = new ProgressDialog(fromContext);
 			dialog.setIndeterminate(true);
-			dialog.setMessage(dialogText != null ? dialogText
-					: "En cours de chargement");
+			dialog.setCancelable(false);
+			dialog.setMessage(dialogText != null ? dialogText : fromContext
+					.getResources().getString(
+							com.headbangers.reportmaker.R.string.loading));
 			dialog.show();
 		}
 	}

@@ -25,7 +25,7 @@ public class PdfActionDialog extends Dialog {
 		super(context, R.style.dialogBackground);
 		this.mContext = context;
 		this.filePath = filePath;
-
+		this.setCanceledOnTouchOutside(true);
 	}
 
 	/**

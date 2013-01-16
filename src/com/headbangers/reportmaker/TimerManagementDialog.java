@@ -23,6 +23,7 @@ public class TimerManagementDialog extends Dialog {
 	public TimerManagementDialog(EditBattleActivity context) {
 		super(context, R.style.dialogBackground);
 		this.mContext = context;
+		this.setCanceledOnTouchOutside(true);
 	}
 
 	/**

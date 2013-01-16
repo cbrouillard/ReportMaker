@@ -21,6 +21,7 @@ public class VersionDialog extends Dialog {
 	public VersionDialog(Context context) {
 		super(context, R.style.dialogBackground);
 		mContext = context;
+		this.setCanceledOnTouchOutside(true);
 	}
 
 	/**

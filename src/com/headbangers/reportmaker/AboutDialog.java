@@ -20,7 +20,7 @@ public class AboutDialog extends Dialog {
 	public AboutDialog(Context context) {
 		super(context, R.style.dialogBackground);
 		mContext = context;
-		
+		this.setCanceledOnTouchOutside(true);
 	}
 
 	/**

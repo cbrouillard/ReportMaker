@@ -38,6 +38,7 @@ public class ImageHelper {
 
 		dialog.setContentView(R.layout.zoom_dialog);
 		dialog.setTitle(imageTitle);
+		dialog.setCanceledOnTouchOutside(true);
 
 		ImageView zoom = (ImageView) dialog.findViewById(R.id.image);
 		ImageButton share = (ImageButton) dialog

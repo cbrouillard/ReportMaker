@@ -24,7 +24,7 @@ public class GeneratePDFAsyncLoader extends GenericAsyncLoader<Long, String> {
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
 
-		// Boite de dialoge "On fait quoi ?"
+		// Boite de dialogue "On fait quoi ?"
 		PdfActionDialog actions = new PdfActionDialog(this.fromContext, result);
 		actions.setTitle(this.fromContext.getResources().getString(
 				R.string.pdf_action_title));

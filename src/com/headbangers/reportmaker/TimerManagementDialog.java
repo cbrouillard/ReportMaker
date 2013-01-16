@@ -21,7 +21,7 @@ public class TimerManagementDialog extends Dialog {
 	private TextView status;
 
 	public TimerManagementDialog(EditBattleActivity context) {
-		super(context);
+		super(context, R.style.dialogBackground);
 		this.mContext = context;
 	}
 

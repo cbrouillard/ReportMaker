@@ -40,7 +40,7 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 
 		CharSequence infosPlus = buildInfosPlusText(game);
 		disclaimer2.setText(infosPlus);
-		icon.setImageResource(R.drawable.ic_launcher);
+		icon.setImageResource(R.drawable.planet);
 
 	}
 

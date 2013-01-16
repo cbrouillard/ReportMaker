@@ -1,7 +1,5 @@
 package com.headbangers.reportmaker;
 
-import roboguice.activity.RoboListActivity;
-import roboguice.inject.InjectView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,17 +7,18 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.inject.Inject;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.headbangers.reportmaker.adapter.BattleListAdapter;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
@@ -30,18 +29,9 @@ import com.headbangers.reportmaker.service.IPDFService;
 import com.headbangers.reportmaker.service.WebServiceClient;
 import com.headbangers.reportmaker.tools.AdsControl;
 
-/**
- * Affiche une liste contenant toutes les batailles ainsi qu'un bouton
- * permettant de lancer la configuration d'une nouvelle.
- * 
- * @author cbrouillard
- */
-public class BattleListActivity extends RoboListActivity {
+public class BattleListActivity extends SherlockListActivity {
 
-	@InjectView(android.R.id.list)
 	private ListView battleList;
-
-	@Inject
 	private SharedPreferences prefs;
 
 	private BattleDao battleDao = new BattleDaoImpl(this);
@@ -56,6 +46,11 @@ public class BattleListActivity extends RoboListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.battle_list);
+
+		configureActionBar();
+
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		this.battleList = (ListView) findViewById(android.R.id.list);
 
 		this.battleDao.open();
 		this.pdfService.setDao(battleDao);
@@ -111,16 +106,16 @@ public class BattleListActivity extends RoboListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// Un click sur un élément de la liste permet de lancer l'activité
 		// d'édition
+
 		Intent editBattle = new Intent(this, EditBattleActivity.class);
 		editBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG, id);
 		startActivity(editBattle);
-
 	}
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
-		MenuInflater inflater = getMenuInflater();
+		android.view.MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu_battle_list_action, menu);
 
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
@@ -133,8 +128,7 @@ public class BattleListActivity extends RoboListActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu_battle_list, menu);
+		getSupportMenuInflater().inflate(R.menu.menu_battle_list, menu);
 		return true;
 	}
 
@@ -176,7 +170,7 @@ public class BattleListActivity extends RoboListActivity {
 	}
 
 	@Override
-	public boolean onContextItemSelected(MenuItem item) {
+	public boolean onContextItemSelected(android.view.MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_deleteBattle:
 			// Effacement de la bataille après confirmation
@@ -233,9 +227,6 @@ public class BattleListActivity extends RoboListActivity {
 
 		setListAdapter(new BattleListAdapter(this,
 				this.battleDao.getAllBattles()));
-		//
-		// new BattleListAsyncLoader(this, this.battleDao).setDialogText(
-		// this.getResources().getString(R.string.loading)).execute();
 	}
 
 	public void refresh(Cursor result) {
@@ -258,4 +249,24 @@ public class BattleListActivity extends RoboListActivity {
 			break;
 		}
 	}
+
+	private void configureActionBar() {
+		getSupportActionBar().setNavigationMode(
+				ActionBar.NAVIGATION_MODE_STANDARD);
+		// String[] locations =
+		// getResources().getStringArray(R.array.locations);
+		// for (String location : locations) {
+		// Tab tab = getSupportActionBar().newTab();
+		// tab.setText(location);
+		// tab.setTabListener(this);
+		// getSupportActionBar().addTab(tab);
+		// }
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		// détruire le cursor.
+	}
+
 }

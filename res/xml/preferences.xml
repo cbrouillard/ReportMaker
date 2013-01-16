@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <PreferenceCategory android:title="@string/preferences_general" >
-        <SwitchPreference
+        <org.jraf.android.backport.switchwidget.SwitchPreference
             android:key="letScreenAlwaysOn"
             android:summary="@string/preferences_letScreenAlwaysOn_summary"
             android:switchTextOff="@string/no"
@@ -29,7 +29,7 @@
             android:summary="@string/preferences_timerRingtone_summary"
             android:title="@string/preferences_timerRingtone" />
 
-        <SwitchPreference
+        <org.jraf.android.backport.switchwidget.SwitchPreference
             android:key="vibratorTimer"
             android:summary="@string/preferences_timerVibrator_summary"
             android:switchTextOff="@string/no"

@@ -293,6 +293,11 @@
             android:hint="@string/comments_hints"
             android:inputType="textMultiLine"
             android:lines="10" />
+        
+        <com.headbangers.reportmaker.widget.Space
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:gravity="top" />
 
     </LinearLayout>
 

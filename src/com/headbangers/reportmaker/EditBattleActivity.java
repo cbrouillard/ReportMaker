@@ -4,25 +4,23 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import roboguice.activity.RoboFragmentActivity;
-import roboguice.inject.InjectView;
-import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Gallery;
 import android.widget.Toast;
 
-import com.google.inject.Inject;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.ActionBar.TabListener;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.headbangers.reportmaker.adapter.GalleryAdapter;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
@@ -39,8 +37,9 @@ import com.headbangers.reportmaker.tools.ImageHelper;
 import com.headbangers.reportmaker.tools.ScreenHelper;
 import com.headbangers.reportmaker.tools.TimerHelper;
 
-public class EditBattleActivity extends RoboFragmentActivity implements
-		ActionBar.TabListener {
+@SuppressWarnings("deprecation")
+public class EditBattleActivity extends SherlockFragmentActivity implements
+		TabListener {
 
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "edit_battle_selected_navigation_item";
 	public static final String BATTLE_ID_ARG = "battle_id";
@@ -57,15 +56,13 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 			new TurnFragment(), new TurnFragment(), new TurnFragment(),
 			new TurnFragment(), new TurnFragment() };
 
-	@InjectView(R.id.extrasPhotosGallery)
 	private Gallery gallery;
+	private SharedPreferences prefs;
 
 	private IPDFService pdfService = new DroidTextPDFService(this);
 
 	private int currentTabSelected = 0;
 
-	@Inject
-	private SharedPreferences prefs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +77,9 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_battle_activity);
 
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		this.gallery = (Gallery) findViewById(R.id.extrasPhotosGallery);
+
 		battleDao.open();
 		pdfService.setDao(battleDao);
 
@@ -90,7 +90,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 		this.loadBattle();
 
 		// Set up the action bar to show tabs.
-		final ActionBar actionBar = getActionBar();
+		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		actionBar.addTab(actionBar.newTab().setText("•").setTabListener(this));
@@ -143,7 +143,7 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		// Restore the previously serialized current tab position.
 		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-			getActionBar().setSelectedNavigationItem(
+			getSupportActionBar().setSelectedNavigationItem(
 					savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
 		}
 	}
@@ -151,64 +151,19 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		// Serialize the current tab position.
-		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
+		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getSupportActionBar()
 				.getSelectedNavigationIndex());
 	}
 
 	@Override
-	public void onTabSelected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
-		Fragment fragment = null;
-
-		this.currentTabSelected = tab.getPosition();
-
-		switch (tab.getPosition()) {
-		case 0:
-			fragment = this.informations;
-			break;
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-		case 7:
-			fragment = this.turns[tab.getPosition() - 1];
-			break;
-		}
-
-		if (fragment != null) {
-
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.container, fragment).commit();
-		}
-
-		reloadGallery();
-
-	}
-
-	@Override
-	public void onTabUnselected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
-	}
-
-	@Override
-	public void onTabReselected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
-
-		this.currentTabSelected = tab.getPosition();
-		reloadGallery();
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_edit_battle, menu);
+	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.menu_edit_battle, menu);
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(
+			com.actionbarsherlock.view.MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_done:
 
@@ -394,6 +349,52 @@ public class EditBattleActivity extends RoboFragmentActivity implements
 
 	public Long getBattleId() {
 		return battleId;
+	}
+
+	@Override
+	public void onTabSelected(Tab tab,
+			android.support.v4.app.FragmentTransaction ft) {
+		Fragment fragment = null;
+
+		this.currentTabSelected = tab.getPosition();
+
+		switch (tab.getPosition()) {
+		case 0:
+			fragment = this.informations;
+			break;
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+			fragment = this.turns[tab.getPosition() - 1];
+			break;
+		}
+
+		if (fragment != null) {
+
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.container, fragment).commit();
+		}
+
+		reloadGallery();
+
+	}
+
+	@Override
+	public void onTabUnselected(Tab tab,
+			android.support.v4.app.FragmentTransaction ft) {
+
+	}
+
+	@Override
+	public void onTabReselected(Tab tab,
+			android.support.v4.app.FragmentTransaction ft) {
+		this.currentTabSelected = tab.getPosition();
+		reloadGallery();
+
 	}
 
 }

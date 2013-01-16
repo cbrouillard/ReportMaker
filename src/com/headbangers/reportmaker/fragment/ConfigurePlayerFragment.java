@@ -1,24 +1,20 @@
 package com.headbangers.reportmaker.fragment;
 
-import roboguice.fragment.RoboFragment;
-import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.pojo.Player;
 
-public class ConfigurePlayerFragment extends RoboFragment {
+public class ConfigurePlayerFragment extends SherlockFragment {
 
 	private int num;
 
-	@InjectView(R.id.playerName)
 	private EditText playerName;
-
-	@InjectView(R.id.playerRace)
 	private EditText playerRace;
 
 	public ConfigurePlayerFragment() {
@@ -40,6 +36,8 @@ public class ConfigurePlayerFragment extends RoboFragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		this.playerName = (EditText) view.findViewById(R.id.playerName);
+		this.playerRace = (EditText) view.findViewById(R.id.playerRace);
 	}
 
 	public Player getPlayer() {
@@ -47,10 +45,10 @@ public class ConfigurePlayerFragment extends RoboFragment {
 		Player player = new Player();
 
 		player.setName(playerName != null
-				&& !playerName.getText().toString().isEmpty() ? playerName
+				&& !"".equals(playerName.getText().toString()) ? playerName
 				.getText().toString() : "Joueur " + num);
 		player.setRace(playerRace != null
-				&& !playerRace.getText().toString().isEmpty() ? playerRace
+				&& !"".equals(playerRace.getText().toString()) ? playerRace
 				.getText().toString() : null);
 
 		return player;

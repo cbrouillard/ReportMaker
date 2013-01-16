@@ -18,8 +18,9 @@ public class AboutDialog extends Dialog {
 	private static Context mContext = null;
 
 	public AboutDialog(Context context) {
-		super(context);
+		super(context, R.style.dialogBackground);
 		mContext = context;
+		
 	}
 
 	/**

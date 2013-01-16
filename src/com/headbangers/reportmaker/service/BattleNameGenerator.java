@@ -2,9 +2,9 @@ package com.headbangers.reportmaker.service;
 
 import java.util.Random;
 
-import com.headbangers.reportmaker.R;
-
 import android.app.Activity;
+
+import com.headbangers.reportmaker.R;
 
 public class BattleNameGenerator {
 

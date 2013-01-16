@@ -17,8 +17,8 @@
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_gravity="center"
-        android:layout_weight="1"
         android:layout_margin="5dp"
+        android:layout_weight="1"
         android:contentDescription="@string/zoom_extra"
         android:scaleType="fitCenter"
         android:src="@drawable/damier" />
@@ -35,7 +35,7 @@
             android:layout_gravity="left|center"
             android:text="@string/image_share" />
 
-        <Space
+        <com.headbangers.reportmaker.widget.Space
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"

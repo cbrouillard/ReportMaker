@@ -3,8 +3,6 @@ package com.headbangers.reportmaker;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import roboguice.activity.RoboActivity;
-import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -15,34 +13,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.inject.Inject;
+import com.actionbarsherlock.app.SherlockActivity;
 
-public class AuthActivity extends RoboActivity {
+public class AuthActivity extends SherlockActivity {
 
 	public static final int EXPORT_AFTER_AUTH = 9000;
 	
 	public static final String RELAY_ARG = "relay";
 	public static final String FORCEMODE_ARG = "forceMode";
 
-	@Inject
 	private SharedPreferences prefs;
 
-	@InjectView(R.id.login)
 	private EditText login;
-
-	@InjectView(R.id.password)
 	private EditText password;
-
-	@InjectView(R.id.connect)
 	private Button connect;
-
-	@InjectView(R.id.helperText)
 	private TextView helper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		this.login = (EditText) findViewById(R.id.login);
+		this.password = (EditText) findViewById(R.id.password);
+		this.connect = (Button) findViewById(R.id.connect);
+		this.helper = (TextView) findViewById(R.id.helperText);
+		
 		// Récupération d'un éventuel forceMode
 		boolean forceMode = getIntent().getBooleanExtra(FORCEMODE_ARG, false);
 
@@ -57,8 +52,8 @@ public class AuthActivity extends RoboActivity {
 
 			// Si oui et si le relay est défini, l'activity stoppe en renvoi les
 			// données
-			if (user != null && pass != null && !user.isEmpty()
-					&& !pass.isEmpty()) {
+			if (user != null && pass != null && !"".equals(user)
+					&& !"".equals(pass)) {
 				result(user, pass);
 			} else {
 				// Si non, on affiche le layout

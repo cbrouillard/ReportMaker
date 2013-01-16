@@ -1,11 +1,11 @@
 package com.headbangers.reportmaker;
 
-import roboguice.activity.RoboPreferenceActivity;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.preference.PreferenceActivity;
 import android.text.InputType;
 
-public class PreferencesActivity extends RoboPreferenceActivity {
+public class PreferencesActivity extends PreferenceActivity {
 
 	public static final int CODE_RESULT = 9999;
 

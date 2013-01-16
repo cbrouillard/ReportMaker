@@ -22,7 +22,7 @@
             android:layout_gravity="left|center"
             android:text="@string/pdf_consult" />
 
-        <Space
+        <com.headbangers.reportmaker.widget.Space
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -49,7 +49,7 @@
             android:layout_gravity="left|center"
             android:text="@string/pdf_share" />
 
-        <Space
+        <com.headbangers.reportmaker.widget.Space
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"

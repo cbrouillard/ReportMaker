@@ -91,9 +91,9 @@ public class DroidTextPDFService implements IPDFService {
 			document.add(new Paragraph(battle.getOne().getName() + " vs "
 					+ battle.getTwo().getName(), normal));
 			if (battle.getOne().getRace() != null
-					&& !battle.getOne().getRace().isEmpty()
+					&& !"".equals(battle.getOne().getRace())
 					&& battle.getTwo().getRace() != null
-					&& !battle.getTwo().getRace().isEmpty()) {
+					&& !"".equals(battle.getTwo().getRace())) {
 
 				document.add(new Paragraph(battle.getOne().getRace() + " vs "
 						+ battle.getTwo().getRace(), normal));
@@ -235,8 +235,6 @@ public class DroidTextPDFService implements IPDFService {
 				getString(R.string.pdf_move) + " " + player.getName() + " : ",
 				getString(R.string.pdf_no_photo));
 
-		// document.add(new Paragraph(turn.getCommentsMove(numPlayer), normal));
-
 		// TIR
 		addPhoto(document, battle,
 				TurnFragment.SHOOT_PHOTO_NAME.replace("{P}", "" + numPlayer)
@@ -244,18 +242,12 @@ public class DroidTextPDFService implements IPDFService {
 				getString(R.string.pdf_shoot) + " " + player.getName() + " : ",
 				getString(R.string.pdf_no_photo));
 
-		// document.add(new Paragraph(turn.getCommentsShoot(numPlayer),
-		// normal));
-
 		// ASSAUT
 		addPhoto(document, battle,
 				TurnFragment.ASSAULT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_assault) + " " + player.getName()
 						+ " : ", getString(R.string.pdf_no_photo));
-
-		// document.add(new Paragraph(turn.getCommentsAssault(numPlayer),
-		// normal));
 
 	}
 

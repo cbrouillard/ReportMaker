@@ -2,8 +2,6 @@ package com.headbangers.reportmaker.fragment;
 
 import java.io.File;
 
-import roboguice.fragment.RoboFragment;
-import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
 import com.headbangers.reportmaker.listener.ZoomImageListener;
@@ -24,7 +23,7 @@ import com.headbangers.reportmaker.pojo.Informations;
 import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.tools.ImageHelper;
 
-public class BattleInformationsFragment extends RoboFragment {
+public class BattleInformationsFragment extends SherlockFragment {
 
 	private static final int TAKE_PHOTO_TABLE_RESULT_CODE = 1;
 	private static final int TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE = 2;
@@ -45,80 +44,33 @@ public class BattleInformationsFragment extends RoboFragment {
 	private FilesystemService fs = new FilesystemService();
 	private Battle battle;
 
-	@InjectView(R.id.takePhoto_table)
 	private ImageButton takePhotoTable;
-
-	@InjectView(R.id.takePhoto_table_photo)
 	private ImageView tablePhotoView;
-
-	@InjectView(R.id.deploymentType)
 	private EditText deploymentType;
-
-	@InjectView(R.id.scenario)
 	private EditText scenario;
-
-	@InjectView(R.id.whoStart)
 	private Spinner whoStart;
-
-	@InjectView(R.id.lordCapacityPlayer1)
 	private TextView lordCapacityTextViewPlayer1;
-
-	@InjectView(R.id.deploymentPlayer1)
 	private TextView deploymentTextViewPlayer1;
-
-	@InjectView(R.id.lordCapacityPlayer2)
 	private TextView lordCapacityTextViewPlayer2;
-
-	@InjectView(R.id.deploymentPlayer2)
 	private TextView deploymentTextViewPlayer2;
-
-	@InjectView(R.id.lordCapacity1)
 	private EditText lordCapacity1;
-
-	@InjectView(R.id.takePhoto_deployment1)
 	private ImageButton takePhotoDeployment1;
-
-	@InjectView(R.id.lordCapacity2)
 	private EditText lordCapacity2;
-
-	@InjectView(R.id.takePhoto_deployment2)
 	private ImageButton takePhotoDeployment2;
-
-	@InjectView(R.id.takePhoto_deployment1_photo)
 	private ImageView deployment1Photo;
-
-	@InjectView(R.id.takePhoto_deployment2_photo)
 	private ImageView deployment2Photo;
-
-	@InjectView(R.id.comments)
 	private EditText comments;
-
-	@InjectView(R.id.infiltrationPlayer1)
 	private TextView infiltrationPlayer1;
-	@InjectView(R.id.takePhoto_infiltration1)
 	private ImageButton infiltrationTakePhotoPlayer1;
-	@InjectView(R.id.takePhoto_infiltration1_photo)
 	private ImageView infiltrationPhotoPlayer1;
-
-	@InjectView(R.id.infiltrationPlayer2)
 	private TextView infiltrationPlayer2;
-	@InjectView(R.id.takePhoto_infiltration2)
 	private ImageButton infiltrationTakePhotoPlayer2;
-	@InjectView(R.id.takePhoto_infiltration2_photo)
 	private ImageView infiltrationPhotoPlayer2;
-
-	@InjectView(R.id.scootPlayer1)
 	private TextView scootPlayer1;
-	@InjectView(R.id.takePhoto_scoot1)
 	private ImageButton scootTakePhotoPlayer1;
-	@InjectView(R.id.takePhoto_scoot1_photo)
 	private ImageView scootPhotoPlayer1;
-
-	@InjectView(R.id.scootPlayer2)
 	private TextView scootPlayer2;
-	@InjectView(R.id.takePhoto_scoot2)
 	private ImageButton scootTakePhotoPlayer2;
-	@InjectView(R.id.takePhoto_scoot2_photo)
 	private ImageView scootPhotoPlayer2;
 
 	@Override
@@ -129,9 +81,62 @@ public class BattleInformationsFragment extends RoboFragment {
 				false);
 	}
 
+	private void findViews(View view) {
+		this.takePhotoTable = (ImageButton) view
+				.findViewById(R.id.takePhoto_table);
+		this.tablePhotoView = (ImageView) view
+				.findViewById(R.id.takePhoto_table_photo);
+		this.deploymentType = (EditText) view.findViewById(R.id.deploymentType);
+		this.scenario = (EditText) view.findViewById(R.id.scenario);
+		this.whoStart = (Spinner) view.findViewById(R.id.whoStart);
+		this.lordCapacityTextViewPlayer1 = (TextView) view
+				.findViewById(R.id.lordCapacityPlayer1);
+		this.deploymentTextViewPlayer1 = (TextView) view
+				.findViewById(R.id.deploymentPlayer1);
+		this.lordCapacityTextViewPlayer2 = (TextView) view
+				.findViewById(R.id.lordCapacityPlayer2);
+		this.deploymentTextViewPlayer2 = (TextView) view
+				.findViewById(R.id.deploymentPlayer2);
+		this.lordCapacity1 = (EditText) view.findViewById(R.id.lordCapacity1);
+		this.takePhotoDeployment1 = (ImageButton) view
+				.findViewById(R.id.takePhoto_deployment1);
+		this.lordCapacity2 = (EditText) view.findViewById(R.id.lordCapacity2);
+		this.takePhotoDeployment2 = (ImageButton) view
+				.findViewById(R.id.takePhoto_deployment2);
+		this.deployment1Photo = (ImageView) view
+				.findViewById(R.id.takePhoto_deployment1_photo);
+		this.deployment2Photo = (ImageView) view
+				.findViewById(R.id.takePhoto_deployment2_photo);
+		this.comments = (EditText) view.findViewById(R.id.comments);
+		this.infiltrationPlayer1 = (TextView) view
+				.findViewById(R.id.infiltrationPlayer1);
+		this.infiltrationTakePhotoPlayer1 = (ImageButton) view
+				.findViewById(R.id.takePhoto_infiltration1);
+		this.infiltrationPhotoPlayer1 = (ImageView) view
+				.findViewById(R.id.takePhoto_infiltration1_photo);
+		this.infiltrationPlayer2 = (TextView) view
+				.findViewById(R.id.infiltrationPlayer2);
+		this.infiltrationTakePhotoPlayer2 = (ImageButton) view
+				.findViewById(R.id.takePhoto_infiltration2);
+		this.infiltrationPhotoPlayer2 = (ImageView) view
+				.findViewById(R.id.takePhoto_infiltration2_photo);
+		this.scootPlayer1 = (TextView) view.findViewById(R.id.scootPlayer1);
+		this.scootTakePhotoPlayer1 = (ImageButton) view
+				.findViewById(R.id.takePhoto_scoot1);
+		this.scootPhotoPlayer1 = (ImageView) view
+				.findViewById(R.id.takePhoto_scoot1_photo);
+		this.scootPlayer2 = (TextView) view.findViewById(R.id.scootPlayer2);
+		this.scootTakePhotoPlayer2 = (ImageButton) view
+				.findViewById(R.id.takePhoto_scoot2);
+		this.scootPhotoPlayer2 = (ImageView) view
+				.findViewById(R.id.takePhoto_scoot2_photo);
+	}
+
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		findViews(view);
 
 		this.takePhotoTable.setOnClickListener(new TakePhotoListener(this
 				.getActivity(), this.battle, TABLE_PHOTO_NAME,

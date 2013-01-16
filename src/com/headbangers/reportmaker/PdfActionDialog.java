@@ -22,7 +22,7 @@ public class PdfActionDialog extends Dialog {
 	private ImageButton share;
 
 	public PdfActionDialog(Activity context, String filePath) {
-		super(context);
+		super(context, R.style.dialogBackground);
 		this.mContext = context;
 		this.filePath = filePath;
 

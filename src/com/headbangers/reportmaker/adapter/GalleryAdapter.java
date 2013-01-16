@@ -17,10 +17,10 @@ import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.DrawableManager;
 import com.headbangers.reportmaker.service.FilesystemService;
 
+@SuppressWarnings("deprecation")
 public class GalleryAdapter implements SpinnerAdapter {
 
 	private Activity context;
-	// private Battle battle;
 
 	private DrawableManager dwManager;
 

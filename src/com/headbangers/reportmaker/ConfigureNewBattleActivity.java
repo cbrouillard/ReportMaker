@@ -1,16 +1,15 @@
 package com.headbangers.reportmaker;
 
-import roboguice.activity.RoboFragmentActivity;
 import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar.TabListener;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
 import com.headbangers.reportmaker.fragment.ConfigureGameFragment;
@@ -20,8 +19,8 @@ import com.headbangers.reportmaker.pojo.Player;
 import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.tools.AdsControl;
 
-public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
-		ActionBar.TabListener {
+public class ConfigureNewBattleActivity extends SherlockFragmentActivity
+		implements TabListener {
 
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
@@ -46,7 +45,7 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 
 		battleDao.open();
 
-		final ActionBar actionBar = getActionBar();
+		final com.actionbarsherlock.app.ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		// For each of the sections in the app, add a tab to the action bar.
@@ -65,7 +64,7 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-			getActionBar().setSelectedNavigationItem(
+			getSupportActionBar().setSelectedNavigationItem(
 					savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
 		}
 	}
@@ -74,7 +73,7 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	protected void onResume() {
 		super.onResume();
 		battleDao.open();
-		
+
 		AdsControl.buildAdIfEnable(this);
 	}
 
@@ -87,13 +86,14 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
+		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getSupportActionBar()
 				.getSelectedNavigationIndex());
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_configure_new_battle, menu);
+		getSupportMenuInflater()
+				.inflate(R.menu.menu_configure_new_battle, menu);
 		return true;
 	}
 
@@ -110,14 +110,37 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 		return false;
 	}
 
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction arg1) {
+	private void createGame() {
+		Player one = this.playerOneFragment.getPlayer();
+		Player two = this.playerTwoFragment.getPlayer();
+		Battle game = this.gameFragment.buildGame();
+
+		game.setOne(one);
+		game.setTwo(two);
+
+		Long idInserted = battleDao.createBattle(game);
+
+		if (idInserted == -1) {
+			Toast.makeText(this,
+					getResources().getString(R.string.creation_error),
+					Toast.LENGTH_LONG).show();
+		} else {
+
+			// Création du filesystem sur le téléphone.
+			filesystemService.createRootBattle(idInserted);
+
+			// Et redirection vers l'activité d'édition
+			Intent editBattle = new Intent(this, EditBattleActivity.class);
+			editBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG, idInserted);
+			startActivity(editBattle);
+
+		}
 
 	}
 
 	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction fragmentTransaction) {
-
+	public void onTabSelected(com.actionbarsherlock.app.ActionBar.Tab tab,
+			android.support.v4.app.FragmentTransaction ft) {
 		Fragment fragment = null;
 		String tag = null;
 
@@ -148,38 +171,18 @@ public class ConfigureNewBattleActivity extends RoboFragmentActivity implements
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.container, fragment).commit();
 		}
+
 	}
 
 	@Override
-	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
+	public void onTabUnselected(com.actionbarsherlock.app.ActionBar.Tab tab,
+			android.support.v4.app.FragmentTransaction ft) {
 
 	}
 
-	private void createGame() {
-		Player one = this.playerOneFragment.getPlayer();
-		Player two = this.playerTwoFragment.getPlayer();
-		Battle game = this.gameFragment.buildGame();
-
-		game.setOne(one);
-		game.setTwo(two);
-
-		Long idInserted = battleDao.createBattle(game);
-
-		if (idInserted == -1) {
-			Toast.makeText(this,
-					getResources().getString(R.string.creation_error),
-					Toast.LENGTH_LONG).show();
-		} else {
-
-			// Création du filesystem sur le téléphone.
-			filesystemService.createRootBattle(idInserted);
-
-			// Et redirection vers l'activité d'édition
-			Intent editBattle = new Intent(this, EditBattleActivity.class);
-			editBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG, idInserted);
-			startActivity(editBattle);
-
-		}
+	@Override
+	public void onTabReselected(com.actionbarsherlock.app.ActionBar.Tab tab,
+			android.support.v4.app.FragmentTransaction ft) {
 
 	}
 

@@ -19,7 +19,7 @@ public class VersionDialog extends Dialog {
 	private static Context mContext = null;
 
 	public VersionDialog(Context context) {
-		super(context);
+		super(context, R.style.dialogBackground);
 		mContext = context;
 	}
 
@@ -34,13 +34,6 @@ public class VersionDialog extends Dialog {
 		TextView tv = (TextView) findViewById(R.id.info_text);
 		tv.setText(Html.fromHtml(mContext.getResources().getString(
 				R.string.first_launch)));
-		// tv.setLinkTextColor(Color.BLUE);
-		// Linkify.addLinks(tv, Linkify.ALL);
-		//
-		// tv = (TextView) findViewById(R.id.app_text);
-		// tv.setText(Html.fromHtml(readRawTextFile(R.raw.infos)));
-		// tv.setLinkTextColor(Color.BLUE);
-		// Linkify.addLinks(tv, Linkify.ALL);
 	}
 
 	public static String readRawTextFile(int id) {

@@ -109,7 +109,7 @@ public class TimerHelper {
 		resultIntent.addCategory(Intent.CATEGORY_LAUNCHER);
 		resultIntent.setAction(Intent.ACTION_MAIN);
 		resultIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP
-				 | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				| Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
 		PendingIntent resultPendingIntent = PendingIntent.getActivity(context,
 				0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -123,7 +123,7 @@ public class TimerHelper {
 		NotificationManager mNotificationManager = (NotificationManager) this.context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		Notification notification = mBuilder.build();
+		Notification notification = mBuilder.getNotification();
 
 		mNotificationManager.notify(0, notification);
 	}

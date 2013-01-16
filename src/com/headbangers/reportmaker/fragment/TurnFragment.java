@@ -2,21 +2,26 @@ package com.headbangers.reportmaker.fragment;
 
 import java.io.File;
 
-import roboguice.fragment.RoboFragment;
-import roboguice.inject.InjectView;
+import org.jraf.android.backport.switchwidget.Switch;
+
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
-import android.widget.Switch;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.EditBattleActivity;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
@@ -26,7 +31,7 @@ import com.headbangers.reportmaker.pojo.Turn;
 import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.tools.ImageHelper;
 
-public class TurnFragment extends RoboFragment {
+public class TurnFragment extends SherlockFragment {
 
 	private Battle battle = null;
 
@@ -38,13 +43,8 @@ public class TurnFragment extends RoboFragment {
 	private static final int TAKE_PHOTO_SHOOT_RESULT_CODE = 2;
 	private static final int TAKE_PHOTO_ASSAULT_RESULT_CODE = 3;
 
-	@InjectView(R.id.tabhost)
 	private TabHost tabHost;
-
-	@InjectView(R.id.playerOneTurn)
 	private ScrollView playerOneTurn;
-
-	@InjectView(R.id.playerTwoTurn)
 	private ScrollView playerTwoTurn;
 
 	private ImageButton takePhotoMove1;
@@ -71,10 +71,7 @@ public class TurnFragment extends RoboFragment {
 	private EditText comments1;
 	private EditText comments2;
 
-	@InjectView(R.id.lastOne)
 	private Switch lastOne;
-
-	@InjectView(R.id.nightFight)
 	private Switch nightFight;
 
 	private int numTurn = 1;
@@ -88,19 +85,37 @@ public class TurnFragment extends RoboFragment {
 		return inflater.inflate(R.layout.turn_fragment, container, false);
 	}
 
+	private void findViews(View view) {
+		this.tabHost = (TabHost) view.findViewById(R.id.tabhost);
+		this.playerOneTurn = (ScrollView) view.findViewById(R.id.playerOneTurn);
+		this.playerTwoTurn = (ScrollView) view.findViewById(R.id.playerTwoTurn);
+		this.lastOne = (Switch) view.findViewById(R.id.lastOne);
+		this.nightFight = (Switch) view.findViewById(R.id.nightFight);
+	}
+
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
+		findViews(view);
+
 		this.tabHost.setup();
 
 		TabSpec tab1 = tabHost.newTabSpec("1");
-		tab1.setIndicator(this.battle.getOne().getName());
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			tab1.setIndicator(this.battle.getOne().getName());
+		} else {
+			tab1.setIndicator(makeTabIndicator(this.battle.getOne().getName()));
+		}
 		tab1.setContent(R.id.playerOneTurn);
 		this.tabHost.addTab(tab1);
 
 		TabSpec tab2 = tabHost.newTabSpec("2");
-		tab2.setIndicator(this.battle.getTwo().getName());
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			tab2.setIndicator(this.battle.getTwo().getName());
+		} else {
+			tab2.setIndicator(makeTabIndicator(this.battle.getTwo().getName()));
+		}
 		tab2.setContent(R.id.playerTwoTurn);
 		this.tabHost.addTab(tab2);
 
@@ -118,6 +133,20 @@ public class TurnFragment extends RoboFragment {
 		}
 
 		fillView();
+	}
+
+	private TextView makeTabIndicator(String text) {
+		TextView tabView = new TextView(this.getActivity());
+		LayoutParams lp3 = new LayoutParams(LayoutParams.WRAP_CONTENT, 40, 1);
+		lp3.setMargins(1, 0, 1, 0);
+		tabView.setLayoutParams(lp3);
+		tabView.setText(text);
+		tabView.setTextColor(Color.rgb(64, 64, 64));
+		tabView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+		tabView.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.tab_indicator));
+		tabView.setPadding(10, 0, 10, 0);
+		return tabView;
 	}
 
 	private void construct() {

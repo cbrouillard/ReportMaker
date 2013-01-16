@@ -2,8 +2,6 @@ package com.headbangers.reportmaker.fragment;
 
 import java.util.Date;
 
-import roboguice.fragment.RoboFragment;
-import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +9,17 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.BattleNameGenerator;
 import com.headbangers.reportmaker.widget.CustomDatePicker;
 
-public class ConfigureGameFragment extends RoboFragment {
+public class ConfigureGameFragment extends SherlockFragment {
 
-	@InjectView(R.id.gameName)
 	private EditText gameName;
-
-	@InjectView(R.id.gameFormat)
 	private EditText gameFormat;
-
-	@InjectView(R.id.gameDate)
 	private CustomDatePicker gameDate;
-
-	@InjectView(R.id.generateName)
 	private ImageButton generateName;
 
 	private BattleNameGenerator battleNameGenerator;
@@ -43,6 +35,11 @@ public class ConfigureGameFragment extends RoboFragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		this.gameName = (EditText) view.findViewById(R.id.gameName);
+		this.gameFormat = (EditText) view.findViewById(R.id.gameFormat);
+		this.gameDate = (CustomDatePicker) view.findViewById(R.id.gameDate);
+		this.generateName = (ImageButton) view.findViewById(R.id.generateName);
 
 		this.battleNameGenerator = new BattleNameGenerator(this.getActivity());
 		this.generateName.setOnClickListener(new View.OnClickListener() {
@@ -70,12 +67,12 @@ public class ConfigureGameFragment extends RoboFragment {
 
 		String format = gameFormat != null ? gameFormat.getText().toString()
 				: null;
-		if (name == null || name.isEmpty()) {
+		if (name == null || "".equals(name)) {
 			name = this.getActivity().getResources().getString(R.string.battle);
 		}
 
 		game.setName(name);
-		game.setFormat(format != null && !format.isEmpty() ? Integer
+		game.setFormat(format != null && !"".equals(format) ? Integer
 				.valueOf(format) : null);
 		game.setDate(new Date(gameDate.getYear() - 1900, gameDate.getMonth(),
 				gameDate.getDayOfMonth()));

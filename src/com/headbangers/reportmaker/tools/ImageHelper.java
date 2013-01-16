@@ -34,7 +34,7 @@ public class ImageHelper {
 			return;
 		}
 
-		final Dialog dialog = new Dialog(context);
+		final Dialog dialog = new Dialog(context, R.style.dialogBackground);
 
 		dialog.setContentView(R.layout.zoom_dialog);
 		dialog.setTitle(imageTitle);

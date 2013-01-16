@@ -1,8 +1,8 @@
 package com.headbangers.reportmaker.dao.impl;
 
-import com.headbangers.reportmaker.dao.DatabaseHelper;
-
 import android.database.sqlite.SQLiteDatabase;
+
+import com.headbangers.reportmaker.dao.DatabaseHelper;
 
 public class GenericDaoImpl implements GenericDao {
 

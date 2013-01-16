@@ -30,7 +30,7 @@
             android:layout_gravity="left|center"
             android:text="@string/timer_settings" />
 
-        <Space
+        <com.headbangers.reportmaker.widget.Space
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -57,7 +57,7 @@
             android:layout_gravity="left|center"
             android:text="@string/timer_launch" />
 
-        <Space
+        <com.headbangers.reportmaker.widget.Space
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -84,7 +84,7 @@
             android:layout_gravity="left|center"
             android:text="@string/timer_stop" />
 
-        <Space
+        <com.headbangers.reportmaker.widget.Space
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"

@@ -2,10 +2,10 @@ package com.headbangers.reportmaker.pojo;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import com.headbangers.reportmaker.dao.DatabaseHelper;
-
 import android.content.ContentValues;
 import android.database.Cursor;
+
+import com.headbangers.reportmaker.dao.DatabaseHelper;
 
 @JsonIgnoreProperties({ "class" })
 public class Informations {

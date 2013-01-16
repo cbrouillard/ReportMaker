@@ -163,6 +163,10 @@ public class BattleListActivity extends SherlockListActivity {
 			startActivityForResult(preferences, PreferencesActivity.CODE_RESULT);
 
 			return true;
+		case R.id.diceSimulator:
+			Intent simulator = new Intent(this, DiceSimulationActivity.class);
+			startActivity(simulator);
+			return true;
 
 		}
 

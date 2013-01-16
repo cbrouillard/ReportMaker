@@ -63,7 +63,6 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 
 	private int currentTabSelected = 0;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -191,6 +190,10 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 			return true;
 		case R.id.menu_timer:
 			TimerHelper.getInstance(this).manageDialog();
+			return true;
+		case R.id.diceSimulator:
+			Intent simulator = new Intent(this, DiceSimulationActivity.class);
+			startActivity(simulator);
 			return true;
 		}
 

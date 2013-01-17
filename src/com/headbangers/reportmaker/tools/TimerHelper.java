@@ -171,7 +171,7 @@ public class TimerHelper {
 		Log.d("Timer", "Ask for timer dialog");
 
 		TimerManagementDialog dialog = new TimerManagementDialog(this.context);
-		dialog.setTitle(this.context.getResources().getString(R.string.timer));
+		dialog.setTitle(R.string.timer);
 		dialog.show();
 	}
 

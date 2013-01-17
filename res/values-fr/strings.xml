@@ -133,7 +133,15 @@
     <string name="image_share_subject">Une image cool !</string>
     <string name="image_share_text">Hey ! Regarde cette super photo que j\'ai prise avec TacticalWarReport ! :3</string>
     <string name="image_zoom_help">Touchez l\'image pour fermer cette fenêtre</string>
-    <string name="dice_simulation">Lançez les dés !</string>
+    <string name="dice_simulation">Lancez les dés !</string>
+    <string name="dices_configuration">Choisissez combien de dés vous voulez lancer ainsi que le seuil de réussite.</string>
+    <string name="dices_howMany">Combien de dés ?</string>
+    <string name="dices_successCondition">Seuil de réussite</string>
+    <string name="dices_roll">C\'est parti !</string>
+    <string name="dices_toObtain">dés, pour obtenir</string>
+    <string name="more_or_equal">+</string>
+    <string name="equal">=</string>
+    <string name="less_or_equal">-</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Toujours demander</item>

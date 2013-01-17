@@ -14,7 +14,7 @@
         android:visible="false"/>
     <item
         android:id="@+id/diceSimulator"
-        android:icon="@android:drawable/ic_menu_rotate"
+        android:icon="@drawable/dice_menu"
         android:showAsAction="ifRoom|withText"
         android:title="@string/dice_simulation"/>
     <item

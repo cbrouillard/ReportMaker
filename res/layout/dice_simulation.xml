@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/diceGrid"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnWidth="50dp"
-    android:stretchMode="spacingWidthUniform" >
+    android:orientation="vertical" >
 
-</GridView>
+    <GridView
+        android:id="@+id/diceGrid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:columnWidth="30dp"
+        android:numColumns="auto_fit"
+        android:horizontalSpacing="0dp"
+        android:stretchMode="columnWidth" >
+    </GridView>
+
+    <com.google.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="a150c1fb43a016b"
+        ads:loadAdOnCreate="false"
+        ads:refreshInterval="30"
+        ads:testDevices="TEST_EMULATOR" />
+
+</LinearLayout>

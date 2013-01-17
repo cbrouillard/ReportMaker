@@ -136,6 +136,14 @@
     <string name="image_share_text">Hey ! Look at this cool image from TacticalWarReport !</string>
     <string name="image_zoom_help">Touch the image to get out of this dialog</string>
     <string name="dice_simulation">Dices simulation</string>
+    <string name="dices_configuration">Choose how many dices you want to roll. You also have to choice the success condition.</string>
+    <string name="dices_howMany">How many dices ?</string>
+    <string name="dices_successCondition">Your success condition</string>
+    <string name="dices_roll">Roll the dices !</string>
+    <string name="dices_toObtain">dices, to obtain</string>
+    <string name="more_or_equal">+</string>
+    <string name="equal">=</string>
+    <string name="less_or_equal">-</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Always ask</item>

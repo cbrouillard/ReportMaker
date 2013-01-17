@@ -16,6 +16,10 @@
     <style name="AppTheme" parent="@style/Theme.Sherlock.Light.DarkActionBar">
         <item name="switchStyle">@style/Widget.Holo.CompoundButton.Switch</item>
         <item name="switchPreferenceStyle">@style/Preference.SwitchPreference</item>
+        <item name="numberPickerUpButtonStyle">@style/NPWidget.Holo.ImageButton.NumberPickerUpButton</item>
+        <item name="numberPickerDownButtonStyle">@style/NPWidget.Holo.ImageButton.NumberPickerDownButton</item>
+        <item name="numberPickerInputTextStyle">@style/NPWidget.Holo.EditText.NumberPickerInputText</item>
+        <item name="numberPickerStyle">@style/NPWidget.Holo.NumberPicker</item>
     </style>
 
     <style name="headerText" parent="@android:style/Widget.TextView">

@@ -2,7 +2,10 @@
 - préférences
 	-- Affichage
 	. affichage des images dans les rapports (bandelette, complète redimensionnée)
+	. commentaires étendues (1 champ par phase)
 
+- enlever le "Pas de photo" de la génération du PDF
+- ajouter un écran d'édition des infos de la bataille (accessible depuis la liste et le rapport)
 - entrée en reserve sur tour2, 3, 4 (gérer une photo)
 - gérer la prise d'init
 

@@ -135,6 +135,7 @@ public class TurnFragment extends SherlockFragment {
 		fillView();
 	}
 
+	@SuppressWarnings("deprecation")
 	private TextView makeTabIndicator(String text) {
 		TextView tabView = new TextView(this.getActivity());
 		LayoutParams lp3 = new LayoutParams(LayoutParams.WRAP_CONTENT, 40, 1);

@@ -144,6 +144,9 @@
     <string name="more_or_equal">+</string>
     <string name="equal">=</string>
     <string name="less_or_equal">-</string>
+    <string name="dices_howMany_success">Succeeded :</string>
+    <string name="dices_howMany_fail">Failed :</string>
+    <string name="dices_rollSucessDices">Re-roll succeeded dices with new condition</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Always ask</item>

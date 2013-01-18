@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -24,9 +26,14 @@ import com.headbangers.reportmaker.tools.AdsControl;
 public class DiceSimulationActivity extends SherlockActivity {
 
 	private GridView gridView;
+	private TextView howManyDices;
+	private TextView howManyDicesSuccess;
+	private TextView howManyDicesFail;
+	private ImageButton rerollSuccessDices;
 
 	private int nbDices = 25;
-	private int sucessMinimum = 4;
+	private int lastNbSuccess = 25;
+	private int successMinimum = 4;
 	private SuccessType successType = SuccessType.MORE_OR_EQUAL;
 
 	@Override
@@ -35,6 +42,19 @@ public class DiceSimulationActivity extends SherlockActivity {
 		setContentView(R.layout.dice_simulation);
 
 		this.gridView = (GridView) findViewById(R.id.diceGrid);
+		this.howManyDices = (TextView) findViewById(R.id.dices_howMany);
+		this.howManyDicesSuccess = (TextView) findViewById(R.id.dices_howMany_success);
+		this.howManyDicesFail = (TextView) findViewById(R.id.dices_howMany_fail);
+		this.rerollSuccessDices = (ImageButton) findViewById(R.id.action_rollSuccessDices);
+
+		this.rerollSuccessDices.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				DiceSimulationActivity.this.nbDices = DiceSimulationActivity.this.lastNbSuccess;
+				DiceSimulationActivity.this.configureNewRoll();
+			}
+		});
 
 		// Look up the AdView as a resource and load a request.
 		AdsControl.buildAdIfEnable(this);
@@ -60,7 +80,7 @@ public class DiceSimulationActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_relaunchSame:
-			randomRoll(this.nbDices, this.sucessMinimum, this.successType);
+			randomRoll(this.nbDices, this.successMinimum, this.successType);
 			return true;
 		case R.id.menu_newRoll:
 			configureNewRoll();
@@ -72,20 +92,34 @@ public class DiceSimulationActivity extends SherlockActivity {
 
 	protected void randomRoll(int nbDices, int success, SuccessType type) {
 		this.nbDices = nbDices;
-		this.sucessMinimum = success;
+		this.successMinimum = success;
 		this.successType = type;
 
 		// Tirage du tableau
 		int[] values = new int[nbDices];
+		this.lastNbSuccess = 0;
 		Random rand = new Random();
 		for (int d = 0; d < nbDices; d++) {
 			values[d] = rand.nextInt(6) + 1;
+			if (isDiceSucceeded(values[d])) {
+				this.lastNbSuccess++;
+			}
 		}
 
 		// Rafraichissement de la gridView
 		refreshGrid(values);
-		
+
 		// Rafraichissement des stats de résultat
+		int successPercent = this.lastNbSuccess * 100 / this.nbDices;
+		this.howManyDices.setText(this.nbDices + " "
+				+ getString(R.string.dices_toObtain) + " "
+				+ getString(this.successType.string) + this.successMinimum);
+		this.howManyDicesSuccess
+				.setText(getString(R.string.dices_howMany_success) + " "
+						+ this.lastNbSuccess + " (" + successPercent + "%)");
+		this.howManyDicesFail.setText(getString(R.string.dices_howMany_fail)
+				+ " " + (this.nbDices - this.lastNbSuccess) + " ("
+				+ (100 - successPercent) + "%)");
 	}
 
 	protected void refreshGrid(int[] dices) {
@@ -93,11 +127,24 @@ public class DiceSimulationActivity extends SherlockActivity {
 	}
 
 	public int getSucessMinimum() {
-		return sucessMinimum;
+		return successMinimum;
 	}
 
 	public SuccessType getSuccessType() {
 		return successType;
+	}
+
+	private boolean isDiceSucceeded(int diceValue) {
+		switch (this.successType) {
+		case MORE_OR_EQUAL:
+			return diceValue >= successMinimum;
+		case EQUAL:
+			return diceValue == successMinimum;
+		case LESS_OR_EQUAL:
+			return diceValue <= successMinimum;
+		}
+
+		return false;
 	}
 
 	class GridDicesAdapter extends BaseAdapter {
@@ -133,24 +180,8 @@ public class DiceSimulationActivity extends SherlockActivity {
 			int value = this.dices[position];
 			Dices dice = Dices.byValue(value);
 
-			SuccessType type = DiceSimulationActivity.this.getSuccessType();
-			int success = DiceSimulationActivity.this.getSucessMinimum();
-
-			int idDrawable = 0;
-			switch (type) {
-			case MORE_OR_EQUAL:
-				idDrawable = (value >= success) ? dice.getDrawableOk() : dice
-						.getDrawableKo();
-				break;
-			case EQUAL:
-				idDrawable = (value == success) ? dice.getDrawableOk() : dice
-						.getDrawableKo();
-				break;
-			case LESS_OR_EQUAL:
-				idDrawable = (value <= success) ? dice.getDrawableOk() : dice
-						.getDrawableKo();
-				break;
-			}
+			int idDrawable = DiceSimulationActivity.this.isDiceSucceeded(value) ? dice.drawableOk
+					: dice.drawableKo;
 
 			diceImage.setImageResource(idDrawable);
 			diceImage.setScaleType(ScaleType.FIT_CENTER);
@@ -187,7 +218,7 @@ public class DiceSimulationActivity extends SherlockActivity {
 
 			successPicker.setMaxValue(6);
 			successPicker.setMinValue(1);
-			successPicker.setValue(DiceSimulationActivity.this.sucessMinimum);
+			successPicker.setValue(DiceSimulationActivity.this.successMinimum);
 
 			successTypePicker.setMaxValue(SuccessType.values().length - 1);
 			successTypePicker.setMinValue(0);

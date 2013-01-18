@@ -142,6 +142,9 @@
     <string name="more_or_equal">+</string>
     <string name="equal">=</string>
     <string name="less_or_equal">-</string>
+    <string name="dices_howMany_success">Réussis :</string>
+    <string name="dices_howMany_fail">Echoués :</string>
+    <string name="dices_rollSucessDices">Relancer les dés réussis avec une nouvelle condition</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Toujours demander</item>

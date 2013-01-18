@@ -233,21 +233,21 @@ public class DroidTextPDFService implements IPDFService {
 				TurnFragment.MOVE_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_move) + " " + player.getName() + " : ",
-				getString(R.string.pdf_no_photo));
+				" ");
 
 		// TIR
 		addPhoto(document, battle,
 				TurnFragment.SHOOT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_shoot) + " " + player.getName() + " : ",
-				getString(R.string.pdf_no_photo));
+				" ");
 
 		// ASSAUT
 		addPhoto(document, battle,
 				TurnFragment.ASSAULT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_assault) + " " + player.getName()
-						+ " : ", getString(R.string.pdf_no_photo));
+						+ " : ", " ");
 
 	}
 

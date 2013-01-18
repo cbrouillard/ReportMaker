@@ -48,7 +48,8 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 
 		battleDao.open();
 
-		this.battleId = this.getIntent().getExtras().getLong(BATTLE_ID_ARG);
+		this.battleId = this.getIntent().getExtras() != null ? this.getIntent()
+				.getExtras().getLong(BATTLE_ID_ARG) : null;
 		if (battleId != null) {
 			// C'est une édition de la configuration d'une bataille existante
 			// Remplissage des champs
@@ -146,10 +147,10 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 			if (one.getRace() != null) {
 				game.getPlayer(0).setRace(one.getRace());
 			}
-			if (two.getName()!=null){
+			if (two.getName() != null) {
 				game.getPlayer(1).setName(two.getName());
 			}
-			if (two.getRace()!=null){
+			if (two.getRace() != null) {
 				game.getPlayer(1).setRace(two.getRace());
 			}
 			game.setName(fromInterface.getName());

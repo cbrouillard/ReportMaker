@@ -34,7 +34,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/photo_table"
                 android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
         <TextView
@@ -126,7 +126,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/photo_deployment"
                 android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
         <TextView
@@ -156,7 +156,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/photo_deployment"
                 android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
         <TextView
@@ -186,7 +186,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/photo_infiltration"
                 android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
         <TextView
@@ -216,7 +216,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/photo_infiltration"
                 android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
         <TextView
@@ -246,7 +246,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/photo_scoot"
                 android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
         <TextView
@@ -276,7 +276,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/photo_scoot"
                 android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
         <TextView

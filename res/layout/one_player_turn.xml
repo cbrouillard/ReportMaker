@@ -35,7 +35,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/photo_move"
                 android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
         <!-- <TextView -->
@@ -83,7 +83,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/photo_shoot"
                 android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
         <!-- <TextView -->
@@ -131,7 +131,7 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/photo_assault"
                 android:scaleType="fitCenter"
-                android:src="@drawable/camera" />
+                android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
         <!-- <TextView -->

@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.headbangers.reportmaker.tools.AdsControl;
 
 public class DiceSimulationActivity extends SherlockActivity {
@@ -37,11 +39,35 @@ public class DiceSimulationActivity extends SherlockActivity {
 		// Look up the AdView as a resource and load a request.
 		AdsControl.buildAdIfEnable(this);
 
+		configureNewRoll();
+	}
+
+	public void configureNewRoll() {
 		// Affichage d'une boite de dialogue
 		// "Combien de dés et quel est le seuil ?"
 		DicesConfiguration config = new DicesConfiguration(this);
 		config.setTitle(R.string.dice_simulation);
 		config.show();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.menu_dices_simulation, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_relaunchSame:
+			randomRoll(this.nbDices, this.sucessMinimum, this.successType);
+			return true;
+		case R.id.menu_newRoll:
+			configureNewRoll();
+			return true;
+		}
+
+		return false;
 	}
 
 	protected void randomRoll(int nbDices, int success, SuccessType type) {
@@ -53,11 +79,13 @@ public class DiceSimulationActivity extends SherlockActivity {
 		int[] values = new int[nbDices];
 		Random rand = new Random();
 		for (int d = 0; d < nbDices; d++) {
-			values[d] = rand.nextInt(5) + 1;
+			values[d] = rand.nextInt(6) + 1;
 		}
 
 		// Rafraichissement de la gridView
 		refreshGrid(values);
+		
+		// Rafraichissement des stats de résultat
 	}
 
 	protected void refreshGrid(int[] dices) {
@@ -160,8 +188,6 @@ public class DiceSimulationActivity extends SherlockActivity {
 			successPicker.setMaxValue(6);
 			successPicker.setMinValue(1);
 			successPicker.setValue(DiceSimulationActivity.this.sucessMinimum);
-			// successPicker.setFocusable(true);
-			// successPicker.setFocusableInTouchMode(true);
 
 			successTypePicker.setMaxValue(SuccessType.values().length - 1);
 			successTypePicker.setMinValue(0);
@@ -176,10 +202,11 @@ public class DiceSimulationActivity extends SherlockActivity {
 					// Récupération des valeurs
 					int nbDices = howManyDices.getValue();
 					int success = successPicker.getValue();
+					int successType = successTypePicker.getValue();
 
 					// Lancement du tirage aléatoire
 					DiceSimulationActivity.this.randomRoll(nbDices, success,
-							SuccessType.MORE_OR_EQUAL);
+							SuccessType.values()[successType]);
 
 					// Fermeture de la boite de dialogue
 					dismiss();

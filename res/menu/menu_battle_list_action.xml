@@ -3,19 +3,19 @@
 
     <item
         android:id="@+id/menu_exportBattle"
-        android:icon="@android:drawable/ic_menu_view"
+        android:icon="@drawable/export_bclk"
         android:showAsAction="never"
         android:title="@string/export_battle_pdf"/>
     
     <item
         android:id="@+id/menu_exportWebBattle"
-        android:icon="@android:drawable/ic_menu_view"
+        android:icon="@drawable/export_bclk"
         android:showAsAction="never"
         android:title="@string/export_battle_web" android:visible="false"/>
     
     <item
         android:id="@+id/menu_deleteBattle"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/delete_bclk"
         android:showAsAction="never"
         android:title="@string/delete_battle"/>
 

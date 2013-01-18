@@ -8,3 +8,9 @@
 
 - sauvegarde en JSON (backup?)
 - chargements base asynchrones
+
+- Stats Dés:
+X dés lancés pour obtenir X XX
+Succès : X dés (X%)
+Echec : X dés (X%)
+Lancer les dés réussis avec une nouvelle condition []

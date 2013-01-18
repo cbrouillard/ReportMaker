@@ -3,38 +3,38 @@
 
     <item
         android:id="@+id/menu_timer"
-        android:icon="@android:drawable/ic_menu_manage"
+        android:icon="@drawable/alarm_bclk"
         android:showAsAction="never"
         android:title="@string/timer"/>
     <item
         android:id="@+id/diceSimulator"
-        android:icon="@drawable/dice_menu"
-        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/dice_bclk"
+        android:showAsAction="never|withText"
         android:title="@string/dice_simulation"/>
     <item
         android:id="@+id/menu_exportBattle"
-        android:icon="@android:drawable/ic_menu_view"
+        android:icon="@drawable/export_bclk"
         android:showAsAction="never"
         android:title="@string/export_battle_pdf"/>
     <item
         android:id="@+id/menu_exportWebBattle"
-        android:icon="@android:drawable/ic_menu_view"
+        android:icon="@drawable/export_bclk"
         android:showAsAction="never"
         android:title="@string/export_battle_web"
         android:visible="false"/>
     <item
         android:id="@+id/preferences"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:icon="@drawable/preferences_bclk"
         android:showAsAction="never"
         android:title="@string/preferences"/>
     <item
         android:id="@+id/menu_photo"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@drawable/camera"
         android:showAsAction="always|withText"
         android:title="@string/photo"/>
     <item
         android:id="@+id/menu_done"
-        android:icon="@android:drawable/ic_menu_save"
+        android:icon="@drawable/save"
         android:showAsAction="always|withText"
         android:title="@string/save"/>
 

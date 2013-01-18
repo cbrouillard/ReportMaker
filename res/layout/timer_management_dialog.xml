@@ -42,7 +42,7 @@
             android:layout_height="50dp"
             android:contentDescription="@string/timer_settings"
             android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_preferences" />
+            android:src="@drawable/preferences_bclk" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,7 +69,7 @@
             android:layout_height="50dp"
             android:contentDescription="@string/timer_launch"
             android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_lock_idle_alarm" />
+            android:src="@drawable/alarm_bclk" />
     </LinearLayout>
 
     <LinearLayout
@@ -96,7 +96,7 @@
             android:layout_height="50dp"
             android:contentDescription="@string/timer_stop"
             android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+            android:src="@drawable/stop_bclk" />
     </LinearLayout>
 
 </LinearLayout>

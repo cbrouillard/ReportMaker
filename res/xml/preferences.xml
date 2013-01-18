@@ -17,6 +17,14 @@
             android:summary="@string/preferences_whenQuitComportment_summary"
             android:title="@string/preferences_whenQuitComportment" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/preferences_display" >
+        <org.jraf.android.backport.switchwidget.SwitchPreference
+            android:key="extendedComments"
+            android:summary="@string/preferences_extendedComments_summary"
+            android:switchTextOff="@string/no"
+            android:switchTextOn="@string/yes"
+            android:title="@string/preferences_extendedComments" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/preferences_timer" >
         <EditTextPreference
             android:key="durationTimer"

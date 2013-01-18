@@ -147,6 +147,8 @@
     <string name="dices_howMany_success">Succeeded :</string>
     <string name="dices_howMany_fail">Failed :</string>
     <string name="dices_rollSucessDices">Re-roll succeeded dices with new condition</string>
+    <string name="preferences_display">Display preferences</string>
+    <string name="preferences_extendedComments_summary">Do you wish to use extended comments ? The application will allow you to write some comments on each game phase. Little screen should\'nt activate this.</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Always ask</item>

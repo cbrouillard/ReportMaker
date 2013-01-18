@@ -38,23 +38,28 @@
                 android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
-        <!-- <TextView -->
-        <!-- style="@style/headerText" -->
-        <!-- android:layout_width="fill_parent" -->
-        <!-- android:layout_height="wrap_content" -->
-        <!-- android:text="@string/comments" /> -->
+        <LinearLayout
+            android:id="@+id/extendedComment_move"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
 
+            <TextView
+                style="@style/headerText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/comments" />
 
-        <!-- <EditText -->
-        <!-- android:id="@+id/comments_move" -->
-        <!-- android:layout_width="fill_parent" -->
-        <!-- android:layout_height="wrap_content" -->
-        <!-- android:gravity="top" -->
-        <!-- android:hint="@string/comments_hints" -->
-        <!-- android:inputType="textMultiLine" -->
-        <!-- android:lines="3" /> -->
-
-
+            <EditText
+                android:id="@+id/comments_move"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="@string/comments_hints"
+                android:inputType="textMultiLine"
+                android:lines="5" />
+        </LinearLayout>
         <!--  -->
 
         <TextView
@@ -86,22 +91,28 @@
                 android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
-        <!-- <TextView -->
-        <!-- style="@style/headerText" -->
-        <!-- android:layout_width="fill_parent" -->
-        <!-- android:layout_height="wrap_content" -->
-        <!-- android:text="@string/comments" /> -->
+        <LinearLayout
+            android:id="@+id/extendedComment_shoot"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
 
+            <TextView
+                style="@style/headerText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/comments" />
 
-        <!-- <EditText -->
-        <!-- android:id="@+id/comments_shoot" -->
-        <!-- android:layout_width="fill_parent" -->
-        <!-- android:layout_height="wrap_content" -->
-        <!-- android:gravity="top" -->
-        <!-- android:hint="@string/comments_hints" -->
-        <!-- android:inputType="textMultiLine" -->
-        <!-- android:lines="3" /> -->
-
+            <EditText
+                android:id="@+id/comments_shoot"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="@string/comments_hints"
+                android:inputType="textMultiLine"
+                android:lines="5" />
+        </LinearLayout>
 
         <!--  -->
 
@@ -134,21 +145,28 @@
                 android:src="@drawable/camera_bclk" />
         </LinearLayout>
 
-        <!-- <TextView -->
-        <!-- style="@style/headerText" -->
-        <!-- android:layout_width="fill_parent" -->
-        <!-- android:layout_height="wrap_content" -->
-        <!-- android:text="@string/comments" /> -->
+        <LinearLayout
+            android:id="@+id/extendedComment_assault"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
 
+            <TextView
+                style="@style/headerText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/comments" />
 
-        <!-- <EditText -->
-        <!-- android:id="@+id/comments_assault" -->
-        <!-- android:layout_width="fill_parent" -->
-        <!-- android:layout_height="wrap_content" -->
-        <!-- android:gravity="top" -->
-        <!-- android:hint="@string/comments_hints" -->
-        <!-- android:inputType="textMultiLine" -->
-        <!-- android:lines="3" /> -->
+            <EditText
+                android:id="@+id/comments_assault"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="@string/comments_hints"
+                android:inputType="textMultiLine"
+                android:lines="5" />
+        </LinearLayout>
 
         <TextView
             style="@style/headerText"
@@ -164,7 +182,7 @@
             android:hint="@string/comments_hints"
             android:inputType="textMultiLine"
             android:lines="10" />
-        
+
         <com.headbangers.reportmaker.widget.Space
             android:layout_width="fill_parent"
             android:layout_height="35dp"

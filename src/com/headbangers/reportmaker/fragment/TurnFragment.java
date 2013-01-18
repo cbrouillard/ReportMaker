@@ -5,9 +5,11 @@ import java.io.File;
 import org.jraf.android.backport.switchwidget.Switch;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TabHost;
@@ -61,12 +64,18 @@ public class TurnFragment extends SherlockFragment {
 	private ImageView photoShoot2;
 	private ImageView photoAssault2;
 
-	// private EditText commentsMove1;
-	// private EditText commentsShoot1;
-	// private EditText commentsAssault1;
-	// private EditText commentsMove2;
-	// private EditText commentsShoot2;
-	// private EditText commentsAssault2;
+	private LinearLayout extendedCommentsMove1;
+	private LinearLayout extendedCommentsMove2;
+	private LinearLayout extendedCommentsShoot1;
+	private LinearLayout extendedCommentsShoot2;
+	private LinearLayout extendedCommentsAssault1;
+	private LinearLayout extendedCommentsAssault2;
+	private EditText commentsMove1;
+	private EditText commentsShoot1;
+	private EditText commentsAssault1;
+	private EditText commentsMove2;
+	private EditText commentsShoot2;
+	private EditText commentsAssault2;
 
 	private EditText comments1;
 	private EditText comments2;
@@ -184,18 +193,43 @@ public class TurnFragment extends SherlockFragment {
 		this.comments2 = (EditText) this.playerTwoTurn
 				.findViewById(R.id.comments);
 
-		// this.commentsMove1 = (EditText) this.playerOneTurn
-		// .findViewById(R.id.comments_move);
-		// this.commentsMove2 = (EditText) this.playerTwoTurn
-		// .findViewById(R.id.comments_move);
-		// this.commentsShoot1 = (EditText) this.playerOneTurn
-		// .findViewById(R.id.comments_shoot);
-		// this.commentsShoot2 = (EditText) this.playerTwoTurn
-		// .findViewById(R.id.comments_shoot);
-		// this.commentsAssault1 = (EditText) this.playerOneTurn
-		// .findViewById(R.id.comments_assault);
-		// this.commentsAssault2 = (EditText) this.playerTwoTurn
-		// .findViewById(R.id.comments_assault);
+		this.extendedCommentsMove1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.extendedComment_move);
+		this.extendedCommentsMove2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.extendedComment_move);
+		this.extendedCommentsShoot1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.extendedComment_shoot);
+		this.extendedCommentsShoot2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.extendedComment_shoot);
+		this.extendedCommentsAssault1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.extendedComment_assault);
+		this.extendedCommentsAssault2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.extendedComment_assault);
+
+		this.commentsMove1 = (EditText) this.playerOneTurn
+				.findViewById(R.id.comments_move);
+		this.commentsMove2 = (EditText) this.playerTwoTurn
+				.findViewById(R.id.comments_move);
+		this.commentsShoot1 = (EditText) this.playerOneTurn
+				.findViewById(R.id.comments_shoot);
+		this.commentsShoot2 = (EditText) this.playerTwoTurn
+				.findViewById(R.id.comments_shoot);
+		this.commentsAssault1 = (EditText) this.playerOneTurn
+				.findViewById(R.id.comments_assault);
+		this.commentsAssault2 = (EditText) this.playerTwoTurn
+				.findViewById(R.id.comments_assault);
+
+		// Doit-on faire apparaitre les commentaires étendus ?
+		SharedPreferences preferences = PreferenceManager
+				.getDefaultSharedPreferences(getActivity());
+		if (preferences.getBoolean("extendedComments", false)) {
+			this.extendedCommentsMove1.setVisibility(View.VISIBLE);
+			this.extendedCommentsMove2.setVisibility(View.VISIBLE);
+			this.extendedCommentsShoot1.setVisibility(View.VISIBLE);
+			this.extendedCommentsShoot2.setVisibility(View.VISIBLE);
+			this.extendedCommentsAssault1.setVisibility(View.VISIBLE);
+			this.extendedCommentsAssault2.setVisibility(View.VISIBLE);
+		}
 	}
 
 	private void linkActions() {
@@ -335,24 +369,20 @@ public class TurnFragment extends SherlockFragment {
 		turn.setComments2(this.comments2 != null ? this.comments2.getText()
 				.toString() : null);
 
-		// turn.setCommentsMove1(this.commentsMove1 != null ? this.commentsMove1
-		// .getText().toString() : null);
-		// turn.setCommentsMove2(this.commentsMove2 != null ? this.commentsMove2
-		// .getText().toString() : null);
-		//
-		// turn.setCommentsShoot1(this.commentsShoot1 != null ?
-		// this.commentsShoot1
-		// .getText().toString() : null);
-		// turn.setCommentsShoot2(this.commentsShoot2 != null ?
-		// this.commentsShoot2
-		// .getText().toString() : null);
-		//
-		// turn.setCommentsAssault1(this.commentsAssault1 != null ?
-		// this.commentsAssault1
-		// .getText().toString() : null);
-		// turn.setCommentsAssault2(this.commentsAssault2 != null ?
-		// this.commentsAssault2
-		// .getText().toString() : null);
+		turn.setCommentsMove1(this.commentsMove1 != null ? this.commentsMove1
+				.getText().toString() : null);
+		turn.setCommentsMove2(this.commentsMove2 != null ? this.commentsMove2
+				.getText().toString() : null);
+
+		turn.setCommentsShoot1(this.commentsShoot1 != null ? this.commentsShoot1
+				.getText().toString() : null);
+		turn.setCommentsShoot2(this.commentsShoot2 != null ? this.commentsShoot2
+				.getText().toString() : null);
+
+		turn.setCommentsAssault1(this.commentsAssault1 != null ? this.commentsAssault1
+				.getText().toString() : null);
+		turn.setCommentsAssault2(this.commentsAssault2 != null ? this.commentsAssault2
+				.getText().toString() : null);
 
 		if (numTurn >= 5) {
 			turn.setLastOne(this.lastOne != null ? this.lastOne.isChecked()
@@ -377,12 +407,12 @@ public class TurnFragment extends SherlockFragment {
 		this.comments1.setText(turn.getComments1());
 		this.comments2.setText(turn.getComments2());
 
-		// this.commentsMove1.setText(turn.getCommentsMove1());
-		// this.commentsMove2.setText(turn.getCommentsMove2());
-		// this.commentsShoot1.setText(turn.getCommentsShoot1());
-		// this.commentsShoot2.setText(turn.getCommentsShoot2());
-		// this.commentsAssault1.setText(turn.getCommentsAssault1());
-		// this.commentsAssault2.setText(turn.getCommentsAssault2());
+		this.commentsMove1.setText(turn.getCommentsMove1());
+		this.commentsMove2.setText(turn.getCommentsMove2());
+		this.commentsShoot1.setText(turn.getCommentsShoot1());
+		this.commentsShoot2.setText(turn.getCommentsShoot2());
+		this.commentsAssault1.setText(turn.getCommentsAssault1());
+		this.commentsAssault2.setText(turn.getCommentsAssault2());
 
 		this.lastOne.setChecked(turn.isLastOne() != null ? turn.isLastOne()
 				: false);

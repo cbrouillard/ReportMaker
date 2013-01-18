@@ -131,15 +131,31 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 	}
 
 	private void saveOrUpdateGame() {
-		Player one = this.playerOneFragment.getPlayer();
-		Player two = this.playerTwoFragment.getPlayer();
-		Battle game = this.gameFragment.buildGame();
-
-		game.setOne(one);
-		game.setTwo(two);
 
 		if (this.battleId != null) {
-			game.setId(this.battleId);
+			Battle game = this.battleDao.findBattleById(this.battleId);
+
+			Player one = this.playerOneFragment.getPlayerButNoDefaultValue();
+			Player two = this.playerTwoFragment.getPlayerButNoDefaultValue();
+			Battle fromInterface = this.gameFragment.buildGame();
+
+			// un peu pourri cette affaire
+			if (one.getName() != null) {
+				game.getPlayer(0).setName(one.getName());
+			}
+			if (one.getRace() != null) {
+				game.getPlayer(0).setRace(one.getRace());
+			}
+			if (two.getName()!=null){
+				game.getPlayer(1).setName(two.getName());
+			}
+			if (two.getRace()!=null){
+				game.getPlayer(1).setRace(two.getRace());
+			}
+			game.setName(fromInterface.getName());
+			game.setFormat(fromInterface.getFormat());
+			game.setDate(fromInterface.getDate());
+
 			battleDao.updateBattleConfiguration(game);
 
 			// TODO proposer un toast avec des actions. EDITER LA BATAILLE |
@@ -151,6 +167,13 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 					Toast.LENGTH_LONG).show();
 
 		} else {
+			Player one = this.playerOneFragment.getPlayer();
+			Player two = this.playerTwoFragment.getPlayer();
+			Battle game = this.gameFragment.buildGame();
+
+			game.setOne(one);
+			game.setTwo(two);
+
 			Long idInserted = battleDao.createBattle(game);
 
 			if (idInserted == -1) {

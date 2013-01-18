@@ -65,6 +65,20 @@ public class ConfigurePlayerFragment extends SherlockFragment {
 
 		return player;
 	}
+	
+	public Player getPlayerButNoDefaultValue() {
+
+		Player player = new Player();
+
+		player.setName(playerName != null
+				&& !"".equals(playerName.getText().toString()) ? playerName
+				.getText().toString() : null);
+		player.setRace(playerRace != null
+				&& !"".equals(playerRace.getText().toString()) ? playerRace
+				.getText().toString() : null);
+
+		return player;
+	}
 
 	public void setPlayer(Player player) {
 		this.player = player;

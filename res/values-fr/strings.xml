@@ -146,8 +146,8 @@
     <string name="dices_howMany_fail">Echoués :</string>
     <string name="dices_rollSucessDices">Relancer les dés réussis avec une nouvelle condition</string>
     <string name="preferences_display">Préférences d\'affichage</string>
-    <string name="preferences_extendedComments">Commentaires étendus</string>
-    <string name="preferences_extendedComments_summary">Souhaitez-vous utiliser les commentaires étendus ? L\'application vous permettra ainsi de noter des commentaires à chaque phase de jeu. Petit écran, s\'abstenir.</string>
+    <string name="preferences_extendedComments">Commentaires</string>
+    <string name="preferences_extendedComments_summary">Souhaitez-vous utiliser les commentaires étendus ? L\'application vous permettra ainsi de noter des commentaires à chaque phase de jeu.</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Toujours demander</item>

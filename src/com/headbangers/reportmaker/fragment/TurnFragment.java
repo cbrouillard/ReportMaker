@@ -220,15 +220,24 @@ public class TurnFragment extends SherlockFragment {
 				.findViewById(R.id.comments_assault);
 
 		// Doit-on faire apparaitre les commentaires étendus ?
-		SharedPreferences preferences = PreferenceManager
-				.getDefaultSharedPreferences(getActivity());
-		if (preferences.getBoolean("extendedComments", false)) {
-			this.extendedCommentsMove1.setVisibility(View.VISIBLE);
-			this.extendedCommentsMove2.setVisibility(View.VISIBLE);
-			this.extendedCommentsShoot1.setVisibility(View.VISIBLE);
-			this.extendedCommentsShoot2.setVisibility(View.VISIBLE);
-			this.extendedCommentsAssault1.setVisibility(View.VISIBLE);
-			this.extendedCommentsAssault2.setVisibility(View.VISIBLE);
+		applyExtendedCommentsSettings();
+	}
+
+	public void applyExtendedCommentsSettings() {
+		if (getActivity() != null) { // teste si le fragment a déjà été
+										// initialisé
+			SharedPreferences preferences = PreferenceManager
+					.getDefaultSharedPreferences(getActivity());
+
+			int visibility = preferences.getBoolean("extendedComments", false) ? View.VISIBLE
+					: View.GONE;
+
+			this.extendedCommentsMove1.setVisibility(visibility);
+			this.extendedCommentsMove2.setVisibility(visibility);
+			this.extendedCommentsShoot1.setVisibility(visibility);
+			this.extendedCommentsShoot2.setVisibility(visibility);
+			this.extendedCommentsAssault1.setVisibility(visibility);
+			this.extendedCommentsAssault2.setVisibility(visibility);
 		}
 	}
 

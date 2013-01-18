@@ -212,6 +212,11 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 			// gérer le changement de paramètre sur l'écran
 			ScreenHelper.applyAlwaysSwitched(this);
 
+			// est ce que les commentaires étendus apparaissent ou disparaissent ?
+			for (TurnFragment turn : turns) {
+				turn.applyExtendedCommentsSettings();
+			}
+
 			break;
 		}
 	}

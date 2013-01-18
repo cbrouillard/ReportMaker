@@ -99,6 +99,13 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 	}
 
 	@Override
+	public void updateBattleConfiguration(Battle battle) {
+		Log.d("BattleDaoImpl", "Mise à jour des infos de la table BATTLE");
+		db.update(DatabaseHelper.TABLE_BATTLE, battle.asContentValues(),
+				DatabaseHelper.COL_ID + " = " + battle.getId(), null);
+	}
+
+	@Override
 	public void updateBattle(Battle battle, Informations infos, List<Turn> turns) {
 
 		Log.d("BattleDaoImpl", "Mise à jour des infos de la table BATTLE");

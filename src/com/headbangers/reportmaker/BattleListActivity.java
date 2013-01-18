@@ -138,8 +138,7 @@ public class BattleListActivity extends SherlockListActivity {
 		case R.id.menu_newBattle:
 
 			// Lancement de l'activité de configuration d'une nouvelle partie
-			Intent newBattle = new Intent(this,
-					ConfigureNewBattleActivity.class);
+			Intent newBattle = new Intent(this, ConfigureBattleActivity.class);
 			newBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(newBattle);
 
@@ -197,6 +196,17 @@ public class BattleListActivity extends SherlockListActivity {
 							}).setNegativeButton(R.string.no, null).show();
 
 			return true;
+		case R.id.menu_configureBattle:
+			// Lancement de l'activité de configuration d'une nouvelle partie
+			// AVEC un ID
+			Intent configureBattle = new Intent(this,
+					ConfigureBattleActivity.class);
+			configureBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			configureBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG,
+					this.selected.getId());
+			startActivity(configureBattle);
+			break;
+
 		case R.id.menu_exportBattle:
 
 			pdfService.exportBattleAsync(selected.getId(), this);
@@ -257,14 +267,6 @@ public class BattleListActivity extends SherlockListActivity {
 	private void configureActionBar() {
 		getSupportActionBar().setNavigationMode(
 				ActionBar.NAVIGATION_MODE_STANDARD);
-		// String[] locations =
-		// getResources().getStringArray(R.array.locations);
-		// for (String location : locations) {
-		// Tab tab = getSupportActionBar().newTab();
-		// tab.setText(location);
-		// tab.setTabListener(this);
-		// getSupportActionBar().addTab(tab);
-		// }
 	}
 
 	@Override

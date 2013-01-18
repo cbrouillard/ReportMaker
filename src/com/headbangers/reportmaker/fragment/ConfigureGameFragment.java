@@ -1,5 +1,6 @@
 package com.headbangers.reportmaker.fragment;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import android.os.Bundle;
@@ -23,6 +24,8 @@ public class ConfigureGameFragment extends SherlockFragment {
 	private ImageButton generateName;
 
 	private BattleNameGenerator battleNameGenerator;
+
+	private Battle battle = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +54,19 @@ public class ConfigureGameFragment extends SherlockFragment {
 			}
 		});
 
+		if (battle != null) {
+			this.gameName.setText("" + battle.getName());
+			this.gameFormat.setText("" + battle.getFormat());
+
+			final Calendar c = Calendar.getInstance();
+			c.setTime(battle.getDate());
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			this.gameDate.init(year, month, day, null);
+
+		}
+
 	}
 
 	@Override
@@ -78,6 +94,11 @@ public class ConfigureGameFragment extends SherlockFragment {
 				gameDate.getDayOfMonth()));
 
 		return game;
+	}
+
+	public void setBattle(Battle battle) {
+		this.battle = battle;
+
 	}
 
 }

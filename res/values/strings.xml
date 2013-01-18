@@ -150,7 +150,10 @@
     <string name="preferences_display">Display preferences</string>
     <string name="preferences_extendedComments">Comments</string>
     <string name="preferences_extendedComments_summary">Do you wish to use extended comments ? The application will allow you to write some comments on each game phase.</string>
-
+	<string name="update_configuration_done">Your battle has been updated.</string>
+	<string name="configure_battle">Configure battle</string>
+    
+    
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Always ask</item>
         <item>Don\'t ask, always save</item>

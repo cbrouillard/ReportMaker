@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.headbangers.reportmaker.dao.DatabaseHelper;
@@ -154,6 +155,33 @@ public class Battle {
 			return two;
 		}
 		return one;
+	}
+
+	public ContentValues asContentValues() {
+		ContentValues values = new ContentValues();
+
+		values.put(DatabaseHelper.COL_NAME, this.name);
+		if (format != null) {
+			values.put(DatabaseHelper.COL_FORMAT, this.format);
+		}
+		if (date != null) {
+			values.put(DatabaseHelper.COL_DATE, DateFormat.getDateInstance()
+					.format(this.date));
+		}
+		if (one != null) {
+			values.put(DatabaseHelper.COL_PLAYERONE, one.getName());
+			values.put(DatabaseHelper.COL_RACEONE, one.getRace());
+		}
+		if (two != null) {
+			values.put(DatabaseHelper.COL_PLAYERTWO, two.getName());
+			values.put(DatabaseHelper.COL_RACETWO, two.getRace());
+		}
+
+		return values;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

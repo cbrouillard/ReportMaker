@@ -195,6 +195,16 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 			Intent simulator = new Intent(this, DiceSimulationActivity.class);
 			startActivity(simulator);
 			return true;
+		case R.id.menu_configureBattle:
+			// Lancement de l'activité de configuration d'une nouvelle partie
+			// AVEC un ID
+			Intent configureBattle = new Intent(this,
+					ConfigureBattleActivity.class);
+			configureBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			configureBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG,
+					this.battle.getId());
+			startActivity(configureBattle);
+			break;
 		}
 
 		return false;
@@ -212,7 +222,8 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 			// gérer le changement de paramètre sur l'écran
 			ScreenHelper.applyAlwaysSwitched(this);
 
-			// est ce que les commentaires étendus apparaissent ou disparaissent ?
+			// est ce que les commentaires étendus apparaissent ou disparaissent
+			// ?
 			for (TurnFragment turn : turns) {
 				turn.applyExtendedCommentsSettings();
 			}

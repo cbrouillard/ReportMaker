@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.headbangers.reportmaker.ConfigureNewBattleActivity"
+            android:name="com.headbangers.reportmaker.ConfigureBattleActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/new_battle"
             android:windowSoftInputMode="stateHidden" >

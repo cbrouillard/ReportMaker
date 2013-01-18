@@ -50,6 +50,14 @@ public interface BattleDao extends GenericDao {
 			List<Turn> allTurnsInfos);
 
 	/**
+	 * Met à jour les données de config de la bataille.
+	 * 
+	 * @param battle
+	 *            la bataille à modifier
+	 */
+	void updateBattleConfiguration(Battle battle);
+
+	/**
 	 * Efface une bataille en base.
 	 * 
 	 * @param id

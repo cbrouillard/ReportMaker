@@ -1,5 +1,6 @@
 package com.headbangers.reportmaker.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,15 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.pojo.Player;
 
+@SuppressLint("ValidFragment")
 public class ConfigurePlayerFragment extends SherlockFragment {
 
 	private int num;
 
 	private EditText playerName;
 	private EditText playerRace;
+
+	private Player player = null;
 
 	public ConfigurePlayerFragment() {
 	}
@@ -38,6 +42,14 @@ public class ConfigurePlayerFragment extends SherlockFragment {
 
 		this.playerName = (EditText) view.findViewById(R.id.playerName);
 		this.playerRace = (EditText) view.findViewById(R.id.playerRace);
+
+		if (player != null) {
+			this.playerName.setText(this.player.getName());
+			if (this.player.getRace() != null
+					&& !"".equals(this.player.getRace())) {
+				this.playerRace.setText("" + this.player.getRace());
+			}
+		}
 	}
 
 	public Player getPlayer() {
@@ -52,5 +64,9 @@ public class ConfigurePlayerFragment extends SherlockFragment {
 				.getText().toString() : null);
 
 		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 }

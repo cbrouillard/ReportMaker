@@ -19,14 +19,15 @@ import com.headbangers.reportmaker.pojo.Player;
 import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.tools.AdsControl;
 
-public class ConfigureNewBattleActivity extends SherlockFragmentActivity
-		implements TabListener {
+public class ConfigureBattleActivity extends SherlockFragmentActivity implements
+		TabListener {
 
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * current tab position.
 	 */
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "configure_new_battle_selected_navigation_item";
+	public static final String BATTLE_ID_ARG = "battle_id";
 
 	private ConfigurePlayerFragment playerOneFragment = new ConfigurePlayerFragment(
 			1);
@@ -38,12 +39,22 @@ public class ConfigureNewBattleActivity extends SherlockFragmentActivity
 
 	private FilesystemService filesystemService = new FilesystemService();
 
+	private Long battleId = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.configure_new_battle);
 
 		battleDao.open();
+
+		this.battleId = this.getIntent().getExtras().getLong(BATTLE_ID_ARG);
+		if (battleId != null) {
+			// C'est une édition de la configuration d'une bataille existante
+			// Remplissage des champs
+			fillFields();
+			this.setTitle(R.string.configure_battle);
+		}
 
 		final com.actionbarsherlock.app.ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -58,6 +69,15 @@ public class ConfigureNewBattleActivity extends SherlockFragmentActivity
 
 		// Look up the AdView as a resource and load a request.
 		AdsControl.buildAdIfEnable(this);
+	}
+
+	private void fillFields() {
+		Battle battle = this.battleDao.findBattleById(battleId);
+
+		playerOneFragment.setPlayer(battle.getOne());
+		playerTwoFragment.setPlayer(battle.getTwo());
+		gameFragment.setBattle(battle);
+
 	}
 
 	@Override
@@ -102,7 +122,7 @@ public class ConfigureNewBattleActivity extends SherlockFragmentActivity
 		switch (item.getItemId()) {
 		case R.id.menu_done:
 
-			createGame();
+			saveOrUpdateGame();
 
 			return true;
 		}
@@ -110,7 +130,7 @@ public class ConfigureNewBattleActivity extends SherlockFragmentActivity
 		return false;
 	}
 
-	private void createGame() {
+	private void saveOrUpdateGame() {
 		Player one = this.playerOneFragment.getPlayer();
 		Player two = this.playerTwoFragment.getPlayer();
 		Battle game = this.gameFragment.buildGame();
@@ -118,22 +138,37 @@ public class ConfigureNewBattleActivity extends SherlockFragmentActivity
 		game.setOne(one);
 		game.setTwo(two);
 
-		Long idInserted = battleDao.createBattle(game);
+		if (this.battleId != null) {
+			game.setId(this.battleId);
+			battleDao.updateBattleConfiguration(game);
 
-		if (idInserted == -1) {
-			Toast.makeText(this,
-					getResources().getString(R.string.creation_error),
+			// TODO proposer un toast avec des actions. EDITER LA BATAILLE |
+			// LISTE DES BATAILLES
+			Toast.makeText(
+					this,
+					getResources()
+							.getString(R.string.update_configuration_done),
 					Toast.LENGTH_LONG).show();
+
 		} else {
+			Long idInserted = battleDao.createBattle(game);
 
-			// Création du filesystem sur le téléphone.
-			filesystemService.createRootBattle(idInserted);
+			if (idInserted == -1) {
+				Toast.makeText(this,
+						getResources().getString(R.string.creation_error),
+						Toast.LENGTH_LONG).show();
+			} else {
 
-			// Et redirection vers l'activité d'édition
-			Intent editBattle = new Intent(this, EditBattleActivity.class);
-			editBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG, idInserted);
-			startActivity(editBattle);
+				// Création du filesystem sur le téléphone.
+				filesystemService.createRootBattle(idInserted);
 
+				// Et redirection vers l'activité d'édition
+				Intent editBattle = new Intent(this, EditBattleActivity.class);
+				editBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG,
+						idInserted);
+				startActivity(editBattle);
+
+			}
 		}
 
 	}

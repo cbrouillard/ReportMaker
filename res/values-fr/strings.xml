@@ -150,6 +150,9 @@
     <string name="preferences_extendedComments_summary">Souhaitez-vous utiliser les commentaires étendus ? L\'application vous permettra ainsi de noter des commentaires à chaque phase de jeu.</string>
 	<string name="update_configuration_done">La bataille a été mise à jour.</string>
 	<string name="configure_battle">Configurer la bataille</string>
+	<string name="dices_relaunchSame">Relancer</string>
+	<string name="dices_newRoll">Nouveau jet</string>
+    
     
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Toujours demander</item>

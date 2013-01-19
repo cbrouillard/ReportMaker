@@ -1,67 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <TextView
-        style="@style/headerText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/pdf_action" />
+    android:layout_height="fill_parent" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp" >
+        android:orientation="vertical" >
 
         <TextView
-            android:layout_width="wrap_content"
+            style="@style/headerText"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|center"
-            android:text="@string/pdf_consult" />
+            android:text="@string/pdf_action" />
 
-        <com.headbangers.reportmaker.widget.Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="left" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
 
-        <ImageButton
-            android:id="@+id/action_consult"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/pdf_consult"
-            android:scaleType="fitCenter"
-            android:src="@drawable/view_bclk" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:text="@string/pdf_consult" />
+
+            <com.headbangers.reportmaker.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="left" />
+
+            <ImageButton
+                android:id="@+id/action_consult"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/pdf_consult"
+                android:scaleType="fitCenter"
+                android:src="@drawable/view_bclk" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:text="@string/pdf_share" />
+
+            <com.headbangers.reportmaker.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="left" />
+
+            <ImageButton
+                android:id="@+id/action_share"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/pdf_share"
+                android:scaleType="fitCenter"
+                android:src="@drawable/share_bclk" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|center"
-            android:text="@string/pdf_share" />
-
-        <com.headbangers.reportmaker.widget.Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="left" />
-
-        <ImageButton
-            android:id="@+id/action_share"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/pdf_share"
-            android:scaleType="fitCenter"
-            android:src="@drawable/share_bclk" />
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

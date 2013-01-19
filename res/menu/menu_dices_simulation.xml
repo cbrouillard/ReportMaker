@@ -5,11 +5,11 @@
         android:id="@+id/menu_relaunchSame"
         android:icon="@drawable/refresh"
         android:showAsAction="always|withText"
-        android:title="@string/dices_roll"/>
+        android:title="@string/dices_relaunchSame"/>
     <item
         android:id="@+id/menu_newRoll"
         android:icon="@drawable/dice"
         android:showAsAction="always|withText"
-        android:title="@string/dices_roll"/>
+        android:title="@string/dices_newRoll"/>
 
 </menu>

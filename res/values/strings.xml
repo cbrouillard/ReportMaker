@@ -152,6 +152,8 @@
     <string name="preferences_extendedComments_summary">Do you wish to use extended comments ? The application will allow you to write some comments on each game phase.</string>
 	<string name="update_configuration_done">Your battle has been updated.</string>
 	<string name="configure_battle">Configure battle</string>
+	<string name="dices_relaunchSame">Relaunch</string>
+	<string name="dices_newRoll">New roll</string>
     
     
     <string-array name="preferences_whenQuitComportment_entries">

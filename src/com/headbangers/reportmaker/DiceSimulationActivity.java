@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class DiceSimulationActivity extends SherlockActivity {
 	private TextView howManyDicesSuccess;
 	private TextView howManyDicesFail;
 	private ImageButton rerollSuccessDices;
+	private LinearLayout stats;
 
 	private int nbDices = 25;
 	private int lastNbSuccess = 25;
@@ -46,6 +48,7 @@ public class DiceSimulationActivity extends SherlockActivity {
 		this.howManyDicesSuccess = (TextView) findViewById(R.id.dices_howMany_success);
 		this.howManyDicesFail = (TextView) findViewById(R.id.dices_howMany_fail);
 		this.rerollSuccessDices = (ImageButton) findViewById(R.id.action_rollSuccessDices);
+		this.stats = (LinearLayout) findViewById(R.id.stats);
 
 		this.rerollSuccessDices.setOnClickListener(new View.OnClickListener() {
 
@@ -110,6 +113,7 @@ public class DiceSimulationActivity extends SherlockActivity {
 		refreshGrid(values);
 
 		// Rafraichissement des stats de résultat
+		stats.setVisibility(View.VISIBLE);
 		int successPercent = this.lastNbSuccess * 100 / this.nbDices;
 		this.howManyDices.setText(this.nbDices + " "
 				+ getString(R.string.dices_toObtain) + " "
@@ -201,7 +205,7 @@ public class DiceSimulationActivity extends SherlockActivity {
 			super(context, R.style.dialogBackground);
 			this.setCanceledOnTouchOutside(false);
 		}
-
+		
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);

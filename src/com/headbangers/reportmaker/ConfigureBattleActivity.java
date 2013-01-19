@@ -166,6 +166,8 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 					getResources()
 							.getString(R.string.update_configuration_done),
 					Toast.LENGTH_LONG).show();
+			
+			this.finish();
 
 		} else {
 			Player one = this.playerOneFragment.getPlayer();

@@ -1,4 +1,4 @@
-version 1.0.5 beta<br/>
+version 1.0.6 beta<br/>
 copyright 2012|2013<br/>
 Brouillard Cyril<br/><br/>
 <b>Merci à Befa pour son beta-testing assidu !</b><br/>

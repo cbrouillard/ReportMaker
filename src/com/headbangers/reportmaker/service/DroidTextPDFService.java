@@ -24,10 +24,14 @@ import com.headbangers.reportmaker.tools.ImageHelper;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfContentByte;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 public class DroidTextPDFService implements IPDFService {
@@ -134,7 +138,7 @@ public class DroidTextPDFService implements IPDFService {
 			// Photo de la table
 			addPhoto(document, battle,
 					BattleInformationsFragment.TABLE_PHOTO_NAME,
-					getString(R.string.pdf_table) + " : ", null);
+					getString(R.string.pdf_table) + " : ", null, null);
 
 			// Deploiement
 			generateDeployment(document, cb, battle);
@@ -225,29 +229,32 @@ public class DroidTextPDFService implements IPDFService {
 
 		document.add(new Paragraph(player.getName(), subFont));
 
-		document.add(new Paragraph(getString(R.string.comments), normalBold));
-		document.add(new Paragraph(turn.getComments(numPlayer), normal));
+		if (turn.getComments(numPlayer) != null
+				&& !"".equals(turn.getComments(numPlayer))) {
+			document.add(new Paragraph(getString(R.string.comments), normalBold));
+			document.add(new Paragraph(turn.getComments(numPlayer), normal));
+		}
 
 		// MOUVEMENT
 		addPhoto(document, battle,
 				TurnFragment.MOVE_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_move) + " " + player.getName() + " : ",
-				" ");
+				" ", turn.getCommentsMove(numPlayer));
 
 		// TIR
 		addPhoto(document, battle,
 				TurnFragment.SHOOT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_shoot) + " " + player.getName() + " : ",
-				" ");
+				" ", turn.getCommentsShoot(numPlayer));
 
 		// ASSAUT
 		addPhoto(document, battle,
 				TurnFragment.ASSAULT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_assault) + " " + player.getName()
-						+ " : ", " ");
+						+ " : ", " ", turn.getCommentsAssault(numPlayer));
 
 	}
 
@@ -270,12 +277,12 @@ public class DroidTextPDFService implements IPDFService {
 		addPhoto(document, battle,
 				"deploiement_j" + (firstPlayer + 1) + ".jpg",
 				getString(R.string.pdf_deployment_of) + " " + one.getName()
-						+ " :", null);
+						+ " :", null, null);
 
 		addPhoto(document, battle, "deploiement_j" + (firstPlayer == 0 ? 2 : 1)
 				+ ".jpg",
 				getString(R.string.pdf_deployment_of) + " " + two.getName()
-						+ " :", null);
+						+ " :", null, null);
 
 		// TODO combat nocturne ?
 
@@ -314,8 +321,8 @@ public class DroidTextPDFService implements IPDFService {
 	}
 
 	private void addPhoto(Document document, Battle battle, String photoName,
-			String headerText, String textIfNoPhoto) throws DocumentException,
-			MalformedURLException, IOException {
+			String headerText, String textIfNoPhoto, String comments)
+			throws DocumentException, MalformedURLException, IOException {
 		Bitmap photo = ImageHelper.photoAsPDFBitmap(fs.getRootBattle(battle),
 				photoName);
 		if (photo != null) {
@@ -327,14 +334,36 @@ public class DroidTextPDFService implements IPDFService {
 			jpg.setAlignment(Image.LEFT | Image.TEXTWRAP);
 			jpg.scaleToFit(20000, 170);
 
-			Paragraph element = new Paragraph();
+			PdfPTable table = new PdfPTable(2);
+			table.setSpacingBefore(10);
+			table.setWidthPercentage(100);
+			table.setKeepTogether(true);
+			table.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 			if (headerText != null) {
-				document.add(new Paragraph(headerText, normalBold));
+				PdfPCell headerCell = new PdfPCell(new Paragraph(headerText,
+						normalBold));
+				headerCell.setColspan(2);
+				headerCell.setBorder(Rectangle.NO_BORDER);
+				table.addCell(headerCell);
 			}
-			element.add(new Paragraph(" "));
-			element.add(new Chunk(jpg, 0, 0, true));
-			document.add(element);
+
+			PdfPCell imageCell = new PdfPCell(jpg);
+			PdfPCell commentCell = new PdfPCell();
+
+			commentCell.setBorder(Rectangle.NO_BORDER);
+			imageCell.setBorder(Rectangle.NO_BORDER);
+
+			table.addCell(imageCell);
+
+			if (comments != null && !"".equals(comments)) {
+				commentCell.setPhrase(new Paragraph(comments, normal));
+			} else {
+				commentCell.setPhrase(new Paragraph(" "));
+			}
+
+			table.addCell(commentCell);
+			document.add(table);
 		} else {
 			if (textIfNoPhoto != null) {
 				document.add(new Paragraph(textIfNoPhoto, normal));

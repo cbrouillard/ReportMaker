@@ -21,6 +21,7 @@ import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Player;
 import com.headbangers.reportmaker.pojo.Turn;
 import com.headbangers.reportmaker.tools.ImageHelper;
+import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -136,7 +137,7 @@ public class DroidTextPDFService implements IPDFService {
 			document.add(lord2);
 
 			// Photo de la table
-			addPhoto(document, battle,
+			addPhoto(300, document, battle,
 					BattleInformationsFragment.TABLE_PHOTO_NAME,
 					getString(R.string.pdf_table) + " : ", null, null);
 
@@ -192,7 +193,7 @@ public class DroidTextPDFService implements IPDFService {
 			e.printStackTrace();
 		}
 
-		document.newPage();
+		// document.newPage();
 
 		try {
 			generatePlayerTurn(document, cb, battle, turn, two,
@@ -236,21 +237,21 @@ public class DroidTextPDFService implements IPDFService {
 		}
 
 		// MOUVEMENT
-		addPhoto(document, battle,
+		addPhoto(170, document, battle,
 				TurnFragment.MOVE_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_move) + " " + player.getName() + " : ",
 				" ", turn.getCommentsMove(numPlayer));
 
 		// TIR
-		addPhoto(document, battle,
+		addPhoto(170, document, battle,
 				TurnFragment.SHOOT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_shoot) + " " + player.getName() + " : ",
 				" ", turn.getCommentsShoot(numPlayer));
 
 		// ASSAUT
-		addPhoto(document, battle,
+		addPhoto(170, document, battle,
 				TurnFragment.ASSAULT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_assault) + " " + player.getName()
@@ -274,13 +275,13 @@ public class DroidTextPDFService implements IPDFService {
 		document.add(new Paragraph(one.getName() + " "
 				+ getString(R.string.pdf_begin), subFont));
 
-		addPhoto(document, battle,
-				"deploiement_j" + (firstPlayer + 1) + ".jpg",
+		addPhoto(300, document, battle, "deploiement_j" + (firstPlayer + 1)
+				+ ".jpg",
 				getString(R.string.pdf_deployment_of) + " " + one.getName()
 						+ " :", null, null);
 
-		addPhoto(document, battle, "deploiement_j" + (firstPlayer == 0 ? 2 : 1)
-				+ ".jpg",
+		addPhoto(300, document, battle, "deploiement_j"
+				+ (firstPlayer == 0 ? 2 : 1) + ".jpg",
 				getString(R.string.pdf_deployment_of) + " " + two.getName()
 						+ " :", null, null);
 
@@ -304,27 +305,9 @@ public class DroidTextPDFService implements IPDFService {
 		}
 	}
 
-	private void addPhoto(Document document, String photoPath)
-			throws MalformedURLException, IOException, DocumentException {
-		Bitmap photo = ImageHelper.photoAsPDFBitmap(photoPath);
-		if (photo != null) {
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
-					100 /* Ratio */, stream);
-			Image jpg = Image.getInstance(stream.toByteArray());
-
-			Paragraph element = new Paragraph();
-			element.add(jpg);
-
-			document.add(element);
-		}
-	}
-
-	private void addPhoto(Document document, Battle battle, String photoName,
-			String headerText, String textIfNoPhoto, String comments)
-			throws DocumentException, MalformedURLException, IOException {
-		Bitmap photo = ImageHelper.photoAsPDFBitmap(fs.getRootBattle(battle),
-				photoName);
+	private Image buildPhoto(String photoPath, int size)
+			throws BadElementException, MalformedURLException, IOException {
+		Bitmap photo = ImageHelper.photoAtAnySize(photoPath, size);
 		if (photo != null) {
 
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -332,11 +315,50 @@ public class DroidTextPDFService implements IPDFService {
 					100 /* Ratio */, stream);
 			Image jpg = Image.getInstance(stream.toByteArray());
 			jpg.setAlignment(Image.LEFT | Image.TEXTWRAP);
-			jpg.scaleToFit(20000, 170);
+			return jpg;
+		}
+		return null;
+	}
+
+	private Image buildPhoto(Battle battle, String photoName, int size)
+			throws BadElementException, MalformedURLException, IOException {
+		Bitmap photo = ImageHelper.photoAtAnySize(fs.getRootBattle(battle),
+				photoName, size);
+		if (photo != null) {
+
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			photo.compress(Bitmap.CompressFormat.JPEG /* FileType */,
+					100 /* Ratio */, stream);
+			Image jpg = Image.getInstance(stream.toByteArray());
+			jpg.setAlignment(Image.LEFT | Image.TEXTWRAP);
+
+			return jpg;
+		}
+		return null;
+	}
+
+	private void addPhoto(Document document, String photoPath)
+			throws MalformedURLException, IOException, DocumentException {
+		Image jpg = buildPhoto(photoPath, 170);
+		if (jpg != null) {
+			Paragraph element = new Paragraph();
+			element.add(jpg);
+
+			document.add(element);
+		}
+	}
+
+	private void addPhoto(int size, Document document, Battle battle,
+			String photoName, String headerText, String textIfNoPhoto,
+			String comments) throws DocumentException, MalformedURLException,
+			IOException {
+		Image jpg = buildPhoto(battle, photoName, size);
+		if (jpg != null) {
 
 			PdfPTable table = new PdfPTable(2);
 			table.setSpacingBefore(10);
 			table.setWidthPercentage(100);
+			table.setWidths(new float[] { 2f, 1f });
 			table.setKeepTogether(true);
 			table.setHorizontalAlignment(Element.ALIGN_LEFT);
 
@@ -370,5 +392,4 @@ public class DroidTextPDFService implements IPDFService {
 			}
 		}
 	}
-
 }

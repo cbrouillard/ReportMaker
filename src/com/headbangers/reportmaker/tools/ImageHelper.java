@@ -173,26 +173,24 @@ public class ImageHelper {
 		context.startActivityForResult(takePictureIntent, returnResultCode);
 	}
 
-	public static Bitmap photoAsPDFBitmap(File rootBattle, String photoName) {
-
-		File completeFile = new File(rootBattle, photoName);
-
-		try {
-			return rotateAndResize(completeFile.getAbsolutePath(), 300);
-		} catch (IOException e) {
-			return null;
-		}
-	}
-
-	public static Bitmap photoAsPDFBitmap(String photoPath) {
-
+	public static Bitmap photoAtAnySize(String photoPath, int size) {
 		File completeFile = new File(photoPath);
 
 		try {
-			return rotateAndResize(completeFile.getAbsolutePath(), 300);
+			return rotateAndResize(completeFile.getAbsolutePath(), size);
 		} catch (IOException e) {
 			return null;
 		}
 	}
 
+	public static Bitmap photoAtAnySize(File rootBattle, String photoName,
+			int size) {
+		File completeFile = new File(rootBattle, photoName);
+
+		try {
+			return rotateAndResize(completeFile.getAbsolutePath(), size);
+		} catch (IOException e) {
+			return null;
+		}
+	}
 }

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static int version = 1;
+	private static int version = 2;
 
 	public static final String TABLE_BATTLE = "battle";
 	public static final String TABLE_TURN = "turn";
@@ -57,9 +57,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ TABLE_BATTLE + " (" + COL_ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME
 			+ " TEXT NOT NULL, " + COL_DATE + " DATE NOT NULL, " + COL_FORMAT
-			+ " INTEGER NULL, " + COL_PLAYERONE + " TEXT NULL, "
-			+ COL_PLAYERTWO + " TEXT NULL, " + COL_RACEONE + " TEXT NULL, "
-			+ COL_RACETWO + " TEXT NULL, " + COL_INFO_COMMENTS + " TEXT NULL, "
+			+ " TEXT NULL, " + COL_PLAYERONE + " TEXT NULL, " + COL_PLAYERTWO
+			+ " TEXT NULL, " + COL_RACEONE + " TEXT NULL, " + COL_RACETWO
+			+ " TEXT NULL, " + COL_INFO_COMMENTS + " TEXT NULL, "
 			+ COL_INFO_DEPLOYMENT + " TEXT NULL, " + COL_INFO_LORD1_CAPACITY
 			+ " TEXT NULL, " + COL_INFO_LORD2_CAPACITY + " TEXT NULL, "
 			+ COL_INFO_SCENARIO + " TEXT NULL, " + COL_INFO_WHOSTART
@@ -96,9 +96,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// db.execSQL("DROP TABLE IF EXISTS " + TABLE_TURN + ";");
-		// db.execSQL("DROP TABLE IF EXISTS " + TABLE_BATTLE + ";");
-		// onCreate(db);
+		db.beginTransaction();
+		try {
+			db.execSQL(CREATE_BDD_TABLE_BATTLE.replace("battle",
+					"TABLE_BATTLE_TEMP"));
+			db.execSQL("INSERT INTO TABLE_BATTLE_TEMP SELECT * FROM battle");
+			db.execSQL("DROP TABLE battle");
+			db.execSQL("ALTER TABLE TABLE_BATTLE_TEMP RENAME TO battle");
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
 	}
 
 }

@@ -137,7 +137,7 @@ public class DroidTextPDFService implements IPDFService {
 			document.add(lord2);
 
 			// Photo de la table
-			addPhoto(300, document, battle,
+			addPhoto(320, document, battle,
 					BattleInformationsFragment.TABLE_PHOTO_NAME,
 					getString(R.string.pdf_table) + " : ", null, null);
 
@@ -176,8 +176,17 @@ public class DroidTextPDFService implements IPDFService {
 			Battle battle, Turn turn) throws DocumentException {
 		document.newPage();
 
-		document.add(new Paragraph(getString(R.string.pdf_turn) + " "
-				+ turn.getNum(), catFont));
+		String turnHeader = getString(R.string.pdf_turn) + " " + turn.getNum();
+
+		if (turn.isLastOne()) {
+			turnHeader += " - " + getString(R.string.pdf_lastTurn);
+		}
+
+		if (turn.isNightFight()) {
+			turnHeader += " - " + getString(R.string.pdf_nightFight);
+		}
+
+		document.add(new Paragraph(turnHeader, catFont));
 		drawLine(cb, 765);
 		addEmptyLine(document, 1);
 
@@ -192,8 +201,6 @@ public class DroidTextPDFService implements IPDFService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		// document.newPage();
 
 		try {
 			generatePlayerTurn(document, cb, battle, turn, two,
@@ -214,7 +221,7 @@ public class DroidTextPDFService implements IPDFService {
 
 			for (String extra : allExtras) {
 				try {
-					addPhoto(document, extra);
+					addPhoto(130, document, extra);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
@@ -237,21 +244,21 @@ public class DroidTextPDFService implements IPDFService {
 		}
 
 		// MOUVEMENT
-		addPhoto(170, document, battle,
+		addPhoto(250, document, battle,
 				TurnFragment.MOVE_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_move) + " " + player.getName() + " : ",
 				" ", turn.getCommentsMove(numPlayer));
 
 		// TIR
-		addPhoto(170, document, battle,
+		addPhoto(250, document, battle,
 				TurnFragment.SHOOT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_shoot) + " " + player.getName() + " : ",
 				" ", turn.getCommentsShoot(numPlayer));
 
 		// ASSAUT
-		addPhoto(170, document, battle,
+		addPhoto(250, document, battle,
 				TurnFragment.ASSAULT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_assault) + " " + player.getName()
@@ -275,6 +282,11 @@ public class DroidTextPDFService implements IPDFService {
 		document.add(new Paragraph(one.getName() + " "
 				+ getString(R.string.pdf_begin), subFont));
 
+		if (battle.getTurn(1).isNightFight()) {
+			document.add(new Paragraph(getString(R.string.pdf_nightFightOn),
+					subFont));
+		}
+
 		addPhoto(300, document, battle, "deploiement_j" + (firstPlayer + 1)
 				+ ".jpg",
 				getString(R.string.pdf_deployment_of) + " " + one.getName()
@@ -285,9 +297,11 @@ public class DroidTextPDFService implements IPDFService {
 				getString(R.string.pdf_deployment_of) + " " + two.getName()
 						+ " :", null, null);
 
-		// TODO combat nocturne ?
-
-		// TODO commentaires
+		if (battle.getInfos().getComments() != null
+				&& !"".equals(battle.getInfos().getComments())) {
+			document.add(new Paragraph(getString(R.string.comments), normalBold));
+			document.add(new Paragraph(battle.getInfos().getComments(), normal));
+		}
 
 	}
 
@@ -315,6 +329,7 @@ public class DroidTextPDFService implements IPDFService {
 					100 /* Ratio */, stream);
 			Image jpg = Image.getInstance(stream.toByteArray());
 			jpg.setAlignment(Image.LEFT | Image.TEXTWRAP);
+			jpg.scaleToFit(size, 300);
 			return jpg;
 		}
 		return null;
@@ -331,15 +346,15 @@ public class DroidTextPDFService implements IPDFService {
 					100 /* Ratio */, stream);
 			Image jpg = Image.getInstance(stream.toByteArray());
 			jpg.setAlignment(Image.LEFT | Image.TEXTWRAP);
-
+			jpg.scaleToFit(size, 300);
 			return jpg;
 		}
 		return null;
 	}
 
-	private void addPhoto(Document document, String photoPath)
+	private void addPhoto(int size, Document document, String photoPath)
 			throws MalformedURLException, IOException, DocumentException {
-		Image jpg = buildPhoto(photoPath, 170);
+		Image jpg = buildPhoto(photoPath, size);
 		if (jpg != null) {
 			Paragraph element = new Paragraph();
 			element.add(jpg);

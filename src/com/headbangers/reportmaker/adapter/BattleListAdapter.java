@@ -48,8 +48,15 @@ public class BattleListAdapter extends SimpleCursorAdapter {
 
 		StringBuilder builder = new StringBuilder();
 
-		if (game.getFormat() != null && game.getFormat() != 0) {
-			builder.append(game.getFormat()).append(" points ");
+		if (game.getFormat() != null && !"".equals(game.getFormat())) {
+			builder.append(game.getFormat());
+			try {
+				Integer.parseInt(game.getFormat());
+				builder.append(" points ");
+			} catch (NumberFormatException e) {
+				// pas un chiffre, l'utilisateur a peut-être mis un texte qui
+				// lui est propre.
+			}
 		}
 
 		if (game.getDateFormated() != null) {

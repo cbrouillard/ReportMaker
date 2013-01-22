@@ -18,7 +18,7 @@ public class Battle {
 	private Long id;
 
 	private String name;
-	private Integer format;
+	private String format;
 	private Date date;
 	private String dateFormated;
 
@@ -32,7 +32,7 @@ public class Battle {
 		this.id = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.COL_ID));
 		this.name = cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_NAME));
-		this.format = cursor.getInt(cursor
+		this.format = cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_FORMAT));
 
 		String dateInDB = cursor.getString(cursor
@@ -73,11 +73,11 @@ public class Battle {
 		this.name = name;
 	}
 
-	public Integer getFormat() {
+	public String getFormat() {
 		return format;
 	}
 
-	public void setFormat(Integer format) {
+	public void setFormat(String format) {
 		this.format = format;
 	}
 

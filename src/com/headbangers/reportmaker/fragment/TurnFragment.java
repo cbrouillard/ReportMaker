@@ -267,6 +267,8 @@ public class TurnFragment extends SherlockFragment {
 	public void setBattle(Battle battle, int numTurn) {
 		this.battle = battle;
 		this.numTurn = numTurn;
+
+		fillView();
 	}
 
 	@Override
@@ -413,19 +415,39 @@ public class TurnFragment extends SherlockFragment {
 
 		Turn turn = this.battle.getTurn(this.numTurn);
 
-		this.comments1.setText(turn.getComments1());
-		this.comments2.setText(turn.getComments2());
+		if (this.comments1 != null) {
+			this.comments1.setText(turn.getComments1());
+		}
+		if (this.comments2 != null) {
+			this.comments2.setText(turn.getComments2());
+		}
 
-		this.commentsMove1.setText(turn.getCommentsMove1());
-		this.commentsMove2.setText(turn.getCommentsMove2());
-		this.commentsShoot1.setText(turn.getCommentsShoot1());
-		this.commentsShoot2.setText(turn.getCommentsShoot2());
-		this.commentsAssault1.setText(turn.getCommentsAssault1());
-		this.commentsAssault2.setText(turn.getCommentsAssault2());
+		if (this.commentsMove1 != null) {
+			this.commentsMove1.setText(turn.getCommentsMove1());
+		}
+		if (this.commentsMove2 != null) {
+			this.commentsMove2.setText(turn.getCommentsMove2());
+		}
+		if (this.commentsShoot1 != null) {
+			this.commentsShoot1.setText(turn.getCommentsShoot1());
+		}
+		if (this.commentsShoot2 != null) {
+			this.commentsShoot2.setText(turn.getCommentsShoot2());
+		}
+		if (this.commentsAssault1 != null) {
+			this.commentsAssault1.setText(turn.getCommentsAssault1());
+		}
+		if (this.commentsAssault2 != null) {
+			this.commentsAssault2.setText(turn.getCommentsAssault2());
+		}
 
-		this.lastOne.setChecked(turn.isLastOne() != null ? turn.isLastOne()
-				: false);
-		this.nightFight.setChecked(turn.isNightFight() != null ? turn
-				.isNightFight() : false);
+		if (this.lastOne != null) {
+			this.lastOne.setChecked(turn.isLastOne() != null ? turn.isLastOne()
+					: false);
+		}
+		if (this.nightFight != null) {
+			this.nightFight.setChecked(turn.isNightFight() != null ? turn
+					.isNightFight() : false);
+		}
 	}
 }

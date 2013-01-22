@@ -84,6 +84,9 @@
     <string name="pdf_deployment">Deployment</string>
     <string name="pdf_begin">begins !</string>
     <string name="pdf_deployment_of">Deployment of</string>
+    <string name="pdf_nightFightOn">Night has fallen on the planet !</string>
+    <string name="pdf_lastTurn">Last turn</string>
+    <string name="pdf_nightFight">With night rules</string>
     <string name="little_welcome">Welcome !</string>
     <string name="first_launch">Tactical War Report ! &lt;br/&gt;&lt;br/&gt;
         This app will allow you to easily write your own battle reports : Warhammer&#169; 40000 rules only are currently supported.  

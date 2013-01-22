@@ -88,8 +88,7 @@ public class ConfigureGameFragment extends SherlockFragment {
 		}
 
 		game.setName(name);
-		game.setFormat(format != null && !"".equals(format) ? Integer
-				.valueOf(format) : null);
+		game.setFormat(format != null && !"".equals(format) ? format : null);
 		game.setDate(new Date(gameDate.getYear() - 1900, gameDate.getMonth(),
 				gameDate.getDayOfMonth()));
 

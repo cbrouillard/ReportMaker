@@ -305,6 +305,7 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 		}
 
 		battleDao.updateBattle(battle, infos, allTurnsInfos);
+		loadBattle();
 
 		Toast.makeText(this, R.string.battle_saved, Toast.LENGTH_LONG).show();
 

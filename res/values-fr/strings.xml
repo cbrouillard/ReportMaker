@@ -84,6 +84,9 @@
     <string name="pdf_deployment">Déploiement</string>
     <string name="pdf_begin">commence !</string>
     <string name="pdf_deployment_of">Déploiement de</string>
+    <string name="pdf_nightFightOn">La nuit est tombée sur la planète !</string>
+    <string name="pdf_lastTurn">Dernier tour</string>
+    <string name="pdf_nightFight">Avec les règles de nuit</string>
     <string name="first_launch">Tactical War Report ! &lt;br/&gt;&lt;br/&gt;
         Cette application va vous permettre de rédiger facilement des rapports de bataille : elle ne couvre pour le moment que les règles de Warhammer&#169; 40000.&lt;br/&gt;&lt;br/&gt;
         Gardez en tête cependant que la rédaction d\'un rapport est une tâche compliquée : commencez par couvrir de petites parties. TWR est là pour vous aider mais il ne sait pas tout faire &#8230; C\'est à vous de prendre les photos au bon moment et d\'écrire vos notes.&lt;br/&gt;&lt;br/&gt;

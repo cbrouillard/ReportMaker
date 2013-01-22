@@ -1,17 +1,15 @@
 - amélioration du PDF
+- changement du type de données pour "Format de la partie" (texte)
+- pouvoir contextualiser un extra sur une phase de jeu d'un joueur
 - préférences
 	-- Affichage
 	. affichage des images dans les rapports (bandelette, complète redimensionnée)
 
-- ajouter un écran d'édition des infos de la bataille (accessible depuis la liste et le rapport)
 - entrée en reserve sur tour2, 3, 4 (gérer une photo)
 - gérer la prise d'init
 
-- sauvegarde en JSON (backup?)
+- backup
 - chargements base asynchrones
 
 - Stats Dés:
-X dés lancés pour obtenir X XX
-Succès : X dés (X%)
-Echec : X dés (X%)
-Lancer les dés réussis avec une nouvelle condition []
+ajouter le rendement théorique sur le lancer de dés (en théorie X succés (X%))

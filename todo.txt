@@ -1,6 +1,7 @@
 - amélioration du PDF
-- changement du type de données pour "Format de la partie" (texte)
-- pouvoir contextualiser un extra sur une phase de jeu d'un joueur
+- BUG: mélange de pinceau sur interface d'édition
+- améliorer la perf sur l'affichage des images -> gérer des thumbnails.
+- pouvoir contextualiser un extra sur une phase de jeu d'un joueur (dialogue ? dernière photo prise ?)
 - préférences
 	-- Affichage
 	. affichage des images dans les rapports (bandelette, complète redimensionnée)

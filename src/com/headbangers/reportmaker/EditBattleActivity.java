@@ -212,6 +212,8 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
 		switch (requestCode) {
 		case TAKE_PHOTO_EXTRA_RESULT_CODE:
 			this.gallery.setVisibility(View.VISIBLE);

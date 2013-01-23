@@ -1,9 +1,10 @@
 package com.headbangers.reportmaker.service;
 
-import java.io.IOException;
+import java.io.File;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -18,17 +19,29 @@ public class DrawableManager {
 	}
 
 	public Drawable fetchDrawable(Activity context, String path) {
-		try {
-			Bitmap bitmap = ImageHelper.rotateAndResize(path, 512);
-			Drawable drawable = new BitmapDrawable(context.getResources(),
-					bitmap);
+		// try {
+		// Bitmap bitmap = ImageHelper.rotateAndResize(path, 512);
+		Bitmap bitmap = null;
+		File imageFile = new File(path);
 
-			return drawable;
+		if (!imageFile.exists() && imageFile.getPath().endsWith(".thumb")) {
+			// Création du thumb à la volée
+			String unsized = path.substring(0, path.indexOf(".thumb"));
+			bitmap = ImageHelper.createThumbnail(unsized);
+		} else {
 
-		} catch (IOException e) {
+			bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+
 		}
 
-		return null;
+		Drawable drawable = new BitmapDrawable(context.getResources(), bitmap);
+
+		return drawable;
+
+		// } catch (IOException e) {
+		// }
+		//
+		// return null;
 
 		// try {
 		//
@@ -89,9 +102,6 @@ public class DrawableManager {
 
 		imageView.setImageResource(defaultImageId);
 
-		// imageView.startAnimation(AnimationUtils.loadAnimation(context,
-		// R.anim.rotate_infinite));
-
 		final Handler handler = new Handler() {
 			@Override
 			public void handleMessage(Message message) {
@@ -100,8 +110,6 @@ public class DrawableManager {
 				} else {
 					imageView.setImageResource(defaultImageId);
 				}
-
-				// imageView.clearAnimation();
 			}
 		};
 

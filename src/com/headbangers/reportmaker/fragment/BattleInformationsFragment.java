@@ -25,13 +25,13 @@ import com.headbangers.reportmaker.tools.ImageHelper;
 
 public class BattleInformationsFragment extends SherlockFragment {
 
-	private static final int TAKE_PHOTO_TABLE_RESULT_CODE = 1;
-	private static final int TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE = 2;
-	private static final int TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE = 3;
-	private static final int TAKE_PHOTO_INFILTRATION1_RESULT_CODE = 4;
-	private static final int TAKE_PHOTO_INFILTRATION2_RESULT_CODE = 5;
-	private static final int TAKE_PHOTO_SCOOT1_RESULT_CODE = 6;
-	private static final int TAKE_PHOTO_SCOOT2_RESULT_CODE = 7;
+	public static final int TAKE_PHOTO_TABLE_RESULT_CODE = 10001;
+	public static final int TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE = 10002;
+	public static final int TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE = 10003;
+	public static final int TAKE_PHOTO_INFILTRATION1_RESULT_CODE = 10004;
+	public static final int TAKE_PHOTO_INFILTRATION2_RESULT_CODE = 10005;
+	public static final int TAKE_PHOTO_SCOOT1_RESULT_CODE = 10006;
+	public static final int TAKE_PHOTO_SCOOT2_RESULT_CODE = 10007;
 
 	public static final String TABLE_PHOTO_NAME = "table.jpg";
 	public static final String DEPLOYMENT1_PHOTO_NAME = "deploiement_j1.jpg";
@@ -40,6 +40,7 @@ public class BattleInformationsFragment extends SherlockFragment {
 	public static final String INFILTRATION2_PHOTO_NAME = "infiltration_j2.jpg";
 	public static final String SCOOT1_PHOTO_NAME = "scoot_j1.jpg";
 	public static final String SCOOT2_PHOTO_NAME = "scoot_j2.jpg";
+	public static final String THUMB_EXTENSION = ".thumb";
 
 	private FilesystemService fs = new FilesystemService();
 	private Battle battle;
@@ -138,32 +139,31 @@ public class BattleInformationsFragment extends SherlockFragment {
 
 		findViews(view);
 
-		this.takePhotoTable.setOnClickListener(new TakePhotoListener(this
-				.getActivity(), this.battle, TABLE_PHOTO_NAME,
-				TAKE_PHOTO_TABLE_RESULT_CODE));
+		this.takePhotoTable.setOnClickListener(new TakePhotoListener(this,
+				this.battle, TABLE_PHOTO_NAME, TAKE_PHOTO_TABLE_RESULT_CODE));
 
-		this.takePhotoDeployment1.setOnClickListener(new TakePhotoListener(this
-				.getActivity(), this.battle, DEPLOYMENT1_PHOTO_NAME,
+		this.takePhotoDeployment1.setOnClickListener(new TakePhotoListener(
+				this, this.battle, DEPLOYMENT1_PHOTO_NAME,
 				TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE));
 
-		this.takePhotoDeployment2.setOnClickListener(new TakePhotoListener(this
-				.getActivity(), this.battle, DEPLOYMENT2_PHOTO_NAME,
+		this.takePhotoDeployment2.setOnClickListener(new TakePhotoListener(
+				this, this.battle, DEPLOYMENT2_PHOTO_NAME,
 				TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE));
 
 		this.infiltrationTakePhotoPlayer1
-				.setOnClickListener(new TakePhotoListener(this.getActivity(),
-						this.battle, INFILTRATION1_PHOTO_NAME,
+				.setOnClickListener(new TakePhotoListener(this, this.battle,
+						INFILTRATION1_PHOTO_NAME,
 						TAKE_PHOTO_INFILTRATION1_RESULT_CODE));
 		this.infiltrationTakePhotoPlayer2
-				.setOnClickListener(new TakePhotoListener(this.getActivity(),
-						this.battle, INFILTRATION2_PHOTO_NAME,
+				.setOnClickListener(new TakePhotoListener(this, this.battle,
+						INFILTRATION2_PHOTO_NAME,
 						TAKE_PHOTO_INFILTRATION2_RESULT_CODE));
 
 		this.scootTakePhotoPlayer1.setOnClickListener(new TakePhotoListener(
-				this.getActivity(), this.battle, SCOOT1_PHOTO_NAME,
+				this, this.battle, SCOOT1_PHOTO_NAME,
 				TAKE_PHOTO_SCOOT1_RESULT_CODE));
 		this.scootTakePhotoPlayer2.setOnClickListener(new TakePhotoListener(
-				this.getActivity(), this.battle, SCOOT2_PHOTO_NAME,
+				this, this.battle, SCOOT2_PHOTO_NAME,
 				TAKE_PHOTO_SCOOT2_RESULT_CODE));
 
 		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
@@ -210,7 +210,7 @@ public class BattleInformationsFragment extends SherlockFragment {
 
 	private void fillPhotosIfNeeded() {
 
-		File imageFile = new File(fs.getRootBattle(battle), TABLE_PHOTO_NAME);
+		File table = new File(fs.getRootBattle(battle), TABLE_PHOTO_NAME);
 		File deployment1 = new File(fs.getRootBattle(battle),
 				DEPLOYMENT1_PHOTO_NAME);
 		File deployment2 = new File(fs.getRootBattle(battle),
@@ -222,7 +222,7 @@ public class BattleInformationsFragment extends SherlockFragment {
 		File scoot1 = new File(fs.getRootBattle(battle), SCOOT1_PHOTO_NAME);
 		File scoot2 = new File(fs.getRootBattle(battle), SCOOT2_PHOTO_NAME);
 
-		setPicPhoto(imageFile, this.tablePhotoView, "Table");
+		setPicPhoto(table, this.tablePhotoView, "Table");
 		setPicPhoto(deployment1, this.deployment1Photo, "Déploiement");
 		setPicPhoto(deployment2, this.deployment2Photo, "Déploiement");
 		setPicPhoto(infiltration1, this.infiltrationPhotoPlayer1,
@@ -238,14 +238,62 @@ public class BattleInformationsFragment extends SherlockFragment {
 		if (photo.exists() && into != null) {
 			into.setOnClickListener(new ZoomImageListener(this.getActivity(),
 					photo, title));
-			ImageHelper.setPicAsync(this.getActivity(),
-					photo.getAbsolutePath(), into);
+			ImageHelper.setPicAsync(this.getActivity(), photo.getAbsolutePath()
+					+ THUMB_EXTENSION, into);
 		}
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		fillPhotosIfNeeded();
+
+		if (requestCode >= TAKE_PHOTO_TABLE_RESULT_CODE
+				&& requestCode <= TAKE_PHOTO_SCOOT2_RESULT_CODE) {
+			this.createThumbnails(requestCode);
+		}
+
+	}
+
+	public void createThumbnails(int photo) {
+		switch (photo) {
+		case TAKE_PHOTO_TABLE_RESULT_CODE:
+			File table = new File(fs.getRootBattle(battle), TABLE_PHOTO_NAME);
+			ImageHelper.createThumbnail(table.getAbsolutePath());
+			break;
+
+		case TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE:
+			File deployment1 = new File(fs.getRootBattle(battle),
+					DEPLOYMENT1_PHOTO_NAME);
+			ImageHelper.createThumbnail(deployment1.getAbsolutePath());
+			break;
+
+		case TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE:
+			File deployment2 = new File(fs.getRootBattle(battle),
+					DEPLOYMENT2_PHOTO_NAME);
+			ImageHelper.createThumbnail(deployment2.getAbsolutePath());
+			break;
+
+		case TAKE_PHOTO_INFILTRATION1_RESULT_CODE:
+			File infiltration1 = new File(fs.getRootBattle(battle),
+					INFILTRATION1_PHOTO_NAME);
+			ImageHelper.createThumbnail(infiltration1.getAbsolutePath());
+			break;
+
+		case TAKE_PHOTO_INFILTRATION2_RESULT_CODE:
+			File infiltration2 = new File(fs.getRootBattle(battle),
+					INFILTRATION2_PHOTO_NAME);
+			ImageHelper.createThumbnail(infiltration2.getAbsolutePath());
+			break;
+
+		case TAKE_PHOTO_SCOOT1_RESULT_CODE:
+			File scoot1 = new File(fs.getRootBattle(battle), SCOOT1_PHOTO_NAME);
+			ImageHelper.createThumbnail(scoot1.getAbsolutePath());
+			break;
+
+		case TAKE_PHOTO_SCOOT2_RESULT_CODE:
+			File scoot2 = new File(fs.getRootBattle(battle), SCOOT2_PHOTO_NAME);
+			ImageHelper.createThumbnail(scoot2.getAbsolutePath());
+			break;
+		}
 	}
 
 	public void setBattle(Battle battle) {

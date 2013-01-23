@@ -40,6 +40,7 @@ public class BattleInformationsFragment extends SherlockFragment {
 	public static final String INFILTRATION2_PHOTO_NAME = "infiltration_j2.jpg";
 	public static final String SCOOT1_PHOTO_NAME = "scoot_j1.jpg";
 	public static final String SCOOT2_PHOTO_NAME = "scoot_j2.jpg";
+	public static final String THUMB_EXTENSION = ".thumb";
 
 	private FilesystemService fs = new FilesystemService();
 	private Battle battle;
@@ -210,7 +211,7 @@ public class BattleInformationsFragment extends SherlockFragment {
 
 	private void fillPhotosIfNeeded() {
 
-		File imageFile = new File(fs.getRootBattle(battle), TABLE_PHOTO_NAME);
+		File table = new File(fs.getRootBattle(battle), TABLE_PHOTO_NAME);
 		File deployment1 = new File(fs.getRootBattle(battle),
 				DEPLOYMENT1_PHOTO_NAME);
 		File deployment2 = new File(fs.getRootBattle(battle),
@@ -222,7 +223,7 @@ public class BattleInformationsFragment extends SherlockFragment {
 		File scoot1 = new File(fs.getRootBattle(battle), SCOOT1_PHOTO_NAME);
 		File scoot2 = new File(fs.getRootBattle(battle), SCOOT2_PHOTO_NAME);
 
-		setPicPhoto(imageFile, this.tablePhotoView, "Table");
+		setPicPhoto(table, this.tablePhotoView, "Table");
 		setPicPhoto(deployment1, this.deployment1Photo, "Déploiement");
 		setPicPhoto(deployment2, this.deployment2Photo, "Déploiement");
 		setPicPhoto(infiltration1, this.infiltrationPhotoPlayer1,
@@ -238,14 +239,42 @@ public class BattleInformationsFragment extends SherlockFragment {
 		if (photo.exists() && into != null) {
 			into.setOnClickListener(new ZoomImageListener(this.getActivity(),
 					photo, title));
-			ImageHelper.setPicAsync(this.getActivity(),
-					photo.getAbsolutePath(), into);
+			ImageHelper.setPicAsync(this.getActivity(), photo.getAbsolutePath()
+					+ THUMB_EXTENSION, into);
 		}
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		createThumbnails();
 		fillPhotosIfNeeded();
+	}
+
+	private void createThumbnails() {
+		File table = new File(fs.getRootBattle(battle), TABLE_PHOTO_NAME);
+		ImageHelper.createThumbnail(table.getAbsolutePath());
+		
+		File deployment1 = new File(fs.getRootBattle(battle),
+				DEPLOYMENT1_PHOTO_NAME);
+		ImageHelper.createThumbnail(deployment1.getAbsolutePath());
+		
+		File deployment2 = new File(fs.getRootBattle(battle),
+				DEPLOYMENT2_PHOTO_NAME);
+		ImageHelper.createThumbnail(deployment2.getAbsolutePath());
+		
+		File infiltration1 = new File(fs.getRootBattle(battle),
+				INFILTRATION1_PHOTO_NAME);
+		ImageHelper.createThumbnail(infiltration1.getAbsolutePath());
+		
+		File infiltration2 = new File(fs.getRootBattle(battle),
+				INFILTRATION2_PHOTO_NAME);
+		ImageHelper.createThumbnail(infiltration2.getAbsolutePath());
+		
+		File scoot1 = new File(fs.getRootBattle(battle), SCOOT1_PHOTO_NAME);
+		ImageHelper.createThumbnail(scoot1.getAbsolutePath());
+		
+		File scoot2 = new File(fs.getRootBattle(battle), SCOOT2_PHOTO_NAME);
+		ImageHelper.createThumbnail(scoot2.getAbsolutePath());
 	}
 
 	public void setBattle(Battle battle) {

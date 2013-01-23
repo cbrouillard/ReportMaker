@@ -1,6 +1,7 @@
 package com.headbangers.reportmaker.tools;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.app.Activity;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Bitmap.CompressFormat;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -26,6 +28,8 @@ import com.headbangers.reportmaker.service.FilesystemService;
 public class ImageHelper {
 
 	public static DrawableManager drawableManager = new DrawableManager();
+
+	public static final String THUMB_EXTENSION = ".thumb";
 
 	public static void showImageInDialog(final File imageFile,
 			final Activity context, String imageTitle) {
@@ -88,6 +92,27 @@ public class ImageHelper {
 			ImageView view) {
 		drawableManager.fetchDrawableOnThread(context, photoPath, view,
 				R.drawable.damier);
+	}
+
+	public static Bitmap createThumbnail(String file) {
+		try {
+			File image1 = new File(file);
+
+			if (image1.exists()) {
+				Bitmap thumb;
+				thumb = ImageHelper.rotateAndResize(image1.getAbsolutePath(),
+						512);
+				FileOutputStream writer = new FileOutputStream(
+						image1.getAbsolutePath() + THUMB_EXTENSION);
+				thumb.compress(CompressFormat.JPEG, 100, writer);
+				writer.close();
+
+				return thumb;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static Bitmap rotateAndResize(String photoPath, int defaultW)

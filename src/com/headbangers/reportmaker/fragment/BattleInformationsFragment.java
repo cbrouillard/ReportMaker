@@ -25,13 +25,13 @@ import com.headbangers.reportmaker.tools.ImageHelper;
 
 public class BattleInformationsFragment extends SherlockFragment {
 
-	private static final int TAKE_PHOTO_TABLE_RESULT_CODE = 1;
-	private static final int TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE = 2;
-	private static final int TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE = 3;
-	private static final int TAKE_PHOTO_INFILTRATION1_RESULT_CODE = 4;
-	private static final int TAKE_PHOTO_INFILTRATION2_RESULT_CODE = 5;
-	private static final int TAKE_PHOTO_SCOOT1_RESULT_CODE = 6;
-	private static final int TAKE_PHOTO_SCOOT2_RESULT_CODE = 7;
+	private static final int TAKE_PHOTO_TABLE_RESULT_CODE = 10001;
+	private static final int TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE = 10002;
+	private static final int TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE = 10003;
+	private static final int TAKE_PHOTO_INFILTRATION1_RESULT_CODE = 10004;
+	private static final int TAKE_PHOTO_INFILTRATION2_RESULT_CODE = 10005;
+	private static final int TAKE_PHOTO_SCOOT1_RESULT_CODE = 10006;
+	private static final int TAKE_PHOTO_SCOOT2_RESULT_CODE = 10007;
 
 	public static final String TABLE_PHOTO_NAME = "table.jpg";
 	public static final String DEPLOYMENT1_PHOTO_NAME = "deploiement_j1.jpg";
@@ -253,26 +253,26 @@ public class BattleInformationsFragment extends SherlockFragment {
 	private void createThumbnails() {
 		File table = new File(fs.getRootBattle(battle), TABLE_PHOTO_NAME);
 		ImageHelper.createThumbnail(table.getAbsolutePath());
-		
+
 		File deployment1 = new File(fs.getRootBattle(battle),
 				DEPLOYMENT1_PHOTO_NAME);
 		ImageHelper.createThumbnail(deployment1.getAbsolutePath());
-		
+
 		File deployment2 = new File(fs.getRootBattle(battle),
 				DEPLOYMENT2_PHOTO_NAME);
 		ImageHelper.createThumbnail(deployment2.getAbsolutePath());
-		
+
 		File infiltration1 = new File(fs.getRootBattle(battle),
 				INFILTRATION1_PHOTO_NAME);
 		ImageHelper.createThumbnail(infiltration1.getAbsolutePath());
-		
+
 		File infiltration2 = new File(fs.getRootBattle(battle),
 				INFILTRATION2_PHOTO_NAME);
 		ImageHelper.createThumbnail(infiltration2.getAbsolutePath());
-		
+
 		File scoot1 = new File(fs.getRootBattle(battle), SCOOT1_PHOTO_NAME);
 		ImageHelper.createThumbnail(scoot1.getAbsolutePath());
-		
+
 		File scoot2 = new File(fs.getRootBattle(battle), SCOOT2_PHOTO_NAME);
 		ImageHelper.createThumbnail(scoot2.getAbsolutePath());
 	}

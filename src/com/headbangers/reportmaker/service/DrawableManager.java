@@ -30,9 +30,8 @@ public class DrawableManager {
 			bitmap = ImageHelper.createThumbnail(unsized);
 		} else {
 
-			BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-			bmOptions.inJustDecodeBounds = true;
-			bitmap = BitmapFactory.decodeFile(path, bmOptions);
+			bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+
 		}
 
 		Drawable drawable = new BitmapDrawable(context.getResources(), bitmap);

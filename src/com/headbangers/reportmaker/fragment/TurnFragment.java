@@ -84,6 +84,7 @@ public class TurnFragment extends SherlockFragment {
 	private Switch nightFight;
 
 	private int numTurn = 1;
+	private Turn cache = null;
 
 	private FilesystemService fs = new FilesystemService();
 
@@ -141,7 +142,7 @@ public class TurnFragment extends SherlockFragment {
 			nightFight.setVisibility(View.GONE);
 		}
 
-		fillView();
+		// fillView();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -296,6 +297,13 @@ public class TurnFragment extends SherlockFragment {
 	public void onResume() {
 		super.onResume();
 		fillPhotosIfNeeded();
+		restoreCache();
+	}
+	
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		createCache();
 	}
 
 	private void fillPhotosIfNeeded() {
@@ -414,7 +422,10 @@ public class TurnFragment extends SherlockFragment {
 		}
 
 		Turn turn = this.battle.getTurn(this.numTurn);
+		fillView(turn);
+	}
 
+	private void fillView(Turn turn) {
 		if (this.comments1 != null) {
 			this.comments1.setText(turn.getComments1());
 		}
@@ -448,6 +459,16 @@ public class TurnFragment extends SherlockFragment {
 		if (this.nightFight != null) {
 			this.nightFight.setChecked(turn.isNightFight() != null ? turn
 					.isNightFight() : false);
+		}
+	}
+
+	public void createCache() {
+		this.cache = buildTurn();
+	}
+
+	public void restoreCache() {
+		if (this.cache != null) {
+			fillView(this.cache);
 		}
 	}
 }

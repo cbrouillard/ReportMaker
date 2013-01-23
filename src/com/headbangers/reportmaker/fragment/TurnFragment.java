@@ -142,7 +142,7 @@ public class TurnFragment extends SherlockFragment {
 			nightFight.setVisibility(View.GONE);
 		}
 
-		// fillView();
+		 fillView();
 	}
 
 	@SuppressWarnings("deprecation")

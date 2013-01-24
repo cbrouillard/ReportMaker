@@ -1,19 +1,16 @@
 - amélioration du PDF
 
-- photos extras dans le pdf a mieux afficher
+- photos extras dans le pdf à mieux afficher
 - plus d'icones ! 1 par bataille et 1 par joueurs
 - photo + com' pour la liste d'armée des joueurs.
 - activity filter pour permettre un import d'images ?
 
 - pouvoir prendre plus d'une photo par phase.
         SOLUTIONS POUR LA PRISE PHOTO: 
-        . contextualiser jusqu'à la phase un extra
-        . lors du click sur TakePhoto, si photo existante, boite de dialogue avec options (remplacer, ajouter, effacer)
-        . lors d'un click long sur TakePhoto, afficher options popup.
+        . lors d'un click long sur TakePhoto, afficher options popup. OK
         
         SOLUTIONS POUR L'AFFICHAGE:
-        . GridView ? 
-        . pas d'affichage au delà de la première photo, un clic sur la photo permet d'afficher une "gallerie"        
+        . HorizontallScrollView. OK        
         
 - préférences
 	-- Affichage

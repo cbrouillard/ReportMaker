@@ -49,7 +49,7 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 	private Long battleId = null;
 	private Battle battle = null;
 	private BattleDao battleDao = new BattleDaoImpl(this);
-	private FilesystemService fs = new FilesystemService();
+	private FilesystemService fs = FilesystemService.getInstance();
 
 	private BattleInformationsFragment informations = new BattleInformationsFragment();
 	private TurnFragment[] turns = { new TurnFragment(), new TurnFragment(),

@@ -157,6 +157,9 @@
 	<string name="configure_battle">Configure battle</string>
 	<string name="dices_relaunchSame">Relaunch</string>
 	<string name="dices_newRoll">New roll</string>
+	<string name="photo_replaceMenu">Replace</string>
+	<string name="photo_newCaptureMenu">Add new</string>
+	<string name="photo_deleteMenu">Delete</string>
     
     
     <string-array name="preferences_whenQuitComportment_entries">

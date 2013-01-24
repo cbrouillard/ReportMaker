@@ -44,7 +44,7 @@ public class DroidTextPDFService implements IPDFService {
 
 	private BattleDao dao;
 
-	private FilesystemService fs = new FilesystemService();
+	private FilesystemService fs = FilesystemService.getInstance();
 	private Activity context;
 
 	public void setDao(BattleDao dao) {

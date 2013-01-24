@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.EditBattleActivity;
 import com.headbangers.reportmaker.R;
+import com.headbangers.reportmaker.listener.PhotoActionListener;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
 import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
@@ -46,6 +47,9 @@ public class TurnFragment extends SherlockFragment {
 	private static final int TAKE_PHOTO_MOVE_RESULT_CODE = 1;
 	private static final int TAKE_PHOTO_SHOOT_RESULT_CODE = 2;
 	private static final int TAKE_PHOTO_ASSAULT_RESULT_CODE = 3;
+	private static final int LONG_TAKE_PHOTO_MOVE_RESULT_CODE = 4;
+	private static final int LONG_TAKE_PHOTO_SHOOT_RESULT_CODE = 5;
+	private static final int LONG_TAKE_PHOTO_ASSAULT_RESULT_CODE = 6;
 
 	private TabHost tabHost;
 	private ScrollView playerOneTurn;
@@ -87,7 +91,7 @@ public class TurnFragment extends SherlockFragment {
 	private int numTurn = 1;
 	private Turn cache = null;
 
-	private FilesystemService fs = new FilesystemService();
+	private FilesystemService fs = FilesystemService.getInstance();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -261,6 +265,35 @@ public class TurnFragment extends SherlockFragment {
 		this.takePhotoAssault2.setOnClickListener(new TakePhotoListener(this,
 				battle, ASSAULT_PHOTO_NAME.replace("{P}", "2").replace("{X}",
 						"" + numTurn), TAKE_PHOTO_ASSAULT_RESULT_CODE));
+
+		this.takePhotoMove1
+				.setOnLongClickListener(new PhotoActionListener(this, battle,
+						MOVE_PHOTO_NAME.replace("{P}", "1").replace("{X}",
+								"" + numTurn), LONG_TAKE_PHOTO_MOVE_RESULT_CODE));
+		this.takePhotoMove2
+				.setOnLongClickListener(new PhotoActionListener(this, battle,
+						MOVE_PHOTO_NAME.replace("{P}", "2").replace("{X}",
+								"" + numTurn), LONG_TAKE_PHOTO_MOVE_RESULT_CODE));
+
+		this.takePhotoShoot1
+				.setOnLongClickListener(new PhotoActionListener(this, battle,
+						SHOOT_PHOTO_NAME.replace("{P}", "1").replace("{X}",
+								"" + numTurn),
+						LONG_TAKE_PHOTO_SHOOT_RESULT_CODE));
+		this.takePhotoShoot2
+				.setOnLongClickListener(new PhotoActionListener(this, battle,
+						SHOOT_PHOTO_NAME.replace("{P}", "2").replace("{X}",
+								"" + numTurn),
+						LONG_TAKE_PHOTO_SHOOT_RESULT_CODE));
+
+		this.takePhotoAssault1.setOnLongClickListener(new PhotoActionListener(
+				this, battle, ASSAULT_PHOTO_NAME.replace("{P}", "1").replace(
+						"{X}", "" + numTurn),
+				LONG_TAKE_PHOTO_ASSAULT_RESULT_CODE));
+		this.takePhotoAssault2.setOnLongClickListener(new PhotoActionListener(
+				this, battle, ASSAULT_PHOTO_NAME.replace("{P}", "2s").replace(
+						"{X}", "" + numTurn),
+				LONG_TAKE_PHOTO_ASSAULT_RESULT_CODE));
 	}
 
 	public void setBattle(Battle battle, int numTurn) {

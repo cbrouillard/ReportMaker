@@ -24,7 +24,7 @@ public class GalleryAdapter implements SpinnerAdapter {
 
 	private DrawableManager dwManager;
 
-	private FilesystemService fs = new FilesystemService();
+	private FilesystemService fs = FilesystemService.getInstance();
 
 	private List<String> extrasPath = new ArrayList<String>();
 

@@ -155,7 +155,9 @@
 	<string name="configure_battle">Configurer la bataille</string>
 	<string name="dices_relaunchSame">Relancer</string>
 	<string name="dices_newRoll">Nouveau jet</string>
-    
+    <string name="photo_replaceMenu">Remplacer</string>
+	<string name="photo_newCaptureMenu">Ajouter</string>
+	<string name="photo_deleteMenu">Effacer</string>
     
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Toujours demander</item>

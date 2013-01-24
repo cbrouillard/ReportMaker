@@ -37,7 +37,7 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 
 	private BattleDao battleDao = new BattleDaoImpl(this);
 
-	private FilesystemService filesystemService = new FilesystemService();
+	private FilesystemService filesystemService = FilesystemService.getInstance();
 
 	private Long battleId = null;
 

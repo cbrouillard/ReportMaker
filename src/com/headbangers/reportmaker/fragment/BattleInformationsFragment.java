@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.R;
+import com.headbangers.reportmaker.listener.PhotoActionListener;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
 import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
@@ -32,6 +33,13 @@ public class BattleInformationsFragment extends SherlockFragment {
 	public static final int TAKE_PHOTO_INFILTRATION2_RESULT_CODE = 10005;
 	public static final int TAKE_PHOTO_SCOOT1_RESULT_CODE = 10006;
 	public static final int TAKE_PHOTO_SCOOT2_RESULT_CODE = 10007;
+	public static final int LONG_TAKE_PHOTO_TABLE_RESULT_CODE = 10011;
+	public static final int LONG_TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE = 10012;
+	public static final int LONG_TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE = 10013;
+	public static final int LONG_TAKE_PHOTO_INFILTRATION1_RESULT_CODE = 10014;
+	public static final int LONG_TAKE_PHOTO_INFILTRATION2_RESULT_CODE = 10015;
+	public static final int LONG_TAKE_PHOTO_SCOOT1_RESULT_CODE = 10016;
+	public static final int LONG_TAKE_PHOTO_SCOOT2_RESULT_CODE = 10017;
 
 	public static final String TABLE_PHOTO_NAME = "table.jpg";
 	public static final String DEPLOYMENT1_PHOTO_NAME = "deploiement_j1.jpg";
@@ -42,7 +50,7 @@ public class BattleInformationsFragment extends SherlockFragment {
 	public static final String SCOOT2_PHOTO_NAME = "scoot_j2.jpg";
 	public static final String THUMB_EXTENSION = ".thumb";
 
-	private FilesystemService fs = new FilesystemService();
+	private FilesystemService fs = FilesystemService.getInstance();
 	private Battle battle;
 
 	private ImageButton takePhotoTable;
@@ -141,6 +149,9 @@ public class BattleInformationsFragment extends SherlockFragment {
 
 		this.takePhotoTable.setOnClickListener(new TakePhotoListener(this,
 				this.battle, TABLE_PHOTO_NAME, TAKE_PHOTO_TABLE_RESULT_CODE));
+		this.takePhotoTable.setOnLongClickListener(new PhotoActionListener(
+				this, this.battle, TABLE_PHOTO_NAME,
+				LONG_TAKE_PHOTO_TABLE_RESULT_CODE));
 
 		this.takePhotoDeployment1.setOnClickListener(new TakePhotoListener(
 				this, this.battle, DEPLOYMENT1_PHOTO_NAME,

@@ -18,7 +18,7 @@ public class TakePhotoListener implements OnClickListener {
 	private String photoName;
 	private int resultCode;
 
-	private FilesystemService fs = new FilesystemService();
+	private FilesystemService fs = FilesystemService.getInstance();
 
 	protected TakePhotoListener(Battle battle, String photoName,
 			int returnedResultCode) {

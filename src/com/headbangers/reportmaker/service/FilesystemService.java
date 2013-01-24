@@ -11,6 +11,19 @@ import com.headbangers.reportmaker.pojo.Battle;
 
 public class FilesystemService {
 
+	private static FilesystemService instance;
+
+	public static FilesystemService getInstance() {
+		if (instance == null) {
+			instance = new FilesystemService();
+		}
+		return instance;
+	}
+
+	private FilesystemService() {
+
+	}
+
 	public File createRootBattle(Long idBattle) {
 
 		File androidRoot = Environment.getExternalStorageDirectory();
@@ -77,4 +90,27 @@ public class FilesystemService {
 		return absolutePath;
 	}
 
+	public String determineNextPhotoName(Battle battle, String photoName) {
+		File rootBattle = getRootBattle(battle);
+
+		// photoName = table.jpg
+		final String nameWithoutExt = photoName.substring(0,
+				photoName.indexOf(".jpg"));
+		// nameWithoutExt = table
+
+		String[] photos = rootBattle.list(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String filename) {
+				return filename.startsWith(nameWithoutExt)
+						&& filename.endsWith(".jpg");
+			}
+		});
+
+		if (photos.length > 0) {
+			return nameWithoutExt + "_" + photos.length + ".jpg";
+		}
+
+		return nameWithoutExt + ".jpg";
+	}
 }

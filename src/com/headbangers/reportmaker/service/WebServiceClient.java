@@ -26,7 +26,7 @@ public class WebServiceClient {
 
 	private Activity from;
 	private ObjectMapper jsonMapper;
-	private FilesystemService fs = new FilesystemService();
+	private FilesystemService fs = FilesystemService.getInstance();
 
 	private String host;
 	private String createReport;

@@ -38,7 +38,7 @@ public class BattleListActivity extends SherlockListActivity {
 
 	private Battle selected = null;
 
-	private FilesystemService fs = new FilesystemService();
+	private FilesystemService fs = FilesystemService.getInstance();
 	private IPDFService pdfService = new DroidTextPDFService(this);
 	private WebServiceClient wsClient = new WebServiceClient(this);
 

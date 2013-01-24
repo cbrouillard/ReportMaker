@@ -150,7 +150,7 @@
     <string name="dices_rollSucessDices">Relancer les dés réussis avec une nouvelle condition</string>
     <string name="preferences_display">Préférences d\'affichage</string>
     <string name="preferences_extendedComments">Commentaires</string>
-    <string name="preferences_extendedComments_summary">Souhaitez-vous utiliser les commentaires étendus ? L\'application vous permettra ainsi de noter des commentaires à chaque phase de jeu.</string>
+    <string name="preferences_extendedComments_summary">Afficher un champ de saisie de commentaire par phase de jeu de joueur.</string>
 	<string name="update_configuration_done">La bataille a été mise à jour.</string>
 	<string name="configure_battle">Configurer la bataille</string>
 	<string name="dices_relaunchSame">Relancer</string>

@@ -1,8 +1,7 @@
 - amélioration du PDF
-- changer intitulé préfs Commentaires
+
 - photos extras dans le pdf a mieux afficher
 - plus d'icones ! 1 par bataille et 1 par joueurs
-- lastOne sur tous les tours
 - photo + com' pour la liste d'armée des joueurs.
 - activity filter pour permettre un import d'images ?
 - pouvoir contextualiser un extra sur une phase de jeu d'un joueur (dialogue ? dernière photo prise ?)

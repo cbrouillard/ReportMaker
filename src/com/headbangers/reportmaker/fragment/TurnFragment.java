@@ -136,9 +136,6 @@ public class TurnFragment extends SherlockFragment {
 		construct();
 		linkActions();
 
-		if (lastOne != null && numTurn < 5) {
-			lastOne.setVisibility(View.GONE);
-		}
 		if (nightFight != null && (numTurn > 1 && numTurn < 5)) {
 			nightFight.setVisibility(View.GONE);
 		}
@@ -426,10 +423,7 @@ public class TurnFragment extends SherlockFragment {
 		turn.setCommentsAssault2(this.commentsAssault2 != null ? this.commentsAssault2
 				.getText().toString() : null);
 
-		if (numTurn >= 5) {
-			turn.setLastOne(this.lastOne != null ? this.lastOne.isChecked()
-					: null);
-		}
+		turn.setLastOne(this.lastOne != null ? this.lastOne.isChecked() : null);
 
 		turn.setNightFight(this.nightFight != null ? this.nightFight
 				.isChecked() : null);

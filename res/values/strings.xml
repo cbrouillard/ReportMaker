@@ -152,7 +152,7 @@
     <string name="dices_rollSucessDices">Re-roll succeeded dices with new condition</string>
     <string name="preferences_display">Display preferences</string>
     <string name="preferences_extendedComments">Comments</string>
-    <string name="preferences_extendedComments_summary">Display one comments field for each player's game phase</string>
+    <string name="preferences_extendedComments_summary">Display one comments field for each player\'s game phase</string>
 	<string name="update_configuration_done">Your battle has been updated.</string>
 	<string name="configure_battle">Configure battle</string>
 	<string name="dices_relaunchSame">Relaunch</string>

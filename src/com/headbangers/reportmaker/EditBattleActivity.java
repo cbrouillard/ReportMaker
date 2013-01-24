@@ -44,7 +44,7 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "edit_battle_selected_navigation_item";
 	public static final String BATTLE_ID_ARG = "battle_id";
 
-	private static final int TAKE_PHOTO_EXTRA_RESULT_CODE = 1;
+	private static final int TAKE_PHOTO_EXTRA_RESULT_CODE = 100;
 
 	private Long battleId = null;
 	private Battle battle = null;

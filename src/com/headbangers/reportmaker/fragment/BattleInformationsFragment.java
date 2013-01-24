@@ -25,13 +25,13 @@ import com.headbangers.reportmaker.tools.ImageHelper;
 
 public class BattleInformationsFragment extends SherlockFragment {
 
-	public static final int TAKE_PHOTO_TABLE_RESULT_CODE = 10001;
-	public static final int TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE = 10002;
-	public static final int TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE = 10003;
-	public static final int TAKE_PHOTO_INFILTRATION1_RESULT_CODE = 10004;
-	public static final int TAKE_PHOTO_INFILTRATION2_RESULT_CODE = 10005;
-	public static final int TAKE_PHOTO_SCOOT1_RESULT_CODE = 10006;
-	public static final int TAKE_PHOTO_SCOOT2_RESULT_CODE = 10007;
+	private static final int TAKE_PHOTO_TABLE_RESULT_CODE = 10001;
+	private static final int TAKE_PHOTO_DEPLOYMENT1_RESULT_CODE = 10002;
+	private static final int TAKE_PHOTO_DEPLOYMENT2_RESULT_CODE = 10003;
+	private static final int TAKE_PHOTO_INFILTRATION1_RESULT_CODE = 10004;
+	private static final int TAKE_PHOTO_INFILTRATION2_RESULT_CODE = 10005;
+	private static final int TAKE_PHOTO_SCOOT1_RESULT_CODE = 10006;
+	private static final int TAKE_PHOTO_SCOOT2_RESULT_CODE = 10007;
 
 	public static final String TABLE_PHOTO_NAME = "table.jpg";
 	public static final String DEPLOYMENT1_PHOTO_NAME = "deploiement_j1.jpg";

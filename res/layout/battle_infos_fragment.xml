@@ -19,14 +19,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/takePhoto_table_photo"
+            <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
-                android:layout_weight="1"
-                android:contentDescription="@string/photo_table"
-                android:scaleType="centerCrop"
-                android:src="@drawable/damier" />
+                android:layout_weight="1" >
+                <LinearLayout
+                    android:id="@+id/takePhoto_table_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- <ImageView -->
+            <!-- android:id="@+id/takePhoto_table_photo" -->
+            <!-- android:layout_width="0dip" -->
+            <!-- android:layout_height="50dp" -->
+            <!-- android:layout_weight="1" -->
+            <!-- android:contentDescription="@string/photo_table" -->
+            <!-- android:scaleType="centerCrop" -->
+            <!-- android:src="@drawable/damier" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_table"
@@ -293,12 +305,11 @@
             android:hint="@string/comments_hints"
             android:inputType="textMultiLine"
             android:lines="10" />
-        
+
         <com.headbangers.reportmaker.widget.Space
             android:layout_width="fill_parent"
             android:layout_height="35dp"
             android:gravity="top" />
-
     </LinearLayout>
 
 </ScrollView>

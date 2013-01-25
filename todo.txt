@@ -7,7 +7,7 @@
 
 - pouvoir prendre plus d'une photo par phase.
         SOLUTIONS POUR LA PRISE PHOTO: 
-        . lors d'un click long sur TakePhoto, afficher options popup. OK
+        . bouton "popup", afficher options popup. OK
         
         SOLUTIONS POUR L'AFFICHAGE:
         . HorizontallScrollView. OK        

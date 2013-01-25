@@ -7,16 +7,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.R;
-import com.headbangers.reportmaker.listener.PhotoActionListener;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
 import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
@@ -54,7 +55,7 @@ public class BattleInformationsFragment extends SherlockFragment {
 	private Battle battle;
 
 	private ImageButton takePhotoTable;
-	private ImageView tablePhotoView;
+	// private ImageView tablePhotoView;
 	private EditText deploymentType;
 	private EditText scenario;
 	private Spinner whoStart;
@@ -82,6 +83,8 @@ public class BattleInformationsFragment extends SherlockFragment {
 	private ImageButton scootTakePhotoPlayer2;
 	private ImageView scootPhotoPlayer2;
 
+	private LinearLayout tablePhotosView;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -93,8 +96,10 @@ public class BattleInformationsFragment extends SherlockFragment {
 	private void findViews(View view) {
 		this.takePhotoTable = (ImageButton) view
 				.findViewById(R.id.takePhoto_table);
-		this.tablePhotoView = (ImageView) view
-				.findViewById(R.id.takePhoto_table_photo);
+		// this.tablePhotoView = (ImageView) view
+		// .findViewById(R.id.takePhoto_table_photo);
+		this.tablePhotosView = (LinearLayout) view
+				.findViewById(R.id.takePhoto_table_photos);
 		this.deploymentType = (EditText) view.findViewById(R.id.deploymentType);
 		this.scenario = (EditText) view.findViewById(R.id.scenario);
 		this.whoStart = (Spinner) view.findViewById(R.id.whoStart);
@@ -149,9 +154,6 @@ public class BattleInformationsFragment extends SherlockFragment {
 
 		this.takePhotoTable.setOnClickListener(new TakePhotoListener(this,
 				this.battle, TABLE_PHOTO_NAME, TAKE_PHOTO_TABLE_RESULT_CODE));
-		this.takePhotoTable.setOnLongClickListener(new PhotoActionListener(
-				this, this.battle, TABLE_PHOTO_NAME,
-				LONG_TAKE_PHOTO_TABLE_RESULT_CODE));
 
 		this.takePhotoDeployment1.setOnClickListener(new TakePhotoListener(
 				this, this.battle, DEPLOYMENT1_PHOTO_NAME,
@@ -221,7 +223,7 @@ public class BattleInformationsFragment extends SherlockFragment {
 
 	private void fillPhotosIfNeeded() {
 
-		File table = new File(fs.getRootBattle(battle), TABLE_PHOTO_NAME);
+		// File table = new File(fs.getRootBattle(battle), TABLE_PHOTO_NAME);
 		File deployment1 = new File(fs.getRootBattle(battle),
 				DEPLOYMENT1_PHOTO_NAME);
 		File deployment2 = new File(fs.getRootBattle(battle),
@@ -233,7 +235,9 @@ public class BattleInformationsFragment extends SherlockFragment {
 		File scoot1 = new File(fs.getRootBattle(battle), SCOOT1_PHOTO_NAME);
 		File scoot2 = new File(fs.getRootBattle(battle), SCOOT2_PHOTO_NAME);
 
-		setPicPhoto(table, this.tablePhotoView, "Table");
+		setPicPhotos(TABLE_PHOTO_NAME, this.tablePhotosView, "Table");
+
+		// setPicPhoto(table, this.tablePhotoView, "Table");
 		setPicPhoto(deployment1, this.deployment1Photo, "Déploiement");
 		setPicPhoto(deployment2, this.deployment2Photo, "Déploiement");
 		setPicPhoto(infiltration1, this.infiltrationPhotoPlayer1,
@@ -245,8 +249,42 @@ public class BattleInformationsFragment extends SherlockFragment {
 
 	}
 
+	private void setPicPhotos(String originalFilename, LinearLayout into,
+			String title) {
+
+		if (into != null) {
+
+			String[] photos = fs.getAllFilenameLike(battle, originalFilename);
+			File root = fs.getRootBattle(battle);
+
+			for (String photo : photos) {
+
+				File imageFile = new File(root.getAbsolutePath(), photo);
+
+				ImageView imageView = new ImageView(this.getActivity()
+						.getApplicationContext());
+				imageView.setLayoutParams(new LayoutParams(
+						220, 220));
+				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+				ImageHelper.setPicAsync(this.getActivity(),
+						imageFile.getAbsolutePath() + THUMB_EXTENSION,
+						imageView);
+
+				imageView.setOnClickListener(new ZoomImageListener(this
+						.getActivity(), imageFile, title));
+
+				into.addView(imageView);
+			}
+		}
+	}
+
 	private void setPicPhoto(File photo, ImageView into, String title) {
-		if (photo.exists() && into != null) {
+		if (!photo.exists() && into != null) {
+
+			into.setOnClickListener(new TakePhotoListener(this.getActivity(),
+					battle, TABLE_PHOTO_NAME, TAKE_PHOTO_TABLE_RESULT_CODE));
+
+		} else if (photo.exists() && into != null) {
 			into.setOnClickListener(new ZoomImageListener(this.getActivity(),
 					photo, title));
 			ImageHelper.setPicAsync(this.getActivity(), photo.getAbsolutePath()

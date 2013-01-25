@@ -91,11 +91,25 @@ public class FilesystemService {
 	}
 
 	public String determineNextPhotoName(Battle battle, String photoName) {
-		File rootBattle = getRootBattle(battle);
-
 		// photoName = table.jpg
 		final String nameWithoutExt = photoName.substring(0,
 				photoName.indexOf(".jpg"));
+		// nameWithoutExt = table
+
+		String[] photos = getAllFilenameLike(battle, photoName);
+
+		if (photos.length > 0) {
+			return nameWithoutExt + "_" + photos.length + ".jpg";
+		}
+
+		return nameWithoutExt + ".jpg";
+	}
+
+	public String[] getAllFilenameLike(Battle battle, String originalFilename) {
+		File rootBattle = getRootBattle(battle);
+
+		final String nameWithoutExt = originalFilename.substring(0,
+				originalFilename.indexOf(".jpg"));
 		// nameWithoutExt = table
 
 		String[] photos = rootBattle.list(new FilenameFilter() {
@@ -106,11 +120,7 @@ public class FilesystemService {
 						&& filename.endsWith(".jpg");
 			}
 		});
-
-		if (photos.length > 0) {
-			return nameWithoutExt + "_" + photos.length + ".jpg";
-		}
-
-		return nameWithoutExt + ".jpg";
+		
+		return photos;
 	}
 }

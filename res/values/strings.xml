@@ -135,6 +135,7 @@
     <string name="timer_isOn">Timer is running</string>
     <string name="timer_isOff">Timer is not running</string>
     <string name="image_share">Share this image</string>
+    <string name="image_delete">Delete this image</string>
     <string name="image_share_subject">A cool image !</string>
     <string name="image_share_text">Hey ! Look at this cool image from TacticalWarReport !</string>
     <string name="image_zoom_help">Touch the image to get out of this dialog</string>

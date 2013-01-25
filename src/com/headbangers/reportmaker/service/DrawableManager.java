@@ -2,6 +2,7 @@ package com.headbangers.reportmaker.service;
 
 import java.io.File;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,15 +20,14 @@ public class DrawableManager {
 	}
 
 	public Drawable fetchDrawable(Activity context, String path) {
-		// try {
-		// Bitmap bitmap = ImageHelper.rotateAndResize(path, 512);
 		Bitmap bitmap = null;
 		File imageFile = new File(path);
 
 		if (!imageFile.exists() && imageFile.getPath().endsWith(".thumb")) {
 			// Création du thumb à la volée
-			String unsized = path.substring(0, path.indexOf(".thumb"));
-			bitmap = ImageHelper.createThumbnail(unsized);
+			String realPhotoPath = path.substring(0, path.indexOf(".thumb"))
+					.replace("/thumbs/", "/");
+			bitmap = ImageHelper.createThumbnail(realPhotoPath);
 		} else {
 
 			bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
@@ -38,64 +38,9 @@ public class DrawableManager {
 
 		return drawable;
 
-		// } catch (IOException e) {
-		// }
-		//
-		// return null;
-
-		// try {
-		//
-		// InputStream is = null;
-		// if (cacheFileName != null) {
-		//
-		// File root = Environment.getExternalStorageDirectory();
-		// root.mkdir();
-		// File storage = new File(root, CACHE_DIRECTORY);
-		// storage.mkdirs();
-		// File file = new File(storage, cacheFileName);
-		//
-		// if (file.exists()) {
-		// Drawable drawable = Drawable.createFromStream(
-		// new FileInputStream(file), "src");
-		// drawableMap.put(urlString, drawable);
-		// return drawable;
-		// }
-		//
-		// is = fetch(urlString);
-		//
-		// FileOutputStream fos = new FileOutputStream(file);
-		// BufferedOutputStream bos = new BufferedOutputStream(fos, 8192);
-		// int current;
-		//
-		// while ((current = is.read()) != -1) {
-		// bos.write(current);
-		// }
-		// bos.flush();
-		// bos.close();
-		//
-		// is.close();
-		// fos.close();
-		//
-		// is = new FileInputStream(new File(storage, cacheFileName));
-		//
-		// } else {
-		// is = fetch(urlString);
-		// }
-		//
-		// Drawable drawable = Drawable.createFromStream(is, "src");
-		// drawableMap.put(urlString, drawable);
-		//
-		// return drawable;
-		//
-		// } catch (MalformedURLException e) {
-		// Log.e(this.getClass().getSimpleName(), "fetchDrawable failed", e);
-		// return null;
-		// } catch (IOException e) {
-		// Log.e(this.getClass().getSimpleName(), "fetchDrawable failed", e);
-		// return null;
-		// }
 	}
 
+	@SuppressLint("HandlerLeak")
 	public void fetchDrawableOnThread(final Activity context,
 			final String urlString, final ImageView imageView,
 			final int defaultImageId) {

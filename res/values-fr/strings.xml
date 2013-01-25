@@ -133,6 +133,7 @@
     <string name="timer_isOn">Le timer est en cours d\'exécution</string>
     <string name="timer_isOff">Le timer n\'est pas lancé</string>
     <string name="image_share">Partager cette image</string>
+    <string name="image_delete">Effacer cette image</string>
     <string name="image_share_subject">Une image cool !</string>
     <string name="image_share_text">Hey ! Regarde cette super photo que j\'ai prise avec TacticalWarReport ! :3</string>
     <string name="image_zoom_help">Touchez l\'image pour fermer cette fenêtre</string>

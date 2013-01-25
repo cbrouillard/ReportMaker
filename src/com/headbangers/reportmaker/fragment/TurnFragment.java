@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +27,6 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.EditBattleActivity;
 import com.headbangers.reportmaker.R;
-import com.headbangers.reportmaker.listener.PhotoActionListener;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
 import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
@@ -47,9 +45,6 @@ public class TurnFragment extends SherlockFragment {
 	private static final int TAKE_PHOTO_MOVE_RESULT_CODE = 1;
 	private static final int TAKE_PHOTO_SHOOT_RESULT_CODE = 2;
 	private static final int TAKE_PHOTO_ASSAULT_RESULT_CODE = 3;
-	private static final int LONG_TAKE_PHOTO_MOVE_RESULT_CODE = 4;
-	private static final int LONG_TAKE_PHOTO_SHOOT_RESULT_CODE = 5;
-	private static final int LONG_TAKE_PHOTO_ASSAULT_RESULT_CODE = 6;
 
 	private TabHost tabHost;
 	private ScrollView playerOneTurn;
@@ -266,34 +261,6 @@ public class TurnFragment extends SherlockFragment {
 				battle, ASSAULT_PHOTO_NAME.replace("{P}", "2").replace("{X}",
 						"" + numTurn), TAKE_PHOTO_ASSAULT_RESULT_CODE));
 
-		this.takePhotoMove1
-				.setOnLongClickListener(new PhotoActionListener(this, battle,
-						MOVE_PHOTO_NAME.replace("{P}", "1").replace("{X}",
-								"" + numTurn), LONG_TAKE_PHOTO_MOVE_RESULT_CODE));
-		this.takePhotoMove2
-				.setOnLongClickListener(new PhotoActionListener(this, battle,
-						MOVE_PHOTO_NAME.replace("{P}", "2").replace("{X}",
-								"" + numTurn), LONG_TAKE_PHOTO_MOVE_RESULT_CODE));
-
-		this.takePhotoShoot1
-				.setOnLongClickListener(new PhotoActionListener(this, battle,
-						SHOOT_PHOTO_NAME.replace("{P}", "1").replace("{X}",
-								"" + numTurn),
-						LONG_TAKE_PHOTO_SHOOT_RESULT_CODE));
-		this.takePhotoShoot2
-				.setOnLongClickListener(new PhotoActionListener(this, battle,
-						SHOOT_PHOTO_NAME.replace("{P}", "2").replace("{X}",
-								"" + numTurn),
-						LONG_TAKE_PHOTO_SHOOT_RESULT_CODE));
-
-		this.takePhotoAssault1.setOnLongClickListener(new PhotoActionListener(
-				this, battle, ASSAULT_PHOTO_NAME.replace("{P}", "1").replace(
-						"{X}", "" + numTurn),
-				LONG_TAKE_PHOTO_ASSAULT_RESULT_CODE));
-		this.takePhotoAssault2.setOnLongClickListener(new PhotoActionListener(
-				this, battle, ASSAULT_PHOTO_NAME.replace("{P}", "2s").replace(
-						"{X}", "" + numTurn),
-				LONG_TAKE_PHOTO_ASSAULT_RESULT_CODE));
 	}
 
 	public void setBattle(Battle battle, int numTurn) {
@@ -309,17 +276,17 @@ public class TurnFragment extends SherlockFragment {
 		switch (requestCode) {
 
 		case TAKE_PHOTO_MOVE_RESULT_CODE:
-			createThumbnails(MOVE_PHOTO_NAME);
+			// createThumbnails(MOVE_PHOTO_NAME);
 			fillMovePhotos();
 			break;
 
 		case TAKE_PHOTO_SHOOT_RESULT_CODE:
-			createThumbnails(SHOOT_PHOTO_NAME);
+			// createThumbnails(SHOOT_PHOTO_NAME);
 			fillShootPhotos();
 			break;
 
 		case TAKE_PHOTO_ASSAULT_RESULT_CODE:
-			createThumbnails(ASSAULT_PHOTO_NAME);
+			// createThumbnails(ASSAULT_PHOTO_NAME);
 			fillAssaultPhotos();
 			break;
 
@@ -327,18 +294,18 @@ public class TurnFragment extends SherlockFragment {
 
 	}
 
-	private void createThumbnails(String base) {
-		File image1 = new File(fs.getRootBattle(battle), base.replace("{P}",
-				"1").replace("{X}", "" + numTurn));
-		File image2 = new File(fs.getRootBattle(battle), base.replace("{P}",
-				"2").replace("{X}", "" + numTurn));
-
-		Log.d("Thumbnails", "Create thumbnails for " + image1.getAbsolutePath()
-				+ " and " + image2.getAbsolutePath());
-
-		ImageHelper.createThumbnail(image1.getAbsolutePath());
-		ImageHelper.createThumbnail(image2.getAbsolutePath());
-	}
+	// private void createThumbnails(String base) {
+	// File image1 = new File(fs.getRootBattle(battle), base.replace("{P}",
+	// "1").replace("{X}", "" + numTurn));
+	// File image2 = new File(fs.getRootBattle(battle), base.replace("{P}",
+	// "2").replace("{X}", "" + numTurn));
+	//
+	// Log.d("Thumbnails", "Create thumbnails for " + image1.getAbsolutePath()
+	// + " and " + image2.getAbsolutePath());
+	//
+	// ImageHelper.createThumbnail(image1.getAbsolutePath());
+	// ImageHelper.createThumbnail(image2.getAbsolutePath());
+	// }
 
 	@Override
 	public void onResume() {
@@ -370,7 +337,7 @@ public class TurnFragment extends SherlockFragment {
 					.getActivity(), image1, "Mouvement - "
 					+ battle.getOne().getName()));
 			ImageHelper.setPicAsync(this.getActivity(),
-					image1.getAbsolutePath() + ImageHelper.THUMB_EXTENSION,
+					ImageHelper.getThumbnailPath(battle, image1),
 					this.photoMove1);
 		}
 		if (image2.exists() && this.photoMove2 != null) {
@@ -378,7 +345,7 @@ public class TurnFragment extends SherlockFragment {
 					.getActivity(), image2, "Mouvement - "
 					+ battle.getTwo().getName()));
 			ImageHelper.setPicAsync(this.getActivity(),
-					image2.getAbsolutePath() + ImageHelper.THUMB_EXTENSION,
+					ImageHelper.getThumbnailPath(battle, image2),
 					this.photoMove2);
 		}
 	}
@@ -395,7 +362,7 @@ public class TurnFragment extends SherlockFragment {
 					.getActivity(), image1, "Tir - "
 					+ battle.getOne().getName()));
 			ImageHelper.setPicAsync(this.getActivity(),
-					image1.getAbsolutePath() + ImageHelper.THUMB_EXTENSION,
+					ImageHelper.getThumbnailPath(battle, image1),
 					this.photoShoot1);
 		}
 		if (image2.exists() && this.photoShoot2 != null) {
@@ -403,7 +370,7 @@ public class TurnFragment extends SherlockFragment {
 					.getActivity(), image2, "Tir - "
 					+ battle.getTwo().getName()));
 			ImageHelper.setPicAsync(this.getActivity(),
-					image2.getAbsolutePath() + ImageHelper.THUMB_EXTENSION,
+					ImageHelper.getThumbnailPath(battle, image2),
 					this.photoShoot2);
 		}
 	}
@@ -419,7 +386,7 @@ public class TurnFragment extends SherlockFragment {
 					.getActivity(), image1, "Assaut - "
 					+ battle.getOne().getName()));
 			ImageHelper.setPicAsync(this.getActivity(),
-					image1.getAbsolutePath() + ImageHelper.THUMB_EXTENSION,
+					ImageHelper.getThumbnailPath(battle, image1),
 					this.photoAssault1);
 		}
 
@@ -428,7 +395,7 @@ public class TurnFragment extends SherlockFragment {
 					.getActivity(), image2, "Assaut - "
 					+ battle.getTwo().getName()));
 			ImageHelper.setPicAsync(this.getActivity(),
-					image2.getAbsolutePath() + ImageHelper.THUMB_EXTENSION,
+					ImageHelper.getThumbnailPath(battle, image2),
 					this.photoAssault2);
 		}
 	}

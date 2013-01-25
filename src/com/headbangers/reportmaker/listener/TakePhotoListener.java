@@ -46,11 +46,11 @@ public class TakePhotoListener implements OnClickListener {
 
 		if (fromActivity != null) {
 
-			ImageHelper.takePhoto(this.fromActivity, fs, battle, photoName,
-					resultCode);
+			ImageHelper.takePhoto(this.fromActivity, fs, battle,
+					fs.determineNextPhotoName(battle, photoName), resultCode);
 		} else {
-			ImageHelper.takePhoto(this.fromFragment, fs, battle, photoName,
-					resultCode);
+			ImageHelper.takePhoto(this.fromFragment, fs, battle,
+					fs.determineNextPhotoName(battle, photoName), resultCode);
 		}
 
 	}

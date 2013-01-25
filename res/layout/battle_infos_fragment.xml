@@ -22,7 +22,9 @@
             <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:background="@drawable/damier_background" >
+
                 <LinearLayout
                     android:id="@+id/takePhoto_table_photos"
                     android:layout_width="wrap_content"
@@ -38,7 +40,9 @@
             <!-- android:layout_weight="1" -->
             <!-- android:contentDescription="@string/photo_table" -->
             <!-- android:scaleType="centerCrop" -->
-            <!-- android:src="@drawable/damier" /> -->
+            <!-- android:src="@drawable/damier" -->
+            <!-- android:visibility="gone" /> -->
+
 
             <ImageButton
                 android:id="@+id/takePhoto_table"
@@ -123,14 +127,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/takePhoto_deployment1_photo"
+            <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/photo_deployment"
-                android:scaleType="centerCrop"
-                android:src="@drawable/damier" />
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhoto_deployment1_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+<!--             <ImageView -->
+<!--                 android:id="@+id/takePhoto_deployment1_photo" -->
+<!--                 android:layout_width="0dip" -->
+<!--                 android:layout_height="50dp" -->
+<!--                 android:layout_weight="1" -->
+<!--                 android:contentDescription="@string/photo_deployment" -->
+<!--                 android:scaleType="centerCrop" -->
+<!--                 android:src="@drawable/damier" -->
+<!--                 android:visibility="gone" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_deployment1"
@@ -153,14 +172,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/takePhoto_deployment2_photo"
+            <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/photo_deployment"
-                android:scaleType="centerCrop"
-                android:src="@drawable/damier" />
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhoto_deployment2_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+<!--             <ImageView -->
+<!--                 android:id="@+id/takePhoto_deployment2_photo" -->
+<!--                 android:layout_width="0dip" -->
+<!--                 android:layout_height="50dp" -->
+<!--                 android:layout_weight="1" -->
+<!--                 android:contentDescription="@string/photo_deployment" -->
+<!--                 android:scaleType="centerCrop" -->
+<!--                 android:src="@drawable/damier" -->
+<!--                 android:visibility="gone" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_deployment2"
@@ -183,14 +217,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/takePhoto_infiltration1_photo"
+            <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/photo_infiltration"
-                android:scaleType="centerCrop"
-                android:src="@drawable/damier" />
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhoto_infiltration1_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+<!--             <ImageView -->
+<!--                 android:id="@+id/takePhoto_infiltration1_photo" -->
+<!--                 android:layout_width="0dip" -->
+<!--                 android:layout_height="50dp" -->
+<!--                 android:layout_weight="1" -->
+<!--                 android:contentDescription="@string/photo_infiltration" -->
+<!--                 android:scaleType="centerCrop" -->
+<!--                 android:src="@drawable/damier" -->
+<!--                 android:visibility="gone" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_infiltration1"
@@ -213,14 +262,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/takePhoto_infiltration2_photo"
+            <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/photo_infiltration"
-                android:scaleType="centerCrop"
-                android:src="@drawable/damier" />
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhoto_infiltration2_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+<!--             <ImageView -->
+<!--                 android:id="@+id/takePhoto_infiltration2_photo" -->
+<!--                 android:layout_width="0dip" -->
+<!--                 android:layout_height="50dp" -->
+<!--                 android:layout_weight="1" -->
+<!--                 android:contentDescription="@string/photo_infiltration" -->
+<!--                 android:scaleType="centerCrop" -->
+<!--                 android:src="@drawable/damier" -->
+<!--                 android:visibility="gone" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_infiltration2"
@@ -243,14 +307,29 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/takePhoto_scoot1_photo"
+            <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/photo_scoot"
-                android:scaleType="centerCrop"
-                android:src="@drawable/damier" />
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhoto_scoot1_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- <ImageView -->
+            <!-- android:id="@+id/takePhoto_scoot1_photo" -->
+            <!-- android:layout_width="0dip" -->
+            <!-- android:layout_height="50dp" -->
+            <!-- android:layout_weight="1" -->
+            <!-- android:contentDescription="@string/photo_scoot" -->
+            <!-- android:scaleType="centerCrop" -->
+            <!-- android:src="@drawable/damier" -->
+            <!-- android:visibility="gone" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_scoot1"
@@ -273,14 +352,30 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/takePhoto_scoot2_photo"
+            <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/photo_scoot"
-                android:scaleType="centerCrop"
-                android:src="@drawable/damier" />
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhoto_scoot2_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- <ImageView -->
+            <!-- android:id="@+id/takePhoto_scoot2_photo" -->
+            <!-- android:layout_width="0dip" -->
+            <!-- android:layout_height="50dp" -->
+            <!-- android:layout_weight="1" -->
+            <!-- android:contentDescription="@string/photo_scoot" -->
+            <!-- android:scaleType="centerCrop" -->
+            <!-- android:src="@drawable/damier" -->
+            <!-- android:visibility="gone" /> -->
+
 
             <ImageButton
                 android:id="@+id/takePhoto_scoot2"

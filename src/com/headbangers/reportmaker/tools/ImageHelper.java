@@ -30,7 +30,8 @@ public class ImageHelper {
 
 	public static DrawableManager drawableManager = new DrawableManager();
 
-	public static final String THUMB_EXTENSION = ".thumb";
+	private static final String THUMB_EXTENSION = ".thumb";
+	private static FilesystemService fs = FilesystemService.getInstance();
 
 	public static void showImageInDialog(final File imageFile,
 			final Activity context, String imageTitle) {
@@ -48,6 +49,8 @@ public class ImageHelper {
 		ImageView zoom = (ImageView) dialog.findViewById(R.id.image);
 		ImageButton share = (ImageButton) dialog
 				.findViewById(R.id.action_share);
+		ImageButton delete = (ImageButton) dialog
+				.findViewById(R.id.action_delete);
 		setPic(imageFile.getAbsolutePath(), zoom);
 
 		zoom.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +86,24 @@ public class ImageHelper {
 			}
 		});
 
+		delete.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// Effacer le thumb
+				deleteThumbIfExists(computePhotoPathToGetThumbnailPath(imageFile
+						.getAbsolutePath()));
+
+				// Effacer l'image
+				imageFile.delete();
+				
+				// Fermer la boite
+				dialog.dismiss();
+				
+				// Rafraichir la liste
+			}
+		});
+
 		dialog.setCanceledOnTouchOutside(true);
 		dialog.setCancelable(true);
 
@@ -93,27 +114,6 @@ public class ImageHelper {
 			ImageView view) {
 		drawableManager.fetchDrawableOnThread(context, photoPath, view,
 				R.drawable.damier);
-	}
-
-	public static Bitmap createThumbnail(String file) {
-		try {
-			File image1 = new File(file);
-
-			if (image1.exists()) {
-				Bitmap thumb;
-				thumb = ImageHelper.rotateAndResize(image1.getAbsolutePath(),
-						512);
-				FileOutputStream writer = new FileOutputStream(
-						image1.getAbsolutePath() + THUMB_EXTENSION);
-				thumb.compress(CompressFormat.JPEG, 100, writer);
-				writer.close();
-
-				return thumb;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	public static Bitmap rotateAndResize(String photoPath, int defaultW)
@@ -192,6 +192,8 @@ public class ImageHelper {
 
 		File imageFile = new File(fs.getRootBattle(battle), photoName);
 
+		deleteThumbIfExists(getThumbnailPath(battle, imageFile));
+
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
 				Uri.fromFile(imageFile));
@@ -202,6 +204,8 @@ public class ImageHelper {
 	public static void takePhoto(Fragment context, FilesystemService fs,
 			Battle battle, String photoName, int resultCode) {
 		File imageFile = new File(fs.getRootBattle(battle), photoName);
+
+		deleteThumbIfExists(imageFile.getAbsolutePath() + THUMB_EXTENSION);
 
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
@@ -232,4 +236,60 @@ public class ImageHelper {
 		}
 	}
 
+	private static void deleteThumbIfExists(String thumbPath) {
+		File thumb = new File(thumbPath);
+		if (thumb.exists()) {
+			thumb.delete();
+		}
+	}
+
+	private static String getThumbnailPath(String imagePath) {
+		return imagePath + THUMB_EXTENSION;
+	}
+
+	public static String getThumbnailPath(Battle battle, File image) {
+		File root = fs.getRootBattle(battle);
+
+		return getThumbnailPath(root.getAbsolutePath() + "/thumbs/"
+				+ image.getName());
+	}
+
+	public static Bitmap createThumbnail(String file) {
+		try {
+			File image1 = new File(file);
+
+			if (image1.exists() && !image1.isDirectory()) {
+				Bitmap thumb;
+				thumb = ImageHelper.rotateAndResize(image1.getAbsolutePath(),
+						512);
+				FileOutputStream writer = new FileOutputStream(
+						computePhotoPathToGetThumbnailPath(image1
+								.getAbsolutePath()));
+				thumb.compress(CompressFormat.JPEG, 100, writer);
+				writer.close();
+
+				return thumb;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private static String computePhotoPathToGetThumbnailPath(
+			String absolutePhotoPath) {
+		String root = absolutePhotoPath.substring(0,
+				absolutePhotoPath.lastIndexOf("/"));
+
+		String photoName = absolutePhotoPath.substring(absolutePhotoPath
+				.lastIndexOf("/") + 1);
+
+		File thumbsDir = new File(root, "thumbs");
+		if (!thumbsDir.exists()) {
+			thumbsDir.mkdir();
+		}
+
+		return root + "/thumbs/" + photoName + THUMB_EXTENSION;
+
+	}
 }

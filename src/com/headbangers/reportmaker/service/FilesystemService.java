@@ -29,8 +29,9 @@ public class FilesystemService {
 		File androidRoot = Environment.getExternalStorageDirectory();
 		File appRoot = new File(androidRoot, "reportmaker");
 		File battleDirectory = new File(appRoot, "battle-" + idBattle);
+		File thumbs = new File (battleDirectory, ".thumbs");
 
-		battleDirectory.mkdirs();
+		thumbs.mkdirs();
 
 		return battleDirectory;
 

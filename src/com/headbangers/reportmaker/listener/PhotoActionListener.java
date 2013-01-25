@@ -11,6 +11,7 @@ import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.tools.ImageHelper;
 
+@Deprecated
 public class PhotoActionListener implements OnLongClickListener {
 
 	private Fragment context;

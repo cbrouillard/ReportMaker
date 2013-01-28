@@ -56,7 +56,10 @@ public class ConfigureGameFragment extends SherlockFragment {
 
 		if (battle != null) {
 			this.gameName.setText("" + battle.getName());
-			this.gameFormat.setText("" + battle.getFormat());
+
+			if (battle.getFormat() != null) {
+				this.gameFormat.setText(battle.getFormat());
+			}
 
 			final Calendar c = Calendar.getInstance();
 			c.setTime(battle.getDate());

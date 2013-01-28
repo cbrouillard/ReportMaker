@@ -1,17 +1,13 @@
 package com.headbangers.reportmaker.fragment;
 
-import java.io.File;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,10 +15,8 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
-import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Informations;
-import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.tools.ImageHelper;
 
 public class BattleInformationsFragment extends SherlockFragment {
@@ -50,7 +44,6 @@ public class BattleInformationsFragment extends SherlockFragment {
 	public static final String SCOOT1_PHOTO_NAME = "scoot_j1.jpg";
 	public static final String SCOOT2_PHOTO_NAME = "scoot_j2.jpg";
 
-	private FilesystemService fs = FilesystemService.getInstance();
 	private Battle battle;
 
 	private ImageButton takePhotoTable;
@@ -261,37 +254,8 @@ public class BattleInformationsFragment extends SherlockFragment {
 	private void setPicPhotos(String originalFilename, LinearLayout into,
 			String title) {
 
-		if (into != null) {
-
-			into.removeAllViews();
-
-			String[] photos = fs.getAllFilenameLike(battle, originalFilename);
-			File root = fs.getRootBattle(battle);
-
-			into.setWeightSum(1);
-			for (String photo : photos) {
-
-				File imageFile = new File(root.getAbsolutePath(), photo);
-
-				ImageView imageView = new ImageView(this.getActivity()
-						.getApplicationContext());
-				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-				LayoutParams param = new LinearLayout.LayoutParams(
-						LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
-						1 / photos.length);
-				imageView.setLayoutParams(new LayoutParams(param));
-
-				ImageHelper.setPicAsync(this.getActivity(),
-						ImageHelper.getThumbnailPath(battle, imageFile),
-						imageView);
-
-				imageView.setOnClickListener(new ZoomImageListener(this
-						.getActivity(), imageFile, title));
-
-				into.addView(imageView);
-			}
-		}
+		ImageHelper.setPicPhotos(this.getActivity(), battle, originalFilename,
+				into, title);
 	}
 
 	@Override

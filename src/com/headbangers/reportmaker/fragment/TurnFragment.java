@@ -1,7 +1,5 @@
 package com.headbangers.reportmaker.fragment;
 
-import java.io.File;
-
 import org.jraf.android.backport.switchwidget.Switch;
 
 import android.content.Intent;
@@ -16,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
@@ -28,10 +25,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.EditBattleActivity;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
-import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Turn;
-import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.tools.ImageHelper;
 
 public class TurnFragment extends SherlockFragment {
@@ -57,12 +52,18 @@ public class TurnFragment extends SherlockFragment {
 	private ImageButton takePhotoShoot2;
 	private ImageButton takePhotoAssault2;
 
-	private ImageView photoMove1;
-	private ImageView photoShoot1;
-	private ImageView photoAssault1;
-	private ImageView photoMove2;
-	private ImageView photoShoot2;
-	private ImageView photoAssault2;
+	// private ImageView photoMove1;
+	// private ImageView photoShoot1;
+	// private ImageView photoAssault1;
+	// private ImageView photoMove2;
+	// private ImageView photoShoot2;
+	// private ImageView photoAssault2;
+	private LinearLayout photosMove1;
+	private LinearLayout photosMove2;
+	private LinearLayout photosAssault1;
+	private LinearLayout photosAssault2;
+	private LinearLayout photosShoot1;
+	private LinearLayout photosShoot2;
 
 	private LinearLayout extendedCommentsMove1;
 	private LinearLayout extendedCommentsMove2;
@@ -85,8 +86,6 @@ public class TurnFragment extends SherlockFragment {
 
 	private int numTurn = 1;
 	private Turn cache = null;
-
-	private FilesystemService fs = FilesystemService.getInstance();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -171,20 +170,20 @@ public class TurnFragment extends SherlockFragment {
 		this.takePhotoAssault2 = (ImageButton) this.playerTwoTurn
 				.findViewById(R.id.takePhoto_assault);
 
-		this.photoMove1 = (ImageView) this.playerOneTurn
-				.findViewById(R.id.takePhoto_move_photo);
-		this.photoMove2 = (ImageView) this.playerTwoTurn
-				.findViewById(R.id.takePhoto_move_photo);
+		this.photosMove1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.takePhotos_move_photo);
+		this.photosMove2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.takePhotos_move_photo);
 
-		this.photoShoot1 = (ImageView) this.playerOneTurn
-				.findViewById(R.id.takePhoto_shoot_photo);
-		this.photoShoot2 = (ImageView) this.playerTwoTurn
-				.findViewById(R.id.takePhoto_shoot_photo);
+		this.photosShoot1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.takePhotos_shoot_photo);
+		this.photosShoot2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.takePhotos_shoot_photo);
 
-		this.photoAssault1 = (ImageView) this.playerOneTurn
-				.findViewById(R.id.takePhoto_assault_photo);
-		this.photoAssault2 = (ImageView) this.playerTwoTurn
-				.findViewById(R.id.takePhoto_assault_photo);
+		this.photosAssault1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.takePhotos_assault_photo);
+		this.photosAssault2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.takePhotos_assault_photo);
 
 		this.comments1 = (EditText) this.playerOneTurn
 				.findViewById(R.id.comments);
@@ -294,19 +293,6 @@ public class TurnFragment extends SherlockFragment {
 
 	}
 
-	// private void createThumbnails(String base) {
-	// File image1 = new File(fs.getRootBattle(battle), base.replace("{P}",
-	// "1").replace("{X}", "" + numTurn));
-	// File image2 = new File(fs.getRootBattle(battle), base.replace("{P}",
-	// "2").replace("{X}", "" + numTurn));
-	//
-	// Log.d("Thumbnails", "Create thumbnails for " + image1.getAbsolutePath()
-	// + " and " + image2.getAbsolutePath());
-	//
-	// ImageHelper.createThumbnail(image1.getAbsolutePath());
-	// ImageHelper.createThumbnail(image2.getAbsolutePath());
-	// }
-
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -327,77 +313,115 @@ public class TurnFragment extends SherlockFragment {
 	}
 
 	private void fillMovePhotos() {
-		File image1 = new File(fs.getRootBattle(battle), MOVE_PHOTO_NAME
-				.replace("{P}", "1").replace("{X}", "" + numTurn));
-		File image2 = new File(fs.getRootBattle(battle), MOVE_PHOTO_NAME
-				.replace("{P}", "2").replace("{X}", "" + numTurn));
+		// File image1 = new File(fs.getRootBattle(battle), MOVE_PHOTO_NAME
+		// .replace("{P}", "1").replace("{X}", "" + numTurn));
+		// File image2 = new File(fs.getRootBattle(battle), MOVE_PHOTO_NAME
+		// .replace("{P}", "2").replace("{X}", "" + numTurn));
+		//
+		// if (image1.exists() && this.photoMove1 != null) {
+		// this.photoMove1.setOnClickListener(new ZoomImageListener(this
+		// .getActivity(), image1, "Mouvement - "
+		// + battle.getOne().getName(), this.photoMove1));
+		// ImageHelper.setPicAsync(this.getActivity(),
+		// ImageHelper.getThumbnailPath(battle, image1),
+		// this.photoMove1);
+		// }
+		// if (image2.exists() && this.photoMove2 != null) {
+		// this.photoMove2.setOnClickListener(new ZoomImageListener(this
+		// .getActivity(), image2, "Mouvement - "
+		// + battle.getTwo().getName(), this.photoMove2));
+		// ImageHelper.setPicAsync(this.getActivity(),
+		// ImageHelper.getThumbnailPath(battle, image2),
+		// this.photoMove2);
+		// }
 
-		if (image1.exists() && this.photoMove1 != null) {
-			this.photoMove1.setOnClickListener(new ZoomImageListener(this
-					.getActivity(), image1, "Mouvement - "
-					+ battle.getOne().getName()));
-			ImageHelper.setPicAsync(this.getActivity(),
-					ImageHelper.getThumbnailPath(battle, image1),
-					this.photoMove1);
-		}
-		if (image2.exists() && this.photoMove2 != null) {
-			this.photoMove2.setOnClickListener(new ZoomImageListener(this
-					.getActivity(), image2, "Mouvement - "
-					+ battle.getTwo().getName()));
-			ImageHelper.setPicAsync(this.getActivity(),
-					ImageHelper.getThumbnailPath(battle, image2),
-					this.photoMove2);
-		}
+		setPicPhotos(
+				MOVE_PHOTO_NAME.replace("{P}", "1")
+						.replace("{X}", "" + numTurn), this.photosMove1,
+				"Mouvement - " + battle.getOne().getName());
+
+		setPicPhotos(
+				MOVE_PHOTO_NAME.replace("{P}", "2")
+						.replace("{X}", "" + numTurn), this.photosMove2,
+				"Mouvement - " + battle.getTwo().getName());
+
 	}
 
 	private void fillShootPhotos() {
 
-		File image1 = new File(fs.getRootBattle(battle), SHOOT_PHOTO_NAME
-				.replace("{P}", "1").replace("{X}", "" + numTurn));
-		File image2 = new File(fs.getRootBattle(battle), SHOOT_PHOTO_NAME
-				.replace("{P}", "2").replace("{X}", "" + numTurn));
+		// File image1 = new File(fs.getRootBattle(battle), SHOOT_PHOTO_NAME
+		// .replace("{P}", "1").replace("{X}", "" + numTurn));
+		// File image2 = new File(fs.getRootBattle(battle), SHOOT_PHOTO_NAME
+		// .replace("{P}", "2").replace("{X}", "" + numTurn));
+		//
+		// if (image1.exists() && this.photoShoot1 != null) {
+		// this.photoShoot1.setOnClickListener(new ZoomImageListener(this
+		// .getActivity(), image1, "Tir - "
+		// + battle.getOne().getName(), this.photoShoot1));
+		// ImageHelper.setPicAsync(this.getActivity(),
+		// ImageHelper.getThumbnailPath(battle, image1),
+		// this.photoShoot1);
+		// }
+		// if (image2.exists() && this.photoShoot2 != null) {
+		// this.photoShoot2.setOnClickListener(new ZoomImageListener(this
+		// .getActivity(), image2, "Tir - "
+		// + battle.getTwo().getName(), this.photoShoot2));
+		// ImageHelper.setPicAsync(this.getActivity(),
+		// ImageHelper.getThumbnailPath(battle, image2),
+		// this.photoShoot2);
+		// }
 
-		if (image1.exists() && this.photoShoot1 != null) {
-			this.photoShoot1.setOnClickListener(new ZoomImageListener(this
-					.getActivity(), image1, "Tir - "
-					+ battle.getOne().getName()));
-			ImageHelper.setPicAsync(this.getActivity(),
-					ImageHelper.getThumbnailPath(battle, image1),
-					this.photoShoot1);
-		}
-		if (image2.exists() && this.photoShoot2 != null) {
-			this.photoShoot2.setOnClickListener(new ZoomImageListener(this
-					.getActivity(), image2, "Tir - "
-					+ battle.getTwo().getName()));
-			ImageHelper.setPicAsync(this.getActivity(),
-					ImageHelper.getThumbnailPath(battle, image2),
-					this.photoShoot2);
-		}
+		setPicPhotos(
+				SHOOT_PHOTO_NAME.replace("{P}", "1").replace("{X}",
+						"" + numTurn), this.photosShoot1, "Tir - "
+						+ battle.getOne().getName());
+
+		setPicPhotos(
+				SHOOT_PHOTO_NAME.replace("{P}", "2").replace("{X}",
+						"" + numTurn), this.photosShoot2, "Tir - "
+						+ battle.getTwo().getName());
 	}
 
 	private void fillAssaultPhotos() {
-		File image1 = new File(fs.getRootBattle(battle), ASSAULT_PHOTO_NAME
-				.replace("{P}", "1").replace("{X}", "" + numTurn));
-		File image2 = new File(fs.getRootBattle(battle), ASSAULT_PHOTO_NAME
-				.replace("{P}", "2").replace("{X}", "" + numTurn));
+		// File image1 = new File(fs.getRootBattle(battle), ASSAULT_PHOTO_NAME
+		// .replace("{P}", "1").replace("{X}", "" + numTurn));
+		// File image2 = new File(fs.getRootBattle(battle), ASSAULT_PHOTO_NAME
+		// .replace("{P}", "2").replace("{X}", "" + numTurn));
+		//
+		// if (image1.exists() && this.photoAssault1 != null) {
+		// this.photoAssault1.setOnClickListener(new ZoomImageListener(this
+		// .getActivity(), image1, "Assaut - "
+		// + battle.getOne().getName(), this.photoAssault1));
+		// ImageHelper.setPicAsync(this.getActivity(),
+		// ImageHelper.getThumbnailPath(battle, image1),
+		// this.photoAssault1);
+		// }
+		//
+		// if (image2.exists() && this.photoAssault2 != null) {
+		// this.photoAssault2.setOnClickListener(new ZoomImageListener(this
+		// .getActivity(), image2, "Assaut - "
+		// + battle.getTwo().getName(), this.photoAssault2));
+		// ImageHelper.setPicAsync(this.getActivity(),
+		// ImageHelper.getThumbnailPath(battle, image2),
+		// this.photoAssault2);
+		// }
 
-		if (image1.exists() && this.photoAssault1 != null) {
-			this.photoAssault1.setOnClickListener(new ZoomImageListener(this
-					.getActivity(), image1, "Assaut - "
-					+ battle.getOne().getName()));
-			ImageHelper.setPicAsync(this.getActivity(),
-					ImageHelper.getThumbnailPath(battle, image1),
-					this.photoAssault1);
-		}
+		setPicPhotos(
+				ASSAULT_PHOTO_NAME.replace("{P}", "1").replace("{X}",
+						"" + numTurn), this.photosAssault1, "Assaut - "
+						+ battle.getOne().getName());
 
-		if (image2.exists() && this.photoAssault2 != null) {
-			this.photoAssault2.setOnClickListener(new ZoomImageListener(this
-					.getActivity(), image2, "Assaut - "
-					+ battle.getTwo().getName()));
-			ImageHelper.setPicAsync(this.getActivity(),
-					ImageHelper.getThumbnailPath(battle, image2),
-					this.photoAssault2);
-		}
+		setPicPhotos(
+				ASSAULT_PHOTO_NAME.replace("{P}", "2").replace("{X}",
+						"" + numTurn), this.photosAssault2, "Assaut - "
+						+ battle.getTwo().getName());
+	}
+
+	private void setPicPhotos(String originalFilename, LinearLayout into,
+			String title) {
+
+		ImageHelper.setPicPhotos(this.getActivity(), battle, originalFilename,
+				into, title);
 	}
 
 	public Turn buildTurn() {

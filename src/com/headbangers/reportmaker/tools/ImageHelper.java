@@ -9,19 +9,22 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.Bitmap.CompressFormat;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.headbangers.reportmaker.R;
+import com.headbangers.reportmaker.listener.ZoomImageListener;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.service.DrawableManager;
 import com.headbangers.reportmaker.service.FilesystemService;
@@ -34,7 +37,8 @@ public class ImageHelper {
 	private static FilesystemService fs = FilesystemService.getInstance();
 
 	public static void showImageInDialog(final File imageFile,
-			final Activity context, String imageTitle) {
+			final Activity context, String imageTitle,
+			final ImageView fromViewComponent) {
 
 		if (!imageFile.exists()) {
 			return;
@@ -96,11 +100,12 @@ public class ImageHelper {
 
 				// Effacer l'image
 				imageFile.delete();
-				
+
 				// Fermer la boite
 				dialog.dismiss();
-				
-				// Rafraichir la liste
+
+				// Rafraichir l'image
+				fromViewComponent.setImageResource(R.drawable.damier);
 			}
 		});
 
@@ -291,5 +296,40 @@ public class ImageHelper {
 
 		return root + "/thumbs/" + photoName + THUMB_EXTENSION;
 
+	}
+
+	public static void setPicPhotos(Activity context, Battle battle,
+			String originalFilename, LinearLayout into, String title) {
+		if (into != null) {
+
+			into.removeAllViews();
+
+			String[] photos = fs.getAllFilenameLike(battle, originalFilename);
+			File root = fs.getRootBattle(battle);
+
+			into.setWeightSum(1);
+			for (String photo : photos) {
+
+				File imageFile = new File(root.getAbsolutePath(), photo);
+
+				ImageView imageView = new ImageView(
+						context.getApplicationContext());
+				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+				LayoutParams param = new LinearLayout.LayoutParams(
+						LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
+						1 / photos.length);
+				imageView.setLayoutParams(new LayoutParams(param));
+
+				ImageHelper.setPicAsync(context,
+						ImageHelper.getThumbnailPath(battle, imageFile),
+						imageView);
+
+				imageView.setOnClickListener(new ZoomImageListener(context,
+						imageFile, title, imageView));
+
+				into.addView(imageView);
+			}
+		}
 	}
 }

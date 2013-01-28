@@ -20,14 +20,28 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/takePhoto_move_photo"
+            <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/photo_move"
-                android:scaleType="centerCrop"
-                android:src="@drawable/damier" />
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhotos_move_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- <ImageView -->
+            <!-- android:id="@+id/takePhoto_move_photo" -->
+            <!-- android:layout_width="0dip" -->
+            <!-- android:layout_height="50dp" -->
+            <!-- android:layout_weight="1" -->
+            <!-- android:contentDescription="@string/photo_move" -->
+            <!-- android:scaleType="centerCrop" -->
+            <!-- android:src="@drawable/damier" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_move"
@@ -73,14 +87,28 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/takePhoto_shoot_photo"
+            <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/photo_shoot"
-                android:scaleType="centerCrop"
-                android:src="@drawable/damier" />
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhotos_shoot_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- <ImageView -->
+            <!-- android:id="@+id/takePhoto_shoot_photo" -->
+            <!-- android:layout_width="0dip" -->
+            <!-- android:layout_height="50dp" -->
+            <!-- android:layout_weight="1" -->
+            <!-- android:contentDescription="@string/photo_shoot" -->
+            <!-- android:scaleType="centerCrop" -->
+            <!-- android:src="@drawable/damier" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_shoot"
@@ -127,14 +155,28 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/takePhoto_assault_photo"
+            <HorizontalScrollView
                 android:layout_width="0dip"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/photo_assault"
-                android:scaleType="centerCrop"
-                android:src="@drawable/damier" />
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhotos_assault_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- <ImageView -->
+            <!-- android:id="@+id/takePhoto_assault_photo" -->
+            <!-- android:layout_width="0dip" -->
+            <!-- android:layout_height="50dp" -->
+            <!-- android:layout_weight="1" -->
+            <!-- android:contentDescription="@string/photo_assault" -->
+            <!-- android:scaleType="centerCrop" -->
+            <!-- android:src="@drawable/damier" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_assault"

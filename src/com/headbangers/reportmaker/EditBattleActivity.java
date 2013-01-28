@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Gallery;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -359,7 +360,7 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 						ImageHelper.showImageInDialog(imageFile,
 								EditBattleActivity.this,
 								EditBattleActivity.this.getResources()
-										.getString(R.string.zoom_extra));
+										.getString(R.string.zoom_extra), (ImageView) view);
 					}
 				});
 		if (this.gallery.getAdapter().getCount() == 0) {

@@ -59,6 +59,8 @@ public class Turn {
 	}
 
 	public Turn() {
+		nightFight = false;
+		lastOne = false;
 	}
 
 	public void setLastOne(Boolean isLastOne) {

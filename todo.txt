@@ -1,17 +1,13 @@
+A FAIRE
+-----------------------------------------------------
 - amélioration du PDF
-
 - photos extras dans le pdf à mieux afficher
+- gérer le multi-photo dans le PDF.
 - plus d'icones ! 1 par bataille et 1 par joueurs
 - photo + com' pour la liste d'armée des joueurs.
 - activity filter pour permettre un import d'images ?
-
-- pouvoir prendre plus d'une photo par phase.
-        SOLUTIONS POUR LA PRISE PHOTO: 
-        . bouton "popup", afficher options popup. OK
-        
-        SOLUTIONS POUR L'AFFICHAGE:
-        . HorizontallScrollView. OK        
-        
+- dans le détail d'une photo, afficher une gallerie plutot qu'une photo seule.
+      
 - préférences
 	-- Affichage
 	. affichage des images dans les rapports (bandelette, complète redimensionnée)
@@ -27,4 +23,7 @@ ajouter le rendement théorique sur le lancer de dés (en théorie X succés (X%
 
 
 
+A TESTER en conditions réelles. 
+-----------------------------------------------------
+... Pouvoir prendre plus d'une photo par phase.
 ... Thumbnails à tester

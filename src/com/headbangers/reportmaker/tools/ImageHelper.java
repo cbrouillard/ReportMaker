@@ -106,6 +106,7 @@ public class ImageHelper {
 
 				// Rafraichir l'image
 				fromViewComponent.setImageResource(R.drawable.damier);
+				fromViewComponent.setVisibility(View.GONE);
 			}
 		});
 

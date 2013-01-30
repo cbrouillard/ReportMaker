@@ -16,6 +16,7 @@ import com.headbangers.reportmaker.async.GeneratePDFAsyncLoader;
 import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.exception.TwrException;
 import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
+import com.headbangers.reportmaker.fragment.ConfigurePlayerFragment;
 import com.headbangers.reportmaker.fragment.TurnFragment;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Player;
@@ -141,6 +142,10 @@ public class DroidTextPDFService implements IPDFService {
 					BattleInformationsFragment.TABLE_PHOTO_NAME,
 					getString(R.string.pdf_table) + " : ", null, null);
 
+			// Listes d'armées
+			generateArmyList(document, cb, battle, battle.getOne(), 1);
+			generateArmyList(document, cb, battle, battle.getTwo(), 2);
+			
 			// Deploiement
 			generateDeployment(document, cb, battle);
 
@@ -170,6 +175,27 @@ public class DroidTextPDFService implements IPDFService {
 			e.printStackTrace();
 			throw new TwrException(e);
 		}
+	}
+
+	private void generateArmyList(Document document, PdfContentByte cb,
+			Battle battle, Player player, int num) throws DocumentException {
+
+		String[] armyPhotos = fs.getAllFilenameLike(battle,
+				ConfigurePlayerFragment.ARMY_PHOTO_NAME
+						.replace("{P}", "" + num));
+
+		if (armyPhotos.length > 0
+				|| (player.getArmyComments() != null && !"".equals(player
+						.getArmyComments()))) {
+			// On génère la page pour le joueur
+			document.newPage();
+			document.add(new Paragraph("Liste d'armée de " + player.getName(),
+					catFont));
+			drawLine(cb, 765);
+			addEmptyLine(document, 1);
+
+		}
+
 	}
 
 	private void generateTurn(Document document, PdfContentByte cb,

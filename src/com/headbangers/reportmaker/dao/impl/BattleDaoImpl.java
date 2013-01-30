@@ -47,9 +47,11 @@ public class BattleDaoImpl extends GenericDaoImpl implements BattleDao {
 		values.put(DatabaseHelper.COL_FORMAT, battle.getFormat());
 		values.put(DatabaseHelper.COL_PLAYERONE, one.getName());
 		values.put(DatabaseHelper.COL_RACEONE, one.getRace());
+		values.put(DatabaseHelper.COL_LISTONE, one.getArmyComments());
 		values.put(DatabaseHelper.COL_PLAYERTWO, two.getName());
 		values.put(DatabaseHelper.COL_RACETWO, two.getRace());
-
+		values.put(DatabaseHelper.COL_LISTTWO, two.getArmyComments());
+		
 		return db.insert(DatabaseHelper.TABLE_BATTLE,
 				DatabaseHelper.COL_PLAYERONE, values);
 	}

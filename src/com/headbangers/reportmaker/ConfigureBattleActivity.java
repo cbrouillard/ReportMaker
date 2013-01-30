@@ -37,9 +37,11 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 
 	private BattleDao battleDao = new BattleDaoImpl(this);
 
-	private FilesystemService filesystemService = FilesystemService.getInstance();
+	private FilesystemService filesystemService = FilesystemService
+			.getInstance();
 
 	private Long battleId = null;
+	private Battle battle = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 			// Remplissage des champs
 			fillFields();
 			this.setTitle(R.string.configure_battle);
+		} else {
+			this.battle = null;
 		}
 
 		final com.actionbarsherlock.app.ActionBar actionBar = getSupportActionBar();
@@ -73,7 +77,7 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 	}
 
 	private void fillFields() {
-		Battle battle = this.battleDao.findBattleById(battleId);
+		this.battle = this.battleDao.findBattleById(battleId);
 
 		playerOneFragment.setPlayer(battle.getOne());
 		playerTwoFragment.setPlayer(battle.getTwo());
@@ -134,18 +138,23 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 	private void saveOrUpdateGame() {
 
 		if (this.battleId != null) {
-			Battle game = this.battleDao.findBattleById(this.battleId);
+			Battle game = this.battle; // Dao.findBattleById(this.battleId);
 
 			Player one = this.playerOneFragment.getPlayerButNoDefaultValue();
 			Player two = this.playerTwoFragment.getPlayerButNoDefaultValue();
 			Battle fromInterface = this.gameFragment.buildGame();
 
-			// un peu pourri cette affaire
+			// un peu pourri cette affaire (c'est pour éviter de perdre des
+			// données a partir du moment ou le fragment n'a pas été affiché (et
+			// initialisé)
 			if (one.getName() != null) {
 				game.getPlayer(0).setName(one.getName());
 			}
 			if (one.getRace() != null) {
 				game.getPlayer(0).setRace(one.getRace());
+			}
+			if (one.getArmyComments() != null) {
+				game.getPlayer(0).setArmyComments(one.getArmyComments());
 			}
 			if (two.getName() != null) {
 				game.getPlayer(1).setName(two.getName());
@@ -153,6 +162,11 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 			if (two.getRace() != null) {
 				game.getPlayer(1).setRace(two.getRace());
 			}
+			if (two.getArmyComments() != null) {
+				game.getPlayer(1).setArmyComments(two.getArmyComments());
+			}
+			// FIN du hack pourri.
+
 			game.setName(fromInterface.getName());
 			game.setFormat(fromInterface.getFormat());
 			game.setDate(fromInterface.getDate());
@@ -166,7 +180,7 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 					getResources()
 							.getString(R.string.update_configuration_done),
 					Toast.LENGTH_LONG).show();
-			
+
 			this.finish();
 
 		} else {
@@ -188,12 +202,18 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 				// Création du filesystem sur le téléphone.
 				filesystemService.createRootBattle(idInserted);
 
+				// Déplacement des photos temporaires dans le nouveau dossier
+				filesystemService.moveTempPhotos(idInserted);
+
 				// Et redirection vers l'activité d'édition
 				Intent editBattle = new Intent(this, EditBattleActivity.class);
+				// TODO Flag pour nettoyer l'historique en cours
 				editBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG,
 						idInserted);
 				startActivity(editBattle);
 
+				this.finish();
+				
 			}
 		}
 
@@ -245,6 +265,10 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 	public void onTabReselected(com.actionbarsherlock.app.ActionBar.Tab tab,
 			android.support.v4.app.FragmentTransaction ft) {
 
+	}
+
+	public Battle getBattle() {
+		return this.battle;
 	}
 
 }

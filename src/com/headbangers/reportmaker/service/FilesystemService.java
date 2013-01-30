@@ -2,12 +2,14 @@ package com.headbangers.reportmaker.service;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Environment;
 
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.tools.FileTool;
 
 public class FilesystemService {
 
@@ -29,7 +31,7 @@ public class FilesystemService {
 		File androidRoot = Environment.getExternalStorageDirectory();
 		File appRoot = new File(androidRoot, "reportmaker");
 		File battleDirectory = new File(appRoot, "battle-" + idBattle);
-		File thumbs = new File (battleDirectory, ".thumbs");
+		File thumbs = new File(battleDirectory, ".thumbs");
 
 		thumbs.mkdirs();
 
@@ -40,9 +42,16 @@ public class FilesystemService {
 	public File getRootBattle(Battle battle) {
 		File androidRoot = Environment.getExternalStorageDirectory();
 		File appRoot = new File(androidRoot, "reportmaker");
-		File battleDirectory = new File(appRoot, "battle-" + battle.getId());
 
-		return battleDirectory;
+		if (battle != null) {
+			return new File(appRoot, "battle-" + battle.getId());
+		} else {
+			File temp = new File(appRoot, "temp");
+			if (!temp.exists()) {
+				temp.mkdir();
+			}
+			return temp;
+		}
 	}
 
 	public String determineNewExtraPhotoName(Battle battle, final int turn) {
@@ -99,7 +108,7 @@ public class FilesystemService {
 
 		String[] photos = getAllFilenameLike(battle, photoName);
 
-		if (photos.length > 0) {
+		if (photos != null && photos.length > 0) {
 			return nameWithoutExt + "_" + photos.length + ".jpg";
 		}
 
@@ -121,7 +130,27 @@ public class FilesystemService {
 						&& filename.endsWith(".jpg");
 			}
 		});
-		
+
 		return photos;
+	}
+
+	public void moveTempPhotos(Long idInserted) {
+		File androidRoot = Environment.getExternalStorageDirectory();
+		File appRoot = new File(androidRoot, "reportmaker");
+
+		File battleDir = new File(appRoot, "battle-" + idInserted);
+		File tempDir = new File(appRoot, "temp");
+
+		try {
+			FileTool.delete(new File(tempDir, "thumbs"));
+
+			for (File ph : tempDir.listFiles()) {
+				FileTool.copyFile(ph, new File(battleDir, ph.getName()));
+				FileTool.delete(ph);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

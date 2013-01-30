@@ -139,7 +139,7 @@ public class BattleListActivity extends SherlockListActivity {
 
 			// Lancement de l'activité de configuration d'une nouvelle partie
 			Intent newBattle = new Intent(this, ConfigureBattleActivity.class);
-			newBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//			newBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(newBattle);
 
 			return true;
@@ -201,7 +201,6 @@ public class BattleListActivity extends SherlockListActivity {
 			// AVEC un ID
 			Intent configureBattle = new Intent(this,
 					ConfigureBattleActivity.class);
-			configureBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			configureBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG,
 					this.selected.getId());
 			startActivity(configureBattle);

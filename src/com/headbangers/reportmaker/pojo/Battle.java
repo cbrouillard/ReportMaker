@@ -50,12 +50,16 @@ public class Battle {
 				.getColumnIndex(DatabaseHelper.COL_PLAYERONE)));
 		this.one.setRace(cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_RACEONE)));
+		this.one.setArmyComments(cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_LISTONE)));
 
 		this.two = new Player();
 		this.two.setName(cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_PLAYERTWO)));
 		this.two.setRace(cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_RACETWO)));
+		this.two.setArmyComments(cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_LISTTWO)));
 
 		this.infos = new Informations(cursor);
 	}
@@ -171,10 +175,12 @@ public class Battle {
 		if (one != null) {
 			values.put(DatabaseHelper.COL_PLAYERONE, one.getName());
 			values.put(DatabaseHelper.COL_RACEONE, one.getRace());
+			values.put(DatabaseHelper.COL_LISTONE, one.getArmyComments());
 		}
 		if (two != null) {
 			values.put(DatabaseHelper.COL_PLAYERTWO, two.getName());
 			values.put(DatabaseHelper.COL_RACETWO, two.getRace());
+			values.put(DatabaseHelper.COL_LISTTWO, two.getArmyComments());
 		}
 
 		return values;

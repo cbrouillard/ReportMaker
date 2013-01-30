@@ -84,7 +84,7 @@ public class ConfigureGameFragment extends SherlockFragment {
 		String name = gameName.getText() != null ? gameName.getText()
 				.toString() : null;
 
-		String format = gameFormat != null ? gameFormat.getText().toString()
+		String format = gameFormat.getText() != null ? gameFormat.getText().toString()
 				: null;
 		if (name == null || "".equals(name)) {
 			name = this.getActivity().getResources().getString(R.string.battle);

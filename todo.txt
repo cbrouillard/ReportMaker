@@ -1,6 +1,5 @@
 A FAIRE
 -----------------------------------------------------
-- amélioration du PDF
 - photos extras dans le pdf à mieux afficher
 - gérer le multi-photo dans le PDF.
 - plus d'icones ! 1 par bataille et 1 par joueurs

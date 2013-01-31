@@ -15,8 +15,8 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -28,6 +28,7 @@ public class DiceSimulationActivity extends SherlockActivity {
 
 	private GridView gridView;
 	private TextView howManyDices;
+	private TextView howManyDicesTheory;
 	private TextView howManyDicesSuccess;
 	private TextView howManyDicesFail;
 	private ImageButton rerollSuccessDices;
@@ -46,6 +47,7 @@ public class DiceSimulationActivity extends SherlockActivity {
 		this.gridView = (GridView) findViewById(R.id.diceGrid);
 		this.howManyDices = (TextView) findViewById(R.id.dices_howMany);
 		this.howManyDicesSuccess = (TextView) findViewById(R.id.dices_howMany_success);
+		this.howManyDicesTheory = (TextView) findViewById(R.id.dices_howMany_theory);
 		this.howManyDicesFail = (TextView) findViewById(R.id.dices_howMany_fail);
 		this.rerollSuccessDices = (ImageButton) findViewById(R.id.action_rollSuccessDices);
 		this.stats = (LinearLayout) findViewById(R.id.stats);
@@ -124,6 +126,12 @@ public class DiceSimulationActivity extends SherlockActivity {
 		this.howManyDicesFail.setText(getString(R.string.dices_howMany_fail)
 				+ " " + (this.nbDices - this.lastNbSuccess) + " ("
 				+ (100 - successPercent) + "%)");
+
+		float theorySuccessRatioByDice = successType.calculateSuccessTheory(successMinimum);
+		float theorySuccess = this.nbDices * theorySuccessRatioByDice;
+		
+		this.howManyDicesTheory.setText("En théorie : " + theorySuccess
+				+ " dés réussis (" + (theorySuccessRatioByDice * 100) + "%)");
 	}
 
 	protected void refreshGrid(int[] dices) {
@@ -205,7 +213,7 @@ public class DiceSimulationActivity extends SherlockActivity {
 			super(context, R.style.dialogBackground);
 			this.setCanceledOnTouchOutside(false);
 		}
-		
+
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -256,6 +264,22 @@ public class DiceSimulationActivity extends SherlockActivity {
 
 		private SuccessType(int string) {
 			this.string = string;
+		}
+
+		public float calculateSuccessTheory(int successMini) {
+			float value = 0;
+			switch (SuccessType.this) {
+			case EQUAL:
+				value = (float) (1 / 6f);
+				break;
+			case LESS_OR_EQUAL:
+				value = (float) (successMini / 6f);
+				break;
+			case MORE_OR_EQUAL:
+				value = (float) ((6 - successMini + 1) / 6f);
+				break;
+			}
+			return value;
 		}
 
 		private int string;

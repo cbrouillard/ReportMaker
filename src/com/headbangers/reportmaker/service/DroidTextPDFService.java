@@ -143,8 +143,8 @@ public class DroidTextPDFService implements IPDFService {
 					getString(R.string.pdf_table) + " : ", null, null);
 
 			// Listes d'armées
-			generateArmyList(document, cb, battle, battle.getOne(), 1);
-			generateArmyList(document, cb, battle, battle.getTwo(), 2);
+			//generateArmyList(document, cb, battle, battle.getOne(), 1);
+			//generateArmyList(document, cb, battle, battle.getTwo(), 2);
 			
 			// Deploiement
 			generateDeployment(document, cb, battle);

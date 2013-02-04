@@ -201,7 +201,7 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 			// AVEC un ID
 			Intent configureBattle = new Intent(this,
 					ConfigureBattleActivity.class);
-			configureBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			// configureBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			configureBattle.putExtra(EditBattleActivity.BATTLE_ID_ARG,
 					this.battle.getId());
 			startActivity(configureBattle);
@@ -360,7 +360,8 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 						ImageHelper.showImageInDialog(imageFile,
 								EditBattleActivity.this,
 								EditBattleActivity.this.getResources()
-										.getString(R.string.zoom_extra), (ImageView) view);
+										.getString(R.string.zoom_extra),
+								(ImageView) view);
 					}
 				});
 		if (this.gallery.getAdapter().getCount() == 0) {

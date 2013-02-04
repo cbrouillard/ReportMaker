@@ -51,6 +51,13 @@ public class ConfigurePlayerFragment extends SherlockFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		
+		Battle battle = ((ConfigureBattleActivity) this.getActivity())
+				.getBattle();
+		
+		ImageHelper.setPicPhotos(this.getActivity(), battle,
+				ARMY_PHOTO_NAME.replace("{P}", "" + num), this.takeArmyPhotos,
+				"Armée ");
 	}
 
 	@Override

@@ -129,9 +129,12 @@ public class DiceSimulationActivity extends SherlockActivity {
 
 		float theorySuccessRatioByDice = successType.calculateSuccessTheory(successMinimum);
 		float theorySuccess = this.nbDices * theorySuccessRatioByDice;
-		
-		this.howManyDicesTheory.setText("En théorie : " + theorySuccess
-				+ " dés réussis (" + (theorySuccessRatioByDice * 100) + "%)");
+	
+
+		// "En théorie : "
+		// dés réussis
+		this.howManyDicesTheory.setText(getString(R.string.dices_inTheory) + theorySuccess
+				+ getString(R.string.dices_win) + " (" + (theorySuccessRatioByDice * 100) + "%)");
 	}
 
 	protected void refreshGrid(int[] dices) {

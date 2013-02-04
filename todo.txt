@@ -17,10 +17,6 @@ A FAIRE
 - backup
 - chargements base asynchrones
 
-- Stats Dés:
-ajouter le rendement théorique sur le lancer de dés (en théorie X succés (X%))
-
-
 
 A TESTER en conditions réelles. 
 -----------------------------------------------------

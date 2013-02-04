@@ -102,6 +102,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.beginTransaction();
 		try {
 
+			db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
+					+ COL_LISTONE + " TEXT NULL;");
+			db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
+					+ COL_LISTTWO + " TEXT NULL;");
+
 			if (oldVersion <= 1) {
 				db.execSQL(CREATE_BDD_TABLE_BATTLE.replace("battle",
 						"TABLE_BATTLE_TEMP"));
@@ -109,11 +114,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				db.execSQL("DROP TABLE battle");
 				db.execSQL("ALTER TABLE TABLE_BATTLE_TEMP RENAME TO battle");
 			}
-
-			db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
-					+ COL_LISTONE + " TEXT NULL;");
-			db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
-					+ COL_LISTTWO + " TEXT NULL;");
 
 			db.setTransactionSuccessful();
 		} finally {

@@ -163,7 +163,8 @@
 	<string name="photo_deleteMenu">Delete</string>
 	<string name="photo_army">Army\'s photo</string>
 	<string name="armyList_hints">Army list, remarks, other &#8230;</string>
-    
+    <string name="dices_inTheory">In theory :</string>
+    <string name="dices_win">OK dices</string>
     
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Always ask</item>

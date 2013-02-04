@@ -161,7 +161,10 @@
 	<string name="photo_deleteMenu">Effacer</string>
 	<string name="photo_army">Photo d\'armée</string>
 	<string name="armyList_hints">Liste d\'armée, remarques, autre &#8230;</string>
-    
+    <string name="dices_inTheory">En théorie :</string>
+    <string name="dices_win">dés réussis</string>
+	
+	
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Toujours demander</item>
         <item>Ne pas demander, toujours sauvegarder</item>

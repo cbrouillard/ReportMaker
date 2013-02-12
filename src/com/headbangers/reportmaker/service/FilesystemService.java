@@ -141,6 +141,10 @@ public class FilesystemService {
 		File battleDir = new File(appRoot, "battle-" + idInserted);
 		File tempDir = new File(appRoot, "temp");
 
+                if (!tempDir.exists()){
+                  tempDir.mkdir();
+                }
+
 		try {
 			FileTool.delete(new File(tempDir, "thumbs"));
 

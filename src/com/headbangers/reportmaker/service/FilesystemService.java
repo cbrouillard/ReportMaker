@@ -32,7 +32,6 @@ public class FilesystemService {
 		File appRoot = new File(androidRoot, "reportmaker");
 		File battleDirectory = new File(appRoot, "battle-" + idBattle);
 		File thumbs = new File(battleDirectory, ".thumbs");
-
 		thumbs.mkdirs();
 
 		return battleDirectory;
@@ -44,7 +43,11 @@ public class FilesystemService {
 		File appRoot = new File(androidRoot, "reportmaker");
 
 		if (battle != null) {
-			return new File(appRoot, "battle-" + battle.getId());
+			File dir = new File(appRoot, "battle-" + battle.getId());
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            return dir;
 		} else {
 			File temp = new File(appRoot, "temp");
 			if (!temp.exists()) {
@@ -140,6 +143,10 @@ public class FilesystemService {
 
 		File battleDir = new File(appRoot, "battle-" + idInserted);
 		File tempDir = new File(appRoot, "temp");
+
+                if (!tempDir.exists()){
+                  tempDir.mkdir();
+                }
 
 		try {
 			FileTool.delete(new File(tempDir, "thumbs"));

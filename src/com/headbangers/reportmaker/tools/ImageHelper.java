@@ -16,6 +16,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
@@ -234,8 +235,9 @@ public class ImageHelper {
 	public static Bitmap photoAtAnySize(File rootBattle, String photoName,
 			int size) {
 		File completeFile = new File(rootBattle, photoName);
-
 		try {
+			Log.d("ImageHelper",
+					"Resizing photo : " + completeFile.getAbsolutePath());
 			return rotateAndResize(completeFile.getAbsolutePath(), size);
 		} catch (IOException e) {
 			return null;

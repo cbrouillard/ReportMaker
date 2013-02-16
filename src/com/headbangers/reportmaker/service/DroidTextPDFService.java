@@ -143,9 +143,9 @@ public class DroidTextPDFService implements IPDFService {
 					getString(R.string.pdf_table) + " : ", null, null);
 
 			// Listes d'armées
-			//generateArmyList(document, cb, battle, battle.getOne(), 1);
-			//generateArmyList(document, cb, battle, battle.getTwo(), 2);
-			
+			generateArmyList(document, cb, battle, battle.getOne(), 1);
+			generateArmyList(document, cb, battle, battle.getTwo(), 2);
+
 			// Deploiement
 			generateDeployment(document, cb, battle);
 
@@ -178,7 +178,8 @@ public class DroidTextPDFService implements IPDFService {
 	}
 
 	private void generateArmyList(Document document, PdfContentByte cb,
-			Battle battle, Player player, int num) throws DocumentException {
+			Battle battle, Player player, int num) throws DocumentException,
+			MalformedURLException, IOException {
 
 		String[] armyPhotos = fs.getAllFilenameLike(battle,
 				ConfigurePlayerFragment.ARMY_PHOTO_NAME
@@ -194,6 +195,14 @@ public class DroidTextPDFService implements IPDFService {
 			drawLine(cb, 765);
 			addEmptyLine(document, 1);
 
+			if (armyPhotos.length > 0) {
+				addPhotos(60, document, battle, armyPhotos, 3);
+			}
+
+			if ((player.getArmyComments() != null && !"".equals(player
+					.getArmyComments()))) {
+				document.add(new Paragraph(player.getArmyComments(), normal));
+			}
 		}
 
 	}
@@ -376,6 +385,28 @@ public class DroidTextPDFService implements IPDFService {
 			return jpg;
 		}
 		return null;
+	}
+
+	private void addPhotos(int size, Document document, Battle battle,
+			String[] photosPath, int nbCol) throws MalformedURLException,
+			IOException, DocumentException {
+		PdfPTable table = new PdfPTable(nbCol);
+		table.setSpacingBefore(10);
+		table.setWidthPercentage(100);
+		table.setKeepTogether(true);
+		table.setWidths(new float[] { 1f, 1f, 1f });
+		table.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+		for (String path : photosPath) {
+			Image jpg = buildPhoto(battle, path, size);
+
+			PdfPCell imageCell = new PdfPCell(jpg);
+			imageCell.setBorder(Rectangle.NO_BORDER);
+
+			table.addCell(imageCell);
+		}
+
+		document.add(table);
 	}
 
 	private void addPhoto(int size, Document document, String photoPath)

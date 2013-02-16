@@ -44,10 +44,10 @@ public class FilesystemService {
 
 		if (battle != null) {
 			File dir = new File(appRoot, "battle-" + battle.getId());
-            if(!dir.exists()){
-                dir.mkdirs();
-            }
-            return dir;
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			return dir;
 		} else {
 			File temp = new File(appRoot, "temp");
 			if (!temp.exists()) {
@@ -144,9 +144,9 @@ public class FilesystemService {
 		File battleDir = new File(appRoot, "battle-" + idInserted);
 		File tempDir = new File(appRoot, "temp");
 
-                if (!tempDir.exists()){
-                  tempDir.mkdir();
-                }
+		if (!tempDir.exists()) {
+			tempDir.mkdir();
+		}
 
 		try {
 			FileTool.delete(new File(tempDir, "thumbs"));

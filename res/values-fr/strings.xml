@@ -163,7 +163,7 @@
 	<string name="armyList_hints">Liste d\'armée, remarques, autre &#8230;</string>
     <string name="dices_inTheory">En théorie :</string>
     <string name="dices_win">dés réussis</string>
-	
+	<string name="army_list">"Liste d'armée de </string>
 	
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Toujours demander</item>

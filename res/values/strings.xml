@@ -154,18 +154,19 @@
     <string name="preferences_display">Display preferences</string>
     <string name="preferences_extendedComments">Comments</string>
     <string name="preferences_extendedComments_summary">Display one comments field for each player\'s game phase</string>
-	<string name="update_configuration_done">Your battle has been updated.</string>
-	<string name="configure_battle">Configure battle</string>
-	<string name="dices_relaunchSame">Relaunch</string>
-	<string name="dices_newRoll">New roll</string>
-	<string name="photo_replaceMenu">Replace</string>
-	<string name="photo_newCaptureMenu">Add new</string>
-	<string name="photo_deleteMenu">Delete</string>
-	<string name="photo_army">Army\'s photo</string>
-	<string name="armyList_hints">Army list, remarks, other &#8230;</string>
+    <string name="update_configuration_done">Your battle has been updated.</string>
+    <string name="configure_battle">Configure battle</string>
+    <string name="dices_relaunchSame">Relaunch</string>
+    <string name="dices_newRoll">New roll</string>
+    <string name="photo_replaceMenu">Replace</string>
+    <string name="photo_newCaptureMenu">Add new</string>
+    <string name="photo_deleteMenu">Delete</string>
+    <string name="photo_army">Army\'s photo</string>
+    <string name="armyList_hints">Army list, remarks, other &#8230;</string>
     <string name="dices_inTheory">In theory :</string>
     <string name="dices_win">OK dices</string>
-    
+    <string name="army_list">Army list of</string>
+
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Always ask</item>
         <item>Don\'t ask, always save</item>

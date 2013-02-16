@@ -213,7 +213,7 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 				startActivity(editBattle);
 
 				this.finish();
-				
+
 			}
 		}
 
@@ -268,7 +268,11 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 	}
 
 	public Battle getBattle() {
-		return this.battle;
+		if (this.battle != null) {
+			return this.battle;
+		} else {
+			return this.battleDao.findBattleById(battleId);
+		}
 	}
 
 }

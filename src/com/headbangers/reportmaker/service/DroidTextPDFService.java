@@ -10,6 +10,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.async.GeneratePDFAsyncLoader;
@@ -185,18 +186,20 @@ public class DroidTextPDFService implements IPDFService {
 				ConfigurePlayerFragment.ARMY_PHOTO_NAME
 						.replace("{P}", "" + num));
 
+		Log.d("D", "ArmyPhotos = "+armyPhotos);
+		
 		if (armyPhotos.length > 0
 				|| (player.getArmyComments() != null && !"".equals(player
 						.getArmyComments()))) {
 			// On génère la page pour le joueur
 			document.newPage();
-			document.add(new Paragraph("Liste d'armée de " + player.getName(),
+			document.add(new Paragraph(getString(R.string.army_list) +" "+ player.getName(),
 					catFont));
 			drawLine(cb, 765);
 			addEmptyLine(document, 1);
 
 			if (armyPhotos.length > 0) {
-				addPhotos(60, document, battle, armyPhotos, 3);
+				addPhotos(130, document, battle, armyPhotos, armyPhotos.length);
 			}
 
 			if ((player.getArmyComments() != null && !"".equals(player
@@ -388,16 +391,20 @@ public class DroidTextPDFService implements IPDFService {
 	}
 
 	private void addPhotos(int size, Document document, Battle battle,
-			String[] photosPath, int nbCol) throws MalformedURLException,
+			String[] photosPath, int nbPhotos) throws MalformedURLException,
 			IOException, DocumentException {
-		PdfPTable table = new PdfPTable(nbCol);
+		Log.d("D", "Ajout de la table");
+		PdfPTable table = new PdfPTable(nbPhotos);
 		table.setSpacingBefore(10);
 		table.setWidthPercentage(100);
 		table.setKeepTogether(true);
-		table.setWidths(new float[] { 1f, 1f, 1f });
+		//table.setWidths(new float[] { 1f });
 		table.setHorizontalAlignment(Element.ALIGN_LEFT);
 
+		Log.d("D", "Battle = "+battle);
 		for (String path : photosPath) {
+			Log.d("D", "Ajout de "+path);
+			
 			Image jpg = buildPhoto(battle, path, size);
 
 			PdfPCell imageCell = new PdfPCell(jpg);

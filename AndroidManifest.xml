@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.headbangers.reportmaker"
+    android:installLocation="auto"
     android:versionCode="12"
     android:versionName="1.0.9-beta" >
 

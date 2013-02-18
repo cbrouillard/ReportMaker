@@ -311,31 +311,31 @@ public class ImageHelper {
 			File root = fs.getRootBattle(battle);
 
 			into.setWeightSum(1);
-                        			
-                        if (photos != null){
-                        for (String photo : photos) {
 
-				File imageFile = new File(root.getAbsolutePath(), photo);
+			if (photos != null) {
+				for (String photo : photos) {
 
-				ImageView imageView = new ImageView(
-						context.getApplicationContext());
-				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+					File imageFile = new File(root.getAbsolutePath(), photo);
 
-				LayoutParams param = new LinearLayout.LayoutParams(
-						LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
-						1 / photos.length);
-				imageView.setLayoutParams(new LayoutParams(param));
+					ImageView imageView = new ImageView(
+							context.getApplicationContext());
+					imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-				ImageHelper.setPicAsync(context,
-						ImageHelper.getThumbnailPath(battle, imageFile),
-						imageView);
+					LayoutParams param = new LinearLayout.LayoutParams(
+							LayoutParams.MATCH_PARENT,
+							LayoutParams.MATCH_PARENT, 1 / photos.length);
+					imageView.setLayoutParams(new LayoutParams(param));
 
-				imageView.setOnClickListener(new ZoomImageListener(context,
-						imageFile, title, imageView));
+					ImageHelper.setPicAsync(context,
+							ImageHelper.getThumbnailPath(battle, imageFile),
+							imageView);
 
-				into.addView(imageView);
+					imageView.setOnClickListener(new ZoomImageListener(context,
+							imageFile, title, imageView));
+
+					into.addView(imageView);
+				}
 			}
-                        }
 		}
 	}
 }

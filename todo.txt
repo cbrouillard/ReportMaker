@@ -17,6 +17,8 @@ A FAIRE
 - backup
 - chargements base asynchrones
 
+- ajouter une fonctionnalité de prise vidéo "le moment suspense" sur chaque tour
+
 
 A TESTER en conditions réelles. 
 -----------------------------------------------------

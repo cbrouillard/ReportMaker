@@ -311,7 +311,9 @@ public class ImageHelper {
 			File root = fs.getRootBattle(battle);
 
 			into.setWeightSum(1);
-			for (String photo : photos) {
+                        			
+                        if (photos != null){
+                        for (String photo : photos) {
 
 				File imageFile = new File(root.getAbsolutePath(), photo);
 
@@ -333,6 +335,7 @@ public class ImageHelper {
 
 				into.addView(imageView);
 			}
+                        }
 		}
 	}
 }

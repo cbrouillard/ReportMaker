@@ -3,13 +3,14 @@ A FAIRE
 - photos extras dans le pdf à mieux afficher
 - gérer le multi-photo dans le PDF.
 - plus d'icones ! 1 par bataille et 1 par joueurs
-- photo + com' pour la liste d'armée des joueurs.
 - activity filter pour permettre un import d'images ?
 - dans le détail d'une photo, afficher une gallerie plutot qu'une photo seule.
       
 - préférences
 	-- Affichage
 	. affichage des images dans les rapports (bandelette, complète redimensionnée)
+        -- General
+        . repertoire de stockage (default 'reportmaker')
 
 - entrée en reserve sur tour2, 3, 4 (gérer une photo)
 - gérer la prise d'init

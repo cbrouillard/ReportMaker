@@ -19,6 +19,7 @@ A FAIRE
 - chargements base asynchrones
 
 - ajouter une fonctionnalité de prise vidéo "le moment suspense" sur chaque tour
+- ajouter un module de statistiques
 
 
 A TESTER en conditions réelles. 

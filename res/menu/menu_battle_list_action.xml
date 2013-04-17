@@ -11,7 +11,7 @@
         android:id="@+id/menu_exportWebBattle"
         android:icon="@drawable/export_bclk"
         android:showAsAction="never"
-        android:title="@string/export_battle_web" android:visible="false"/>
+        android:title="@string/export_battle_web" android:visible="true"/>
     
     <item
         android:id="@+id/menu_configureBattle"

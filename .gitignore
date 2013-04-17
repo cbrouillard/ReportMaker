@@ -5,3 +5,4 @@ bin/
 gen/
 *.orig
 dist/
+mycert.pem

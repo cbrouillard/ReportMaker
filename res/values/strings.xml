@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="host">https://tacticalwarreport.com/web</string>
+    <string name="createReport">/createReport</string>
     <string name="about">About</string>
     <string name="app_name">Tactical War Report</string>
     <string name="new_battle">New battle</string>

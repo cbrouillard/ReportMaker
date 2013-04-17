@@ -17,6 +17,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.async.ExportOnWebAsyncLoader;
@@ -37,10 +38,16 @@ public class WebServiceClient {
 	}
 
 	public int export(Battle battle, String login, String pass) {
-		this.host = (String) from.getResources().getXml(R.xml.data)
-				.getProperty("host"); // getString(R.string.host);
-		this.createReport = (String) from.getResources().getXml(R.xml.data)
-				.getProperty("createReport");
+		// this.host = (String) from.getResources().getXml(R.xml.data)
+		// .getProperty("host"); // getString(R.string.host);
+		// this.createReport = (String) from.getResources().getXml(R.xml.data)
+		// .getProperty("createReport");
+
+		this.host = (String) from.getResources().getString(R.string.host);
+		this.createReport = (String) from.getResources().getString(
+				R.string.createReport);
+		
+		Log.d("Export", "Url = "+host+createReport);
 
 		try {
 
@@ -89,6 +96,10 @@ public class WebServiceClient {
 		// nameValuePairs.add(new BasicNameValuePair("reportData", json));
 		// nameValuePairs.add(new BasicNameValuePair("user", login));
 		// nameValuePairs.add(new BasicNameValuePair("pass", pass));
+		
+		Log.d("JSON", "#########");
+		Log.d("JSON", json);
+		Log.d("JSON", "#########");
 
 		try {
 			MultipartEntity entity = new MultipartEntity();

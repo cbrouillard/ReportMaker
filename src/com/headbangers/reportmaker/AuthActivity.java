@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
@@ -33,10 +34,7 @@ public class AuthActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		this.login = (EditText) findViewById(R.id.login);
-		this.password = (EditText) findViewById(R.id.password);
-		this.connect = (Button) findViewById(R.id.connect);
-		this.helper = (TextView) findViewById(R.id.helperText);
+		this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		// Récupération d'un éventuel forceMode
 		boolean forceMode = getIntent().getBooleanExtra(FORCEMODE_ARG, false);
@@ -83,6 +81,11 @@ public class AuthActivity extends SherlockActivity {
 
 	private void display() {
 		setContentView(R.layout.auth);
+		
+		this.login = (EditText) findViewById(R.id.login);
+		this.password = (EditText) findViewById(R.id.password);
+		this.connect = (Button) findViewById(R.id.connect);
+		this.helper = (TextView) findViewById(R.id.helperText);
 
 		helper.setLinkTextColor(Color.BLUE);
 		Linkify.addLinks(helper, Linkify.ALL);

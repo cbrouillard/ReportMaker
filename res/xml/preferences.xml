@@ -16,6 +16,10 @@
             android:key="actionWhenQuit"
             android:summary="@string/preferences_whenQuitComportment_summary"
             android:title="@string/preferences_whenQuitComportment" />
+
+        <Preference
+            android:key="gotoAuth"
+            android:title="@string/preferences_auth" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/preferences_display" >
         <org.jraf.android.backport.switchwidget.SwitchPreference

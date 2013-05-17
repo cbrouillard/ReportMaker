@@ -123,6 +123,7 @@
     <string name="preferences_timerVibrator">Vibrator</string>
     <string name="preferences_timerVibrator_summary">Do you wish your device to vibrate each time the timer activate ?</string>
     <string name="preferences_ok">Preferences has been saved.</string>
+    <string name="preferences_auth">Authentification on Webapp</string>
     <string name="timer_notification_title">TWR Notification</string>
     <string name="timer_notification_infos">Don\'t forget to take some photos !</string>
     <string name="timer_stopped">Timer has been stopped.</string>

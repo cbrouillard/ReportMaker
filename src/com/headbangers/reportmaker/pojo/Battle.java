@@ -28,12 +28,16 @@ public class Battle {
 	private Informations infos;
 	private List<Turn> turns;
 
+	private GameType gameType;
+
 	public Battle(Cursor cursor) {
 		this.id = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.COL_ID));
 		this.name = cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_NAME));
 		this.format = cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_FORMAT));
+		this.gameType = GameType.getFromString(cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_GAMETYPE)));
 
 		String dateInDB = cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_DATE));
@@ -95,6 +99,14 @@ public class Battle {
 
 	public Long getId() {
 		return id;
+	}
+
+	public GameType getGameType() {
+		return gameType;
+	}
+
+	public void setGameType(GameType gameType) {
+		this.gameType = gameType;
 	}
 
 	public String getDateFormated() {
@@ -165,6 +177,7 @@ public class Battle {
 		ContentValues values = new ContentValues();
 
 		values.put(DatabaseHelper.COL_NAME, this.name);
+		values.put(DatabaseHelper.COL_GAMETYPE, this.gameType.name());
 		if (format != null) {
 			values.put(DatabaseHelper.COL_FORMAT, this.format);
 		}

@@ -96,8 +96,11 @@ public class FilesystemService {
 		});
 
 		List<String> absolutePath = new ArrayList<String>();
-		for (String extraPath : extrasPhotos) {
-			absolutePath.add(rootBattle.getAbsolutePath() + "/" + extraPath);
+		if (extrasPhotos != null) {
+			for (String extraPath : extrasPhotos) {
+				absolutePath
+						.add(rootBattle.getAbsolutePath() + "/" + extraPath);
+			}
 		}
 
 		return absolutePath;
@@ -151,9 +154,11 @@ public class FilesystemService {
 		try {
 			FileTool.delete(new File(tempDir, "thumbs"));
 
-			for (File ph : tempDir.listFiles()) {
-				FileTool.copyFile(ph, new File(battleDir, ph.getName()));
-				FileTool.delete(ph);
+			if (tempDir.listFiles() != null) {
+				for (File ph : tempDir.listFiles()) {
+					FileTool.copyFile(ph, new File(battleDir, ph.getName()));
+					FileTool.delete(ph);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

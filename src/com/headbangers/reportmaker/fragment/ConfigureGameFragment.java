@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.pojo.GameType;
 import com.headbangers.reportmaker.service.BattleNameGenerator;
 import com.headbangers.reportmaker.widget.CustomDatePicker;
 
@@ -22,6 +25,7 @@ public class ConfigureGameFragment extends SherlockFragment {
 	private EditText gameFormat;
 	private CustomDatePicker gameDate;
 	private ImageButton generateName;
+	private Spinner gameType;
 
 	private BattleNameGenerator battleNameGenerator;
 
@@ -43,6 +47,7 @@ public class ConfigureGameFragment extends SherlockFragment {
 		this.gameFormat = (EditText) view.findViewById(R.id.gameFormat);
 		this.gameDate = (CustomDatePicker) view.findViewById(R.id.gameDate);
 		this.generateName = (ImageButton) view.findViewById(R.id.generateName);
+		this.gameType = (Spinner) view.findViewById(R.id.gameType);
 
 		this.battleNameGenerator = new BattleNameGenerator(this.getActivity());
 		this.generateName.setOnClickListener(new View.OnClickListener() {
@@ -54,11 +59,21 @@ public class ConfigureGameFragment extends SherlockFragment {
 			}
 		});
 
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		ArrayAdapter<CharSequence> adapter = new ArrayAdapter(
+				this.getActivity(),
+				android.R.layout.simple_spinner_dropdown_item, GameType.names());
+		gameType.setAdapter(adapter);
+
 		if (battle != null) {
 			this.gameName.setText("" + battle.getName());
 
 			if (battle.getFormat() != null) {
 				this.gameFormat.setText(battle.getFormat());
+			}
+
+			if (battle.getGameType() != null) {
+				this.gameType.setSelection(battle.getGameType().ordinal());
 			}
 
 			final Calendar c = Calendar.getInstance();
@@ -84,23 +99,26 @@ public class ConfigureGameFragment extends SherlockFragment {
 		String name = gameName.getText() != null ? gameName.getText()
 				.toString() : null;
 
-		String format = gameFormat.getText() != null ? gameFormat.getText().toString()
-				: null;
+		String format = gameFormat.getText() != null ? gameFormat.getText()
+				.toString() : null;
 		if (name == null || "".equals(name)) {
 			name = this.getActivity().getResources().getString(R.string.battle);
 		}
+
+		GameType gameType = GameType.fromPosition(this.gameType
+				.getSelectedItemPosition());
 
 		game.setName(name);
 		game.setFormat(format != null && !"".equals(format) ? format : null);
 		game.setDate(new Date(gameDate.getYear() - 1900, gameDate.getMonth(),
 				gameDate.getDayOfMonth()));
+		game.setGameType(gameType);
 
 		return game;
 	}
 
 	public void setBattle(Battle battle) {
 		this.battle = battle;
-
 	}
 
 }

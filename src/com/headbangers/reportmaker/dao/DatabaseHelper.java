@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static int version = 3;
+	private static int version = 4;
 
 	public static final String TABLE_BATTLE = "battle";
 	public static final String TABLE_TURN = "turn";
@@ -35,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COL_RACETWO = "race_two";
 	public static final String COL_LISTONE = "list_one";
 	public static final String COL_LISTTWO = "list_two";
+	public static final String COL_GAMETYPE = "game_type";
 
 	public static final String COL_INFO_COMMENTS = "info_comments";
 	public static final String COL_INFO_DEPLOYMENT = "info_deployment";
@@ -44,10 +45,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COL_INFO_LORD2_CAPACITY = "info_lordtwo";
 
 	public static final String[] ALL_BATTLE_COLUMNS = new String[] { COL_ID,
-			COL_NAME, COL_DATE, COL_FORMAT, COL_PLAYERONE, COL_PLAYERTWO,
-			COL_RACEONE, COL_RACETWO, COL_INFO_COMMENTS, COL_INFO_DEPLOYMENT,
-			COL_INFO_LORD1_CAPACITY, COL_INFO_LORD2_CAPACITY,
-			COL_INFO_SCENARIO, COL_INFO_WHOSTART, COL_LISTONE, COL_LISTTWO };
+			COL_NAME, COL_DATE, COL_FORMAT, COL_GAMETYPE, COL_PLAYERONE,
+			COL_PLAYERTWO, COL_RACEONE, COL_RACETWO, COL_INFO_COMMENTS,
+			COL_INFO_DEPLOYMENT, COL_INFO_LORD1_CAPACITY,
+			COL_INFO_LORD2_CAPACITY, COL_INFO_SCENARIO, COL_INFO_WHOSTART,
+			COL_LISTONE, COL_LISTTWO };
 
 	public static final String[] ALL_TURN_COLUMNS = new String[] {
 			COL_COMMENT_MOVE1, COL_COMMENT_MOVE2, COL_COMMENT_SHOOT1,
@@ -66,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ " TEXT NULL, " + COL_INFO_LORD2_CAPACITY + " TEXT NULL, "
 			+ COL_INFO_SCENARIO + " TEXT NULL, " + COL_INFO_WHOSTART
 			+ " INTEGER NULL," + COL_LISTONE + " TEXT NULL," + COL_LISTTWO
-			+ " TEXT NULL);";
+			+ " TEXT NULL," + COL_GAMETYPE + " TEXT NULL);";
 
 	private static final String CREATE_BDD_TABLE_TURN = "CREATE TABLE "
 			+ TABLE_TURN + " (" + COL_ID
@@ -103,9 +105,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		try {
 
 			db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
-					+ COL_LISTONE + " TEXT NULL;");
-			db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
-					+ COL_LISTTWO + " TEXT NULL;");
+					+ COL_GAMETYPE + " TEXT NULL;");
+
+			if (oldVersion < 3) {
+				db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
+						+ COL_LISTONE + " TEXT NULL;");
+				db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
+						+ COL_LISTTWO + " TEXT NULL;");
+			}
 
 			if (oldVersion <= 1) {
 				db.execSQL(CREATE_BDD_TABLE_BATTLE.replace("battle",

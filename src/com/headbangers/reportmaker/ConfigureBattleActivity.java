@@ -1,11 +1,11 @@
 package com.headbangers.reportmaker;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
-
 import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -19,6 +19,7 @@ import com.headbangers.reportmaker.pojo.Player;
 import com.headbangers.reportmaker.service.FilesystemService;
 import com.headbangers.reportmaker.tools.AdsControl;
 
+@SuppressLint("InlinedApi")
 public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 		TabListener {
 
@@ -170,6 +171,7 @@ public class ConfigureBattleActivity extends SherlockFragmentActivity implements
 			game.setName(fromInterface.getName());
 			game.setFormat(fromInterface.getFormat());
 			game.setDate(fromInterface.getDate());
+			game.setGameType(fromInterface.getGameType());
 
 			battleDao.updateBattleConfiguration(game);
 

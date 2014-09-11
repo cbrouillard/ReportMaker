@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="host">http://tacticalwarreport.com/web</string>
+    <string name="createReport">/createReport</string>
+    <string name="about">О проекте</string>
+    <string name="app_name">Tactical War Report</string>
+    <string name="new_battle">Новая битва</string>
+    <string name="delete_battle">Удалить</string>
+    <string name="edition">Редактировать</string>
+    <string name="export_battle_pdf">Экспортировать битву (PDF)</string>
+    <string name="battle">Битва</string>
+    <string name="game">Игра</string>
+    <string name="player">Игрок</string>
+    <string name="player_one">Игрок 1</string>
+    <string name="player_two">Игрок 2</string>
+    <string name="ok_create">Создать</string>
+    <string name="save">Сохранить</string>
+    <string name="photo">Снимки</string>
+    <string name="configure_player">Конфигурация игрока</string>
+    <string name="player_name_hint">Имя игрока/команды</string>
+    <string name="player_race_hint">Раса игрока/команды</string>
+    <string name="next">Далее</string>
+    <string name="done">Готово!</string>
+    <string name="game_name_hint">Название игры</string>
+    <string name="game_format_hint">Размер игры (очки)</string>
+    <string name="creation_error">При создании игры возникла ошибка</string>
+    <string name="game_date_hint">Дата игры</string>
+    <string name="t1">T1</string>
+    <string name="t2">T2</string>
+    <string name="t3">T3</string>
+    <string name="t4">T4</string>
+    <string name="t5">T5</string>
+    <string name="t6">T6</string>
+    <string name="t7">T7</string>
+    <string name="photo_table">Снимок игрового стола</string>
+    <string name="deployment_type">Тип расстановки</string>
+    <string name="deployment_type_hint">Алая Заря или &#8230;</string>
+    <string name="scenario">Сценарий</string>
+    <string name="scenario_hint">Реликвия, Большие пушки никогда не устают или &#8230;</string>
+    <string name="who_start">Кто ходит первым?</string>
+    <string name="lord_capacity">Черты главнокомандующего</string>
+    <string name="lord_capacity_hint">Стратегические, командные или &#8230;</string>
+    <string name="photo_deployment_player">Снимок после расстановки</string>
+    <string name="photo_deployment">Снимок расстановки</string>
+    <string name="random_name">Случайное название</string>
+    <string name="comments">Комментарии</string>
+    <string name="comments_hints">Ваши впечатления, замечания или &#8230;</string>
+    <string name="battle_saved">Битва сохранена!</string>
+    <string name="really_delete">Вы действительно хотите удалить эту битву? Битва будет удалена безвозвратно.</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+    <string name="battle_hasbeen_deleted">Битва удалена</string>
+    <string name="photo_move">Снимок после Фазы движения</string>
+    <string name="photo_shoot">Снимок после Фазы стрельбы</string>
+    <string name="photo_assault">Снимок после Фазы ближнего боя</string>
+    <string name="is_last_turn">Последний ход</string>
+    <string name="pdf_hasbeen_generated">Создан файл .pdf</string>
+    <string name="is_night">Ночной бой</string>
+    <string name="welcome">Добро пожаловать! Для создания нового боевого донесения нажмите иконку с плюсом справа вверху.</string>
+    <string name="little_welcome">Приветствую!</string>
+    <string name="pdf_action_title">Действия с файлами .pdf</string>
+    <string name="pdf_action">Файл .pdf создан и сохранен на вашем устройстве. Ваши действия с файлом?</string>
+    <string name="pdf_consult">Просмотреть документ</string>
+    <string name="pdf_share">Поделиться документом</string>
+    <string name="no_application_pdf">Приложения для просмотра файла .pdf не найдены</string>
+    <string name="no_application_share">Приложения для публикации файла .pdf не найдены</string>
+    <string name="share_subject">Боевое донесение</string>
+    <string name="share_text">Это боевое донесение составлено с помощью Tactical War Report, приложения для Android.</string>
+    <string name="really_quit">Хотите сохраниться перед выходом из текущей версии битвы?</string>
+    <string name="dont_want_to_quit">Не хочу выходить!</string>
+    <string name="photo_infiltration">Снимок после отработки правила "Скрытое проникновение"</string>
+    <string name="photo_scoot">Снимок после отработки правила "Разведчики"</string>
+    <string name="zoom_extra">Масштабирование снимков</string>
+    <string name="pdf_generating">Создается файл .pdf &#8230;</string>
+    <string name="pdf_game_scenario">Сценарий игры</string>
+    <string name="pdf_game_format">Размер игры</string>
+    <string name="pdf_warlord">Главнокомандующий</string>
+    <string name="pdf_table">Игровой стол</string>
+    <string name="pdf_turn">Ход</string>
+    <string name="pdf_more_photos">Дополнительные снимки</string>
+    <string name="pdf_no_photo">Нет снимков</string>
+    <string name="pdf_move">Движение</string>
+    <string name="pdf_shoot">Стрельба</string>
+    <string name="pdf_assault">Ближний бой</string>
+    <string name="pdf_deployment">Расстановка</string>
+    <string name="pdf_begin">Вперед!</string>
+    <string name="pdf_deployment_of">Расстановка</string>
+    <string name="pdf_nightFightOn">На планете наступила ночь!</string>
+    <string name="pdf_lastTurn">Последний ход</string>
+    <string name="pdf_nightFight">По правилам ночного боя</string>
+    <string name="first_launch">Tactical War Report ! &lt;br/&gt;&lt;br/&gt;
+        Данное приложение позволяет вам быстро и легко составлять отчеты о проведенных вами играх: в настоящий момент приложение поддерживает только правила настольной игры Warhammer&#169; 40000.&lt;br/&gt;&lt;br/&gt;
+        Имейте в виду, что составление боевых донесений о битвах - задача не из легких: советую начинать с игр небольшого размера. Приложение TWR помогает вам, но оно не сделает все за вас &#8230; Вы сами должны сделать все необходимые снимки и составить описание битвы.&lt;br/&gt;&lt;br/&gt;
+        В настоящий момент приложение Tactical War Report находится в версии "бета": в нем все еще могут скрываться кое-какие баги. Буду рад, если вы сообщите мне о них.&lt;br/&gt;&lt;br/&gt;
+        Пользуйтесь на здоровье!;)</string>
+    <string name="export_battle_web">Экспортировать (tacticalwarreport.com)</string>
+    <string name="web_exporting">Экспортируется в текущее веб-приложение &#8230;</string>
+    <string name="login_hint">Введите имя пользователя</string>
+    <string name="password_hint">Введите пароль</string>
+    <string name="connect">Соединение</string>
+    <string name="connection_help">Для продолжения укажите свою учетную запись. 
+        Если у вас еще нет учетной записи, перейдите на сайт www.tacticalwarreport.com и зарегистрируйтесь.</string>
+    <string name="bad_auth_title">Ошибка аутентификации</string>
+    <string name="bad_auth">Возможно, ваш логин/пароль указан неверно. Пожалуйста, повторите ввод.</string>
+    <string name="webexport_ok">Экспорт файлов завершен!</string>
+    <string name="webexport_fail">К сожалению, во время экспорта файлов произошла ошибка. Попробуйте повторить позднее &#8230;</string>
+    <string name="loading">Идет загрузка. Ожидайте &#8230;</string>
+    <string name="preferences">Настройки</string>
+    <string name="preferences_general">Общие настройки</string>
+    <string name="preferences_letScreenAlwaysOn_summary">Сохранить постоянную подсветку экрана?</string>
+    <string name="preferences_letScreenAlwaysOn">Экран</string>
+    <string name="preferences_whenQuitComportment">Действия при выходе из текущего боевого донесения</string>
+    <string name="preferences_whenQuitComportment_summary">Какие действия должно выполнять приложение, если вы хотите выйти из текущего боевого донесения?</string>
+    <string name="preferences_whenQuitComportment_dialogTitle">Выбор действия</string>
+    <string name="preferences_timer">Настройки таймера</string>
+    <string name="preferences_timerDuration">Установка таймера</string>
+    <string name="preferences_timerDuration_summary">Установите время работы таймера: таймер запускается на каждом интервале.</string>
+    <string name="preferences_wrongDurationTimer_value">Установлено неверное значение времени работы таймера. Будет использовано значение по умолчанию.</string>
+    <string name="preferences_timerRingtone">Мелодия звонка установлена</string>
+    <string name="preferences_timerRingtone_summary">Выберите мелодию звонка для таймера.</string>
+    <string name="preferences_timerVibrator">Режим вибрации</string>
+    <string name="preferences_timerVibrator_summary">Разрешить вашему устройству включать вибрацию при каждом уведомлении?</string>
+    <string name="preferences_ok">Настройки сохранены</string>
+    <string name="preferences_auth">Аутентификация приложения в сети</string>
+    <string name="timer_notification_title">Напоминание TWR</string>
+    <string name="timer_notification_infos">Не забудьте сделать снимки!</string>
+    <string name="timer_stopped">Таймер остановлен.</string>
+    <string name="timer_launched">Тамер запущен! Напоминание будет появляться каждые [X] минут(ы).</string>
+    <string name="notimer_tostop">Нет запущенных таймеров. Запустите таймер из меню.</string>
+    <string name="timer">Управление таймером</string>
+    <string name="timer_management">Управление таймером. Таймер позволяет вам настроить регулярное напоминание о необходимости сделать снимок битвы.</string>
+    <string name="timer_settings">Настроить длительность каждого напоминания</string>
+    <string name="timer_launch">Запустить таймер</string>
+    <string name="timer_stop">Остановить таймер</string>
+    <string name="timer_isOn">Таймер работает</string>
+    <string name="timer_isOff">Таймер не запущен</string>
+    <string name="image_share">Поделиться этим снимком</string>
+    <string name="image_delete">Удалить этот снимок</string>
+    <string name="image_share_subject">Классный снимок!</string>
+    <string name="image_share_text">Эй! Посмотри-ка на этот классный снимок, который я сделал с помощью TacticalWarReport! :3</string>
+    <string name="image_zoom_help">Коснитесь снимка, чтобы закрыть это окно</string>
+    <string name="dice_simulation">Бросайте кубики!</string>
+    <string name="dices_configuration">Выберите количество кубиков для броска и желаемый результат.</string>
+    <string name="dices_howMany">Количество кубиков</string>
+    <string name="dices_successCondition">Желаемый результат</string>
+    <string name="dices_roll">Поехали!</string>
+    <string name="dices_toObtain">кубик(ов), чтобы выбросить</string>
+    <string name="more_or_equal">+</string>
+    <string name="equal">=</string>
+    <string name="less_or_equal">-</string>
+    <string name="dices_howMany_success">Успех:</string>
+    <string name="dices_howMany_fail">Провал:</string>
+    <string name="dices_rollSucessDices">Перебросить выигравшие кубики с новым условием</string>
+    <string name="preferences_display">Настройки отображения</string>
+    <string name="preferences_extendedComments">Комментарии</string>
+    <string name="preferences_extendedComments_summary">Отображать текстовое поле комментария в каждой фазе игры каждого игрока.</string>
+	<string name="update_configuration_done">Конфигурация битвы обновлена.</string>
+	<string name="configure_battle">Настроить битву</string>
+	<string name="dices_relaunchSame">Перебросить</string>
+	<string name="dices_newRoll">Новый бросок</string>
+    <string name="photo_replaceMenu">Заменить</string>
+	<string name="photo_newCaptureMenu">Добавить</string>
+	<string name="photo_deleteMenu">Удалить</string>
+	<string name="photo_army">Снимок армии</string>
+	<string name="armyList_hints">Воинский лист, примечания или &#8230;</string>
+    <string name="dices_inTheory">В принципе:</string>
+    <string name="dices_win">кубик(ов) с успешным результатом</string>
+	<string name="army_list">"Воинский лист </string>
+	
+    <string-array name="preferences_whenQuitComportment_entries">
+        <item>Всегда спрашивать</item>
+        <item>Не спрашивать, всегда сохранять</item>
+        <item>Не спрашивать, никогда не сохранять</item>
+    </string-array>
+    <string-array name="preferences_whenQuitComportment_entryValues">
+        <item>ALWAYS_ASK</item>
+        <item>ALWAYS_SAVE</item>
+        <item>NEVER_SAVE</item>
+    </string-array>
+    <string-array name="battleName_random_part1">
+        <item>Взятие планеты</item>
+        <item>Битва за планету</item>
+        <item>Падение планеты</item>
+        <item>Патрулирование на планете</item>
+        <item>Резня на планете</item>
+        <item>Возвращение на планету</item>
+        <item>Зачистка планеты</item>
+        <item>Кровопролитие на планете</item>
+        <item>Братья на планете</item>
+        <item>Легенда планеты</item>
+        <item>Заварушка на планете</item>
+        <item>Штурм планеты</item>
+        <item>Забытые на планете</item>
+    </string-array>
+    <string-array name="planets">
+        <item>Давин</item>
+        <item>Каллидус II</item>
+        <item>Портария</item>
+        <item>Деминос</item>
+        <item>Нарн</item>
+        <item>Мот</item>
+        <item>Кальдерабан</item>
+        <item>Бинистра V</item>
+        <item>Мальстрим VI</item>
+        <item>Тириус</item>
+        <item>Доминус Прайм</item>
+        <item>Надариус</item>
+        <item>К\'оллидор</item>
+        <item>Каестус IV</item>
+        <item>Каин</item>
+        <item>Борбориас</item>
+        <item>Засториа</item>
+        <item>Ваммер VI</item>
+    </string-array>
+    <string-array name="battleName_alone">
+        <item>Братья-враги</item>
+        <item>Штурм Улья</item>
+        <item>Вааагх!</item>
+        <item>"Мы окружены!"</item>
+    </string-array>
+
+</resources>

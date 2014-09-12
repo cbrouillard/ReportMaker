@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class VersionDialog extends Dialog {
 
-	public static final float VERSION = 1.0f;
+	public static final float VERSION = 2.1f;
 	public static final String CURRENT_VERSION_KEY = "current_version";
 
 	private static Context mContext = null;

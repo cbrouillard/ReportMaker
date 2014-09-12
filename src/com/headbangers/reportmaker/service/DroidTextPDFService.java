@@ -20,6 +20,7 @@ import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
 import com.headbangers.reportmaker.fragment.ConfigurePlayerFragment;
 import com.headbangers.reportmaker.fragment.TurnFragment;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.pojo.GameType;
 import com.headbangers.reportmaker.pojo.Player;
 import com.headbangers.reportmaker.pojo.Turn;
 import com.headbangers.reportmaker.tools.ImageHelper;
@@ -85,7 +86,7 @@ public class DroidTextPDFService implements IPDFService {
 		try {
 
 			File documentFile = new File(fs.getRootBattle(battle), battle
-					.getName().replace(" ", "_").replace("\n", "")
+					.getName().replaceAll(" ", "_").replaceAll("\n", "")
 					+ ".pdf");
 			PdfWriter writer = PdfWriter.getInstance(document,
 					new FileOutputStream(documentFile));
@@ -110,33 +111,60 @@ public class DroidTextPDFService implements IPDFService {
 			addEmptyLine(document, 2);
 
 			// Scénario
-			Paragraph scenario = new Paragraph();
-			scenario.add(new Chunk(getString(R.string.pdf_game_scenario)
-					+ " : ", normalBold));
-			scenario.add(new Chunk(battle.getInfos().getScenario() + "", normal));
-			document.add(scenario);
+			if (battle.getInfos().getScenario() != null) {
+				Paragraph scenario = new Paragraph();
+				scenario.add(new Chunk(getString(R.string.pdf_game_scenario)
+						+ " : ", normalBold));
+				scenario.add(new Chunk(battle.getInfos().getScenario() + "",
+						normal));
+				document.add(scenario);
+			}
 
 			// Format en points
-			Paragraph format = new Paragraph();
-			format.add(new Chunk(getString(R.string.pdf_game_format) + " : ",
-					normalBold));
-			format.add(new Chunk(battle.getFormat() + "", normal));
-			document.add(format);
+			if (battle.getFormat() != null) {
+				Paragraph format = new Paragraph();
+				format.add(new Chunk(getString(R.string.pdf_game_format)
+						+ " : ", normalBold));
+				format.add(new Chunk(battle.getFormat() + "", normal));
+				document.add(format);
+			}
 
 			// Traits de seigneur de guerre
-			Paragraph lord1 = new Paragraph();
-			lord1.add(new Chunk(getString(R.string.pdf_warlord) + " "
-					+ battle.getOne().getName() + " : ", normalBold));
-			lord1.add(new Chunk(battle.getInfos().getLordCapacity1() + "",
-					normal));
-			document.add(lord1);
+			if (battle.getGameType().equals(GameType.WARHAMMER_40K)) {
+				Paragraph lord1 = new Paragraph();
+				lord1.add(new Chunk(getString(R.string.pdf_warlord) + " "
+						+ battle.getOne().getName() + " : ", normalBold));
+				lord1.add(new Chunk(battle.getInfos().getLordCapacity1() + "",
+						normal));
+				document.add(lord1);
 
-			Paragraph lord2 = new Paragraph();
-			lord2.add(new Chunk(getString(R.string.pdf_warlord) + " "
-					+ battle.getTwo().getName() + " : ", normalBold));
-			lord2.add(new Chunk(battle.getInfos().getLordCapacity2() + "",
-					normal));
-			document.add(lord2);
+				Paragraph lord2 = new Paragraph();
+				lord2.add(new Chunk(getString(R.string.pdf_warlord) + " "
+						+ battle.getTwo().getName() + " : ", normalBold));
+				lord2.add(new Chunk(battle.getInfos().getLordCapacity2() + "",
+						normal));
+				document.add(lord2);
+			}
+
+			// Magie des sorciers
+			if (battle.getGameType().equals(GameType.WARHAMMER_40K)
+					|| battle.getGameType().equals(GameType.WARHAMMER_BATTLE)) {
+
+				Paragraph sorcerers1 = new Paragraph();
+				sorcerers1.add(new Chunk(getString(R.string.pdf_sorcerers)
+						+ " " + battle.getOne().getName() + " : ", normalBold));
+				sorcerers1.add(new Chunk(battle.getInfos().getPowers1() + "",
+						normal));
+				document.add(sorcerers1);
+
+				Paragraph sorcerers2 = new Paragraph();
+				sorcerers2.add(new Chunk(getString(R.string.pdf_sorcerers)
+						+ " " + battle.getTwo().getName() + " : ", normalBold));
+				sorcerers2.add(new Chunk(battle.getInfos().getPowers2() + "",
+						normal));
+				document.add(sorcerers2);
+
+			}
 
 			// Photo de la table
 			addPhoto(320, document, battle,
@@ -186,15 +214,15 @@ public class DroidTextPDFService implements IPDFService {
 				ConfigurePlayerFragment.ARMY_PHOTO_NAME
 						.replace("{P}", "" + num));
 
-		Log.d("D", "ArmyPhotos = "+armyPhotos);
-		
+		Log.d("D", "ArmyPhotos = " + armyPhotos);
+
 		if (armyPhotos.length > 0
 				|| (player.getArmyComments() != null && !"".equals(player
 						.getArmyComments()))) {
 			// On génère la page pour le joueur
 			document.newPage();
-			document.add(new Paragraph(getString(R.string.army_list) +" "+ player.getName(),
-					catFont));
+			document.add(new Paragraph(getString(R.string.army_list) + " "
+					+ player.getName(), catFont));
 			drawLine(cb, 765);
 			addEmptyLine(document, 1);
 
@@ -228,21 +256,25 @@ public class DroidTextPDFService implements IPDFService {
 		drawLine(cb, 765);
 		addEmptyLine(document, 1);
 
-		int firstPlayer = battle.getInfos().getFirstPlayer();
-		Player one = battle.getPlayer(firstPlayer);
-		Player two = battle.getOtherPlayer(firstPlayer);
-
 		try {
-			generatePlayerTurn(document, cb, battle, turn, one, firstPlayer + 1);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			if (battle.getGameType().equals(GameType.WARHAMMER_40K)
+					|| battle.getGameType().equals(GameType.WARHAMMER_BATTLE)) {
 
-		try {
-			generatePlayerTurn(document, cb, battle, turn, two,
-					firstPlayer == 0 ? 2 : 1);
+				int firstPlayer = battle.getInfos().getFirstPlayer();
+				Player one = battle.getPlayer(firstPlayer);
+				Player two = battle.getOtherPlayer(firstPlayer);
+
+				generatePlayerTurn(document, cb, battle, turn, one,
+						firstPlayer + 1);
+
+				generatePlayerTurn(document, cb, battle, turn, two,
+						firstPlayer == 0 ? 2 : 1);
+
+			} else if (battle.getGameType().equals(GameType.XWING)) {
+				Player one = battle.getPlayer(0);
+				this.generatePlayerTurn(document, cb, battle, turn, one, 1);
+			}
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -273,7 +305,10 @@ public class DroidTextPDFService implements IPDFService {
 			Battle battle, Turn turn, Player player, int numPlayer)
 			throws DocumentException, MalformedURLException, IOException {
 
-		document.add(new Paragraph(player.getName(), subFont));
+		if (battle.getGameType().equals(GameType.WARHAMMER_40K)
+				|| battle.getGameType().equals(GameType.WARHAMMER_BATTLE)) {
+			document.add(new Paragraph(player.getName(), subFont));
+		}
 
 		if (turn.getComments(numPlayer) != null
 				&& !"".equals(turn.getComments(numPlayer))) {
@@ -281,26 +316,58 @@ public class DroidTextPDFService implements IPDFService {
 			document.add(new Paragraph(turn.getComments(numPlayer), normal));
 		}
 
+		// CHARGE
+		if (battle.getGameType().equals(GameType.WARHAMMER_BATTLE)) {
+			addPhoto(
+					320,
+					document,
+					battle,
+					TurnFragment.CHARGE_PHOTO_NAME.replace("{P}",
+							"" + numPlayer).replace("{X}", "" + turn.getNum()),
+					getString(R.string.pdf_charge) + " " + player.getName()
+							+ " : ", " ", turn.getCommentsCharge(numPlayer));
+		}
+
 		// MOUVEMENT
-		addPhoto(250, document, battle,
+		addPhoto(320, document, battle,
 				TurnFragment.MOVE_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_move) + " " + player.getName() + " : ",
 				" ", turn.getCommentsMove(numPlayer));
 
+		// MAGIE
+		if (battle.getGameType().equals(GameType.WARHAMMER_40K)
+				|| battle.getGameType().equals(GameType.WARHAMMER_BATTLE)) {
+			addPhoto(
+					320,
+					document,
+					battle,
+					TurnFragment.POWER_PHOTO_NAME
+							.replace("{P}", "" + numPlayer).replace("{X}",
+									"" + turn.getNum()),
+					getString(R.string.pdf_power) + " " + player.getName()
+							+ " : ", " ", turn.getCommentsPower(numPlayer));
+		}
+
 		// TIR
-		addPhoto(250, document, battle,
+		addPhoto(320, document, battle,
 				TurnFragment.SHOOT_PHOTO_NAME.replace("{P}", "" + numPlayer)
 						.replace("{X}", "" + turn.getNum()),
 				getString(R.string.pdf_shoot) + " " + player.getName() + " : ",
 				" ", turn.getCommentsShoot(numPlayer));
 
 		// ASSAUT
-		addPhoto(250, document, battle,
-				TurnFragment.ASSAULT_PHOTO_NAME.replace("{P}", "" + numPlayer)
-						.replace("{X}", "" + turn.getNum()),
-				getString(R.string.pdf_assault) + " " + player.getName()
-						+ " : ", " ", turn.getCommentsAssault(numPlayer));
+		if (battle.getGameType().equals(GameType.WARHAMMER_40K)
+				|| battle.getGameType().equals(GameType.WARHAMMER_BATTLE)) {
+			addPhoto(
+					320,
+					document,
+					battle,
+					TurnFragment.ASSAULT_PHOTO_NAME.replace("{P}",
+							"" + numPlayer).replace("{X}", "" + turn.getNum()),
+					getString(R.string.pdf_assault) + " " + player.getName()
+							+ " : ", " ", turn.getCommentsAssault(numPlayer));
+		}
 
 	}
 
@@ -325,12 +392,12 @@ public class DroidTextPDFService implements IPDFService {
 					subFont));
 		}
 
-		addPhoto(300, document, battle, "deploiement_j" + (firstPlayer + 1)
+		addPhoto(320, document, battle, "deploiement_j" + (firstPlayer + 1)
 				+ ".jpg",
 				getString(R.string.pdf_deployment_of) + " " + one.getName()
 						+ " :", null, null);
 
-		addPhoto(300, document, battle, "deploiement_j"
+		addPhoto(320, document, battle, "deploiement_j"
 				+ (firstPlayer == 0 ? 2 : 1) + ".jpg",
 				getString(R.string.pdf_deployment_of) + " " + two.getName()
 						+ " :", null, null);
@@ -347,6 +414,14 @@ public class DroidTextPDFService implements IPDFService {
 		cb.setLineWidth(1f);
 		cb.moveTo(20, y);
 		cb.lineTo(575, y);
+		cb.stroke();
+	}
+
+	@SuppressWarnings("unused")
+	private void drawLittleLine(PdfContentByte cb, int y) {
+		cb.setLineWidth(0.5f);
+		cb.moveTo(50, y);
+		cb.lineTo(545, y);
 		cb.stroke();
 	}
 
@@ -398,13 +473,13 @@ public class DroidTextPDFService implements IPDFService {
 		table.setSpacingBefore(10);
 		table.setWidthPercentage(100);
 		table.setKeepTogether(true);
-		//table.setWidths(new float[] { 1f });
+		// table.setWidths(new float[] { 1f });
 		table.setHorizontalAlignment(Element.ALIGN_LEFT);
 
-		Log.d("D", "Battle = "+battle);
+		Log.d("D", "Battle = " + battle);
 		for (String path : photosPath) {
-			Log.d("D", "Ajout de "+path);
-			
+			Log.d("D", "Ajout de " + path);
+
 			Image jpg = buildPhoto(battle, path, size);
 
 			PdfPCell imageCell = new PdfPCell(jpg);
@@ -437,7 +512,7 @@ public class DroidTextPDFService implements IPDFService {
 			PdfPTable table = new PdfPTable(2);
 			table.setSpacingBefore(10);
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 2f, 1f });
+			table.setWidths(new float[] { 5f, 3f });
 			table.setKeepTogether(true);
 			table.setHorizontalAlignment(Element.ALIGN_LEFT);
 
@@ -459,6 +534,7 @@ public class DroidTextPDFService implements IPDFService {
 
 			if (comments != null && !"".equals(comments)) {
 				commentCell.setPhrase(new Paragraph(comments, normal));
+				commentCell.setBorder(Rectangle.BOX);
 			} else {
 				commentCell.setPhrase(new Paragraph(" "));
 			}

@@ -1,9 +1,24 @@
 package com.headbangers.reportmaker.pojo;
 
+import com.headbangers.reportmaker.R;
+
 public enum GameType {
 
 	// never change this order.
-	WARHAMMER_40K, WARHAMMER_BATTLE, XWING;
+	WARHAMMER_40K(R.drawable.fortyk, 5), WARHAMMER_BATTLE(R.drawable.battle, 6), XWING(
+			R.drawable.xwing, 10);
+
+	private int iconId;
+	private int nbDefaultTurn;
+
+	private GameType(int iconId, int nbTurn) {
+		this.iconId = iconId;
+		this.nbDefaultTurn = nbTurn;
+	}
+
+	public int getIconId() {
+		return iconId;
+	}
 
 	// A value off "emptyNullSafe"
 	public static GameType getFromString(String value) {
@@ -46,6 +61,10 @@ public enum GameType {
 		default:
 			return WARHAMMER_40K;
 		}
+	}
+
+	public int getNbDefaultTurn() {
+		return nbDefaultTurn;
 	}
 
 }

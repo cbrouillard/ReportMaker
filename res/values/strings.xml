@@ -75,11 +75,14 @@
     <string name="pdf_game_scenario">Game\'s scenario</string>
     <string name="pdf_game_format">Game\'s format</string>
     <string name="pdf_warlord">Warlord of</string>
+    <string name="pdf_sorcerers">Sorcerers of</string>
     <string name="pdf_table">Game\'s table</string>
     <string name="pdf_turn">Turn #</string>
     <string name="pdf_more_photos">More extras photos</string>
     <string name="pdf_no_photo">No photo</string>
     <string name="pdf_move">Move for</string>
+    <string name="pdf_charge">Charge for</string>
+    <string name="pdf_power">Power for</string>
     <string name="pdf_shoot">Shoot for</string>
     <string name="pdf_assault">Assault for</string>
     <string name="pdf_deployment">Deployment</string>
@@ -168,6 +171,10 @@
     <string name="dices_inTheory">In theory :</string>
     <string name="dices_win">OK dices</string>
     <string name="army_list">Army list of</string>
+    <string name="powers">Psy/magical powers :</string>
+    <string name="powers_hint">All random powers for your sorcerers</string>
+    <string name="photo_charge">After charge photo</string>
+    <string name="photo_power">After magic/psy photo</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Always ask</item>

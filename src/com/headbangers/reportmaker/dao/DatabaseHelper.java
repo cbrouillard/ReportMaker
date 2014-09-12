@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static int version = 4;
+	private static int version = 5;
 
 	public static final String TABLE_BATTLE = "battle";
 	public static final String TABLE_TURN = "turn";
@@ -19,6 +19,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COL_COMMENT_SHOOT2 = "comment_shoot2";
 	public static final String COL_COMMENT_ASSAULT1 = "comment_assault1";
 	public static final String COL_COMMENT_ASSAULT2 = "comment_assault2";
+	public static final String COL_COMMENT_CHARGE1 = "comment_charge1";
+	public static final String COL_COMMENT_CHARGE2 = "comment_charge2";
+	public static final String COL_COMMENT_POWER1 = "comment_power1";
+	public static final String COL_COMMENT_POWER2 = "comment_power2";
 	public static final String COL_COMMENT1 = "comment_1";
 	public static final String COL_COMMENT2 = "comment_2";
 	public static final String COL_IS_LAST_ONE = "last_turn";
@@ -43,19 +47,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String COL_INFO_WHOSTART = "info_whostart";
 	public static final String COL_INFO_LORD1_CAPACITY = "info_lordone";
 	public static final String COL_INFO_LORD2_CAPACITY = "info_lordtwo";
+	public static final String COL_INFO_POWERS1 = "info_powersone";
+	public static final String COL_INFO_POWERS2 = "info_powerstwo";
 
 	public static final String[] ALL_BATTLE_COLUMNS = new String[] { COL_ID,
 			COL_NAME, COL_DATE, COL_FORMAT, COL_GAMETYPE, COL_PLAYERONE,
 			COL_PLAYERTWO, COL_RACEONE, COL_RACETWO, COL_INFO_COMMENTS,
 			COL_INFO_DEPLOYMENT, COL_INFO_LORD1_CAPACITY,
 			COL_INFO_LORD2_CAPACITY, COL_INFO_SCENARIO, COL_INFO_WHOSTART,
-			COL_LISTONE, COL_LISTTWO };
+			COL_LISTONE, COL_LISTTWO, COL_INFO_POWERS1, COL_INFO_POWERS2 };
 
 	public static final String[] ALL_TURN_COLUMNS = new String[] {
 			COL_COMMENT_MOVE1, COL_COMMENT_MOVE2, COL_COMMENT_SHOOT1,
 			COL_COMMENT_SHOOT2, COL_COMMENT_ASSAULT1, COL_COMMENT_ASSAULT2,
 			COL_IS_LAST_ONE, COL_NUM, COL_IS_NIGHT_FIGHT, COL_COMMENT1,
-			COL_COMMENT2 };
+			COL_COMMENT2, COL_COMMENT_CHARGE1, COL_COMMENT_CHARGE2,
+			COL_COMMENT_POWER1, COL_COMMENT_POWER2 };
 
 	private static final String CREATE_BDD_TABLE_BATTLE = "CREATE TABLE "
 			+ TABLE_BATTLE + " (" + COL_ID
@@ -68,7 +75,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ " TEXT NULL, " + COL_INFO_LORD2_CAPACITY + " TEXT NULL, "
 			+ COL_INFO_SCENARIO + " TEXT NULL, " + COL_INFO_WHOSTART
 			+ " INTEGER NULL," + COL_LISTONE + " TEXT NULL," + COL_LISTTWO
-			+ " TEXT NULL," + COL_GAMETYPE + " TEXT NULL);";
+			+ " TEXT NULL," + COL_GAMETYPE + " TEXT NULL, " + COL_INFO_POWERS1
+			+ " TEXT NULL, " + COL_INFO_POWERS2 + " TEXT NULL);";
 
 	private static final String CREATE_BDD_TABLE_TURN = "CREATE TABLE "
 			+ TABLE_TURN + " (" + COL_ID
@@ -78,11 +86,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ " TEXT NULL, " + COL_COMMENT_SHOOT2 + " TEXT NULL, "
 			+ COL_COMMENT_ASSAULT1 + " TEXT NULL, " + COL_COMMENT1
 			+ " TEXT NULL," + COL_COMMENT2 + " TEXT NULL,"
-			+ COL_COMMENT_ASSAULT2 + " TEXT NULL, " + COL_IS_LAST_ONE
-			+ " BOOLEAN NULL, " + COL_NUM + " INTEGER NOT NULL, "
-			+ COL_IS_NIGHT_FIGHT + " BOOLEAN NULL, " + "FOREIGN KEY("
-			+ COL_BATTLE_ID + ") REFERENCES " + TABLE_BATTLE + "(" + COL_ID
-			+ ")" + ");";
+			+ COL_COMMENT_ASSAULT2 + " TEXT NULL, " + COL_COMMENT_CHARGE1
+			+ " TEXT NULL, " + COL_COMMENT_CHARGE2 + " TEXT NULL, "
+			+ COL_COMMENT_POWER1 + " TEXT NULL, " + COL_COMMENT_POWER2
+			+ " TEXT NULL, " + COL_IS_LAST_ONE + " BOOLEAN NULL, " + COL_NUM
+			+ " INTEGER NOT NULL, " + COL_IS_NIGHT_FIGHT + " BOOLEAN NULL, "
+			+ "FOREIGN KEY(" + COL_BATTLE_ID + ") REFERENCES " + TABLE_BATTLE
+			+ "(" + COL_ID + ")" + ");";
 
 	public DatabaseHelper(Context context) {
 		this(context, "battle.db", null, version);
@@ -105,7 +115,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		try {
 
 			db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
-					+ COL_GAMETYPE + " TEXT NULL;");
+					+ COL_INFO_POWERS1 + " TEXT NULL;");
+			db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
+					+ COL_INFO_POWERS2 + " TEXT NULL;");
+
+			db.execSQL("ALTER TABLE " + TABLE_TURN + " ADD COLUMN "
+					+ COL_COMMENT_CHARGE1 + " TEXT NULL;");
+			db.execSQL("ALTER TABLE " + TABLE_TURN + " ADD COLUMN "
+					+ COL_COMMENT_CHARGE2 + " TEXT NULL;");
+			db.execSQL("ALTER TABLE " + TABLE_TURN + " ADD COLUMN "
+					+ COL_COMMENT_POWER1 + " TEXT NULL;");
+			db.execSQL("ALTER TABLE " + TABLE_TURN + " ADD COLUMN "
+					+ COL_COMMENT_POWER2 + " TEXT NULL;");
+			
+			if (oldVersion < 4) {
+				db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "
+						+ COL_GAMETYPE + " TEXT NULL;");
+			}
 
 			if (oldVersion < 3) {
 				db.execSQL("ALTER TABLE " + TABLE_BATTLE + " ADD COLUMN "

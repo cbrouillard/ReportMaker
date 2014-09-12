@@ -54,6 +54,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/deploymentTypeHeader"
             style="@style/headerText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -114,6 +115,32 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lord_capacity_hint" />
+        
+        <TextView
+            android:id="@+id/powersPlayer1Header"
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/powers" />
+
+        <EditText
+            android:id="@+id/powersPlayer1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/powers_hint" />
+
+        <TextView
+            android:id="@+id/powersPlayer2Header"
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/powers" />
+
+        <EditText
+            android:id="@+id/powersPlayer2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/powers_hint" />
 
         <TextView
             android:id="@+id/deploymentPlayer1"
@@ -186,16 +213,6 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-<!--             <ImageView -->
-<!--                 android:id="@+id/takePhoto_deployment2_photo" -->
-<!--                 android:layout_width="0dip" -->
-<!--                 android:layout_height="50dp" -->
-<!--                 android:layout_weight="1" -->
-<!--                 android:contentDescription="@string/photo_deployment" -->
-<!--                 android:scaleType="centerCrop" -->
-<!--                 android:src="@drawable/damier" -->
-<!--                 android:visibility="gone" /> -->
-
             <ImageButton
                 android:id="@+id/takePhoto_deployment2"
                 android:layout_width="50dp"
@@ -213,6 +230,7 @@
             android:text="@string/photo_infiltration" />
 
         <LinearLayout
+            android:id="@+id/containerInfiltration1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -231,16 +249,6 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-<!--             <ImageView -->
-<!--                 android:id="@+id/takePhoto_infiltration1_photo" -->
-<!--                 android:layout_width="0dip" -->
-<!--                 android:layout_height="50dp" -->
-<!--                 android:layout_weight="1" -->
-<!--                 android:contentDescription="@string/photo_infiltration" -->
-<!--                 android:scaleType="centerCrop" -->
-<!--                 android:src="@drawable/damier" -->
-<!--                 android:visibility="gone" /> -->
-
             <ImageButton
                 android:id="@+id/takePhoto_infiltration1"
                 android:layout_width="50dp"
@@ -258,6 +266,7 @@
             android:text="@string/photo_infiltration" />
 
         <LinearLayout
+            android:id="@+id/containerInfiltration2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -276,16 +285,6 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-<!--             <ImageView -->
-<!--                 android:id="@+id/takePhoto_infiltration2_photo" -->
-<!--                 android:layout_width="0dip" -->
-<!--                 android:layout_height="50dp" -->
-<!--                 android:layout_weight="1" -->
-<!--                 android:contentDescription="@string/photo_infiltration" -->
-<!--                 android:scaleType="centerCrop" -->
-<!--                 android:src="@drawable/damier" -->
-<!--                 android:visibility="gone" /> -->
-
             <ImageButton
                 android:id="@+id/takePhoto_infiltration2"
                 android:layout_width="50dp"
@@ -303,6 +302,7 @@
             android:text="@string/photo_scoot" />
 
         <LinearLayout
+            android:id="@+id/containerScoot1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -321,16 +321,6 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <!-- <ImageView -->
-            <!-- android:id="@+id/takePhoto_scoot1_photo" -->
-            <!-- android:layout_width="0dip" -->
-            <!-- android:layout_height="50dp" -->
-            <!-- android:layout_weight="1" -->
-            <!-- android:contentDescription="@string/photo_scoot" -->
-            <!-- android:scaleType="centerCrop" -->
-            <!-- android:src="@drawable/damier" -->
-            <!-- android:visibility="gone" /> -->
-
             <ImageButton
                 android:id="@+id/takePhoto_scoot1"
                 android:layout_width="50dp"
@@ -348,6 +338,7 @@
             android:text="@string/photo_scoot" />
 
         <LinearLayout
+            android:id="@+id/containerScoot2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -365,17 +356,6 @@
                     android:orientation="horizontal" >
                 </LinearLayout>
             </HorizontalScrollView>
-
-            <!-- <ImageView -->
-            <!-- android:id="@+id/takePhoto_scoot2_photo" -->
-            <!-- android:layout_width="0dip" -->
-            <!-- android:layout_height="50dp" -->
-            <!-- android:layout_weight="1" -->
-            <!-- android:contentDescription="@string/photo_scoot" -->
-            <!-- android:scaleType="centerCrop" -->
-            <!-- android:src="@drawable/damier" -->
-            <!-- android:visibility="gone" /> -->
-
 
             <ImageButton
                 android:id="@+id/takePhoto_scoot2"

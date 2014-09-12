@@ -16,6 +16,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.pojo.GameType;
 import com.headbangers.reportmaker.pojo.Informations;
 import com.headbangers.reportmaker.tools.ImageHelper;
 
@@ -47,8 +48,8 @@ public class BattleInformationsFragment extends SherlockFragment {
 	private Battle battle;
 
 	private ImageButton takePhotoTable;
-	// private ImageView tablePhotoView;
 	private EditText deploymentType;
+	private TextView deploymentTypeHeader;
 	private EditText scenario;
 	private Spinner whoStart;
 	private TextView lordCapacityTextViewPlayer1;
@@ -59,21 +60,22 @@ public class BattleInformationsFragment extends SherlockFragment {
 	private ImageButton takePhotoDeployment1;
 	private EditText lordCapacity2;
 	private ImageButton takePhotoDeployment2;
-	// private ImageView deployment1Photo;
-	// private ImageView deployment2Photo;
 	private EditText comments;
+
+	private TextView powersPlayer1Header;
+	private TextView powersPlayer1;
+
+	private TextView powersPlayer2Header;
+	private TextView powersPlayer2;
+
 	private TextView infiltrationPlayer1;
 	private ImageButton infiltrationTakePhotoPlayer1;
-	// private ImageView infiltrationPhotoPlayer1;
 	private TextView infiltrationPlayer2;
 	private ImageButton infiltrationTakePhotoPlayer2;
-	// private ImageView infiltrationPhotoPlayer2;
 	private TextView scootPlayer1;
 	private ImageButton scootTakePhotoPlayer1;
-	// private ImageView scootPhotoPlayer1;
 	private TextView scootPlayer2;
 	private ImageButton scootTakePhotoPlayer2;
-	// private ImageView scootPhotoPlayer2;
 
 	private LinearLayout tablePhotosView;
 	private LinearLayout deployment1PhotosView;
@@ -82,6 +84,11 @@ public class BattleInformationsFragment extends SherlockFragment {
 	private LinearLayout infiltration2PhotosView;
 	private LinearLayout scoot1PhotosView;
 	private LinearLayout scoot2PhotosView;
+
+	private LinearLayout containerInfiltration1;
+	private LinearLayout containerInfiltration2;
+	private LinearLayout containerScoot1;
+	private LinearLayout containerScoot2;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,10 +101,10 @@ public class BattleInformationsFragment extends SherlockFragment {
 	private void findViews(View view) {
 		this.takePhotoTable = (ImageButton) view
 				.findViewById(R.id.takePhoto_table);
-		// this.tablePhotoView = (ImageView) view
-		// .findViewById(R.id.takePhoto_table_photo);
 
 		this.deploymentType = (EditText) view.findViewById(R.id.deploymentType);
+		this.deploymentTypeHeader = (TextView) view
+				.findViewById(R.id.deploymentTypeHeader);
 		this.scenario = (EditText) view.findViewById(R.id.scenario);
 		this.whoStart = (Spinner) view.findViewById(R.id.whoStart);
 		this.lordCapacityTextViewPlayer1 = (TextView) view
@@ -114,33 +121,21 @@ public class BattleInformationsFragment extends SherlockFragment {
 		this.lordCapacity2 = (EditText) view.findViewById(R.id.lordCapacity2);
 		this.takePhotoDeployment2 = (ImageButton) view
 				.findViewById(R.id.takePhoto_deployment2);
-		// this.deployment1Photo = (ImageView) view
-		// .findViewById(R.id.takePhoto_deployment1_photo);
-		// this.deployment2Photo = (ImageView) view
-		// .findViewById(R.id.takePhoto_deployment2_photo);
 		this.comments = (EditText) view.findViewById(R.id.comments);
 		this.infiltrationPlayer1 = (TextView) view
 				.findViewById(R.id.infiltrationPlayer1);
 		this.infiltrationTakePhotoPlayer1 = (ImageButton) view
 				.findViewById(R.id.takePhoto_infiltration1);
-		// this.infiltrationPhotoPlayer1 = (ImageView) view
-		// .findViewById(R.id.takePhoto_infiltration1_photo);
 		this.infiltrationPlayer2 = (TextView) view
 				.findViewById(R.id.infiltrationPlayer2);
 		this.infiltrationTakePhotoPlayer2 = (ImageButton) view
 				.findViewById(R.id.takePhoto_infiltration2);
-		// this.infiltrationPhotoPlayer2 = (ImageView) view
-		// .findViewById(R.id.takePhoto_infiltration2_photo);
 		this.scootPlayer1 = (TextView) view.findViewById(R.id.scootPlayer1);
 		this.scootTakePhotoPlayer1 = (ImageButton) view
 				.findViewById(R.id.takePhoto_scoot1);
-		// this.scootPhotoPlayer1 = (ImageView) view
-		// .findViewById(R.id.takePhoto_scoot1_photo);
 		this.scootPlayer2 = (TextView) view.findViewById(R.id.scootPlayer2);
 		this.scootTakePhotoPlayer2 = (ImageButton) view
 				.findViewById(R.id.takePhoto_scoot2);
-		// this.scootPhotoPlayer2 = (ImageView) view
-		// .findViewById(R.id.takePhoto_scoot2_photo);
 
 		this.tablePhotosView = (LinearLayout) view
 				.findViewById(R.id.takePhoto_table_photos);
@@ -156,6 +151,22 @@ public class BattleInformationsFragment extends SherlockFragment {
 				.findViewById(R.id.takePhoto_scoot1_photos);
 		this.scoot2PhotosView = (LinearLayout) view
 				.findViewById(R.id.takePhoto_scoot2_photos);
+
+		this.powersPlayer1Header = (TextView) view
+				.findViewById(R.id.powersPlayer1Header);
+		this.powersPlayer2Header = (TextView) view
+				.findViewById(R.id.powersPlayer2Header);
+		this.powersPlayer1 = (EditText) view.findViewById(R.id.powersPlayer1);
+		this.powersPlayer2 = (EditText) view.findViewById(R.id.powersPlayer2);
+
+		this.containerInfiltration1 = (LinearLayout) view
+				.findViewById(R.id.containerInfiltration1);
+		this.containerInfiltration2 = (LinearLayout) view
+				.findViewById(R.id.containerInfiltration2);
+		this.containerScoot1 = (LinearLayout) view
+				.findViewById(R.id.containerScoot1);
+		this.containerScoot2 = (LinearLayout) view
+				.findViewById(R.id.containerScoot2);
 
 	}
 
@@ -282,6 +293,8 @@ public class BattleInformationsFragment extends SherlockFragment {
 		infos.setLordCapacity1(this.lordCapacity1.getText().toString());
 		infos.setLordCapacity2(this.lordCapacity2.getText().toString());
 		infos.setScenario(this.scenario.getText().toString());
+		infos.setPowers1(this.powersPlayer1.getText().toString());
+		infos.setPowers2(this.powersPlayer2.getText().toString());
 
 		return infos;
 	}
@@ -297,6 +310,57 @@ public class BattleInformationsFragment extends SherlockFragment {
 		this.lordCapacity2.setText(this.battle.getInfos().getLordCapacity2());
 		this.scenario.setText(this.battle.getInfos().getScenario());
 		this.whoStart.setSelection(this.battle.getInfos().getFirstPlayer());
+		this.powersPlayer1.setText(this.battle.getInfos().getPowers1());
+		this.powersPlayer2.setText(this.battle.getInfos().getPowers2());
+
+		this.hideOrShowAccordingGameType();
+	}
+
+	public void hideOrShowAccordingGameType() {
+		if (this.battle == null) {
+			return;
+		}
+
+		if (this.battle.getGameType().equals(GameType.WARHAMMER_BATTLE)) {
+			this.lordCapacityTextViewPlayer1.setVisibility(View.GONE);
+			this.lordCapacity1.setVisibility(View.GONE);
+			this.lordCapacityTextViewPlayer2.setVisibility(View.GONE);
+			this.lordCapacity2.setVisibility(View.GONE);
+		}
+
+		if (this.battle.getGameType().equals(GameType.XWING)) {
+
+			// Type de déploiement
+			this.deploymentType.setVisibility(View.GONE);
+			this.deploymentTypeHeader.setVisibility(View.GONE);
+
+			// Seigneurs de Guerre
+			this.lordCapacityTextViewPlayer1.setVisibility(View.GONE);
+			this.lordCapacity1.setVisibility(View.GONE);
+			this.lordCapacityTextViewPlayer2.setVisibility(View.GONE);
+			this.lordCapacity2.setVisibility(View.GONE);
+
+			// Photos d'infiltrations et scoot.
+			infiltrationPlayer1.setVisibility(View.GONE);
+			infiltrationTakePhotoPlayer1.setVisibility(View.GONE);
+			infiltrationPlayer2.setVisibility(View.GONE);
+			infiltrationTakePhotoPlayer2.setVisibility(View.GONE);
+			scootPlayer1.setVisibility(View.GONE);
+			scootTakePhotoPlayer1.setVisibility(View.GONE);
+			scootPlayer2.setVisibility(View.GONE);
+			scootTakePhotoPlayer2.setVisibility(View.GONE);
+
+			containerInfiltration1.setVisibility(View.GONE);
+			containerInfiltration2.setVisibility(View.GONE);
+			containerScoot1.setVisibility(View.GONE);
+			containerScoot2.setVisibility(View.GONE);
+
+			// Pouvoirs
+			this.powersPlayer1.setVisibility(View.GONE);
+			this.powersPlayer2.setVisibility(View.GONE);
+			this.powersPlayer1Header.setVisibility(View.GONE);
+			this.powersPlayer2Header.setVisibility(View.GONE);
+		}
 	}
 
 	public int getFirstPlayer() {

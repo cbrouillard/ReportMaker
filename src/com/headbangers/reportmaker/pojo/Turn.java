@@ -21,6 +21,12 @@ public class Turn {
 	private String commentsAssault1;
 	private String commentsAssault2;
 
+	private String commentsCharge1;
+	private String commentsCharge2;
+
+	private String commentsPower1;
+	private String commentsPower2;
+
 	private String comments1;
 	private String comments2;
 
@@ -48,6 +54,16 @@ public class Turn {
 		this.commentsAssault2 = cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_COMMENT_ASSAULT2));
 
+		this.commentsCharge1 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_COMMENT_CHARGE1));
+		this.commentsCharge2 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_COMMENT_CHARGE2));
+
+		this.commentsPower1 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_COMMENT_POWER1));
+		this.commentsPower2 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_COMMENT_POWER2));
+
 		this.lastOne = cursor.getInt(cursor
 				.getColumnIndex(DatabaseHelper.COL_IS_LAST_ONE)) == 1 ? true
 				: false;
@@ -61,6 +77,38 @@ public class Turn {
 	public Turn() {
 		nightFight = false;
 		lastOne = false;
+	}
+
+	public String getCommentsCharge1() {
+		return commentsCharge1;
+	}
+
+	public void setCommentsCharge1(String commentsCharge1) {
+		this.commentsCharge1 = commentsCharge1;
+	}
+
+	public String getCommentsCharge2() {
+		return commentsCharge2;
+	}
+
+	public void setCommentsCharge2(String commentsCharge2) {
+		this.commentsCharge2 = commentsCharge2;
+	}
+
+	public String getCommentsPower1() {
+		return commentsPower1;
+	}
+
+	public void setCommentsPower1(String commentsPower1) {
+		this.commentsPower1 = commentsPower1;
+	}
+
+	public String getCommentsPower2() {
+		return commentsPower2;
+	}
+
+	public void setCommentsPower2(String commentsPower2) {
+		this.commentsPower2 = commentsPower2;
 	}
 
 	public void setLastOne(Boolean isLastOne) {
@@ -135,6 +183,18 @@ public class Turn {
 		if (this.commentsAssault2 != null) {
 			values.put(DatabaseHelper.COL_COMMENT_ASSAULT2,
 					this.commentsAssault2);
+		}
+		if (this.commentsCharge1 != null) {
+			values.put(DatabaseHelper.COL_COMMENT_CHARGE1, this.commentsCharge1);
+		}
+		if (this.commentsCharge2 != null) {
+			values.put(DatabaseHelper.COL_COMMENT_CHARGE2, this.commentsCharge2);
+		}
+		if (this.commentsPower1 != null) {
+			values.put(DatabaseHelper.COL_COMMENT_POWER1, this.commentsPower1);
+		}
+		if (this.commentsPower2 != null) {
+			values.put(DatabaseHelper.COL_COMMENT_POWER2, this.commentsPower2);
 		}
 
 		if (this.lastOne != null) {
@@ -212,6 +272,14 @@ public class Turn {
 
 	public void setCommentsAssault2(String commentsAssault2) {
 		this.commentsAssault2 = commentsAssault2;
+	}
+
+	public String getCommentsCharge(int numPlayer) {
+		return numPlayer == 1 ? getCommentsCharge1() : getCommentsCharge2();
+	}
+
+	public String getCommentsPower(int numPlayer) {
+		return numPlayer == 1 ? getCommentsPower1() : getCommentsPower2();
 	}
 
 }

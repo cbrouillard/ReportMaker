@@ -10,6 +10,65 @@
         android:orientation="vertical" >
 
         <TextView
+            android:id="@+id/chargePhotoHeader"
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/photo_charge" />
+
+        <LinearLayout
+            android:id="@+id/containerCharge"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <HorizontalScrollView
+                android:layout_width="0dip"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhotos_charge_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <ImageButton
+                android:id="@+id/takePhoto_charge"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/photo_charge"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera_bclk" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/extendedComment_charge"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                style="@style/headerText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/comments" />
+
+            <EditText
+                android:id="@+id/comments_charge"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="@string/comments_hints"
+                android:inputType="textMultiLine"
+                android:lines="5" />
+        </LinearLayout>
+        
+        <TextView
             style="@style/headerText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -33,15 +92,6 @@
                     android:orientation="horizontal" >
                 </LinearLayout>
             </HorizontalScrollView>
-
-            <!-- <ImageView -->
-            <!-- android:id="@+id/takePhoto_move_photo" -->
-            <!-- android:layout_width="0dip" -->
-            <!-- android:layout_height="50dp" -->
-            <!-- android:layout_weight="1" -->
-            <!-- android:contentDescription="@string/photo_move" -->
-            <!-- android:scaleType="centerCrop" -->
-            <!-- android:src="@drawable/damier" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_move"
@@ -75,6 +125,66 @@
                 android:lines="5" />
         </LinearLayout>
         <!--  -->
+        
+        <TextView
+            android:id="@+id/powerPhotoHeader"
+            style="@style/headerText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/photo_power" />
+
+        <LinearLayout
+            android:id="@+id/containerPower"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <HorizontalScrollView
+                android:layout_width="0dip"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/damier_background" >
+
+                <LinearLayout
+                    android:id="@+id/takePhotos_power_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <ImageButton
+                android:id="@+id/takePhoto_power"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/photo_power"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera_bclk" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/extendedComment_power"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                style="@style/headerText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/comments" />
+
+            <EditText
+                android:id="@+id/comments_power"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="@string/comments_hints"
+                android:inputType="textMultiLine"
+                android:lines="5" />
+        </LinearLayout>
+        
 
         <TextView
             style="@style/headerText"
@@ -100,15 +210,6 @@
                     android:orientation="horizontal" >
                 </LinearLayout>
             </HorizontalScrollView>
-
-            <!-- <ImageView -->
-            <!-- android:id="@+id/takePhoto_shoot_photo" -->
-            <!-- android:layout_width="0dip" -->
-            <!-- android:layout_height="50dp" -->
-            <!-- android:layout_weight="1" -->
-            <!-- android:contentDescription="@string/photo_shoot" -->
-            <!-- android:scaleType="centerCrop" -->
-            <!-- android:src="@drawable/damier" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_shoot"
@@ -145,12 +246,14 @@
         <!--  -->
 
         <TextView
+            android:id="@+id/assaultPhotosHeader"
             style="@style/headerText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/photo_assault" />
 
         <LinearLayout
+            android:id="@+id/containerAssault"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -168,15 +271,6 @@
                     android:orientation="horizontal" >
                 </LinearLayout>
             </HorizontalScrollView>
-
-            <!-- <ImageView -->
-            <!-- android:id="@+id/takePhoto_assault_photo" -->
-            <!-- android:layout_width="0dip" -->
-            <!-- android:layout_height="50dp" -->
-            <!-- android:layout_weight="1" -->
-            <!-- android:contentDescription="@string/photo_assault" -->
-            <!-- android:scaleType="centerCrop" -->
-            <!-- android:src="@drawable/damier" /> -->
 
             <ImageButton
                 android:id="@+id/takePhoto_assault"

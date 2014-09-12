@@ -69,7 +69,7 @@ public class FilesystemService {
 			}
 		});
 
-		return "extra_t" + turn + "_" + extrasPhotos.length + ".jpg";
+		return "extra_t" + turn + "_" + (extrasPhotos != null ? extrasPhotos.length : 0) + ".jpg";
 	}
 
 	public void deleteBattleDirectory(Long id) {

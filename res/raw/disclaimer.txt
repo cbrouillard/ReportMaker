@@ -3,8 +3,6 @@ Elle vous sera utile comme assistant de rédaction pour vos rapports de bataille
 
 <br/><b>ATTENTION ! Cette application n'est pas un jeu !</b><br/>
 
-Le développeur ne saurait être tenu pour responsable de quelconques dommages ou dégâts inhérents ou non à l'utilisation de cette application.
-
-<br/><br/>Have fun ! 
-
-<br/><br/>Icône "planète" : http://iconka.com
+Le développeur ne saurait être tenu pour responsable de quelconques dommages ou dégâts inhérents ou non à l'utilisation de cette application. Have fun ! 
+<br/><br/>
+<u>Russian translation by Konstantin Gordeev. Thanks for his work !</u>

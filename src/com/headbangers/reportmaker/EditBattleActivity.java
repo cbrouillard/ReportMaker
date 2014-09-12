@@ -27,6 +27,7 @@ import com.headbangers.reportmaker.dao.BattleDao;
 import com.headbangers.reportmaker.dao.impl.BattleDaoImpl;
 import com.headbangers.reportmaker.fragment.BattleInformationsFragment;
 import com.headbangers.reportmaker.fragment.TurnFragment;
+import com.headbangers.reportmaker.listener.AddTabListener;
 import com.headbangers.reportmaker.pojo.Battle;
 import com.headbangers.reportmaker.pojo.Informations;
 import com.headbangers.reportmaker.pojo.Turn;
@@ -53,9 +54,8 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 	private FilesystemService fs = FilesystemService.getInstance();
 
 	private BattleInformationsFragment informations = new BattleInformationsFragment();
-	private TurnFragment[] turns = { new TurnFragment(), new TurnFragment(),
-			new TurnFragment(), new TurnFragment(), new TurnFragment(),
-			new TurnFragment(), new TurnFragment() };
+
+	private List<TurnFragment> turns = new ArrayList<TurnFragment>();
 
 	private Gallery gallery;
 	private SharedPreferences prefs;
@@ -93,29 +93,27 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
+		// Création des turnFragment
+		int nbTurn = battle.getTurns().size() > 0 ? battle.getTurns().size()
+				: this.battle.getGameType().getNbDefaultTurn();
 		actionBar.addTab(actionBar.newTab().setText("•").setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText(R.string.t1)
-				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText(R.string.t2)
-				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText(R.string.t3)
-				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText(R.string.t4)
-				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText(R.string.t5)
-				.setTabListener(this));
+		for (int f = 0; f < nbTurn; f++) {
 
-		// L'affichage de ces tabs devrait être conditionné/ Galere.
-		actionBar.addTab(actionBar.newTab().setText(R.string.t6)
-				.setTabListener(this));
-		actionBar.addTab(actionBar.newTab().setText(R.string.t7)
-				.setTabListener(this));
+			TurnFragment turn = new TurnFragment();
+			turn.setBattle(battle, f + 1);
+			this.turns.add(turn);
+
+			actionBar.addTab(actionBar.newTab().setText("T" + (f + 1))
+					.setTabListener(this));
+		}
+
+		actionBar.addTab(actionBar.newTab().setText("+")
+				.setTabListener(new AddTabListener(this, actionBar)));
 
 		AdsControl.buildAdIfEnable(this);
 
 		// Doit-on laisser l'écran allumé en permanence ?
 		ScreenHelper.applyAlwaysSwitched(this);
-
 	}
 
 	@Override
@@ -329,7 +327,9 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 		}
 
 		StringBuilder title = new StringBuilder(battle.getName());
-		title.append(" [").append(battle.getFormat()).append("]");
+		if (battle.getFormat() != null) {
+			title.append(" [").append(battle.getFormat()).append("]");
+		}
 		this.setTitle(title.toString());
 
 		// Création des fragments
@@ -382,19 +382,10 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 
 		this.currentTabSelected = tab.getPosition();
 
-		switch (tab.getPosition()) {
-		case 0:
+		if (tab.getPosition() == 0) {
 			fragment = this.informations;
-			break;
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-		case 7:
-			fragment = this.turns[tab.getPosition() - 1];
-			break;
+		} else {
+			fragment = this.turns.get(tab.getPosition() - 1);
 		}
 
 		if (fragment != null) {
@@ -419,6 +410,12 @@ public class EditBattleActivity extends SherlockFragmentActivity implements
 		this.currentTabSelected = tab.getPosition();
 		reloadGallery();
 
+	}
+
+	public void addTurnFragment(int num) {
+		TurnFragment fragment = new TurnFragment();
+		fragment.setBattle(this.battle, num);
+		this.turns.add(fragment);
 	}
 
 }

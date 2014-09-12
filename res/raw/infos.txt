@@ -1,6 +1,7 @@
 version 1.0.9 beta<br/>
-copyright 2012|2013<br/>
+copyright 2012|2013|2014<br/>
 Brouillard Cyril<br/><br/>
 <b>Merci à Befa pour son beta-testing assidu !</b><br/>
+<b>La version russe a été fournie gracieusement par Konstantin Gordeev. Merci à lui !</b><br/>
 <b>Big up pour l'asso Warmageddon et tous mes potes de jeux !</b><br/>
 <b>http://www.warmageddon.fr/blog/</b>  

@@ -139,7 +139,7 @@ public class BattleListActivity extends SherlockListActivity {
 
 			// Lancement de l'activité de configuration d'une nouvelle partie
 			Intent newBattle = new Intent(this, ConfigureBattleActivity.class);
-//			newBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+			// newBattle.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivity(newBattle);
 
 			return true;
@@ -250,10 +250,11 @@ public class BattleListActivity extends SherlockListActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 		case AuthActivity.EXPORT_AFTER_AUTH:
-
-			String user = data.getStringExtra("user");
-			String pass = data.getStringExtra("pass");
-			wsClient.exportAsync(selected, user, pass);
+			if (data != null) {
+				String user = data.getStringExtra("user");
+				String pass = data.getStringExtra("pass");
+				wsClient.exportAsync(selected, user, pass);
+			}
 
 			break;
 		case PreferencesActivity.CODE_RESULT:

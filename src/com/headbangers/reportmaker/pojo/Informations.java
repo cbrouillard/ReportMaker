@@ -15,6 +15,8 @@ public class Informations {
 	private Integer firstPlayer;
 	private String lordCapacity1;
 	private String lordCapacity2;
+	private String powers1;
+	private String powers2;
 	private String comments;
 
 	public Informations() {
@@ -33,6 +35,10 @@ public class Informations {
 				.getColumnIndex(DatabaseHelper.COL_INFO_LORD2_CAPACITY));
 		this.scenario = cursor.getString(cursor
 				.getColumnIndex(DatabaseHelper.COL_INFO_SCENARIO));
+		this.powers1 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_INFO_POWERS1));
+		this.powers2 = cursor.getString(cursor
+				.getColumnIndex(DatabaseHelper.COL_INFO_POWERS2));
 	}
 
 	public String getDeploymentType() {
@@ -83,6 +89,22 @@ public class Informations {
 		this.comments = comments;
 	}
 
+	public String getPowers1() {
+		return powers1;
+	}
+
+	public void setPowers1(String powers1) {
+		this.powers1 = powers1;
+	}
+
+	public String getPowers2() {
+		return powers2;
+	}
+
+	public void setPowers2(String powers2) {
+		this.powers2 = powers2;
+	}
+
 	public ContentValues asContentValues() {
 		ContentValues values = new ContentValues();
 
@@ -110,6 +132,14 @@ public class Informations {
 
 		if (this.scenario != null) {
 			values.put(DatabaseHelper.COL_INFO_SCENARIO, this.scenario);
+		}
+		
+		if (this.powers1 != null){
+			values.put(DatabaseHelper.COL_INFO_POWERS1, this.powers1);
+		}
+		
+		if (this.powers2 != null){
+			values.put(DatabaseHelper.COL_INFO_POWERS2, this.powers2);
 		}
 
 		return values;

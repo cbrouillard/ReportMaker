@@ -75,11 +75,14 @@
     <string name="pdf_game_scenario">Scénario de la partie</string>
     <string name="pdf_game_format">Format de la partie</string>
     <string name="pdf_warlord">Seigneur de guerre de</string>
+    <string name="pdf_sorcerers">Sorciers de</string>
     <string name="pdf_table">Table de jeu</string>
     <string name="pdf_turn">Tour</string>
     <string name="pdf_more_photos">Quelques photos supplémentaires</string>
     <string name="pdf_no_photo">Pas de photo</string>
     <string name="pdf_move">Mouvement de</string>
+    <string name="pdf_charge">Charges de</string>
+    <string name="pdf_power">Pouvoirs de</string>
     <string name="pdf_shoot">Tir de</string>
     <string name="pdf_assault">Assaut de</string>
     <string name="pdf_deployment">Déploiement</string>
@@ -166,6 +169,10 @@
     <string name="dices_inTheory">En théorie :</string>
     <string name="dices_win">dés réussis</string>
 	<string name="army_list">"Liste d'armée de </string>
+	<string name="powers">Pouvoirs magiques/psys :</string>
+    <string name="powers_hint">Pouvoirs aléatoires de vos sorciers</string>
+    <string name="photo_charge">Photo après les charges</string>
+    <string name="photo_power">Photo après la phase magie/psy</string>
 	
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Toujours demander</item>
@@ -191,6 +198,8 @@
         <item>Du grabuge sur</item>
         <item>Assaut sur</item>
         <item>Les oubliés de</item>
+        <item>La corruption de</item>
+        <item>L\'extermination de</item>
     </string-array>
     <string-array name="planets">
         <item>Davin</item>

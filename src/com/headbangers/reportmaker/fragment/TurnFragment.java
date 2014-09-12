@@ -26,6 +26,7 @@ import com.headbangers.reportmaker.EditBattleActivity;
 import com.headbangers.reportmaker.R;
 import com.headbangers.reportmaker.listener.TakePhotoListener;
 import com.headbangers.reportmaker.pojo.Battle;
+import com.headbangers.reportmaker.pojo.GameType;
 import com.headbangers.reportmaker.pojo.Turn;
 import com.headbangers.reportmaker.tools.ImageHelper;
 
@@ -36,30 +37,43 @@ public class TurnFragment extends SherlockFragment {
 	public static final String MOVE_PHOTO_NAME = "player{P}_turn{X}_move.jpg";
 	public static final String SHOOT_PHOTO_NAME = "player{P}_turn{X}_shoot.jpg";
 	public static final String ASSAULT_PHOTO_NAME = "player{P}_turn{X}_assault.jpg";
+	public static final String CHARGE_PHOTO_NAME = "player{P}_turn{X}_charge.jpg";
+	public static final String POWER_PHOTO_NAME = "player{P}_turn{X}_power.jpg";
 
 	private static final int TAKE_PHOTO_MOVE_RESULT_CODE = 1;
 	private static final int TAKE_PHOTO_SHOOT_RESULT_CODE = 2;
 	private static final int TAKE_PHOTO_ASSAULT_RESULT_CODE = 3;
+	private static final int TAKE_PHOTO_CHARGE_RESULT_CODE = 4;
+	private static final int TAKE_PHOTO_POWER_RESULT_CODE = 5;
 
 	private TabHost tabHost;
 	private ScrollView playerOneTurn;
 	private ScrollView playerTwoTurn;
 
+	private TextView photosCharge1Header;
+	private TextView photosCharge2Header;
+	private TextView photosPower1Header;
+	private TextView photosPower2Header;
+	private TextView photosAssault1Header;
+	private TextView photosAssault2Header;
+
+	private ImageButton takePhotoCharge1;
 	private ImageButton takePhotoMove1;
+	private ImageButton takePhotoPower1;
 	private ImageButton takePhotoShoot1;
 	private ImageButton takePhotoAssault1;
+	private ImageButton takePhotoCharge2;
 	private ImageButton takePhotoMove2;
+	private ImageButton takePhotoPower2;
 	private ImageButton takePhotoShoot2;
 	private ImageButton takePhotoAssault2;
 
-	// private ImageView photoMove1;
-	// private ImageView photoShoot1;
-	// private ImageView photoAssault1;
-	// private ImageView photoMove2;
-	// private ImageView photoShoot2;
-	// private ImageView photoAssault2;
 	private LinearLayout photosMove1;
 	private LinearLayout photosMove2;
+	private LinearLayout photosPower1;
+	private LinearLayout photosPower2;
+	private LinearLayout photosCharge1;
+	private LinearLayout photosCharge2;
 	private LinearLayout photosAssault1;
 	private LinearLayout photosAssault2;
 	private LinearLayout photosShoot1;
@@ -71,12 +85,28 @@ public class TurnFragment extends SherlockFragment {
 	private LinearLayout extendedCommentsShoot2;
 	private LinearLayout extendedCommentsAssault1;
 	private LinearLayout extendedCommentsAssault2;
+	private LinearLayout extendedCommentsCharge1;
+	private LinearLayout extendedCommentsCharge2;
+	private LinearLayout extendedCommentsPower1;
+	private LinearLayout extendedCommentsPower2;
+
+	private LinearLayout containerCharge1;
+	private LinearLayout containerCharge2;
+	private LinearLayout containerPower1;
+	private LinearLayout containerPower2;
+	private LinearLayout containerAssault1;
+	private LinearLayout containerAssault2;
+
 	private EditText commentsMove1;
 	private EditText commentsShoot1;
 	private EditText commentsAssault1;
 	private EditText commentsMove2;
 	private EditText commentsShoot2;
 	private EditText commentsAssault2;
+	private EditText commentsCharge1;
+	private EditText commentsCharge2;
+	private EditText commentsPower1;
+	private EditText commentsPower2;
 
 	private EditText comments1;
 	private EditText comments2;
@@ -110,26 +140,32 @@ public class TurnFragment extends SherlockFragment {
 
 		this.tabHost.setup();
 
-		TabSpec tab1 = tabHost.newTabSpec("1");
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			tab1.setIndicator(this.battle.getOne().getName());
-		} else {
-			tab1.setIndicator(makeTabIndicator(this.battle.getOne().getName()));
-		}
-		tab1.setContent(R.id.playerOneTurn);
-		this.tabHost.addTab(tab1);
+		if (!this.battle.getGameType().equals(GameType.XWING)) {
+			TabSpec tab1 = tabHost.newTabSpec("1");
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+				tab1.setIndicator(this.battle.getOne().getName());
+			} else {
+				tab1.setIndicator(makeTabIndicator(this.battle.getOne()
+						.getName()));
+			}
+			tab1.setContent(R.id.playerOneTurn);
+			this.tabHost.addTab(tab1);
 
-		TabSpec tab2 = tabHost.newTabSpec("2");
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			tab2.setIndicator(this.battle.getTwo().getName());
-		} else {
-			tab2.setIndicator(makeTabIndicator(this.battle.getTwo().getName()));
-		}
-		tab2.setContent(R.id.playerTwoTurn);
-		this.tabHost.addTab(tab2);
+			TabSpec tab2 = tabHost.newTabSpec("2");
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+				tab2.setIndicator(this.battle.getTwo().getName());
+			} else {
+				tab2.setIndicator(makeTabIndicator(this.battle.getTwo()
+						.getName()));
+			}
+			tab2.setContent(R.id.playerTwoTurn);
 
-		tabHost.setCurrentTab(((EditBattleActivity) this.getActivity())
-				.getFirstPlayer());
+			this.tabHost.addTab(tab2);
+			tabHost.setCurrentTab(((EditBattleActivity) this.getActivity())
+					.getFirstPlayer());
+		} else {
+			this.playerTwoTurn.setVisibility(View.GONE);
+		}
 
 		construct();
 		linkActions();
@@ -157,6 +193,10 @@ public class TurnFragment extends SherlockFragment {
 	}
 
 	private void construct() {
+		this.takePhotoPower1 = (ImageButton) this.playerOneTurn
+				.findViewById(R.id.takePhoto_power);
+		this.takePhotoPower2 = (ImageButton) this.playerTwoTurn
+				.findViewById(R.id.takePhoto_power);
 		this.takePhotoMove1 = (ImageButton) this.playerOneTurn
 				.findViewById(R.id.takePhoto_move);
 		this.takePhotoMove2 = (ImageButton) this.playerTwoTurn
@@ -169,12 +209,34 @@ public class TurnFragment extends SherlockFragment {
 				.findViewById(R.id.takePhoto_assault);
 		this.takePhotoAssault2 = (ImageButton) this.playerTwoTurn
 				.findViewById(R.id.takePhoto_assault);
+		this.takePhotoCharge1 = (ImageButton) this.playerOneTurn
+				.findViewById(R.id.takePhoto_charge);
+		this.takePhotoCharge2 = (ImageButton) this.playerTwoTurn
+				.findViewById(R.id.takePhoto_charge);
 
 		this.photosMove1 = (LinearLayout) this.playerOneTurn
 				.findViewById(R.id.takePhotos_move_photo);
 		this.photosMove2 = (LinearLayout) this.playerTwoTurn
 				.findViewById(R.id.takePhotos_move_photo);
 
+		this.photosCharge1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.takePhotos_charge_photo);
+		this.photosCharge2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.takePhotos_charge_photo);
+
+		this.photosCharge1Header = (TextView) this.playerOneTurn
+				.findViewById(R.id.chargePhotoHeader);
+		this.photosCharge2Header = (TextView) this.playerTwoTurn
+				.findViewById(R.id.chargePhotoHeader);
+		this.photosPower1Header = (TextView) this.playerOneTurn
+				.findViewById(R.id.powerPhotoHeader);
+		this.photosPower2Header = (TextView) this.playerTwoTurn
+				.findViewById(R.id.powerPhotoHeader);
+		this.photosAssault1Header = (TextView) this.playerOneTurn
+				.findViewById(R.id.assaultPhotosHeader);
+		this.photosAssault2Header = (TextView) this.playerTwoTurn
+				.findViewById(R.id.assaultPhotosHeader);
+		
 		this.photosShoot1 = (LinearLayout) this.playerOneTurn
 				.findViewById(R.id.takePhotos_shoot_photo);
 		this.photosShoot2 = (LinearLayout) this.playerTwoTurn
@@ -184,6 +246,11 @@ public class TurnFragment extends SherlockFragment {
 				.findViewById(R.id.takePhotos_assault_photo);
 		this.photosAssault2 = (LinearLayout) this.playerTwoTurn
 				.findViewById(R.id.takePhotos_assault_photo);
+
+		this.photosPower1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.takePhotos_power_photo);
+		this.photosPower2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.takePhotos_power_photo);
 
 		this.comments1 = (EditText) this.playerOneTurn
 				.findViewById(R.id.comments);
@@ -202,6 +269,14 @@ public class TurnFragment extends SherlockFragment {
 				.findViewById(R.id.extendedComment_assault);
 		this.extendedCommentsAssault2 = (LinearLayout) this.playerTwoTurn
 				.findViewById(R.id.extendedComment_assault);
+		this.extendedCommentsCharge1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.extendedComment_charge);
+		this.extendedCommentsCharge2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.extendedComment_charge);
+		this.extendedCommentsPower1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.extendedComment_power);
+		this.extendedCommentsPower2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.extendedComment_power);
 
 		this.commentsMove1 = (EditText) this.playerOneTurn
 				.findViewById(R.id.comments_move);
@@ -215,9 +290,33 @@ public class TurnFragment extends SherlockFragment {
 				.findViewById(R.id.comments_assault);
 		this.commentsAssault2 = (EditText) this.playerTwoTurn
 				.findViewById(R.id.comments_assault);
+		this.commentsCharge1 = (EditText) this.playerOneTurn
+				.findViewById(R.id.comments_charge);
+		this.commentsCharge2 = (EditText) this.playerTwoTurn
+				.findViewById(R.id.comments_charge);
+		this.commentsPower1 = (EditText) this.playerOneTurn
+				.findViewById(R.id.comments_power);
+		this.commentsPower2 = (EditText) this.playerTwoTurn
+				.findViewById(R.id.comments_power);
+
+		this.containerCharge1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.containerCharge);
+		this.containerCharge2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.containerCharge);
+		this.containerPower1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.containerPower);
+		this.containerPower2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.containerPower);
+		this.containerAssault1 = (LinearLayout) this.playerOneTurn
+				.findViewById(R.id.containerAssault);
+		this.containerAssault2 = (LinearLayout) this.playerTwoTurn
+				.findViewById(R.id.containerAssault);
 
 		// Doit-on faire apparaitre les commentaires étendus ?
 		applyExtendedCommentsSettings();
+
+		// Modifie l'interface en fonction du jeu
+		this.hideOrShowAccordingGameType();
 	}
 
 	public void applyExtendedCommentsSettings() {
@@ -235,6 +334,10 @@ public class TurnFragment extends SherlockFragment {
 			this.extendedCommentsShoot2.setVisibility(visibility);
 			this.extendedCommentsAssault1.setVisibility(visibility);
 			this.extendedCommentsAssault2.setVisibility(visibility);
+			this.extendedCommentsCharge1.setVisibility(visibility);
+			this.extendedCommentsCharge2.setVisibility(visibility);
+			this.extendedCommentsPower1.setVisibility(visibility);
+			this.extendedCommentsPower2.setVisibility(visibility);
 		}
 	}
 
@@ -260,6 +363,19 @@ public class TurnFragment extends SherlockFragment {
 				battle, ASSAULT_PHOTO_NAME.replace("{P}", "2").replace("{X}",
 						"" + numTurn), TAKE_PHOTO_ASSAULT_RESULT_CODE));
 
+		this.takePhotoCharge1.setOnClickListener(new TakePhotoListener(this,
+				battle, CHARGE_PHOTO_NAME.replace("{P}", "1").replace("{X}",
+						"" + numTurn), TAKE_PHOTO_CHARGE_RESULT_CODE));
+		this.takePhotoCharge2.setOnClickListener(new TakePhotoListener(this,
+				battle, CHARGE_PHOTO_NAME.replace("{P}", "2").replace("{X}",
+						"" + numTurn), TAKE_PHOTO_CHARGE_RESULT_CODE));
+
+		this.takePhotoPower1.setOnClickListener(new TakePhotoListener(this,
+				battle, POWER_PHOTO_NAME.replace("{P}", "1").replace("{X}",
+						"" + numTurn), TAKE_PHOTO_POWER_RESULT_CODE));
+		this.takePhotoPower2.setOnClickListener(new TakePhotoListener(this,
+				battle, POWER_PHOTO_NAME.replace("{P}", "2").replace("{X}",
+						"" + numTurn), TAKE_PHOTO_POWER_RESULT_CODE));
 	}
 
 	public void setBattle(Battle battle, int numTurn) {
@@ -289,6 +405,16 @@ public class TurnFragment extends SherlockFragment {
 			fillAssaultPhotos();
 			break;
 
+		case TAKE_PHOTO_CHARGE_RESULT_CODE:
+			// createThumbnails(ASSAULT_PHOTO_NAME);
+			fillChargePhotos();
+			break;
+
+		case TAKE_PHOTO_POWER_RESULT_CODE:
+			// createThumbnails(ASSAULT_PHOTO_NAME);
+			fillPowerPhotos();
+			break;
+
 		}
 
 	}
@@ -310,31 +436,11 @@ public class TurnFragment extends SherlockFragment {
 		fillMovePhotos();
 		fillShootPhotos();
 		fillAssaultPhotos();
+		fillChargePhotos();
+		fillPowerPhotos();
 	}
 
 	private void fillMovePhotos() {
-		// File image1 = new File(fs.getRootBattle(battle), MOVE_PHOTO_NAME
-		// .replace("{P}", "1").replace("{X}", "" + numTurn));
-		// File image2 = new File(fs.getRootBattle(battle), MOVE_PHOTO_NAME
-		// .replace("{P}", "2").replace("{X}", "" + numTurn));
-		//
-		// if (image1.exists() && this.photoMove1 != null) {
-		// this.photoMove1.setOnClickListener(new ZoomImageListener(this
-		// .getActivity(), image1, "Mouvement - "
-		// + battle.getOne().getName(), this.photoMove1));
-		// ImageHelper.setPicAsync(this.getActivity(),
-		// ImageHelper.getThumbnailPath(battle, image1),
-		// this.photoMove1);
-		// }
-		// if (image2.exists() && this.photoMove2 != null) {
-		// this.photoMove2.setOnClickListener(new ZoomImageListener(this
-		// .getActivity(), image2, "Mouvement - "
-		// + battle.getTwo().getName(), this.photoMove2));
-		// ImageHelper.setPicAsync(this.getActivity(),
-		// ImageHelper.getThumbnailPath(battle, image2),
-		// this.photoMove2);
-		// }
-
 		setPicPhotos(
 				MOVE_PHOTO_NAME.replace("{P}", "1")
 						.replace("{X}", "" + numTurn), this.photosMove1,
@@ -349,28 +455,6 @@ public class TurnFragment extends SherlockFragment {
 
 	private void fillShootPhotos() {
 
-		// File image1 = new File(fs.getRootBattle(battle), SHOOT_PHOTO_NAME
-		// .replace("{P}", "1").replace("{X}", "" + numTurn));
-		// File image2 = new File(fs.getRootBattle(battle), SHOOT_PHOTO_NAME
-		// .replace("{P}", "2").replace("{X}", "" + numTurn));
-		//
-		// if (image1.exists() && this.photoShoot1 != null) {
-		// this.photoShoot1.setOnClickListener(new ZoomImageListener(this
-		// .getActivity(), image1, "Tir - "
-		// + battle.getOne().getName(), this.photoShoot1));
-		// ImageHelper.setPicAsync(this.getActivity(),
-		// ImageHelper.getThumbnailPath(battle, image1),
-		// this.photoShoot1);
-		// }
-		// if (image2.exists() && this.photoShoot2 != null) {
-		// this.photoShoot2.setOnClickListener(new ZoomImageListener(this
-		// .getActivity(), image2, "Tir - "
-		// + battle.getTwo().getName(), this.photoShoot2));
-		// ImageHelper.setPicAsync(this.getActivity(),
-		// ImageHelper.getThumbnailPath(battle, image2),
-		// this.photoShoot2);
-		// }
-
 		setPicPhotos(
 				SHOOT_PHOTO_NAME.replace("{P}", "1").replace("{X}",
 						"" + numTurn), this.photosShoot1, "Tir - "
@@ -383,29 +467,6 @@ public class TurnFragment extends SherlockFragment {
 	}
 
 	private void fillAssaultPhotos() {
-		// File image1 = new File(fs.getRootBattle(battle), ASSAULT_PHOTO_NAME
-		// .replace("{P}", "1").replace("{X}", "" + numTurn));
-		// File image2 = new File(fs.getRootBattle(battle), ASSAULT_PHOTO_NAME
-		// .replace("{P}", "2").replace("{X}", "" + numTurn));
-		//
-		// if (image1.exists() && this.photoAssault1 != null) {
-		// this.photoAssault1.setOnClickListener(new ZoomImageListener(this
-		// .getActivity(), image1, "Assaut - "
-		// + battle.getOne().getName(), this.photoAssault1));
-		// ImageHelper.setPicAsync(this.getActivity(),
-		// ImageHelper.getThumbnailPath(battle, image1),
-		// this.photoAssault1);
-		// }
-		//
-		// if (image2.exists() && this.photoAssault2 != null) {
-		// this.photoAssault2.setOnClickListener(new ZoomImageListener(this
-		// .getActivity(), image2, "Assaut - "
-		// + battle.getTwo().getName(), this.photoAssault2));
-		// ImageHelper.setPicAsync(this.getActivity(),
-		// ImageHelper.getThumbnailPath(battle, image2),
-		// this.photoAssault2);
-		// }
-
 		setPicPhotos(
 				ASSAULT_PHOTO_NAME.replace("{P}", "1").replace("{X}",
 						"" + numTurn), this.photosAssault1, "Assaut - "
@@ -414,6 +475,30 @@ public class TurnFragment extends SherlockFragment {
 		setPicPhotos(
 				ASSAULT_PHOTO_NAME.replace("{P}", "2").replace("{X}",
 						"" + numTurn), this.photosAssault2, "Assaut - "
+						+ battle.getTwo().getName());
+	}
+
+	private void fillChargePhotos() {
+		setPicPhotos(
+				CHARGE_PHOTO_NAME.replace("{P}", "1").replace("{X}",
+						"" + numTurn), this.photosCharge1, "Charge - "
+						+ battle.getOne().getName());
+
+		setPicPhotos(
+				CHARGE_PHOTO_NAME.replace("{P}", "2").replace("{X}",
+						"" + numTurn), this.photosCharge2, "Charge - "
+						+ battle.getTwo().getName());
+	}
+
+	private void fillPowerPhotos() {
+		setPicPhotos(
+				POWER_PHOTO_NAME.replace("{P}", "1").replace("{X}",
+						"" + numTurn), this.photosPower1, "Power - "
+						+ battle.getOne().getName());
+
+		setPicPhotos(
+				POWER_PHOTO_NAME.replace("{P}", "2").replace("{X}",
+						"" + numTurn), this.photosPower2, "Power - "
 						+ battle.getTwo().getName());
 	}
 
@@ -445,6 +530,16 @@ public class TurnFragment extends SherlockFragment {
 		turn.setCommentsAssault1(this.commentsAssault1 != null ? this.commentsAssault1
 				.getText().toString() : null);
 		turn.setCommentsAssault2(this.commentsAssault2 != null ? this.commentsAssault2
+				.getText().toString() : null);
+
+		turn.setCommentsCharge1(this.commentsCharge1 != null ? this.commentsCharge1
+				.getText().toString() : null);
+		turn.setCommentsCharge2(this.commentsCharge2 != null ? this.commentsCharge2
+				.getText().toString() : null);
+
+		turn.setCommentsPower1(this.commentsPower1 != null ? this.commentsPower1
+				.getText().toString() : null);
+		turn.setCommentsPower2(this.commentsPower2 != null ? this.commentsPower2
 				.getText().toString() : null);
 
 		turn.setLastOne(this.lastOne != null ? this.lastOne.isChecked() : null);
@@ -492,6 +587,18 @@ public class TurnFragment extends SherlockFragment {
 		if (this.commentsAssault2 != null) {
 			this.commentsAssault2.setText(turn.getCommentsAssault2());
 		}
+		if (this.commentsCharge1 != null) {
+			this.commentsCharge1.setText(turn.getCommentsCharge1());
+		}
+		if (this.commentsCharge2 != null) {
+			this.commentsCharge2.setText(turn.getCommentsCharge2());
+		}
+		if (this.commentsPower1 != null) {
+			this.commentsPower1.setText(turn.getCommentsPower1());
+		}
+		if (this.commentsPower2 != null) {
+			this.commentsPower2.setText(turn.getCommentsPower2());
+		}
 
 		if (this.lastOne != null) {
 			this.lastOne.setChecked(turn.isLastOne() != null ? turn.isLastOne()
@@ -500,6 +607,54 @@ public class TurnFragment extends SherlockFragment {
 		if (this.nightFight != null) {
 			this.nightFight.setChecked(turn.isNightFight() != null ? turn
 					.isNightFight() : false);
+		}
+	}
+
+	private void hideOrShowAccordingGameType() {
+		switch (this.battle.getGameType()) {
+		case WARHAMMER_40K:
+			this.photosCharge1Header.setVisibility(View.GONE);
+			this.photosCharge2Header.setVisibility(View.GONE);
+
+			this.containerCharge1.setVisibility(View.GONE);
+			this.containerCharge2.setVisibility(View.GONE);
+			
+			this.extendedCommentsCharge1.setVisibility(View.GONE);
+			this.extendedCommentsCharge2.setVisibility(View.GONE);
+
+			break;
+		case WARHAMMER_BATTLE:
+			if (this.nightFight != null) {
+				this.nightFight.setVisibility(View.GONE);
+			}
+			break;
+		case XWING:
+			this.photosCharge1Header.setVisibility(View.GONE);
+			this.photosCharge2Header.setVisibility(View.GONE);
+			this.photosPower1Header.setVisibility(View.GONE);
+			this.photosPower2Header.setVisibility(View.GONE);
+			this.photosAssault1Header.setVisibility(View.GONE);
+			this.photosAssault2Header.setVisibility(View.GONE);
+			
+			this.containerCharge1.setVisibility(View.GONE);
+			this.containerCharge2.setVisibility(View.GONE);
+			this.containerAssault1.setVisibility(View.GONE);
+			this.containerAssault2.setVisibility(View.GONE);
+			this.containerPower1.setVisibility(View.GONE);
+			this.containerPower2.setVisibility(View.GONE);
+			
+			if (this.nightFight != null) {
+				this.nightFight.setVisibility(View.GONE);
+			}
+			
+			this.extendedCommentsAssault1.setVisibility(View.GONE);
+			this.extendedCommentsAssault2.setVisibility(View.GONE);
+			this.extendedCommentsCharge1.setVisibility(View.GONE);
+			this.extendedCommentsCharge2.setVisibility(View.GONE);
+			this.extendedCommentsPower1.setVisibility(View.GONE);
+			this.extendedCommentsPower2.setVisibility(View.GONE);
+			
+			break;
 		}
 	}
 

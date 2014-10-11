@@ -1,5 +1,7 @@
 package com.headbangers.reportmaker.service;
 
+import harmony.java.awt.Color;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,13 +32,16 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
+import com.lowagie.text.HeaderFooter;
 import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.draw.LineSeparator;
 
 public class DroidTextPDFService implements IPDFService {
 
@@ -44,6 +49,7 @@ public class DroidTextPDFService implements IPDFService {
 	private static Font subFont = new Font(Font.HELVETICA, 14, Font.BOLD);
 	private static Font normalBold = new Font(Font.HELVETICA, 12, Font.BOLD);
 	private static Font normal = new Font(Font.HELVETICA, 12, Font.NORMAL);
+	private static Font footerFont = new Font(Font.HELVETICA, 10, Font.ITALIC);
 
 	private BattleDao dao;
 
@@ -88,10 +94,22 @@ public class DroidTextPDFService implements IPDFService {
 			File documentFile = new File(fs.getRootBattle(battle), battle
 					.getName().replaceAll(" ", "_").replaceAll("\n", "")
 					+ ".pdf");
+
 			PdfWriter writer = PdfWriter.getInstance(document,
 					new FileOutputStream(documentFile));
 
 			document.open();
+			document.addAuthor("Tactical War Report");
+
+			HeaderFooter footer = new HeaderFooter(new Phrase(battle.getName(),
+					footerFont), false);
+			footer.setAlignment(HeaderFooter.ALIGN_CENTER);
+			footer.setBorderWidthBottom(0.0f);
+			footer.setBorder(Rectangle.TOP);
+			document.setFooter(footer);
+
+			document.addTitle(battle.getName());
+
 			PdfContentByte cb = writer.getDirectContent();
 
 			document.add(new Paragraph(battle.getName(), catFont));
@@ -107,7 +125,7 @@ public class DroidTextPDFService implements IPDFService {
 						+ battle.getTwo().getRace(), normal));
 			}
 
-			drawLine(cb, 715);
+			addSeparator(document);
 			addEmptyLine(document, 2);
 
 			// Scénario
@@ -192,16 +210,16 @@ public class DroidTextPDFService implements IPDFService {
 			return documentFile.getAbsolutePath();
 
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Log.e("EXPORT", "Error :", e);
 			throw new TwrException(e);
 		} catch (DocumentException e) {
-			e.printStackTrace();
+			Log.e("EXPORT", "Error :", e);
 			throw new TwrException(e);
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			Log.e("EXPORT", "Error :", e);
 			throw new TwrException(e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.e("EXPORT", "Error :", e);
 			throw new TwrException(e);
 		}
 	}
@@ -223,11 +241,11 @@ public class DroidTextPDFService implements IPDFService {
 			document.newPage();
 			document.add(new Paragraph(getString(R.string.army_list) + " "
 					+ player.getName(), catFont));
-			drawLine(cb, 765);
+			addSeparator(document);
 			addEmptyLine(document, 1);
 
 			if (armyPhotos.length > 0) {
-				addPhotos(130, document, battle, armyPhotos, armyPhotos.length);
+				addPhotos(320, document, battle, armyPhotos, armyPhotos.length);
 			}
 
 			if ((player.getArmyComments() != null && !"".equals(player
@@ -253,7 +271,7 @@ public class DroidTextPDFService implements IPDFService {
 		}
 
 		document.add(new Paragraph(turnHeader, catFont));
-		drawLine(cb, 765);
+		addSeparator(document);
 		addEmptyLine(document, 1);
 
 		try {
@@ -276,9 +294,9 @@ public class DroidTextPDFService implements IPDFService {
 			}
 
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			Log.e("TURN", "Error :", e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.e("TURN", "Error :", e);
 		}
 
 		addEmptyLine(document, 1);
@@ -293,9 +311,9 @@ public class DroidTextPDFService implements IPDFService {
 				try {
 					addPhoto(130, document, extra);
 				} catch (MalformedURLException e) {
-					e.printStackTrace();
+					Log.e("TURN_PHOTO_EXTRA", "Error :", e);
 				} catch (IOException e) {
-					e.printStackTrace();
+					Log.e("TURN_PHOTO_EXTRA", "Error :", e);
 				}
 			}
 		}
@@ -312,8 +330,7 @@ public class DroidTextPDFService implements IPDFService {
 
 		if (turn.getComments(numPlayer) != null
 				&& !"".equals(turn.getComments(numPlayer))) {
-			document.add(new Paragraph(getString(R.string.comments), normalBold));
-			document.add(new Paragraph(turn.getComments(numPlayer), normal));
+			addComments(document, turn.getComments(numPlayer));
 		}
 
 		// CHARGE
@@ -329,11 +346,13 @@ public class DroidTextPDFService implements IPDFService {
 		}
 
 		// MOUVEMENT
+		String moveTitle = (battle.getGameType().equals(GameType.XWING) ? getString(R.string.pdf_move_short)
+				: getString(R.string.pdf_move) + " " + player.getName())
+				+ " : ";
 		addPhoto(320, document, battle,
 				TurnFragment.MOVE_PHOTO_NAME.replace("{P}", "" + numPlayer)
-						.replace("{X}", "" + turn.getNum()),
-				getString(R.string.pdf_move) + " " + player.getName() + " : ",
-				" ", turn.getCommentsMove(numPlayer));
+						.replace("{X}", "" + turn.getNum()), moveTitle, " ",
+				turn.getCommentsMove(numPlayer));
 
 		// MAGIE
 		if (battle.getGameType().equals(GameType.WARHAMMER_40K)
@@ -350,11 +369,13 @@ public class DroidTextPDFService implements IPDFService {
 		}
 
 		// TIR
+		String shootTitle = (battle.getGameType().equals(GameType.XWING) ? getString(R.string.pdf_shoot_short)
+				: getString(R.string.pdf_shoot) + " " + player.getName())
+				+ " : ";
 		addPhoto(320, document, battle,
 				TurnFragment.SHOOT_PHOTO_NAME.replace("{P}", "" + numPlayer)
-						.replace("{X}", "" + turn.getNum()),
-				getString(R.string.pdf_shoot) + " " + player.getName() + " : ",
-				" ", turn.getCommentsShoot(numPlayer));
+						.replace("{X}", "" + turn.getNum()), shootTitle, " ",
+				turn.getCommentsShoot(numPlayer));
 
 		// ASSAUT
 		if (battle.getGameType().equals(GameType.WARHAMMER_40K)
@@ -377,7 +398,7 @@ public class DroidTextPDFService implements IPDFService {
 		document.newPage();
 
 		document.add(new Paragraph(getString(R.string.pdf_deployment), catFont));
-		drawLine(cb, 765);
+		addSeparator(document);
 		addEmptyLine(document, 1);
 
 		int firstPlayer = battle.getInfos().getFirstPlayer();
@@ -404,26 +425,41 @@ public class DroidTextPDFService implements IPDFService {
 
 		if (battle.getInfos().getComments() != null
 				&& !"".equals(battle.getInfos().getComments())) {
-			document.add(new Paragraph(getString(R.string.comments), normalBold));
-			document.add(new Paragraph(battle.getInfos().getComments(), normal));
+			addComments(document, battle.getInfos().getComments());
 		}
 
 	}
 
-	private void drawLine(PdfContentByte cb, int y) {
-		cb.setLineWidth(1f);
-		cb.moveTo(20, y);
-		cb.lineTo(575, y);
-		cb.stroke();
+	// private void drawLine(PdfContentByte cb, int y) {
+	// cb.setLineWidth(1f);
+	// // cb.moveTo(20, y);
+	// // cb.lineTo(575, y);
+	// cb.newlineText();
+	// cb.stroke();
+	// }
+
+	private void addSeparator(Document document) throws DocumentException {
+		addEmptyLine(document, 1);
+		document.add(new LineSeparator(1.0f, 100f, Color.BLACK,
+				Element.ALIGN_CENTER, 1f));
 	}
 
-	@SuppressWarnings("unused")
-	private void drawLittleLine(PdfContentByte cb, int y) {
-		cb.setLineWidth(0.5f);
-		cb.moveTo(50, y);
-		cb.lineTo(545, y);
-		cb.stroke();
+	private void addComments(Document document, String comments)
+			throws DocumentException {
+		// document.add(new Paragraph(getString(R.string.comments),
+		// normalBold));
+		Paragraph commentParagraph = new Paragraph(comments, normal);
+		commentParagraph.setAlignment(Element.ALIGN_JUSTIFIED);
+		document.add(commentParagraph);
 	}
+
+	// @SuppressWarnings("unused")
+	// private void drawLittleLine(PdfContentByte cb, int y) {
+	// cb.setLineWidth(0.5f);
+	// cb.moveTo(50, y);
+	// cb.lineTo(545, y);
+	// cb.stroke();
+	// }
 
 	private void addEmptyLine(Document document, int number)
 			throws DocumentException {
@@ -512,7 +548,9 @@ public class DroidTextPDFService implements IPDFService {
 			PdfPTable table = new PdfPTable(2);
 			table.setSpacingBefore(10);
 			table.setWidthPercentage(100);
-			table.setWidths(new float[] { 5f, 3f });
+			if (comments != null && !"".equals(comments)) {
+				table.setWidths(new float[] { 5f, 3f });
+			}
 			table.setKeepTogether(true);
 			table.setHorizontalAlignment(Element.ALIGN_LEFT);
 
@@ -533,7 +571,9 @@ public class DroidTextPDFService implements IPDFService {
 			table.addCell(imageCell);
 
 			if (comments != null && !"".equals(comments)) {
-				commentCell.setPhrase(new Paragraph(comments, normal));
+				Paragraph commentParagraph = new Paragraph(comments, normal);
+				commentParagraph.setAlignment(Element.ALIGN_JUSTIFIED);
+				commentCell.setPhrase(commentParagraph);
 				commentCell.setBorder(Rectangle.BOX);
 			} else {
 				commentCell.setPhrase(new Paragraph(" "));

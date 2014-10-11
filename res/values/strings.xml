@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="host">http://tacticalwarreport.com/web</string>
     <string name="createReport">/createReport</string>
     <string name="about">About</string>
@@ -81,9 +82,11 @@
     <string name="pdf_more_photos">More extras photos</string>
     <string name="pdf_no_photo">No photo</string>
     <string name="pdf_move">Move for</string>
+    <string name="pdf_move_short">Moves</string>
     <string name="pdf_charge">Charge for</string>
     <string name="pdf_power">Power for</string>
     <string name="pdf_shoot">Shoot for</string>
+    <string name="pdf_shoot_short">Shoots</string>
     <string name="pdf_assault">Assault for</string>
     <string name="pdf_deployment">Deployment</string>
     <string name="pdf_begin">begins !</string>
@@ -175,6 +178,7 @@
     <string name="powers_hint">All random powers for your sorcerers</string>
     <string name="photo_charge">After charge photo</string>
     <string name="photo_power">After magic/psy photo</string>
+    <string name="really_export_on_web">Beware ! This kind of export should be done with an active wifi connection. Would you to continue anyway ?</string>
 
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Always ask</item>

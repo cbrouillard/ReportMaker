@@ -17,6 +17,11 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.headbangers.reportmaker.R;
@@ -46,8 +51,8 @@ public class WebServiceClient {
 		this.host = (String) from.getResources().getString(R.string.host);
 		this.createReport = (String) from.getResources().getString(
 				R.string.createReport);
-		
-		Log.d("Export", "Url = "+host+createReport);
+
+		Log.d("Export", "Url = " + host + createReport);
 
 		try {
 
@@ -96,7 +101,7 @@ public class WebServiceClient {
 		// nameValuePairs.add(new BasicNameValuePair("reportData", json));
 		// nameValuePairs.add(new BasicNameValuePair("user", login));
 		// nameValuePairs.add(new BasicNameValuePair("pass", pass));
-		
+
 		Log.d("JSON", "#########");
 		Log.d("JSON", json);
 		Log.d("JSON", "#########");
@@ -129,13 +134,44 @@ public class WebServiceClient {
 
 	}
 
-	public void exportAsync(Battle battle, String user, String pass) {
+	public void exportAsync(final Battle battle, final String user,
+			final String pass) {
+
+		// si non connecté au wifi, alors demande de confirmation
+		ConnectivityManager connManager = (ConnectivityManager) from
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mWifi = connManager
+				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		if (!mWifi.isConnected()) {
+			new AlertDialog.Builder(from)
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.setTitle(R.string.export_battle_web)
+					.setMessage(R.string.really_export_on_web)
+					.setPositiveButton(R.string.yes,
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+
+									WebServiceClient.this.launchExport(battle,
+											user, pass);
+								}
+
+							}).setNegativeButton(R.string.no, null).show();
+
+		} else {
+			launchExport(battle, user, pass);
+		}
+	}
+
+	private void launchExport(Battle battle, String user, String pass) {
 		ExportOnWebAsyncLoader asyncLoader = new ExportOnWebAsyncLoader(from,
 				this);
 		asyncLoader.setDialogText(from.getResources().getString(
 				R.string.web_exporting));
 		asyncLoader.execute(battle, user, pass);
-
 	}
 
 }

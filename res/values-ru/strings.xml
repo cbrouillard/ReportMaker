@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="host">http://tacticalwarreport.com/web</string>
     <string name="createReport">/createReport</string>
     <string name="about">О проекте</string>
@@ -75,12 +76,17 @@
     <string name="pdf_game_scenario">Сценарий игры</string>
     <string name="pdf_game_format">Размер игры</string>
     <string name="pdf_warlord">Главнокомандующий</string>
+	<string name="pdf_sorcerers">Маги/псайкеры</string>
     <string name="pdf_table">Игровой стол</string>
     <string name="pdf_turn">Ход</string>
     <string name="pdf_more_photos">Дополнительные снимки</string>
     <string name="pdf_no_photo">Нет снимков</string>
     <string name="pdf_move">Движение</string>
+	<string name="pdf_move_short">Передвижения</string>
+    <string name="pdf_charge">Атаки</string>
+    <string name="pdf_power">Силы</string>
     <string name="pdf_shoot">Стрельба</string>
+	<string name="pdf_shoot_short">Выстрелы</string>
     <string name="pdf_assault">Ближний бой</string>
     <string name="pdf_deployment">Расстановка</string>
     <string name="pdf_begin">Вперед!</string>
@@ -89,7 +95,7 @@
     <string name="pdf_lastTurn">Последний ход</string>
     <string name="pdf_nightFight">По правилам ночного боя</string>
     <string name="first_launch">Tactical War Report ! &lt;br/&gt;&lt;br/&gt;
-        Данное приложение позволяет вам быстро и легко составлять отчеты о проведенных вами играх: в настоящий момент приложение поддерживает только правила настольной игры Warhammer&#169; 40000.&lt;br/&gt;&lt;br/&gt;
+        Данное приложение позволяет вам быстро и легко составлять отчеты о проведенных вами играх: в настоящий момент приложение поддерживает правила настольных игр Warhammer&#169; 40000, Warhammer Battle и X-Wing.&lt;br/&gt;&lt;br/&gt;
         Имейте в виду, что составление боевых донесений о битвах - задача не из легких: советую начинать с игр небольшого размера. Приложение TWR помогает вам, но оно не сделает все за вас &#8230; Вы сами должны сделать все необходимые снимки и составить описание битвы.&lt;br/&gt;&lt;br/&gt;
         В настоящий момент приложение Tactical War Report находится в версии "бета": в нем все еще могут скрываться кое-какие баги. Буду рад, если вы сообщите мне о них.&lt;br/&gt;&lt;br/&gt;
         Пользуйтесь на здоровье!;)</string>
@@ -163,9 +169,14 @@
 	<string name="photo_deleteMenu">Удалить</string>
 	<string name="photo_army">Снимок армии</string>
 	<string name="armyList_hints">Воинский лист, примечания или &#8230;</string>
-    <string name="dices_inTheory">В принципе:</string>
+    <string name="dices_inTheory">В среднем:</string>
     <string name="dices_win">кубик(ов) с успешным результатом</string>
 	<string name="army_list">"Воинский лист </string>
+	<string name="powers">Магические/пси-силы:</string>
+    <string name="powers_hint">Случайные силы ваших магов</string>
+    <string name="photo_charge">Снимок после рукопашной атаки</string>
+    <string name="photo_power">Снимок после фазы магии/пси</string>
+    <string name="really_export_on_web">Внимание! При передаче данных в веб-приложение оператором Вашей сети может взиматься плата. Для осуществления этой операции рекомендуется подключение к сети Wi-Fi. Продолжить выполнение операции?</string>
 	
     <string-array name="preferences_whenQuitComportment_entries">
         <item>Всегда спрашивать</item>
@@ -191,6 +202,8 @@
         <item>Заварушка на планете</item>
         <item>Штурм планеты</item>
         <item>Забытые на планете</item>
+		<item>Порча на планете</item>
+        <item>Уничтожение планеты</item>
     </string-array>
     <string-array name="planets">
         <item>Давин</item>
